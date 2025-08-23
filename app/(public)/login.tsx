@@ -4,98 +4,78 @@ import SMS from "@/assets/svgs/sms.svg";
 import LOCK from "@/assets/svgs/lock.svg";
 import { useLanguageStore } from "@/store/language";
 import { Logo } from "@/components/ui/logo";
-import {
-  Keyboard,
-  KeyboardAvoidingView,
-  Platform,
-  Text,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { Button } from "@/components/ui/button";
 import { router } from "expo-router";
+import { KeyboardAvoidingLayout } from "@/components/layout/keyboard-avoiding-layout";
 
 export default function Page() {
   const { isGerman } = useLanguageStore();
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "padding"}
-      className="flex-1 bg-background justify-center items-center"
-      keyboardVerticalOffset={100}
-    >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View className="p-6 gap-6 items-center w-full">
-          <Logo className="mb-20" />
-          <Input
-            Icon={SMS}
-            placeholder={isGerman() ? "E-Mail eingeben" : "Inserisci l'email"}
-          />
+    <KeyboardAvoidingLayout>
+      <Logo className="mb-20" />
+      <Input
+        Icon={SMS}
+        placeholder={isGerman() ? "E-Mail eingeben" : "Inserisci l'email"}
+      />
 
-          <InputPassword
-            Icon={LOCK}
-            placeholder={
-              isGerman() ? "Passwort eingeben" : "Inserisci password"
-            }
-          />
+      <InputPassword
+        Icon={LOCK}
+        placeholder={isGerman() ? "Passwort eingeben" : "Inserisci password"}
+      />
+      <View
+        className="w-full flex-row"
+        style={{
+          justifyContent: "flex-end",
+        }}
+      >
+        <Button variant="ghost" onPress={() => router.push("/forgot-password")}>
+          {isGerman() ? "Passwort vergessen?" : "Password dimenticata?"}
+        </Button>
+      </View>
+
+      <Button variant="big" className="w-full">
+        {isGerman() ? "Registrieren" : "Registrati"}
+      </Button>
+      <View className="w-full flex-row items-center">
+        <View
+          className="flex-1 bg-muted-background"
+          style={{
+            height: 3,
+          }}
+        />
+        <View
+          className="bg-muted-background rounded-xl items-center justify-center"
+          style={{
+            height: 40,
+            width: 40,
+          }}
+        >
           <View
-            className="w-full flex-row"
+            className="border-2"
             style={{
-              justifyContent: "flex-end",
+              borderColor: "#5C7768",
+              height: 20,
+              borderRadius: "100%",
+              width: 20,
             }}
-          >
-            <Button
-              variant="ghost"
-              onPress={() => router.push("/forgot-password")}
-            >
-              {isGerman() ? "Passwort vergessen?" : "Password dimenticata?"}
-            </Button>
-          </View>
-
-          <Button variant="big" className="w-full">
-            {isGerman() ? "Registrieren" : "Registrati"}
-          </Button>
-          <View className="w-full flex-row items-center">
-            <View
-              className="flex-1 bg-muted-background"
-              style={{
-                height: 3,
-              }}
-            />
-            <View
-              className="bg-muted-background rounded-xl items-center justify-center"
-              style={{
-                height: 40,
-                width: 40,
-              }}
-            >
-              <View
-                className="border-2"
-                style={{
-                  borderColor: "#5C7768",
-                  height: 20,
-                  borderRadius: "100%",
-                  width: 20,
-                }}
-              />
-            </View>
-            <View
-              className="flex-1 bg-muted-background"
-              style={{
-                height: 3,
-              }}
-            />
-          </View>
-
-          <TouchableOpacity className="bg-white px-4 py-3 rounded-xl flex-row w-full items-center justify-center gap-4">
-            <GOOGLE />
-            <Text className="text-black font-semibold text-xl text-center">
-              {isGerman() ? "Mit Google fortfahren" : "Continua con Google"}
-            </Text>
-          </TouchableOpacity>
+          />
         </View>
-      </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
+        <View
+          className="flex-1 bg-muted-background"
+          style={{
+            height: 3,
+          }}
+        />
+      </View>
+
+      <TouchableOpacity className="bg-white px-4 py-3 rounded-xl flex-row w-full items-center justify-center gap-4">
+        <GOOGLE />
+        <Text className="text-black font-semibold text-xl text-center">
+          {isGerman() ? "Mit Google fortfahren" : "Continua con Google"}
+        </Text>
+      </TouchableOpacity>
+    </KeyboardAvoidingLayout>
   );
 }

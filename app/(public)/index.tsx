@@ -3,7 +3,7 @@ import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { TouchableOpacity, View } from "react-native";
 import GermanFlag from "@/assets/svgs/germany.svg";
 import ItalianFlag from "@/assets/svgs/italy.svg";
-import { router } from "expo-router";
+import { router, Stack } from "expo-router";
 import { useLanguageStore } from "@/store/language";
 import React from "react";
 import { SvgProps } from "react-native-svg";
@@ -13,29 +13,32 @@ import { Button } from "@/components/ui/button";
 export default function Page() {
   const { isGerman } = useLanguageStore();
   return (
-    <SafeAreaView className="flex-1 bg-background">
-      <View className="flex-1 justify-between p-6">
-        <View className="items-center">
-          <Typography variant="title">
-            {isGerman() ? "Sprachen" : "Lingue"}
-          </Typography>
-          <Typography variant="subtitle">
-            {isGerman()
-              ? "Wähle eine Sprache, um zu beginnen"
-              : "Seleziona una lingua per iniziare"}
-          </Typography>
+    <>
+      <Stack.Screen options={{ headerShown: false }} />
+      <SafeAreaView className="flex-1 bg-background">
+        <View className="flex-1 justify-between p-6">
+          <View className="items-center">
+            <Typography variant="title">
+              {isGerman() ? "Sprachen" : "Lingue"}
+            </Typography>
+            <Typography variant="subtitle">
+              {isGerman()
+                ? "Wähle eine Sprache, um zu beginnen"
+                : "Seleziona una lingua per iniziare"}
+            </Typography>
 
-          <View className="gap-4 flex-row mt-16">
-            <LanguageButton Logo={GermanFlag} language="german" />
-            <LanguageButton Logo={ItalianFlag} language="italian" />
+            <View className="gap-4 flex-row mt-16">
+              <LanguageButton Logo={GermanFlag} language="german" />
+              <LanguageButton Logo={ItalianFlag} language="italian" />
+            </View>
           </View>
-        </View>
 
-        <Button variant="big" onPress={() => router.push("/welcome")}>
-          {isGerman() ? "Fortfahren" : "Continuare"}
-        </Button>
-      </View>
-    </SafeAreaView>
+          <Button variant="big" onPress={() => router.push("/welcome")}>
+            {isGerman() ? "Fortfahren" : "Continuare"}
+          </Button>
+        </View>
+      </SafeAreaView>
+    </>
   );
 }
 

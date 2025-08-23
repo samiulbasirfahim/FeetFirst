@@ -8,7 +8,7 @@ const variants = {
   outline: "border border-primary px-4 py-2 rounded-xl",
   ghost: "px-4 py-2 rounded-xl",
   destructive: "bg-red-500 px-4 py-2 rounded-xl",
-  big: "bg-primary px-4 py-3 rounded-xl",
+  big: "bg-primary px-4 py-3 rounded-xl w-full",
 };
 
 const textVariants = {
