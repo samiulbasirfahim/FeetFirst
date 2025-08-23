@@ -1,6 +1,6 @@
 import { Typography } from "@/components/ui/typography";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
-import { Text, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import GermanFlag from "@/assets/svgs/germany.svg";
 import ItalianFlag from "@/assets/svgs/italy.svg";
 import { router } from "expo-router";
@@ -14,7 +14,7 @@ export default function Page() {
   const { isGerman } = useLanguageStore();
   return (
     <SafeAreaView className="flex-1 bg-background">
-      <View className="flex-1 justify-between p-8">
+      <View className="flex-1 justify-between p-6">
         <View className="items-center">
           <Typography variant="title">
             {isGerman() ? "Sprachen" : "Lingue"}
