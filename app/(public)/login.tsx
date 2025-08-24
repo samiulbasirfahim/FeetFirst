@@ -13,7 +13,7 @@ export default function Page() {
   const { isGerman } = useLanguageStore();
 
   return (
-    <KeyboardAvoidingLayout>
+    <KeyboardAvoidingLayout edges={["bottom"]}>
       <Logo className="mb-20" />
       <Input
         Icon={SMS}

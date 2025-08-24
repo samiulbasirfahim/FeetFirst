@@ -6,16 +6,24 @@ import {
   Platform,
   ScrollView,
   TouchableWithoutFeedback,
-  View,
 } from "react-native";
+import {
+  SafeAreaView,
+  SafeAreaViewProps,
+} from "react-native-safe-area-context";
 
 type TProps = KeyboardAvoidingViewProps & {
   children: ReactNode;
+  edges?: SafeAreaViewProps["edges"];
 };
 
-export function KeyboardAvoidingLayout({ children, ...props }: TProps) {
+export function KeyboardAvoidingLayout({
+  edges = [],
+  children,
+  ...props
+}: TProps) {
   return (
-    <>
+    <SafeAreaView edges={edges} className="flex-1 bg-primary">
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <KeyboardAvoidingView
           className="flex-1 bg-background"
@@ -38,6 +46,6 @@ export function KeyboardAvoidingLayout({ children, ...props }: TProps) {
           </ScrollView>
         </KeyboardAvoidingView>
       </TouchableWithoutFeedback>
-    </>
+    </SafeAreaView>
   );
 }
