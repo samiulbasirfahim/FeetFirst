@@ -28,8 +28,16 @@ export default function Page() {
             </Typography>
 
             <View className="gap-4 flex-row mt-16">
-              <LanguageButton Logo={GermanFlag} language="german" />
-              <LanguageButton Logo={ItalianFlag} language="italian" />
+              <LanguageButton
+                Logo={GermanFlag}
+                language="german"
+                title="German"
+              />
+              <LanguageButton
+                Logo={ItalianFlag}
+                language="italian"
+                title="Italian"
+              />
             </View>
           </View>
 
@@ -45,9 +53,10 @@ export default function Page() {
 type Props = {
   Logo: React.FC<SvgProps>;
   language: "italian" | "german";
+  title: string;
 };
 
-function LanguageButton({ Logo, language: ln }: Props) {
+function LanguageButton({ title, Logo, language: ln }: Props) {
   const { language, setLanguage } = useLanguageStore();
   return (
     <TouchableOpacity
@@ -73,9 +82,9 @@ function LanguageButton({ Logo, language: ln }: Props) {
         <Logo />
         <Typography
           variant={language === ln ? "selected" : "muted"}
-          className="first-letter:uppercase"
+          className="text-xl"
         >
-          {ln}
+          {title}
         </Typography>
       </View>
     </TouchableOpacity>

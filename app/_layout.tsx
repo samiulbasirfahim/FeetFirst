@@ -7,7 +7,7 @@ export default function RootLayout() {
   const [isReady, setIsReady] = useState<boolean>(false);
 
   useEffect(() => {
-    if (isReady) router.replace("/forgot-password");
+    // if (isReady) router.replace("/(public)/forgot-password/change-password");
   }, [isReady]);
 
   useEffect(() => {

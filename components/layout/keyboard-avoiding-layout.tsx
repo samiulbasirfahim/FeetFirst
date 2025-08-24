@@ -16,23 +16,28 @@ type TProps = KeyboardAvoidingViewProps & {
 export function KeyboardAvoidingLayout({ children, ...props }: TProps) {
   return (
     <>
-      <KeyboardAvoidingView
-        className="flex-1 bg-background"
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
-        keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 0}
-        {...props}
-      >
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <KeyboardAvoidingView
+          className="flex-1 bg-background"
+          behavior={Platform.OS === "ios" ? "padding" : "padding"}
+          keyboardVerticalOffset={100}
+          {...props}
+        >
           <ScrollView
+            showsVerticalScrollIndicator={false}
             contentContainerStyle={{
               flexGrow: 1,
+              padding: 24,
+              gap: 32,
+              alignItems: "center",
+              justifyContent: "center",
             }}
             keyboardShouldPersistTaps="handled"
           >
-            <View className="p-6 gap-8 items-center w-full">{children}</View>
+            {children}
           </ScrollView>
-        </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
     </>
   );
 }
