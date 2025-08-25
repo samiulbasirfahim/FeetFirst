@@ -8,29 +8,29 @@ import { router } from "expo-router";
 import ResponsiveOtpInput from "../ui/otp-input";
 
 type Props = {
-  href: string;
+    href: string;
 };
 
 export default function OTPScreen({ href }: Props) {
-  const { isGerman } = useLanguageStore();
-  return (
-    <KeyboardAvoidingLayout edges={["bottom"]}>
-      <Typography
-        variant="title"
-        className="text-start text-muted-foreground w-full"
-      >
-        {isGerman() ? "OTP-Authentifizierung" : "Autenticazione OTP"}
-      </Typography>
+    const { isGerman } = useLanguageStore();
+    return (
+        <KeyboardAvoidingLayout edges={["bottom"]}>
+            <Typography
+                variant="title"
+                className="text-start text-muted-foreground w-full"
+            >
+                {isGerman() ? "OTP-Authentifizierung" : "Autenticazione OTP"}
+            </Typography>
 
-      <LogoWrapper Logo={CHECK} />
-      <Typography variant="subtitle" className="text-center text-white">
-        {isGerman()
-          ? "Gib den Verifizierungscode ein, den wir dir per E-Mail geschickt haben."
-          : "Inserisci il codice di verifica che ti abbiamo inviato via email."}
-      </Typography>
+            <LogoWrapper Logo={CHECK} />
+            <Typography variant="subtitle" className="text-center text-white">
+                {isGerman()
+                    ? "Gib den Verifizierungscode ein, den wir dir per E-Mail geschickt haben."
+                    : "Inserisci il codice di verifica che ti abbiamo inviato via email."}
+            </Typography>
 
-      <ResponsiveOtpInput numberOfDigits={4} />
-      {/* <OtpInput
+            <ResponsiveOtpInput numberOfDigits={4} />
+            {/* <OtpInput
                 numberOfDigits={4}
                 theme={{
                     containerStyle: {
@@ -59,9 +59,9 @@ export default function OTPScreen({ href }: Props) {
                 }}
             /> */}
 
-      <Button variant="big" onPress={() => router.push(href as any)}>
-        {isGerman() ? "Überprüfen" : "Verificare"}
-      </Button>
-    </KeyboardAvoidingLayout>
-  );
+            <Button variant="big" onPress={() => router.push(href as any)}>
+                {isGerman() ? "Überprüfen" : "Verificare"}
+            </Button>
+        </KeyboardAvoidingLayout>
+    );
 }
