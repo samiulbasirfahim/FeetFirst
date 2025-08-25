@@ -8,7 +8,7 @@ export default function RootLayout() {
     const [isReady, setIsReady] = useState<boolean>(false);
 
     useEffect(() => {
-        if (isReady) router.replace("/");
+        if (isReady) router.replace("/on-boarding");
     }, [isReady]);
 
     useEffect(() => {

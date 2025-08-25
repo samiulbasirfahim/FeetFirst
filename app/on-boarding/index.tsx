@@ -14,7 +14,7 @@ export default function Screen() {
                     : "Per rendere unica la tua esperienza con FeetF1rst, abbiamo qualche domanda per te."}
             </Typography>
 
-            <Link asChild href={"/on-boarding/questions"}>
+            <Link asChild href={"/on-boarding/discovery-question"}>
                 <Button variant="big">{isGerman() ? "nächste" : "prossima"}</Button>
             </Link>
         </Layout>

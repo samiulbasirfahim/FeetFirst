@@ -7,7 +7,13 @@ type Props = {
 } & ViewProps;
 export function Layout({ children, className, ...props }: Props) {
     return (
-        <View {...props} className={twMerge("flex-1 bg-background p-6", className)}>
+        <View
+            {...props}
+            style={{
+                padding: 24,
+            }}
+            className={twMerge("flex-1 bg-background", className)}
+        >
             {children}
         </View>
     );

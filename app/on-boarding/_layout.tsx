@@ -24,7 +24,8 @@ export default function OnBoardingLayout() {
                 }}
             >
                 <Tabs.Screen name="index" />
-                <Tabs.Screen name="questions" />
+                <Tabs.Screen name="discovery-question" />
+                <Tabs.Screen name="interests-question" />
                 <Tabs.Screen name="gender" />
                 <Tabs.Screen name="foot-issues" />
                 <Tabs.Screen name="thanks" />
