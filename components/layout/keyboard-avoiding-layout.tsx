@@ -23,7 +23,7 @@ export function KeyboardAvoidingLayout({
   ...props
 }: TProps) {
   return (
-    <SafeAreaView edges={edges} className="flex-1 bg-primary">
+    <SafeAreaView edges={edges} className="flex-1 bg-background">
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <KeyboardAvoidingView
           className="flex-1 bg-background"
@@ -38,7 +38,7 @@ export function KeyboardAvoidingLayout({
               padding: 24,
               gap: 32,
               alignItems: "center",
-              justifyContent: "center",
+              justifyContent: "flex-start",
             }}
             keyboardShouldPersistTaps="handled"
           >
