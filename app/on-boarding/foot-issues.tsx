@@ -6,12 +6,9 @@ import { useLanguageStore } from "@/store/language";
 import { Link } from "expo-router";
 import React, { useState } from "react";
 import {
-    Keyboard,
-    Text,
+    KeyboardAvoidingView,
+    Platform,
     TextInput,
-    TouchableOpacity,
-    TouchableWithoutFeedback,
-    TouchableWithoutFeedbackBase,
     View,
 } from "react-native";
 
@@ -20,7 +17,11 @@ export default function Screen() {
     const [text, setText] = useState("");
 
     return (
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "padding"}
+            keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 100}
+            className="flex-1 bg-background"
+        >
             <Layout>
                 <View className="flex-1">
                     <Typography variant="title" className="text-foreground">
@@ -51,6 +52,6 @@ export default function Screen() {
                     <Button variant="big">{isGerman() ? "nächste" : "prossima"}</Button>
                 </Link>
             </Layout>
-        </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
     );
 }

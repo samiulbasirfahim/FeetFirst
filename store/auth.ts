@@ -1,8 +1,16 @@
+import { User } from "@/type/user";
 import { create } from "zustand";
 
-
 type AuthStore = {
-    user: User;
-}
+    user: User | null;
+    onboarding_complete: boolean;
+    setUser: (user: User) => void;
+};
 
-export const authStore = create()
+export const useAuthStore = create<AuthStore>((set, get) => ({
+    user: null,
+    onboarding_complete: true,
+    setUser(user) {
+        set({ user });
+    },
+}));

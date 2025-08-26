@@ -10,72 +10,72 @@ import { router } from "expo-router";
 import { KeyboardAvoidingLayout } from "@/components/layout/keyboard-avoiding-layout";
 
 export default function Page() {
-  const { isGerman } = useLanguageStore();
+    const { isGerman } = useLanguageStore();
 
-  return (
-    <KeyboardAvoidingLayout edges={["bottom"]}>
-      <Logo className="mb-20" />
-      <Input
-        Icon={SMS}
-        placeholder={isGerman() ? "E-Mail eingeben" : "Inserisci l'email"}
-      />
+    return (
+        <KeyboardAvoidingLayout edges={["bottom"]}>
+            <Logo className="mb-20" />
+            <Input
+                Icon={SMS}
+                placeholder={isGerman() ? "E-Mail eingeben" : "Inserisci l'email"}
+            />
 
-      <InputPassword
-        Icon={LOCK}
-        placeholder={isGerman() ? "Passwort eingeben" : "Inserisci password"}
-      />
-      <View
-        className="w-full flex-row"
-        style={{
-          justifyContent: "flex-end",
-        }}
-      >
-        <Button variant="ghost" onPress={() => router.push("/forgot-password")}>
-          {isGerman() ? "Passwort vergessen?" : "Password dimenticata?"}
-        </Button>
-      </View>
+            <InputPassword
+                Icon={LOCK}
+                placeholder={isGerman() ? "Passwort eingeben" : "Inserisci password"}
+            />
+            <View
+                className="w-full flex-row"
+                style={{
+                    justifyContent: "flex-end",
+                }}
+            >
+                <Button variant="ghost" onPress={() => router.push("/forgot-password")}>
+                    {isGerman() ? "Passwort vergessen?" : "Password dimenticata?"}
+                </Button>
+            </View>
 
-      <Button variant="big" className="w-full">
-        {isGerman() ? "Registrieren" : "Registrati"}
-      </Button>
-      <View className="w-full flex-row items-center">
-        <View
-          className="flex-1 bg-muted-background"
-          style={{
-            height: 3,
-          }}
-        />
-        <View
-          className="bg-muted-background rounded-xl items-center justify-center"
-          style={{
-            height: 40,
-            width: 40,
-          }}
-        >
-          <View
-            className="border-2"
-            style={{
-              borderColor: "#5C7768",
-              height: 20,
-              borderRadius: "100%",
-              width: 20,
-            }}
-          />
-        </View>
-        <View
-          className="flex-1 bg-muted-background"
-          style={{
-            height: 3,
-          }}
-        />
-      </View>
+            <Button variant="big" className="w-full">
+                {isGerman() ? "Anmelden" : "Accesso"}
+            </Button>
+            <View className="w-full flex-row items-center">
+                <View
+                    className="flex-1 bg-muted-background"
+                    style={{
+                        height: 3,
+                    }}
+                />
+                <View
+                    className="bg-muted-background rounded-xl items-center justify-center"
+                    style={{
+                        height: 40,
+                        width: 40,
+                    }}
+                >
+                    <View
+                        className="border-2"
+                        style={{
+                            borderColor: "#5C7768",
+                            height: 20,
+                            borderRadius: "100%",
+                            width: 20,
+                        }}
+                    />
+                </View>
+                <View
+                    className="flex-1 bg-muted-background"
+                    style={{
+                        height: 3,
+                    }}
+                />
+            </View>
 
-      <TouchableOpacity className="bg-white px-4 py-3 rounded-xl flex-row w-full items-center justify-center gap-4">
-        <GOOGLE />
-        <Text className="text-black font-semibold text-xl text-center">
-          {isGerman() ? "Mit Google fortfahren" : "Continua con Google"}
-        </Text>
-      </TouchableOpacity>
-    </KeyboardAvoidingLayout>
-  );
+            <TouchableOpacity className="bg-white px-4 py-3 rounded-xl flex-row w-full items-center justify-center gap-4">
+                <GOOGLE />
+                <Text className="text-black font-semibold text-xl text-center">
+                    {isGerman() ? "Mit Google fortfahren" : "Continua con Google"}
+                </Text>
+            </TouchableOpacity>
+        </KeyboardAvoidingLayout>
+    );
 }
