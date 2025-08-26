@@ -91,7 +91,7 @@ export default function Screen() {
                                     flexDirection: "row",
                                     justifyContent: "space-between",
                                     alignItems: "center",
-                                    gap: 4
+                                    gap: 4,
                                 }}
                             >
                                 <Typography className="flex-1 text-lg">{item}</Typography>

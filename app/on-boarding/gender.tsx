@@ -1,23 +1,42 @@
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { Layout } from "@/components/layout/layout";
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
 import { useLanguageStore } from "@/store/language";
 import { Link } from "expo-router";
-import { View } from "react-native";
+import React, { useState } from "react";
+import { Text, TouchableOpacity, View } from "react-native";
+import { SvgProps } from "react-native-svg";
 
 export default function Screen() {
     const { isGerman } = useLanguageStore();
-    return (
-        <Layout className="justify-between">
-            <Typography variant="title" className="text-foreground">
-                {isGerman()
-                    ? "Welche Produkte verwendest du am häufigsten?"
-                    : "Quali sono i prodotti che utilizzi di più?"}
-            </Typography>
+    const [selectedGender, setSelectedGender] = useState<"male" | "female">(
+        "male",
+    );
 
-                
-            <View className="gap-4 flex-row mt-16">
-                    
+    return (
+        <Layout>
+            <View className="flex-1">
+                <Typography variant="title" className="text-foreground">
+                    {isGerman()
+                        ? "Welche Produkte verwendest du am häufigsten?"
+                        : "Quali sono i prodotti che utilizzi di più?"}
+                </Typography>
+
+                <View className="gap-4 flex-row mt-16">
+                    <GenderButton
+                        title={isGerman() ? "Mann" : "Uomo"}
+                        Icon={"male-sharp"}
+                        onPress={() => setSelectedGender("male")}
+                        selected={selectedGender === "male"}
+                    />
+                    <GenderButton
+                        title={isGerman() ? "Frau" : "Donna"}
+                        Icon={"female-sharp"}
+                        onPress={() => setSelectedGender("female")}
+                        selected={selectedGender === "female"}
+                    />
+                </View>
             </View>
 
             <Link asChild href={"/on-boarding/foot-issues"}>
@@ -27,5 +46,33 @@ export default function Screen() {
     );
 }
 
-
-
+type Props = {
+    title: string;
+    selected: boolean;
+    Icon: string;
+    onPress: () => void;
+};
+function GenderButton({ title, Icon, selected, onPress }: Props) {
+    return (
+        <TouchableOpacity
+            onPress={onPress}
+            activeOpacity={0.7}
+            className={`w-1/2 rounded-lg items-center gap-4 aspect-square justify-center ${selected ? "bg-primary" : "bg-muted-background"}`}
+            style={{
+                aspectRatio: 1 / 1,
+            }}
+        >
+            <Ionicons
+                name={Icon as any}
+                size={44}
+                color={selected ? "white" : "#585C5B"}
+            />
+            <Typography
+                className={selected ? "text-white font-bold" : "text-muted-foreground"}
+                variant="selected"
+            >
+                {title}
+            </Typography>
+        </TouchableOpacity>
+    );
+}
