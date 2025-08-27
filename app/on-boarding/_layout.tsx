@@ -5,7 +5,7 @@ import {
     createMaterialTopTabNavigator,
     MaterialTopTabBarProps,
 } from "@react-navigation/material-top-tabs";
-import { router, withLayoutContext } from "expo-router";
+import { withLayoutContext } from "expo-router";
 import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 

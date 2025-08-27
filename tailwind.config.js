@@ -7,6 +7,7 @@ module.exports = {
             colors: {
                 backgroundDark: "#0D0D0D",
                 background: "#1A1C1B",
+                "tab-background": "#1C1C1C",
                 "muted-background": "#303231",
                 primary: "#62A07B",
                 accent: "#404241",
