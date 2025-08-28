@@ -42,7 +42,7 @@ export const Button = ({
         <TouchableOpacity
             activeOpacity={0.7}
             {...props}
-            className={twMerge(variants[variant], "items-center flex-row", className)}
+            className={twMerge(variants[variant], className)}
         >
             {noWrap ?
                 children

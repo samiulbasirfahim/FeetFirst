@@ -10,7 +10,7 @@ type AuthStore = {
 export const useAuthStore = create<AuthStore>((set, get) => ({
     user: null,
     onboarding_complete: true,
-    setUser(user) {
+    setUser(user: User | null) {
         set({ user });
     },
 }));

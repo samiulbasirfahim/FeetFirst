@@ -1,15 +1,22 @@
+import DELETE from "@/assets/svgs/account_delete.svg";
 import MESSAGE from "@/assets/svgs/message.svg";
+import { Modal } from "@/components/common/modal";
 import { Button } from "@/components/ui/button";
+import { LogoWrapperSub } from "@/components/ui/logo";
+import { Typography } from "@/components/ui/typography";
+import { useAuthStore } from "@/store/auth";
 import { useLanguageStore } from "@/store/language";
+import { router } from "expo-router";
 import { ReactNode, useState } from "react";
 import { ScrollView, TextInput, View } from "react-native";
 
 export default function Screen() {
     const { isGerman } = useLanguageStore();
+    const { setUser } = useAuthStore();
     const [selected_option, set_selected_option] = useState<string>("");
     const [show_input, set_show_input] = useState<boolean>(false);
 
-    console.log(selected_option);
+    const [show_modal, set_show_modal] = useState<boolean>(false);
     return (
         <View className="flex-1 bg-backgroundDark p-4">
             <ScrollView
@@ -90,8 +97,54 @@ export default function Screen() {
                     </View>
                 )}
             </ScrollView>
-            <Button disabled={selected_option.length < 1} variant="big" className={`items-center justify-center ${selected_option.length > 0 ? 'bg-primary' : 'bg-muted-background'}`} textClassName="text-center">ELIMINA IL MIO ACCOUNT</Button>
-        </View >
+            <Button
+                disabled={selected_option.length < 1}
+                onPress={() => set_show_modal(true)}
+                variant="big"
+                className={`items-center justify-center ${selected_option.length > 0 ? "bg-primary" : "bg-muted-background"}`}
+                textClassName="text-center"
+            >
+                ELIMINA IL MIO ACCOUNT
+            </Button>
+            <Modal
+                isOpen={show_modal}
+                onClickOutside={() => {
+                    set_show_modal(false);
+                    // setUser(null);
+                    // router.replace("/(public)");
+                }}
+            >
+                <View className="flex-col items-center justify-center py-10 px-4 gap-6">
+                    <LogoWrapperSub Logo={DELETE} />
+                    <Typography variant="title" className="text-white">
+                        {isGerman() ? "Konto löschen" : "Elimina account"}
+                    </Typography>
+
+                    <Typography variant="subtitle" className="w-4/5 text-center">
+                        {isGerman()
+                            ? "Möchten Sie Ihr Konto wirklich löschen? Dabei gehen alle Ihre Daten verloren und Ihr Konto kann nicht wiederhergestellt werden."
+                            : "Sei sicuro di voler eliminare il tuo account? Perderai tutti i tuoi dati e il tuo account non verrà recuperato."}
+                    </Typography>
+
+                    <View className="flex-row gap-2">
+                        <Button
+                            className="bg-transparent border-primary border-2  w-1/2"
+                            textClassName="text-primary"
+                            variant="big"
+                        >
+                            {isGerman() ? "Und" : "si"}
+                        </Button>
+                        <Button
+                            className="bg-transparent border-primary border-2 w-1/2"
+                            textClassName="text-primary"
+                            variant="big"
+                        >
+                            {isGerman() ? "NEIN" : "NO"}
+                        </Button>
+                    </View>
+                </View>
+            </Modal>
+        </View>
     );
 }
 

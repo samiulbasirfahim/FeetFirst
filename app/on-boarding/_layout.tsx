@@ -38,7 +38,7 @@ function CustomTabBar({ state }: MaterialTopTabBarProps) {
     const current_page = state.index + 1;
     return (
         <View className="w-full bg-background gap-2 py-2">
-            <View className="justify-start flex-row items-center relative h-12 px-4">
+            <View className="justify-start flex-row items-center relative h-20 px-4">
                 <HeaderBackButton />
                 <Typography
                     variant="subtitle"

@@ -14,7 +14,7 @@ export default function RootLayout() {
 
     useEffect(() => {
         if (isReady) {
-            router.replace("/(protected)/home");
+            router.replace("/(protected)/profile/settings/change-password");
             // const inProtectedRoute = segments[0] === "(public)";
             // if (!user) {
             //     router.replace("/(public)");

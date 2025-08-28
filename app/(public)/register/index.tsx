@@ -74,10 +74,7 @@ export default function Page() {
                     onPress={() => setIsChecked((prev) => !prev)}
                     isChecked={checked}
                 />
-                <TouchableOpacity
-                    className="flex-1"
-                    onPress={() => setShowModal(true)}
-                >
+                <TouchableOpacity className="flex-1" onPress={() => setShowModal(true)}>
                     <Text className="text-muted-foreground">
                         {isGerman() ? (
                             <>
@@ -121,7 +118,7 @@ export default function Page() {
                 <View className="p-6">
                     {!showDetails ? (
                         <>
-                            <Typography>
+                            <Typography className="text-justify text-foreground" variant="subtitle">
                                 {isGerman()
                                     ? "Hiermit willige ich ausdrücklich in die Verarbeitung meines 3D-Fußscans (biometrische Daten, besondere Kategorie personenbezogener Daten) sowie meiner personenbezogenen Daten gemäß der Datenschutzerklärung ein."
                                     : "Con la presente acconsento espressamente al trattamento della mia scansione 3D del piede (dati biometrici, categoria particolare di dati personali) e dei miei dati personali secondo l’informativa sulla privacy."}
@@ -133,7 +130,7 @@ export default function Page() {
                             </TouchableOpacity>
                         </>
                     ) : (
-                        <Typography>
+                        <Typography className="text-justify text-foreground" variant="subtitle">
                             {isGerman()
                                 ? "Um die FeetF1rst App nutzen zu können, ist Ihre ausdrückliche Einwilligung erforderlich. Wir verarbeiten Ihren 3D-Fußscan (biometrische Daten) sowie Ihre personenbezogenen Daten, um passgenaue Schuhempfehlungen, Maßanfertigungen und personalisierte Services bereitzustellen. Ihre Daten werden verschlüsselt gespeichert, nur bei Bestellungen an den gewählten Händler weitergegeben und können jederzeit in den App-Einstellungen gelöscht werden. Sie können Ihre Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen."
                                 : "Per utilizzare l’app FeetF1rst è necessario il tuo esplicito consenso. Trattiamo la scansione 3D del tuo piede (dati biometrici) e i tuoi dati personali al fine di offrirti raccomandazioni di scarpe su misura, prodotti personalizzati e servizi dedicati. I tuoi dati vengono archiviati in forma criptata, condivisi solo con il rivenditore scelto in caso di ordine e possono essere eliminati in qualsiasi momento nelle impostazioni dell’app. Puoi revocare il tuo consenso in qualsiasi momento con effetto per il futuro."}
