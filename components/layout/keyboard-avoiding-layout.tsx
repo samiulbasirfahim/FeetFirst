@@ -39,7 +39,7 @@ export function KeyboardAvoidingLayout({
                         contentContainerStyle={{
                             flexGrow: 1,
                             padding: 24,
-                            gap: 16,
+                            gap: 20,
                             alignItems: "center",
                         }}
                         keyboardShouldPersistTaps="handled"

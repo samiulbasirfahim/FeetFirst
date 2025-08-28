@@ -15,11 +15,13 @@ export function Layout({ children, edges = [], className, ...props }: Props) {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView
         edges={edges}
-        {...props}
         style={{
-          padding: 24,
+          paddingTop: edges.toString().includes("top") ? 0 : 24,
+          paddingHorizontal: 24,
+          paddingBottom: 24,
         }}
         className={twMerge("flex-1 bg-background", className)}
+        {...props}
       >
         {children}
       </SafeAreaView>

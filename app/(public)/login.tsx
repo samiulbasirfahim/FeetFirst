@@ -37,7 +37,7 @@ export default function Page() {
                 </Button>
             </View>
 
-            <Link asChild href={"/(protected)"}>
+            <Link asChild href={"/(protected)/home"}>
                 <Button
                     variant="big"
                     className="w-full"

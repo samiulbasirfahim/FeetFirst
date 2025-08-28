@@ -80,14 +80,14 @@ export function CustomDrawer(props: DrawerContentComponentProps) {
                 </Button>
                 <DrawerButton
                     href="/(protected)/home/feetfirst-points"
-                    title={isGerman() ? "Punkte FeetFirst" : "Punti FeetFirst"}
+                    title={isGerman() ? "Masseinlagen" : "Plantari su misura"}
                     icon={SUPPORT}
                     selected={props.state.index === 3}
                 />
                 <DrawerButton
                     href="/(protected)/home/feetfirst-points"
                     title={isGerman() ? "Punkte FeetFirst" : "Punti FeetFirst"}
-                    icon={SCAN}
+                    icon={SUPPORT}
                     selected={props.state.index === 4}
                 />
 
