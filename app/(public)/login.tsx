@@ -6,11 +6,13 @@ import { useLanguageStore } from "@/store/language";
 import { Logo } from "@/components/ui/logo";
 import { Text, TouchableOpacity, View } from "react-native";
 import { Button } from "@/components/ui/button";
-import { router } from "expo-router";
+import { Link, router } from "expo-router";
 import { KeyboardAvoidingLayout } from "@/components/layout/keyboard-avoiding-layout";
+import { useAuthStore } from "@/store/auth";
 
 export default function Page() {
     const { isGerman } = useLanguageStore();
+    const { setUser } = useAuthStore();
 
     return (
         <KeyboardAvoidingLayout edges={["bottom"]}>
@@ -35,9 +37,22 @@ export default function Page() {
                 </Button>
             </View>
 
-            <Button variant="big" className="w-full">
-                {isGerman() ? "Anmelden" : "Accesso"}
-            </Button>
+            <Link asChild href={"/(protected)"}>
+                <Button
+                    variant="big"
+                    className="w-full"
+                    onPress={() =>
+                        setUser({
+                            email: "",
+                            full_name: "",
+                            verified: true,
+                        })
+                    }
+                >
+                    {isGerman() ? "Anmelden" : "Accesso"}
+                </Button>
+            </Link>
+
             <View className="w-full flex-row items-center">
                 <View
                     className="flex-1 bg-muted-background"

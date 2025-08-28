@@ -15,7 +15,6 @@ export function Modal({ onClickOutside, isOpen, children }: Props) {
         <Portal>
             <BlurView intensity={80} className="flex-1" tint="dark">
                 <Pressable
-
                     style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)' }}
                     className="z-[9999] p-6 items-center justify-center flex-1"
                     onPress={onClickOutside}

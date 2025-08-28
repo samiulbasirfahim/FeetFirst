@@ -1,14 +1,24 @@
+import AntDesign from "@expo/vector-icons/AntDesign";
+import Feather from '@expo/vector-icons/Feather';
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { PlatformPressable } from "@react-navigation/elements";
-import { MaterialTopTabBarProps } from "@react-navigation/material-top-tabs";
+import {
+    MaterialTopTabBar,
+    MaterialTopTabBarProps,
+} from "@react-navigation/material-top-tabs";
 import { useLinkBuilder } from "@react-navigation/native";
 import { Text, View } from "react-native";
 
-export function TabBar({ state, descriptors, navigation }: MaterialTopTabBarProps) {
+export function TabBar({
+    state,
+    descriptors,
+    navigation,
+}: MaterialTopTabBarProps) {
     const { buildHref } = useLinkBuilder();
 
     return (
-        <View className="absolute bottom-8 items-center">
-            <View className="bg-primary  items-center  flex-row">
+        <View className="absolute bottom-8 items-center w-full justify-center">
+            <View className="bg-background rounded-2xl items-center justify-center flex-row gap-4">
                 {state.routes.map((route, index) => {
                     const { options } = descriptors[route.key];
                     const label =
@@ -48,11 +58,20 @@ export function TabBar({ state, descriptors, navigation }: MaterialTopTabBarProp
                             testID={options.tabBarButtonTestID}
                             onPress={onPress}
                             onLongPress={onLongPress}
-                            style={{ flex: 1 }}
+                            className="py-4 flex-row items-center gap-2"
                         >
-                            <Text style={{ color: isFocused ? "red" : "green" }}>
-                                {String(label)}
-                            </Text>
+                            {route.name === "index" && (
+                                <Feather name="home" size={24} />
+                            )}
+                            {route.name === "shoe-recommendations" && (
+                                <MaterialCommunityIcons name="shoe-sneaker" size={40} />
+                            )}
+                            {route.name === "cart" && (
+                                <MaterialCommunityIcons name="shoe-sneaker" size={24} />
+                            )}
+                            {route.name === "profile" && (
+                                <MaterialCommunityIcons name="shoe-sneaker" size={24} />
+                            )}
                         </PlatformPressable>
                     );
                 })}
