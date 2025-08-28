@@ -1,5 +1,5 @@
 import { ImageProps, View } from "react-native";
-import LOGO from "@/assets/images/logo.png";
+import LOGO from "@/assets/images/logo-icon.png";
 import { Image } from "react-native";
 import { twMerge } from "tailwind-merge";
 import React from "react";
