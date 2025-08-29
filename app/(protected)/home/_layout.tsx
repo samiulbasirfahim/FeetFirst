@@ -7,8 +7,10 @@ export default function TabLayout() {
             drawerContent={(options) => <CustomDrawer {...options} />}
             screenOptions={{
                 headerShown: false,
+                drawerType: "front",
+                overlayColor: "transparent",
                 drawerStyle: {
-                    backgroundColor: "#ffffff00",
+                    backgroundColor: "transparent",
                 }
             }}
         >

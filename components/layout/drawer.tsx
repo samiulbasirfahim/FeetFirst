@@ -4,14 +4,11 @@ import SCAN from "@/assets/svgs/scan.svg";
 import RUNNINGSHOE from "@/assets/svgs/running-shoe.svg";
 import SUPPORT from "@/assets/svgs/support.svg";
 import DOCUMENTUPLOAD from "@/assets/svgs/document-upload.svg";
-import { DrawerContentComponentProps } from "@react-navigation/drawer";
 import {
-    Image,
-    View,
-    ScrollView,
-    Pressable,
-    Dimensions,
-} from "react-native";
+    DrawerContentComponentProps,
+    useDrawerProgress,
+} from "@react-navigation/drawer";
+import { Image, View, ScrollView, Pressable, Dimensions } from "react-native";
 import { Typography } from "../ui/typography";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Button } from "../ui/button";
@@ -20,13 +17,11 @@ import { useLanguageStore } from "@/store/language";
 import { router } from "expo-router";
 import Svg, { Path } from "react-native-svg";
 import { Portal } from "react-native-portalize";
-import { useEffect, useState } from "react";
 
 import Animated, {
-    useSharedValue,
-    withTiming,
     useAnimatedStyle,
-    runOnJS,
+    interpolate,
+    useDerivedValue,
 } from "react-native-reanimated";
 
 const { width } = Dimensions.get("window");
@@ -35,50 +30,36 @@ export function CustomDrawer(props: DrawerContentComponentProps) {
     const { top: top_safe_padding } = useSafeAreaInsets();
     const { isGerman } = useLanguageStore();
 
-    const translateX = useSharedValue(-width);
-    const backdropOpacity = useSharedValue(0);
-    const [visible, setVisible] = useState(false);
+    const progress = useDrawerProgress();
 
-    const isOpen = props.state.history?.slice(-1)[0]?.type === "drawer";
-
-    useEffect(() => {
-        if (isOpen) {
-            setVisible(true);
-            translateX.value = withTiming(0, { duration: 250 });
-            backdropOpacity.value = withTiming(1, { duration: 250 });
-        } else {
-            translateX.value = withTiming(-width, { duration: 250 });
-            backdropOpacity.value = withTiming(0, { duration: 250 }, () => {
-                runOnJS(setVisible)(false);
-            });
-        }
-    }, [isOpen]);
+    const pointerEvents = useDerivedValue(() => {
+        return progress.value === 0 ? "none" : "auto";
+    });
 
     const drawerStyle = useAnimatedStyle(() => ({
-        transform: [{ translateX: translateX.value }],
+        transform: [
+            { translateX: interpolate(progress.value, [0, 1], [-width, 0]) },
+        ],
     }));
 
     const backdropStyle = useAnimatedStyle(() => ({
-        opacity: backdropOpacity.value,
+        opacity: interpolate(progress.value, [0, 1], [0, 0.4]),
     }));
 
-    function closeDrawer() {
-        props.navigation.closeDrawer();
-    }
-
-    if (!visible) return null;
+    const closeDrawer = () => props.navigation.closeDrawer();
 
     return (
         <Portal>
             <Animated.View
+                pointerEvents={pointerEvents as any}
                 style={[
                     {
                         position: "absolute",
                         top: 0,
+                        bottom: 0,
                         left: 0,
                         right: 0,
-                        bottom: 0,
-                        backgroundColor: "rgba(0,0,0,0.4)",
+                        backgroundColor: "black",
                     },
                     backdropStyle,
                 ]}
@@ -88,7 +69,6 @@ export function CustomDrawer(props: DrawerContentComponentProps) {
 
             <Animated.View
                 style={[
-                    drawerStyle,
                     {
                         width: width * 0.85,
                         height: "100%",
@@ -98,8 +78,10 @@ export function CustomDrawer(props: DrawerContentComponentProps) {
                         top: 0,
                         bottom: 0,
                     },
+                    drawerStyle,
                 ]}
             >
+                {/* Drawer header */}
                 <View
                     className="bg-primary items-center justify-center gap-4"
                     style={{ paddingTop: top_safe_padding + 20, paddingBottom: 20 }}
@@ -118,10 +100,13 @@ export function CustomDrawer(props: DrawerContentComponentProps) {
                         noWrap
                     >
                         <DOCUMENTUPLOAD />
-                        <Typography className="text-lg text-background">Upload PDF</Typography>
+                        <Typography className="text-lg text-background">
+                            Upload PDF
+                        </Typography>
                     </Button>
                 </View>
 
+                {/* Menu */}
                 <ScrollView className="p-4" contentContainerClassName="gap-4">
                     <DrawerButton
                         href="/(protected)/home/"
@@ -169,6 +154,7 @@ export function CustomDrawer(props: DrawerContentComponentProps) {
                     />
                 </ScrollView>
 
+                {/* Close handle */}
                 <Pressable
                     className="top-2/3 right-0 translate-x-[100%] absolute pr-8"
                     onPress={closeDrawer}
