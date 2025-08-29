@@ -4,6 +4,7 @@ import { StatusBar } from "expo-status-bar";
 import { Stack, useRouter, useSegments } from "expo-router";
 import { Host } from "react-native-portalize";
 import { useAuthStore } from "@/store/auth";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function RootLayout() {
     const { user, onboarding_complete, setUser } = useAuthStore();
@@ -41,9 +42,13 @@ export default function RootLayout() {
     }, []);
 
     return (
-        <Host>
-            <StatusBar style="light" />
-            <Stack screenOptions={{ headerShown: false }} />
-        </Host>
+        <GestureHandlerRootView style={{
+            flex: 1
+        }}>
+            <Host>
+                <StatusBar style="light" />
+                <Stack screenOptions={{ headerShown: false }} />
+            </Host>
+        </GestureHandlerRootView>
     );
 }

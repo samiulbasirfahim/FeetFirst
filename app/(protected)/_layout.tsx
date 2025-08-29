@@ -1,3 +1,4 @@
+import { TabBar } from "@/components/layout/protected-tab-bar";
 import { useLanguageStore } from "@/store/language";
 import {
     createMaterialTopTabNavigator,
@@ -27,7 +28,7 @@ export default function ProtectedLayout() {
                     swipeEnabled: false,
                     lazy: true,
                 }}
-            // tabBar={(options) => <TabBar {...options} />}
+                // tabBar={(options) => <TabBar {...options} />}
             >
                 <Tabs.Screen
                     name="home"
