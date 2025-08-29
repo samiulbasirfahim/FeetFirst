@@ -1,5 +1,5 @@
-import LOCK from "@/assets/svgs/lock.svg";
 import LIKE from "@/assets/svgs/like.svg";
+import LOCK from "@/assets/svgs/lock.svg";
 import { Modal } from "@/components/common/modal";
 import { KeyboardAvoidingLayout } from "@/components/layout/keyboard-avoiding-layout";
 import { Button } from "@/components/ui/button";
@@ -42,7 +42,8 @@ export default function Screen() {
                 className={`items-center justify-center`}
                 textClassName="text-center"
             >
-                ELIMINA IL MIO ACCOUNT
+                {!isGerman() ? "Aggiornamento" : "ELIMINA IL MIO ACCOUNT"}
+                
             </Button>
 
             <Modal
