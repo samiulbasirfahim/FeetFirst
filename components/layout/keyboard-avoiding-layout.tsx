@@ -11,6 +11,7 @@ import {
     SafeAreaView,
     SafeAreaViewProps,
 } from "react-native-safe-area-context";
+import { twMerge } from "tailwind-merge";
 
 type TProps = KeyboardAvoidingViewProps & {
     children: ReactNode;
@@ -19,6 +20,7 @@ type TProps = KeyboardAvoidingViewProps & {
 
 export function KeyboardAvoidingLayout({
     edges = [],
+    className,
     children,
     ...props
 }: TProps) {
@@ -26,7 +28,7 @@ export function KeyboardAvoidingLayout({
         <SafeAreaView edges={edges} className="flex-1 bg-background">
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <KeyboardAvoidingView
-                    className="flex-1 bg-background"
+                    className={twMerge("flex-1 bg-background", className)}
                     behavior={Platform.OS === "ios" ? "padding" : "padding"}
                     keyboardVerticalOffset={100}
                     {...props}

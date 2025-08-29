@@ -14,7 +14,7 @@ export default function Screen() {
     const { isGerman } = useLanguageStore();
     const [show_modal, set_show_modal] = useState<boolean>(false);
     return (
-        <KeyboardAvoidingLayout>
+        <KeyboardAvoidingLayout className="bg-backgroundDark">
             <InputPassword
                 Icon={LOCK}
                 placeholder={
