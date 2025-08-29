@@ -8,7 +8,8 @@ type LanguageStore = {
 };
 
 export const useLanguageStore = create<LanguageStore>((set, get) => ({
-    language: "italian",
+    // language: "italian",
+    language: "german",
     toggle() {
         set((state) => ({
             language: state.language === "german" ? "italian" : "german",
