@@ -1,10 +1,10 @@
-import "./global.css";
-import { useEffect, useState } from "react";
-import { StatusBar } from "expo-status-bar";
-import { Stack, useRouter, useSegments } from "expo-router";
-import { Host } from "react-native-portalize";
 import { useAuthStore } from "@/store/auth";
+import { Stack, useRouter, useSegments } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import { useEffect, useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { Host } from "react-native-portalize";
+import "./global.css";
 
 export default function RootLayout() {
     const { user, onboarding_complete, setUser } = useAuthStore();

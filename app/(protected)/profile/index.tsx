@@ -1,18 +1,14 @@
-import FB from "@/assets/svgs/fb.svg";
-import INSTA from "@/assets/svgs/insta.svg";
-import WEB from "@/assets/svgs/web.svg";
 import EDIT from "@/assets/svgs/edit.svg";
 import GLOBAL from "@/assets/svgs/global.svg";
 import PROFILE from "@/assets/svgs/profile-circle.svg";
 import TRIANGLE from "@/assets/svgs/triangle.svg";
+import { VersionInfo } from "@/components/common/version";
 import { Layout } from "@/components/layout/layout";
 import { Button } from "@/components/ui/button";
-import { DrawerButton } from "@/components/ui/drawer-button";
-import { HeaderBackButton } from "@/components/ui/header-back-button";
 import { Typography } from "@/components/ui/typography";
 import { useLanguageStore } from "@/store/language";
+import { router } from "expo-router";
 import { Image, ScrollView, View } from "react-native";
-import { Link, router } from "expo-router";
 
 export default function Screen() {
     const { isGerman } = useLanguageStore();
@@ -20,7 +16,7 @@ export default function Screen() {
     const gender: string = "male";
     const title: string = "Jone";
     const email: string = "jone32@gmail.com";
-    const version: string = "10.12.0";
+
 
     return (
         <Layout className="bg-backgroundDark">
@@ -99,30 +95,7 @@ export default function Screen() {
                 </Button>
             </ScrollView>
 
-            <View className="flex-row items-center justify-between">
-                <Typography variant="caption">FEETFIRST {version}</Typography>
-
-                <View className="flex-row items-center gap-2">
-                    <Button
-                        variant="outline"
-                        className="rounded-full bg-muted-background/50 border-2 border-muted-background h-10 w-10 p-0 justify-center items-center"
-                    >
-                        <FB />
-                    </Button>
-                    <Button
-                        variant="outline"
-                        className="rounded-full bg-muted-background/50 border-2 border-muted-background h-10 w-10 p-0 justify-center items-center"
-                    >
-                        <INSTA />
-                    </Button>
-                    <Button
-                        variant="outline"
-                        className="rounded-full bg-muted-background/50 border-2 border-muted-background h-10 w-10 p-0 justify-center items-center"
-                    >
-                        <WEB />
-                    </Button>
-                </View>
-            </View>
+            <VersionInfo />
         </Layout>
     );
 }

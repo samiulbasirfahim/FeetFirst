@@ -38,6 +38,7 @@
     "react-dom": "19.0.0",
     "react-native": "0.79.6",
     "react-native-bouncy-checkbox": "^4.1.2",
+    "react-native-collapsible": "^1.6.2",
     "react-native-gesture-handler": "~2.24.0",
     "react-native-maps": "1.20.1",
     "react-native-markdown-display": "^7.0.2",
@@ -53,7 +54,7 @@
     "react-native-webview": "13.13.5",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^3.4.17",
-    "zustand": "^5.0.8",
+    "zustand": "^5.0.8"
     "react-native-pager-view": "6.7.1"
   },
   "devDependencies": {

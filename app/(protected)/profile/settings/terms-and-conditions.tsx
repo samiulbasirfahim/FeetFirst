@@ -194,7 +194,7 @@ P.IVA: IT03042110218`,
 const styles = StyleSheet.create({
   body: {
     backgroundColor: "#000",
-    paddingHorizontal: 10,
+    paddingHorizontal: 18,
     paddingVertical: 40,
   },
   heading1: {
