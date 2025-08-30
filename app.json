@@ -19,7 +19,7 @@
       },
       "config": {
         "googleMaps": {
-          "apiKey": "process.env.GOOGLE_MAPS_API_KEY"
+          "apiKey": "process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY"
         }
       },
       "edgeToEdgeEnabled": true,
@@ -44,6 +44,13 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "49aa4bcf-cce0-452d-b627-cf434d166781"
+      }
+    },
+    "owner": "saruf"
   }
 }
