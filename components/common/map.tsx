@@ -6,6 +6,7 @@ import {
     View,
     ScrollView,
     TouchableOpacity,
+    useWindowDimensions,
 } from "react-native";
 import { Typography } from "../ui/typography";
 
@@ -152,6 +153,7 @@ const mapStyle = [
 ];
 
 export default function Map() {
+    const { height } = useWindowDimensions();
     const mapRef = useRef<any>(null);
     const [selectedMarkerIndex, setSelectedMarkerIndex] = useState(0);
 
@@ -185,7 +187,10 @@ export default function Map() {
     };
 
     return (
-        <View className="relative" style={styles.map}>
+        <View
+            className="relative rounded-b-3xl overflow-hidden"
+            style={{ width: "100%", height: (height / 100) * 70 }}
+        >
             <MapView
                 ref={mapRef}
                 style={{ width: "100%", height: "100%" }}
@@ -211,8 +216,6 @@ export default function Map() {
                 mapType="standard"
                 pitchEnabled={false}
                 rotateEnabled={false}
-                scrollEnabled={true}
-                zoomEnabled={true}
             >
                 {partners.map((marker, index) => (
                     <Marker
@@ -224,8 +227,8 @@ export default function Map() {
                         <View className="p-1 border-2 border-primary/40 rounded-full">
                             <View
                                 className={`rounded-full ${index === selectedMarkerIndex
-                                    ? "bg-primary w-8 h-8"
-                                    : "bg-primary/80 w-5 h-5"
+                                        ? "bg-primary w-8 h-8"
+                                        : "bg-primary/80 w-5 h-5"
                                     }`}
                             ></View>
                         </View>
@@ -233,57 +236,49 @@ export default function Map() {
                 ))}
             </MapView>
 
-            <View className="absolute bottom-0 left-0 right-0 bg-backgroundDark/90 backdrop-blur-md border-t border-primary/20">
-                <View className="p-4">
-                    <Typography className="text-white font-semibold text-lg mb-3">
-                        Partners
-                    </Typography>
-                    <ScrollView
-                        horizontal
-                        showsHorizontalScrollIndicator={false}
-                        contentContainerStyle={{ paddingRight: 16 }}
-                    >
-                        {partners.map((marker, index) => (
-                            <TouchableOpacity
-                                key={index}
-                                onPress={() => handleMarkerPress(index)}
-                                className={`mr-3 p-3 rounded-lg border min-w-32 gap-1 ${selectedMarkerIndex === index
-                                    ? "bg-primary/20 border-primary"
-                                    : "bg-tab-background/50 border-primary/30"
-                                    }`}
-                            >
-                                <Text
-                                    className={`text-base font-medium leading-tight ${selectedMarkerIndex === index
-                                        ? "text-white"
-                                        : "text-foreground"
+            {true || (
+                <View className="absolute bottom-0 left-0 right-0 bg-backgroundDark/90 backdrop-blur-md border-t border-primary/20">
+                    <View className="p-4">
+                        <Typography className="text-white font-semibold text-lg mb-3">
+                            Partners
+                        </Typography>
+                        <ScrollView
+                            horizontal
+                            showsHorizontalScrollIndicator={false}
+                            contentContainerStyle={{ paddingRight: 16 }}
+                        >
+                            {partners.map((marker, index) => (
+                                <TouchableOpacity
+                                    key={index}
+                                    onPress={() => handleMarkerPress(index)}
+                                    className={`mr-3 p-3 rounded-lg border min-w-32 gap-1 ${selectedMarkerIndex === index
+                                            ? "bg-primary/20 border-primary"
+                                            : "bg-tab-background/50 border-primary/30"
                                         }`}
                                 >
-                                    {marker.title}
-                                </Text>
+                                    <Text
+                                        className={`text-base font-medium leading-tight ${selectedMarkerIndex === index
+                                                ? "text-white"
+                                                : "text-foreground"
+                                            }`}
+                                    >
+                                        {marker.title}
+                                    </Text>
 
-                                <Text
-                                    className={`text-sm font-medium leading-tight ${selectedMarkerIndex === index
-                                        ? "text-white"
-                                        : "text-muted-foreground"
-                                        }`}
-                                >
-                                    {marker.address}
-                                </Text>
-                            </TouchableOpacity>
-                        ))}
-                    </ScrollView>
+                                    <Text
+                                        className={`text-sm font-medium leading-tight ${selectedMarkerIndex === index
+                                                ? "text-white"
+                                                : "text-muted-foreground"
+                                            }`}
+                                    >
+                                        {marker.address}
+                                    </Text>
+                                </TouchableOpacity>
+                            ))}
+                        </ScrollView>
+                    </View>
                 </View>
-            </View>
+            )}
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    map: {
-        width: "100%",
-        height: 600,
-    },
-});
