@@ -15,7 +15,7 @@ export default function RootLayout() {
 
     useEffect(() => {
         if (isReady) {
-            router.replace("/(protected)/home/feetfirst-points");
+            router.replace("/(public)");
             // const inProtectedRoute = segments[0] === "(public)";
             // if (!user) {
             //     router.replace("/(public)");
