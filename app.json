@@ -12,7 +12,7 @@
             "supportsTablet": true,
             "bundleIdentifier": "com.samiulbasirfahim.rxen.feetfirst",
             "config": {
-                "googleMapsApiKey": "AIzaSyBy7vFEgs1aSTh07EjmOumdYv61F5Lx5CM"
+                "googleMapsApiKey": "--"
             }
         },
         "android": {
@@ -22,7 +22,7 @@
             },
             "config": {
                 "googleMaps": {
-                    "apiKey": "AIzaSyBy7vFEgs1aSTh07EjmOumdYv61F5Lx5CM"
+                    "apiKey": "--"
                 }
             },
             "edgeToEdgeEnabled": true,
