@@ -15,18 +15,22 @@ import {
 } from "react-native";
 
 const optionsDE: string[] = [
-    "Sneaker",
-    "Halbschuhe",
-    "Stiefeletten",
-    "Hausschuhe",
+    "Sportschuhe",
+    "Laufschuhe",
+    "Skischuhe",
+    "Tennisschuhe",
+    "Fußballschuhe",
+    "Basketballschuhe",
     "Andere (bitte angeben)",
 ];
 
 const optionsIT: string[] = [
-    "Sneaker",
-    "Scarpe basse",
-    "Stivaletti",
-    "Pantofole",
+    "Scarpe sportive",
+    "Scarpe da corsa",
+    "Scarponi da sci",
+    "Scarpe da tennis",
+    "Scarpe da calcio",
+    "Scarpe da basket",
     "Altro (specificare)",
 ];
 
@@ -54,7 +58,9 @@ export default function Screen() {
             <Layout>
                 <View style={{ flex: 1, paddingBottom: 24 }}>
                     <Typography variant="title" className="text-foreground">
-                        {isGerman() ? "Für Welchen Einsatz?" : "Per quale utilizzo?"}
+                        {isGerman()
+                            ? "Für Welchen Sportschuh Verwenden Sie Die Einlage?"
+                            : "Per quale scarpa sportiva usi la soletta?"}
                     </Typography>
 
                     <FlatList
@@ -136,6 +142,7 @@ export default function Screen() {
                                         value={otherValue}
                                         onChangeText={setOtherValue}
                                         blurOnSubmit={false}
+                                        onBlur={() => setShowOtherInput(false)}
                                         onSubmitEditing={() => {
                                             const trimmed = otherValue.trim();
                                             if (trimmed.length > 0) {
@@ -152,13 +159,13 @@ export default function Screen() {
                     />
                 </View>
 
-                <Link asChild href={"/(scan-upload)/after-scan-upload/third"}>
+                <Link asChild href={"/(scan-upload)/after-scan-upload/fifth"}>
                     <Button variant="big">
                         {isGerman() ? "Nächste Frage" : "Prossima domanda"}
                     </Button>
                 </Link>
 
-                <Link asChild href={"/(scan-upload)/after-scan-upload/third"}>
+                <Link asChild href={"/(scan-upload)/after-scan-upload/fifth"}>
                     <Button variant="ghost">
                         {isGerman() ? "Überspringen" : "Saltare"}
                     </Button>
