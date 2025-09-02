@@ -14,7 +14,7 @@ export default function Screen() {
   useEffect(() => {
     const intervalId = setInterval(() => {
       setProgress((prev) => Math.min(prev + 0.1, 1));
-    }, 200);
+    }, 100);
     return () => clearInterval(intervalId);
   }, []);
 

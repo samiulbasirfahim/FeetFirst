@@ -14,7 +14,7 @@ export default function Screen() {
                     : "È tutto! Grazie per far parte della crescente famiglia FeetF1rst. Insieme stiamo plasmando il futuro dell'acquisto di scarpe."}
             </Typography>
 
-            <Link asChild href={"/after-scan-upload/third"}>
+            <Link asChild href={"/(protected)/home"}>
                 <Button variant="big">{isGerman() ? "nächste" : "prossima"}</Button>
             </Link>
         </Layout>

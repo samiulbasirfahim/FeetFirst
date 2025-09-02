@@ -15,7 +15,7 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (isReady) {
-      router.replace("/(scan-upload)/while-scan-upload");
+      router.replace("/(protected)/home/foot-exercise");
       // const inProtectedRoute = segments[0] === "(public)";
       // if (!user) {
       //     router.replace("/(public)");
