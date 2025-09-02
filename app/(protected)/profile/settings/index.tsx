@@ -3,6 +3,7 @@ import {
   SettingsGroup,
   SettingsValue,
 } from "@/components/common/settings-group";
+import { Layout } from "@/components/layout/layout";
 import { Typography } from "@/components/ui/typography";
 import { useLanguageStore } from "@/store/language";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -11,11 +12,7 @@ import { ScrollView, TouchableOpacity } from "react-native";
 export default function Screen() {
   const { isGerman } = useLanguageStore();
   return (
-    <ScrollView
-      contentContainerClassName="grow p-4"
-      className="flex-1 bg-backgroundDark"
-      showsVerticalScrollIndicator={false}
-    >
+    <Layout className="bg-backgroundDark" scrollable>
       <SettingsGroup>
         <SettingsValue title="E-Mail" value="demo@gmail.com" />
         <SettingsValue
@@ -99,6 +96,6 @@ export default function Screen() {
           />
         </TouchableOpacity>
       </SettingsGroup>
-    </ScrollView>
+    </Layout>
   );
 }

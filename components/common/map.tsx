@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import * as Location from "expo-location";
 import {
@@ -93,11 +93,7 @@ const mapStyle = [
   {
     featureType: "administrative.locality",
     elementType: "labels.text.stroke",
-    stylers: [
-      { visibility: "on" },
-      { color: "#1A1C1B" }, // background
-      { weight: 2 },
-    ],
+    stylers: [{ visibility: "on" }, { color: "#1A1C1B" }, { weight: 2 }],
   },
   {
     featureType: "administrative.country",
@@ -112,9 +108,7 @@ const mapStyle = [
   {
     featureType: "landscape.natural",
     elementType: "geometry",
-    stylers: [
-      { color: "#1A1C1B" }, // background
-    ],
+    stylers: [{ color: "#1A1C1B" }],
   },
   {
     featureType: "poi",
@@ -123,10 +117,7 @@ const mapStyle = [
   {
     featureType: "poi.park",
     elementType: "geometry.fill",
-    stylers: [
-      { visibility: "on" },
-      { color: "#1A1C1B" }, // background
-    ],
+    stylers: [{ visibility: "on" }, { color: "#1A1C1B" }],
   },
   {
     featureType: "road",
@@ -135,10 +126,7 @@ const mapStyle = [
   {
     featureType: "road.highway",
     elementType: "geometry",
-    stylers: [
-      { visibility: "on" },
-      { color: "#404241" }, // accent - more subtle
-    ],
+    stylers: [{ visibility: "on" }, { color: "#404241" }],
   },
   {
     featureType: "transit",
@@ -147,9 +135,7 @@ const mapStyle = [
   {
     featureType: "water",
     elementType: "geometry",
-    stylers: [
-      { color: "#0D0D0D" }, // backgroundDark
-    ],
+    stylers: [{ color: "#0D0D0D" }],
   },
 ];
 
@@ -176,14 +162,11 @@ export default function Map() {
 
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
+      setIsLoading(false);
     }
 
     getCurrentLocation();
   }, []);
-
-  useEffect(() => {
-    setIsLoading(true);
-  }, [location]);
 
   const handleMarkerPress = async (index: number) => {
     const marker = partners[index];
@@ -219,17 +202,17 @@ export default function Map() {
       className="relative rounded-b-3xl overflow-hidden"
       style={{ width: "100%", height: (height / 100) * 70 }}
     >
-      {location ? (
+      {
         <MapView
           ref={mapRef}
           style={{ width: "100%", height: "100%" }}
           provider={PROVIDER_GOOGLE}
           customMapStyle={mapStyle}
           initialRegion={{
-            latitude: location?.coords.latitude,
-            longitude: location?.coords.longitude,
-            latitudeDelta: 0.05,
-            longitudeDelta: 0.025,
+            latitude: partners[0].lat,
+            longitude: partners[0].lng,
+            latitudeDelta: 0.1,
+            longitudeDelta: 0.1,
           }}
           showsUserLocation={false}
           showsMyLocationButton={false}
@@ -246,6 +229,15 @@ export default function Map() {
           pitchEnabled={false}
           rotateEnabled={false}
         >
+          {
+            //     <Marker
+            //     key={-1}
+            //     coordinate={{
+            //         latitude: location.coords.latitude,
+            //         longitude: location.coords.longitude,
+            //     }}
+            // ></Marker>
+          }
           {partners.map((marker, index) => (
             <Marker
               key={index}
@@ -265,13 +257,8 @@ export default function Map() {
             </Marker>
           ))}
         </MapView>
-      ) : (
-        <View>
-          <Typography>LOADING</Typography>
-        </View>
-      )}
-
-      {false || (
+      }
+      {false && (
         <View className="absolute bottom-0 left-0 right-0 bg-backgroundDark/90 backdrop-blur-md border-t border-primary/20">
           <View className="p-4">
             <Typography className="text-white font-semibold text-lg mb-3">

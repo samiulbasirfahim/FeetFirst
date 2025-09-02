@@ -11,7 +11,7 @@ export function TabBar({
     const { buildHref } = useLinkBuilder();
 
     return (
-        <View className="items-center w-full justify-center bg-transparent">
+        <View className="absolute bottom-8 items-center w-full justify-center">
             <View className="bg-background rounded-full items-center justify-center flex-row gap-4 px-6 py-2 border-primary border-2 overflow-hidden">
                 {state.routes.map((route, index) => {
                     const { options } = descriptors[route.key];
