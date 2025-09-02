@@ -49,7 +49,7 @@ export function TabButton({
     return (
         <Link href={href as any} asChild>
             <Animated.View
-                layout={LinearTransition.duration(200)}
+                layout={LinearTransition.duration(150)}
             >
                 <Pressable
                     accessibilityState={isFocused ? { selected: true } : {}}
@@ -57,7 +57,7 @@ export function TabButton({
                     testID={testID}
                     onPress={onPress}
                     onLongPress={onLongPress}
-                    className="py-4 flex-row items-center gap-2 p-4 bg-muted-background rounded-full justify-center"
+                    className={`py-4 flex-row items-center gap-2 p-4 rounded-full justify-center ${isFocused ? 'bg-primary' : 'bg-muted-background/60'}`}
                 >
                     {renderIcon()}
                     {isFocused && (
