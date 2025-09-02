@@ -32,21 +32,25 @@ export default function Screen() {
         <View>
           <Typography
             variant="title"
-            className="font-medium text-white text-[28px]"
+            className="font-medium text-white text-[30px]"
           >
             {isGerman() ? 'Willkommen' : 'Benvenuto'}
           </Typography>
           <Typography
             variant="title"
-            className="font-medium text-white text-[28px]"
+            className="font-medium text-white text-[30px]"
           >
             Jhon!
           </Typography>
         </View>
 
         <View>
-          <View className="flex flex-row w-[60%]">
-            <Button variant="outline" textClassName="text-[10px]">
+          <View className="flex flex-row w-[60%] gap-2">
+            <Button
+              variant="outline"
+              textClassName="text-white"
+              className="border-white rounded-full"
+            >
               {isGerman() ? 'Masseinlage' : 'inserto di massa'}
             </Button>
             <Button variant="outline">
