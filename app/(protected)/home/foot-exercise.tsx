@@ -8,15 +8,20 @@ import Infinity from "@/assets/svgs/Infinity.svg";
 import Bones from "@/assets/svgs/Bones.svg";
 import Refresh from "@/assets/svgs/Refresh.svg";
 import Meditation from "@/assets/svgs/Meditation Round.svg";
+import ManAboutTORun from "@/assets/images/man-about-to-run.png";
 import {
   Image,
   View,
   ScrollView,
   Text,
   useWindowDimensions,
+  Dimensions,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { OutlinedText } from "@donkasun/react-native-outlined-text";
+import { Button } from "@/components/ui/button";
+import { VersionInfo } from "@/components/common/version";
+import { useEffect, useState } from "react";
 
 const translations = {
   german: {
@@ -85,6 +90,15 @@ const translations = {
 };
 
 export default function Screen() {
+  const [imageHeight, setImageHeight] = useState(250); // fallback height
+  const {width: screenWidth} = useWindowDimensions();
+
+  useEffect(() => {
+    // Get image dimensions
+    const source = Image.resolveAssetSource(ManAboutTORun)
+    setImageHeight(source.height)
+  }, []);
+
   const { width } = useWindowDimensions();
 
   const { isGerman } = useLanguageStore();
@@ -92,9 +106,9 @@ export default function Screen() {
 
   const renderVorteile = (text, Icon) => {
     return (
-      <View className="bg-muted-background w-[48%] p-6 rounded-3xl mb-4 min-h-[180px] justify-between relative text-white">
-        <Text className="text-base font-medium">{text}</Text>
-        <View className="absolate p-3 w-36 bg-primary/20 border-2 border-primary rounded-2xl items-center justify-center">
+      <View className="bg-muted-background/40 w-[48%] p-6 rounded-3xl mb-4 min-h-[180px] justify-between relative text-white border-2 border-primary/30">
+        <Text className="text-white font-bold text-xl">{text}</Text>
+        <View className="absolute p-3 w-20 h-20 bg-primary/20 border-2 border-primary bottom-0 right-0 rounded-3xl items-center justify-center">
           <Icon />
         </View>
       </View>
@@ -107,9 +121,10 @@ export default function Screen() {
         <Typography className="text-3xl font-bold text-white text-center mb-4 leading-tight">
           {t.title}
         </Typography>
+        
         <View className="relative h-96 w-full">
           <LinearGradient
-            colors={["rgba(0,0,0,0.6)", "rgba(98, 160, 123, 0.5)"]}
+            colors={["rgba(0,0,0,0.2)", "rgba(98, 160, 123, 0.5)"]}
             className="absolute inset-0 z-[99]"
           />
 
@@ -117,7 +132,7 @@ export default function Screen() {
 
           <Typography
             variant="subtitle"
-            className="text-white absolute top-2 left-1/2 -translate-x-1/2 z-[99] text-center"
+            className="text-white absolute top-2 left-1/2 -translate-x-1/2 z-[99] text-center "
           >
             {t.subtitle}
           </Typography>
@@ -208,68 +223,73 @@ export default function Screen() {
           </View>
         </View>
 
-        <View className="p-4">
-      {renderVorteile("Gezielt trainieren", Bones)}
-      {renderVorteile("Effektiv vorbeugen", Infinity)}
-    </View>
         {/* Vorteile */}
-        {/* <View className="px-6 py-8">
+        <View className="px-6 pt-8">
           <Typography className="text-4xl font-bold text-white mb-8">
             {isGerman() ? "Vorteile" : "Vantaggi"}
           </Typography>
+        </View>
 
-          <View className="flex-row flex-wrap justify-between">
+        <View className="p-4 flex-row flex-wrap justify-between">
+          {renderVorteile(
+            isGerman()
+              ? "Verbesserter Gleichgewichtssinn und mehr Stabilität"
+              : "Miglioramento dell'equilibrio e maggiore stabilità",
+            Infinity
+          )}
+          {renderVorteile(
+            isGerman() ? "Erhöhte Flexibilität" : "Maggiore flessibilità",
+            Bones
+          )}
+          {renderVorteile(
+            isGerman() ? "Bessere Durchblutung" : "Migliore circolazione",
+            Refresh
+          )}
+          {renderVorteile(
+            isGerman()
+              ? "Reduzierte Fußschmerzen"
+              : "Riduzione del dolore ai piedi",
+            Meditation
+          )}
+        </View>
 
-            <View className="bg-muted-background w-[48%] p-6 rounded-3xl mb-4 min-h-[180px] justify-between relative">
-              <Typography className="text-white text-lg font-semibold leading-tight">
-                {isGerman()
-                  ? "Verbesserter Gleichgewichtssinn und mehr Stabilität"
-                  : "Miglioramento dell'equilibrio e maggiore stabilità"}
-              </Typography>
-                <View className="absolate p-3 w-36 bg-primary/20 border-2 border-primary rounded-2xl items-center justify-center">
-                  <Infinity />
-                </View>
-            </View>
+        {/* exercise plan */}
+        <View className="px-6 pt-8">
+          <Typography className="text-3xl font-bold w-1/2">
+            {isGerman()
+              ? "Ihr Individueller Übungsplan"
+              : "Il tuo piano di esercizi individuale"}
+          </Typography>
+          <Text className="text-white my-6">
+            {isGerman()
+              ? "Sie können sich jetzt auch Ihren individuellen Übungsplan erstellen lassen – basierend auf Ihrem 3D-Scan, Ihren Fußproblemen und Ihren Zielen."
+              : "Ora puoi anche creare il tuo piano di esercizi personalizzato in base alla scansione 3D, ai problemi del tuo piede e ai tuoi obiettivi."}
+          </Text>
 
-
-            <View className="bg-muted-background w-[48%] p-6 rounded-3xl mb-4 min-h-[180px] justify-between">
-              <Typography className="text-white text-lg font-semibold leading-tight">
-                {isGerman() ? "Erhöhte Flexibilität" : "Maggiore flessibilità"}
-              </Typography>
-              <View className="self-end">
-                <View className="p-3 border-2 bg-primary/20 border-primary rounded-2xl items-center justify-center">
-                  <Bones />
-                </View>
-              </View>
-            </View>
-
-
-            <View className="bg-muted-background w-[48%] p-6 rounded-3xl mb-4 min-h-[180px] justify-between">
-              <Typography className="text-white text-lg font-semibold leading-tight">
-                {isGerman() ? "Bessere Durchblutung" : "Migliore circolazione"}
-              </Typography>
-              <View className="self-end">
-                <View className="p-3 border-2 bg-primary/20 border-primary rounded-2xl items-center justify-center">
-                  <Refresh />
-                </View>
-              </View>
-            </View>
-
-
-            <View className="bg-muted-background w-[48%] p-6 rounded-3xl mb-4 min-h-[180px] justify-between">
-              <Typography className="text-white text-lg font-semibold leading-tight">
-                {isGerman()
-                  ? "Reduzierte Fußschmerzen"
-                  : "Riduzione del dolore ai piedi"}
-              </Typography>
-              <View className="self-end">
-                <View className="p-3 border-2 bg-primary/20 border-primary rounded-2xl items-center justify-center">
-                  <Meditation />
-                </View>
-              </View>
-            </View>
+          <View className="flex-row mb-6">
+            <Button
+              variant="outline"
+              className="bg-primary/10 py-4 px-6 rounded-2xl"
+            >
+              {isGerman() ? "Jetzt erstellen!" : "Crea ora!"}
+            </Button>
           </View>
-        </View> */}
+
+
+          <View className="h-96 w-full my-8">
+          <LinearGradient
+            colors={["rgba(0,0,0,0.1)", "black"]}
+            className="absolute inset-0 z-[99] mt-36"
+          />
+            <Image
+              source={ManAboutTORun}
+              className="w-full h-full"
+              resizeMode="contain"
+            />
+            
+          </View>
+        </View>
+        <VersionInfo />
       </ScrollView>
     </Layout>
   );
