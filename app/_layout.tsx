@@ -12,7 +12,7 @@ export default function RootLayout() {
     const segments = useSegments();
 
     const [isReady, setIsReady] = useState<boolean>(false);
-
+  
     useEffect(() => {
         if (isReady) {
             router.replace("/(protected)/home");
@@ -28,6 +28,7 @@ export default function RootLayout() {
             // }
         }
     }, [isReady]);
+
 
     useEffect(() => {
         (async () => {

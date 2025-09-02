@@ -36,7 +36,6 @@ export function CustomDrawer(props: DrawerContentComponentProps) {
     return progress.value === 0 ? "none" : "auto";
   });
 
-
   const drawerStyle = useAnimatedStyle(() => ({
     transform: [
       { translateX: interpolate(progress.value, [0, 1], [-width, 0]) },
@@ -142,10 +141,10 @@ export function CustomDrawer(props: DrawerContentComponentProps) {
             selected={props.state.index === 3}
           />
           <DrawerButton
-            href="/(protected)/home/feetfirst-points"
-            title={isGerman() ? "Punkte FeetFirst" : "Punti FeetFirst"}
+            href="/(protected)/home/foot-exercise"
+            title={isGerman() ? "Fussübungen" : "Esercizi per i piedi"}
             icon={SUPPORT}
-            selected={props.state.index === 4}
+            selected={props.state.index === 5}
           />
           <DrawerButton
             href="/(protected)/home/feetfirst-points"

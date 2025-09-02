@@ -11,6 +11,7 @@
     "lint": "expo lint"
   },
   "dependencies": {
+    "@donkasun/react-native-outlined-text": "^1.0.2",
     "@expo/vector-icons": "^14.1.0",
     "@react-native-community/datetimepicker": "8.4.1",
     "@react-navigation/bottom-tabs": "^7.3.10",
