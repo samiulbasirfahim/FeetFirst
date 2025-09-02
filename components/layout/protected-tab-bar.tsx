@@ -1,79 +1,64 @@
-import AntDesign from "@expo/vector-icons/AntDesign";
-import Feather from "@expo/vector-icons/Feather";
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { PlatformPressable } from "@react-navigation/elements";
-import {
-  MaterialTopTabBar,
-  MaterialTopTabBarProps,
-} from "@react-navigation/material-top-tabs";
+import { MaterialTopTabBarProps } from "@react-navigation/material-top-tabs";
 import { useLinkBuilder } from "@react-navigation/native";
-import { Text, View } from "react-native";
+import { View } from "react-native";
+import { TabButton } from "../ui/tab-bar-button";
 
 export function TabBar({
-  state,
-  descriptors,
-  navigation,
+    state,
+    descriptors,
+    navigation,
 }: MaterialTopTabBarProps) {
-  const { buildHref } = useLinkBuilder();
+    const { buildHref } = useLinkBuilder();
 
-  return (
-    <View className="absolute bottom-8 items-center w-full justify-center">
-      <View className="bg-background rounded-2xl items-center justify-center flex-row gap-4">
-        {state.routes.map((route, index) => {
-          const { options } = descriptors[route.key];
-          const label =
-            options.tabBarLabel !== undefined
-              ? options.tabBarLabel
-              : options.title !== undefined
-                ? options.title
-                : route.name;
+    return (
+        <View className="items-center w-full justify-center bg-transparent">
+            <View className="bg-background rounded-full items-center justify-center flex-row gap-4 px-6 py-2 border-primary border-2 overflow-hidden">
+                {state.routes.map((route, index) => {
+                    const { options } = descriptors[route.key];
+                    const label =
+                        options.tabBarLabel !== undefined
+                            ? options.tabBarLabel
+                            : options.title !== undefined
+                                ? options.title
+                                : route.name;
 
-          const isFocused = state.index === index;
+                    const isFocused = state.index === index;
 
-          const onPress = () => {
-            const event = navigation.emit({
-              type: "tabPress",
-              target: route.key,
-              canPreventDefault: true,
-            });
+                    const onPress = () => {
+                        const event = navigation.emit({
+                            type: "tabPress",
+                            target: route.key,
+                            canPreventDefault: true,
+                        });
 
-            if (!isFocused && !event.defaultPrevented) {
-              navigation.navigate(route.name, route.params);
-            }
-          };
+                        if (!isFocused && !event.defaultPrevented) {
+                            navigation.navigate(route.name, route.params);
+                        }
+                    };
 
-          const onLongPress = () => {
-            navigation.emit({
-              type: "tabLongPress",
-              target: route.key,
-            });
-          };
+                    const onLongPress = () => {
+                        navigation.emit({
+                            type: "tabLongPress",
+                            target: route.key,
+                        });
+                    };
 
-          return (
-            <PlatformPressable
-              key={route.key}
-              href={buildHref(route.name, route.params)}
-              accessibilityState={isFocused ? { selected: true } : {}}
-              accessibilityLabel={options.tabBarAccessibilityLabel}
-              testID={options.tabBarButtonTestID}
-              onPress={onPress}
-              onLongPress={onLongPress}
-              className="py-4 flex-row items-center gap-2"
-            >
-              {route.name === "home" && <Feather name="home" size={24} />}
-              {route.name === "shoe-recommendations" && (
-                <MaterialCommunityIcons name="shoe-sneaker" size={40} />
-              )}
-              {route.name === "cart" && (
-                <MaterialCommunityIcons name="shoe-sneaker" size={24} />
-              )}
-              {route.name === "profile" && (
-                <MaterialCommunityIcons name="shoe-sneaker" size={24} />
-              )}
-            </PlatformPressable>
-          );
-        })}
-      </View>
-    </View>
-  );
+
+                    return (
+                        <TabButton
+                            key={route.key}
+                            routeName={route.name}
+                            label={label as string}
+                            isFocused={isFocused}
+                            href={buildHref(route.name, route.params) as any}
+                            onPress={onPress}
+                            onLongPress={onLongPress}
+                            accessibilityLabel={options.tabBarAccessibilityLabel}
+                            testID={options.tabBarButtonTestID}
+                        />
+                    );
+                })}
+            </View>
+        </View>
+    );
 }

@@ -9,6 +9,7 @@ import { twMerge } from "tailwind-merge";
 type Props = {
     children: ReactNode;
     edges?: SafeAreaViewProps["edges"];
+    className: string;
 } & SafeAreaViewProps;
 export function Layout({ children, edges = [], className, ...props }: Props) {
     return (
