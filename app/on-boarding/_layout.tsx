@@ -4,12 +4,20 @@ import { Typography } from "@/components/ui/typography";
 import {
     createMaterialTopTabNavigator,
     MaterialTopTabBarProps,
+    MaterialTopTabNavigationEventMap,
+    MaterialTopTabNavigationOptions,
 } from "@react-navigation/material-top-tabs";
+import { ParamListBase, TabNavigationState } from "@react-navigation/native";
 import { withLayoutContext } from "expo-router";
 import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 const { Navigator } = createMaterialTopTabNavigator();
-const Tabs = withLayoutContext(Navigator);
+const Tabs = withLayoutContext<
+    MaterialTopTabNavigationOptions,
+    typeof Navigator,
+    TabNavigationState<ParamListBase>,
+    MaterialTopTabNavigationEventMap
+>(Navigator);
 
 export default function OnBoardingLayout() {
     return (

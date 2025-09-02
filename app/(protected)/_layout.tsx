@@ -28,7 +28,7 @@ export default function ProtectedLayout() {
                     swipeEnabled: false,
                     lazy: true,
                 }}
-                // tabBar={(options) => <TabBar {...options} />}
+                tabBar={(options) => <TabBar {...options} />}
             >
                 <Tabs.Screen
                     name="home"
@@ -39,9 +39,10 @@ export default function ProtectedLayout() {
                 <Tabs.Screen
                     name="shoe-recommendations"
                     options={{
-                        tabBarLabel: isGerman()
-                            ? "Schuhemfpehlungen"
-                            : "Raccomandazioni di scarpe",
+                        tabBarLabel: "Shoes"
+                        // tabBarLabel: isGerman()
+                        //     ? "Schuhemfpehlungen"
+                        //     : "Raccomandazioni di scarpe",
                     }}
                 />
                 <Tabs.Screen

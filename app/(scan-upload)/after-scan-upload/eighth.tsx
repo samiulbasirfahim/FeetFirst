@@ -15,19 +15,21 @@ import {
 } from "react-native";
 
 const optionsDE: string[] = [
-    "Sneaker",
-    "Halbschuhe",
-    "Stiefeletten",
-    "Hausschuhe",
-    "Andere (bitte angeben)",
+    "Nein",
+    "Ja, Rückenschmerzen",
+    "Ja, Hüftprobleme",
+    "Ja, Gelenkschmerzen",
+    "Ja, Wadenprobleme",
+    "Ja, Achilessehnenprobleme",
 ];
 
 const optionsIT: string[] = [
-    "Sneaker",
-    "Scarpe basse",
-    "Stivaletti",
-    "Pantofole",
-    "Altro (specificare)",
+    "NO",
+    "Sì, mal di schiena",
+    "E, Hyftprobleme",
+    "Sì, dolori articolari",
+    "Sì, problemi al polpaccio",
+    "Sì, problemi al tendine d'Achille",
 ];
 
 export default function Screen() {
@@ -54,7 +56,9 @@ export default function Screen() {
             <Layout>
                 <View style={{ flex: 1, paddingBottom: 24 }}>
                     <Typography variant="title" className="text-foreground">
-                        {isGerman() ? "Für Welchen Einsatz?" : "Per quale utilizzo?"}
+                        {isGerman()
+                            ? "Haben Sie sonst noch relevante Schmerzen oder Beschwerden?"
+                            : "Hai altri dolori o fastidi rilevanti?"}
                     </Typography>
 
                     <FlatList
@@ -136,6 +140,7 @@ export default function Screen() {
                                         value={otherValue}
                                         onChangeText={setOtherValue}
                                         blurOnSubmit={false}
+                                        onBlur={() => setShowOtherInput(false)}
                                         onSubmitEditing={() => {
                                             const trimmed = otherValue.trim();
                                             if (trimmed.length > 0) {
@@ -152,13 +157,13 @@ export default function Screen() {
                     />
                 </View>
 
-                <Link asChild href={"/(scan-upload)/after-scan-upload/third"}>
+                <Link asChild href={"/(scan-upload)/after-scan-upload/ninth"}>
                     <Button variant="big">
                         {isGerman() ? "Nächste Frage" : "Prossima domanda"}
                     </Button>
                 </Link>
 
-                <Link asChild href={"/(scan-upload)/after-scan-upload/third"}>
+                <Link asChild href={"/(scan-upload)/after-scan-upload/ninth"}>
                     <Button variant="ghost">
                         {isGerman() ? "Überspringen" : "Saltare"}
                     </Button>
