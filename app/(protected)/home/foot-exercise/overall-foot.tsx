@@ -20,8 +20,8 @@ export default function Screen() {
       <View className="relative -mx-3">
         <Typography className="absolute z-[99] text-3xl font-bold text-white text-center my-4 leading-tight px-3">
           {isGerman()
-            ? "Übungen zur Flexibilitätserhöhung"
-            : "Esercizi per aumentare la flessibilità"}
+            ? "Allgemeine Übungen für die gesamte Fussgesundheit"
+            : "Esercizi generali per la salute generale del piede"}
         </Typography>
         <View className="h-96 w-full my-8">
 
@@ -41,7 +41,7 @@ export default function Screen() {
       </View>
 
       <View className="mt-24">
-        <Typography className="font-bold text-3xl ">
+        <Typography className="font-bold text-3xl">
           {isGerman()
             ? "FeetFirst - Ihr Partner für Fußgesundheit, bietet jetzt die perfekten Fußübungen."
             : "FeetFirst, il tuo partner per la salute dei piedi, ora ti offre gli esercizi perfetti per i piedi."}
@@ -83,7 +83,7 @@ export default function Screen() {
           </Button>
         </View>
 
-        <View className="h-96 w-full my-8">
+        <View className="relative h-96 w-full my-8">
           <LinearGradient
             colors={["rgba(0,0,0,0.1)", "black"]}
             className="absolute inset-0 z-[99] mt-36"

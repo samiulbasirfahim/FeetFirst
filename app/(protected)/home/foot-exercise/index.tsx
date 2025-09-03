@@ -122,6 +122,7 @@ export default function Screen() {
           colors={["transparent", "rgba(98, 160, 123, 0.5)"]}
           className="absolute inset-0 z-[10]"
         />
+        
         <LinearGradient
           // Background Linear Gradient
           colors={["rgba(0,0,0, 0.5)", "transparent"]}
@@ -160,7 +161,8 @@ export default function Screen() {
       </View>
 
       {/* category cards */}
-      <View className="mb-6">
+      <Link href={"/(protected)/home/foot-exercise/strengthen-foot-muscles" as any} asChild>
+      <TouchableOpacity activeOpacity={0.9} className="mb-6">
         <View className="bg-muted-background border-2 border-primary/40 p-6 rounded-3xl relative">
           <Text className="text-white text-lg">
             {isGerman()
@@ -174,7 +176,8 @@ export default function Screen() {
             <Arrow />
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
+      </Link>
 
       <Link href={"/(protected)/home/foot-exercise/flexibility" as any} asChild>
         <TouchableOpacity activeOpacity={0.9} className="mb-6">
@@ -194,7 +197,8 @@ export default function Screen() {
         </TouchableOpacity>
       </Link>
 
-      <View className="mb-6">
+      <Link href={"/(protected)/home/foot-exercise/overall-foot" as any} asChild>
+      <TouchableOpacity activeOpacity={0.9} className="mb-6">
         <View className="bg-muted-background border-2 border-primary/40 p-6 rounded-3xl relative">
           <Text className="text-white text-lg">
             {isGerman()
@@ -208,7 +212,8 @@ export default function Screen() {
             <Arrow />
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
+      </Link>
 
       <View className="relative -mt-6 h-96 w-full">
         <LinearGradient
