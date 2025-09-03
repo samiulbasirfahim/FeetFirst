@@ -17,14 +17,14 @@ type Props = {
 export function Input({ Icon, className, ...props }: Props) {
   const clsname = Icon ? "ms-3 ps-3 border-s-2 border-muted-foreground" : "";
   return (
-    <View className="bg-muted-background w-full rounded-xl flex-row px-4 py-4 items-center relative">
+    <View className="bg-muted-background w-full rounded-xl flex-row px-4 items-center relative">
       {Icon && <Icon />}
       <TextInput
         {...props}
         className={twMerge(
           clsname,
-          "h-full flex-1 py-[0] text-foreground placeholder:text-muted-foreground text-base",
-          className
+          "h-full flex-1 py-4 text-foreground placeholder:text-muted-foreground text-base",
+          className,
         )}
         placeholderTextColor="#585C5B"
       />
@@ -41,7 +41,7 @@ export function InputPassword({ Icon, className, ...props }: Props) {
         {...props}
         className={twMerge(
           "h-full flex-1 py-[0] ms-3 ps-3 border-s-2 border-muted-foreground text-foreground placeholder:text-muted-foreground text-base",
-          className
+          className,
         )}
         placeholderTextColor="#585C5B"
         secureTextEntry={showPassword}

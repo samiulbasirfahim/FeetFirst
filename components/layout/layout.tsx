@@ -1,11 +1,11 @@
 import { ReactNode } from "react";
-import { Keyboard, TouchableWithoutFeedback } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import {
   SafeAreaView,
   SafeAreaViewProps,
 } from "react-native-safe-area-context";
 import { twMerge } from "tailwind-merge";
+import { usePathname } from "expo-router";
 
 type Props = {
   children: ReactNode;
@@ -13,14 +13,18 @@ type Props = {
   scrollable?: boolean;
   noPadding?: boolean;
 } & SafeAreaViewProps;
+
 export function Layout({
   scrollable = false,
   children,
   edges = [],
   className,
-  noPadding,
+  noPadding = false,
   ...props
 }: Props) {
+  const pathname = usePathname();
+  const isProtectedRoute = pathname.includes("(protected)");
+
   return (
     <>
       {scrollable ? (
@@ -32,7 +36,7 @@ export function Layout({
           <ScrollView
             contentContainerStyle={{
               flexGrow: 1,
-              paddingBottom: 140,
+              paddingBottom: isProtectedRoute ? 140 : 0,
             }}
             showsVerticalScrollIndicator={false}
             style={{
@@ -58,8 +62,8 @@ export function Layout({
               : noPadding
                 ? 0
                 : 12,
-            paddingHorizontal: noPadding ? 0 : 24,
-            paddingBottom: 24 + 140,
+            paddingHorizontal: noPadding ? 0 : 12,
+            paddingBottom: noPadding ? 0 : isProtectedRoute ? 24 + 140 : 24,
           }}
           className={twMerge("flex-1 bg-background", className)}
           {...props}
@@ -68,6 +72,5 @@ export function Layout({
         </SafeAreaView>
       )}
     </>
-    // </TouchableWithoutFeedback>
   );
 }
