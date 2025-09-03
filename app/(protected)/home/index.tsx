@@ -35,14 +35,7 @@ export default function Screen() {
         }}
       />
 
-
-      <Layout
-        edges={[]}
-        className="bg-backgroundDark"
-        style={{ paddingHorizontal: 0 }}
-        scrollable
-        noPadding
-      >
+      <Layout edges={[]} className="bg-backgroundDark" scrollable noPadding>
         <View
           className="bg-background px-3 pt-7 pb-7 rounded-b-[30px] mb-7"
           style={{
