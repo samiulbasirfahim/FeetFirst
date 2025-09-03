@@ -7,7 +7,7 @@ import { Typography } from "../ui/typography";
 
 export function VersionInfo(){
     const version: string = "10.12.0";
-    return <View className="flex-row items-center justify-between">
+    return <View className="flex-row items-center justify-between my-8 mx-6">
                 <Typography variant="caption">FEETFIRST {version}</Typography>
 
                 <View className="flex-row items-center gap-2">
