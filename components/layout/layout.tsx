@@ -36,7 +36,7 @@ export function Layout({
             style={{
               flex: 1,
               paddingTop: edges.toString().includes("top") ? 0 : 24,
-              paddingHorizontal: 24,
+              paddingHorizontal: 12,
               paddingBottom: 24,
             }}
           >
