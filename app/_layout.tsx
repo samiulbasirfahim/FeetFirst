@@ -1,10 +1,10 @@
-import { useAuthStore } from "@/store/auth";
-import { Stack, useRouter, useSegments } from "expo-router";
-import { StatusBar } from "expo-status-bar";
-import { useEffect, useState } from "react";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { Host } from "react-native-portalize";
-import "./global.css";
+import { useAuthStore } from '@/store/auth';
+import { Stack, useRouter, useSegments } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
+import { useEffect, useState } from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Host } from 'react-native-portalize';
+import './global.css';
 
 export default function RootLayout() {
   const { user, onboarding_complete, setUser } = useAuthStore();
@@ -14,7 +14,7 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (isReady) {
-      router.replace("/(public)");
+      router.replace('/(protected)/home');
       // const inProtectedRoute = segments[0] === "(public)";
       // if (!user) {
       //     router.replace("/(public)");
@@ -31,8 +31,8 @@ export default function RootLayout() {
   useEffect(() => {
     (async () => {
       setUser({
-        email: "",
-        full_name: "",
+        email: '',
+        full_name: '',
         verified: true,
       });
 

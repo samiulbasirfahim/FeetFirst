@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { Dimensions, StyleSheet, Image, Text, View } from "react-native";
-import Carousel from "react-native-reanimated-carousel";
-import { useLanguageStore } from "@/store/language";
-import { Button } from "@/components/ui/button";
+import React, { useState } from 'react';
+import { Dimensions, StyleSheet, Image, Text, View } from 'react-native';
+import Carousel from 'react-native-reanimated-carousel';
+import { useLanguageStore } from '@/store/language';
+import { Button } from '@/components/ui/button';
 
-const { width } = Dimensions.get("window");
+const { width } = Dimensions.get('window');
 
 export default function ProductCarousel() {
   const { isGerman } = useLanguageStore();
@@ -12,16 +12,40 @@ export default function ProductCarousel() {
 
   // Products with individual images
   const data = [
-    { id: 1, title: "Product 1", image: require("@/assets/images/product.png") },
-    { id: 2, title: "Product 2", image: require("@/assets/images/product.png") },
-    { id: 3, title: "Product 3", image: require("@/assets/images/product.png") },
-    { id: 4, title: "Product 4", image: require("@/assets/images/product.png") },
-    { id: 5, title: "Product 5", image: require("@/assets/images/product.png") },
-    { id: 6, title: "Product 6", image: require("@/assets/images/product.png") },
+    {
+      id: 1,
+      title: 'Product 1',
+      image: require('@/assets/images/product.png'),
+    },
+    {
+      id: 2,
+      title: 'Product 2',
+      image: require('@/assets/images/product.png'),
+    },
+    {
+      id: 3,
+      title: 'Product 3',
+      image: require('@/assets/images/product.png'),
+    },
+    {
+      id: 4,
+      title: 'Product 4',
+      image: require('@/assets/images/product.png'),
+    },
+    {
+      id: 5,
+      title: 'Product 5',
+      image: require('@/assets/images/product.png'),
+    },
+    {
+      id: 6,
+      title: 'Product 6',
+      image: require('@/assets/images/product.png'),
+    },
   ];
 
   // Group products into pairs for each carousel page
-  const groupedData: Array<typeof data> = [];
+  const groupedData: (typeof data)[] = [];
   for (let i = 0; i < data.length; i += 2) {
     groupedData.push(data.slice(i, i + 2));
   }
@@ -36,8 +60,8 @@ export default function ProductCarousel() {
       <View>
         <Text className="text-white p-4">
           {isGerman()
-            ? "TOGU FLEXVIT Mini Fitnessband"
-            : "Mini fascia fitness TOGU FLEXVIT"}
+            ? 'TOGU FLEXVIT Mini Fitnessband'
+            : 'Mini fascia fitness TOGU FLEXVIT'}
         </Text>
         <Image source={item.image} resizeMode="cover" className="w-full h-20" />
       </View>
@@ -57,7 +81,7 @@ export default function ProductCarousel() {
   const renderPage = ({
     item,
   }: {
-    item: Array<{ id: number; title: string; image: any }>;
+    item: { id: number; title: string; image: any }[];
   }) => (
     <View className="flex-row px-2" style={{ width }}>
       {item.map((product) => renderCard(product))}
@@ -100,16 +124,16 @@ export default function ProductCarousel() {
 
 const styles = StyleSheet.create({
   cardShadow: {
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOpacity: 0.15,
     shadowRadius: 5,
     shadowOffset: { width: 0, height: 3 },
     elevation: 4, // Android shadow
   },
   paginationContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingTop: 20,
     paddingBottom: 10,
   },
@@ -118,10 +142,10 @@ const styles = StyleSheet.create({
     height: 8,
     borderRadius: 4,
     marginHorizontal: 4,
-    backgroundColor: "rgba(255, 255, 255, 0.3)",
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
   },
   paginationActiveDot: {
-    backgroundColor: "#62A07B",
+    backgroundColor: '#62A07B',
     width: 12,
     height: 12,
     borderRadius: 6,
