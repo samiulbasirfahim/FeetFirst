@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Host } from "react-native-portalize";
 import "./global.css";
+import { KeyboardProvider } from "react-native-keyboard-controller";
 
 export default function RootLayout() {
   const { user, onboarding_complete, setUser } = useAuthStore();
@@ -15,6 +16,7 @@ export default function RootLayout() {
   useEffect(() => {
     if (isReady) {
       router.replace("/(protected)/home/foot-exercise/strengthen-foot-muscles");
+
       // const inProtectedRoute = segments[0] === "(public)";
       // if (!user) {
       //     router.replace("/(public)");
@@ -41,15 +43,17 @@ export default function RootLayout() {
   }, []);
 
   return (
-    <GestureHandlerRootView
-      style={{
-        flex: 1,
-      }}
-    >
-      <Host>
-        <StatusBar style="light" />
-        <Stack screenOptions={{ headerShown: false }} />
-      </Host>
-    </GestureHandlerRootView>
+    <KeyboardProvider>
+      <GestureHandlerRootView
+        style={{
+          flex: 1,
+        }}
+      >
+        <Host>
+          <StatusBar style="light" />
+          <Stack screenOptions={{ headerShown: false }} />
+        </Host>
+      </GestureHandlerRootView>
+    </KeyboardProvider>
   );
 }

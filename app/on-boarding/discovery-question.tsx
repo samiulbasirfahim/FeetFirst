@@ -50,7 +50,7 @@ export default function Screen() {
     if (showOtherInput && Platform.OS === "android") {
       const timer = setTimeout(() => {
         input_ref.current?.focus();
-      }, 100);
+      }, 400);
 
       return () => clearTimeout(timer);
     } else if (showOtherInput) {

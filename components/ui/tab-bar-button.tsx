@@ -31,15 +31,27 @@ export function TabButton({
         switch (routeName) {
             case "home":
                 return (
-                    <HOME height={30} width={30} fill={isFocused ? "#ffffff" : "#00000000"} />
+                    <HOME
+                        height={20}
+                        width={20}
+                        fill={isFocused ? "#ffffff" : "#00000000"}
+                    />
                 );
             case "shoe-recommendations":
                 return (
-                    <SHOE height={36} width={34} fill={isFocused ? "#ffffff" : "#00000000"} />
+                    <SHOE
+                        height={24}
+                        width={22}
+                        fill={isFocused ? "#ffffff" : "#00000000"}
+                    />
                 );
             case "profile":
                 return (
-                    <PROFILE height={30} width={30} fill={isFocused ? "#ffffff" : "#00000000"} />
+                    <PROFILE
+                        height={20}
+                        width={20}
+                        fill={isFocused ? "#ffffff" : "#00000000"}
+                    />
                 );
             default:
                 return null;
@@ -48,23 +60,17 @@ export function TabButton({
 
     return (
         <Link href={href as any} asChild>
-            <Animated.View
-                layout={LinearTransition.duration(150)}
-            >
+            <Animated.View>
                 <Pressable
                     accessibilityState={isFocused ? { selected: true } : {}}
                     accessibilityLabel={accessibilityLabel}
                     testID={testID}
                     onPress={onPress}
                     onLongPress={onLongPress}
-                    className={`flex-row items-center gap-2 p-3 rounded-full justify-center ${isFocused ? 'bg-primary' : 'bg-muted-background/40'}`}
+                    className={`flex-row items-center gap-2 p-2 rounded-full justify-center ${isFocused ? "bg-primary" : "bg-muted-background/40"}`}
                 >
                     {renderIcon()}
-                    {isFocused && (
-                        <Typography className="text-white">
-                            {label}
-                        </Typography>
-                    )}
+                    {isFocused && <Typography className="text-white">{label}</Typography>}
                 </Pressable>
             </Animated.View>
         </Link>
