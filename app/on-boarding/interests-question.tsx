@@ -4,7 +4,7 @@ import CheckBox from "@/components/ui/checkbox";
 import { Typography } from "@/components/ui/typography";
 import { useLanguageStore } from "@/store/language";
 import { Link } from "expo-router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   FlatList,
   Keyboard,
@@ -47,6 +47,19 @@ export default function Screen() {
   const [customOptions, setCustomOptions] = useState<string[]>([]);
   const [showOtherInput, setShowOtherInput] = useState(false);
   const [otherValue, setOtherValue] = useState("");
+  const input_ref = useRef<TextInput>(null);
+
+  useEffect(() => {
+    if (showOtherInput && Platform.OS === "android") {
+      const timer = setTimeout(() => {
+        input_ref.current?.focus();
+      }, 400);
+
+      return () => clearTimeout(timer);
+    } else if (showOtherInput) {
+      input_ref.current?.focus();
+    }
+  }, [showOtherInput]);
 
   function toggleCheck(value: string) {
     if (checkedValues.includes(value)) {
@@ -137,6 +150,7 @@ export default function Screen() {
                     </Pressable>
                   ) : (
                     <TextInput
+                      ref={input_ref}
                       autoFocus
                       placeholder={
                         isGerman() ? "Bitte angeben..." : "Specifica qui..."

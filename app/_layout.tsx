@@ -14,7 +14,7 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (isReady) {
-      router.replace("/(public)");
+      router.replace("/(scan-upload)/while-scan-upload");
       // const inProtectedRoute = segments[0] === "(public)";
       // if (!user) {
       //     router.replace("/(public)");
