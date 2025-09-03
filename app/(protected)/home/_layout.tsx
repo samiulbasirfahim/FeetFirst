@@ -33,8 +33,8 @@ export default function TabLayout() {
                         <View>
                             <Image
                                 source={require("@/assets/images/logo-icon.png")}
-                                height={50}
-                                width={50}
+                                height={80}
+                                width={80}
                                 style={{
                                     height: 50,
                                     width: 50,

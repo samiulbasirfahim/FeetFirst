@@ -22,8 +22,6 @@ export function Layout({
   ...props
 }: Props) {
   return (
-    // <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-
     <>
       {scrollable ? (
         <SafeAreaView

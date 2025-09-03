@@ -14,7 +14,6 @@ import { BlurView } from "expo-blur";
 import { TextInput, useWindowDimensions, View } from "react-native";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { useHeaderHeight } from "@react-navigation/elements";
 
 export default function Screen() {
     const { isGerman } = useLanguageStore();

@@ -12,11 +12,8 @@ import ManAboutTORun from "@/assets/images/man-about-to-run.png";
 import {
   Image,
   View,
-  ScrollView,
   Text,
   useWindowDimensions,
-  Dimensions,
-  Pressable,
   TouchableOpacity,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
@@ -185,7 +182,7 @@ export default function Screen() {
         </View>
       </View>
 
-      <Link href={"/(protected)/home/foot-exercise/flexibility"} asChild>
+      <Link href={"/(protected)/home/foot-exercise/flexibility" as any} asChild>
         <TouchableOpacity activeOpacity={0.9} className="mb-6">
           <View className="bg-muted-background p-6 border-2 border-primary/40 rounded-3xl relative">
             <Text className="text-white w-2/3 text-lg">
