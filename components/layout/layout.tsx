@@ -11,16 +11,20 @@ type Props = {
   children: ReactNode;
   edges?: SafeAreaViewProps["edges"];
   scrollable?: boolean;
+  noPadding?: boolean;
 } & SafeAreaViewProps;
 export function Layout({
   scrollable = false,
   children,
   edges = [],
   className,
+  noPadding,
   ...props
 }: Props) {
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    // <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+
+    <>
       {scrollable ? (
         <SafeAreaView
           edges={edges}
@@ -35,9 +39,13 @@ export function Layout({
             showsVerticalScrollIndicator={false}
             style={{
               flex: 1,
-              paddingTop: edges.toString().includes("top") ? 0 : 24,
-              paddingHorizontal: 24,
-              paddingBottom: 24,
+              paddingTop: edges.toString().includes("top")
+                ? 0
+                : noPadding
+                  ? 0
+                  : 24,
+              paddingHorizontal: noPadding ? 0 : 12,
+              paddingBottom: noPadding ? 0 : 24,
             }}
           >
             {children}
@@ -47,8 +55,12 @@ export function Layout({
         <SafeAreaView
           edges={edges}
           style={{
-            paddingTop: edges.toString().includes("top") ? 0 : 24,
-            paddingHorizontal: 24,
+            paddingTop: edges.toString().includes("top")
+              ? 0
+              : noPadding
+                ? 0
+                : 12,
+            paddingHorizontal: noPadding ? 0 : 24,
             paddingBottom: 24 + 140,
           }}
           className={twMerge("flex-1 bg-background", className)}
@@ -57,6 +69,7 @@ export function Layout({
           {children}
         </SafeAreaView>
       )}
-    </TouchableWithoutFeedback>
+    </>
+    // </TouchableWithoutFeedback>
   );
 }
