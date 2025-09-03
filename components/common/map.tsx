@@ -200,7 +200,7 @@ export default function Map() {
   return (
     <View
       className="relative rounded-b-3xl overflow-hidden"
-      style={{ width: "100%", height: (height / 100) * 70 }}
+      style={{ width: "100%", height: (height / 100) * 60 }}
     >
       {
         <MapView
