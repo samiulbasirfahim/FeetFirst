@@ -17,6 +17,7 @@ import { usePathname } from "expo-router";
 type TProps = KeyboardAvoidingViewProps & {
   children: ReactNode;
   noPadding?: boolean;
+  skipTabBar?: boolean;
   edges?: SafeAreaViewProps["edges"];
 };
 
@@ -25,6 +26,7 @@ export function KeyboardAvoidingLayout({
   className,
   children,
   noPadding = false,
+
   ...props
 }: TProps) {
   const pathname = usePathname();
@@ -32,7 +34,7 @@ export function KeyboardAvoidingLayout({
 
   return (
     <SafeAreaView edges={edges} className="flex-1 bg-background">
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <KeyboardAvoidingView
           className={twMerge("flex-1 bg-background", className)}
           behavior={Platform.OS === "ios" ? "padding" : "padding"}
@@ -47,11 +49,7 @@ export function KeyboardAvoidingLayout({
             contentContainerStyle={{
               flexGrow: 1,
               padding: noPadding ? 0 : 12,
-              paddingBottom: noPadding
-                ? 0
-                : isProtectedRoute
-                  ? 164 
-                  : 24,
+              paddingBottom: noPadding ? 0 : isProtectedRoute ? 164 : 24,
               gap: 16,
               alignItems: "center",
             }}

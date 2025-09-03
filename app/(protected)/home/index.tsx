@@ -35,7 +35,14 @@ export default function Screen() {
         }}
       />
 
-      <Layout edges={[]} className="bg-backgroundDark" noPadding scrollable>
+
+      <Layout
+        edges={[]}
+        className="bg-backgroundDark"
+        style={{ paddingHorizontal: 0 }}
+        scrollable
+        noPadding
+      >
         <View
           className="bg-background px-3 pt-7 pb-7 rounded-b-[30px] mb-7"
           style={{
@@ -45,13 +52,13 @@ export default function Screen() {
           <View className="mb-3">
             <Typography
               variant="title"
-              className="font-medium text-[#C3C3C3] text-[30px]"
+              className="font-medium text-foreground text-[30px]"
             >
               {isGerman() ? 'Willkommen' : 'Benvenuto'}
             </Typography>
             <Typography
               variant="title"
-              className="font-medium text-[#C3C3C3] text-[30px]"
+              className="font-medium text-foreground text-[30px]"
             >
               Jhon!
             </Typography>
@@ -87,7 +94,7 @@ export default function Screen() {
           <View
             className="absolute"
             style={{
-              top: height - 20,
+              top: height - 10,
             }}
             pointerEvents="none"
           >
