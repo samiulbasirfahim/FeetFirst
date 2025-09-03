@@ -23,6 +23,7 @@ import { VersionInfo } from "@/components/common/version";
 import { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import { Link } from "expo-router";
+import { useHeaderHeight } from "@react-navigation/elements";
 
 const translations = {
   german: {
@@ -90,15 +91,7 @@ const translations = {
 };
 
 export default function Screen() {
-  const [imageHeight, setImageHeight] = useState(250); // fallback height
-  const { width: screenWidth } = useWindowDimensions();
-
-  useEffect(() => {
-    // Get image dimensions
-    const source = Image.resolveAssetSource(ManAboutTORun);
-    setImageHeight(source.height);
-  }, []);
-
+  const header_height = useHeaderHeight();
   const { width } = useWindowDimensions();
 
   const { isGerman } = useLanguageStore();
@@ -119,6 +112,7 @@ export default function Screen() {
 
   return (
     <Layout className="bg-backgroundDark" scrollable>
+      <View style={{ height: header_height }}></View>
       <Typography className="text-3xl font-bold text-white text-center my-4 leading-tight">
         {t.title}
       </Typography>
@@ -250,21 +244,21 @@ export default function Screen() {
           isGerman()
             ? "Verbesserter Gleichgewichtssinn und mehr Stabilität"
             : "Miglioramento dell'equilibrio e maggiore stabilità",
-          Infinity
+          Infinity,
         )}
         {renderVorteile(
           isGerman() ? "Erhöhte Flexibilität" : "Maggiore flessibilità",
-          Bones
+          Bones,
         )}
         {renderVorteile(
           isGerman() ? "Bessere Durchblutung" : "Migliore circolazione",
-          Refresh
+          Refresh,
         )}
         {renderVorteile(
           isGerman()
             ? "Reduzierte Fußschmerzen"
             : "Riduzione del dolore ai piedi",
-          Meditation
+          Meditation,
         )}
       </View>
 

@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
 export default function Screen() {
+
     const { isGerman } = useLanguageStore();
     const { width } = useWindowDimensions();
     const [scanner_height, setScannerHeight] = useState(0);

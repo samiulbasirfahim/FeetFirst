@@ -8,11 +8,14 @@ import MyCarousel from "@/components/ui/MyCarousel";
 import { VersionInfo } from "@/components/common/version";
 import ManAboutTORun from "@/assets/images/man-about-to-run.png";
 import { LinearGradient } from "expo-linear-gradient";
+import { useHeaderHeight } from "@react-navigation/elements";
 
 export default function Screen() {
+  const header_height = useHeaderHeight();
   const { isGerman } = useLanguageStore();
   return (
     <Layout scrollable className="bg-backgroundDark">
+      <View style={{ height: header_height }}></View>
       {/* header */}
       <View className="relative -mx-3">
         <Typography className="absolute z-[99] text-3xl font-bold text-white text-center my-4 leading-tight px-3">
@@ -25,11 +28,7 @@ export default function Screen() {
             colors={["rgba(0,0,0,0.1)", "black"]}
             className="absolute inset-0 z-[99] mt-36"
           />
-          <Image
-            source={woman}
-            className="w-full h-full"
-            resizeMode="cover"
-          />
+          <Image source={woman} className="w-full h-full" resizeMode="cover" />
         </View>
       </View>
 
