@@ -15,7 +15,8 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (isReady) {
-      router.replace("/(protected)/home");
+      router.replace("/(protected)/home/foot-exercise/strengthen-foot-muscles");
+
       // const inProtectedRoute = segments[0] === "(public)";
       // if (!user) {
       //     router.replace("/(public)");
