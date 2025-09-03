@@ -57,7 +57,7 @@ export function TabButton({
                     testID={testID}
                     onPress={onPress}
                     onLongPress={onLongPress}
-                    className={`py-4 flex-row items-center gap-2 p-4 rounded-full justify-center ${isFocused ? 'bg-primary' : 'bg-muted-background/60'}`}
+                    className={`flex-row items-center gap-2 p-3 rounded-full justify-center ${isFocused ? 'bg-primary' : 'bg-muted-background/40'}`}
                 >
                     {renderIcon()}
                     {isFocused && (

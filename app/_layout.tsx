@@ -10,7 +10,6 @@ export default function RootLayout() {
   const { user, onboarding_complete, setUser } = useAuthStore();
   const router = useRouter();
   const segments = useSegments();
-
   const [isReady, setIsReady] = useState<boolean>(false);
 
   useEffect(() => {

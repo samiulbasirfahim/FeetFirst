@@ -15,6 +15,7 @@ export default function TabLayout() {
                 drawerStyle: {
                     backgroundColor: "transparent",
                 },
+                headerTransparent: true,
                 headerLeft: (props) => {
                     return (
                         <Button
@@ -27,9 +28,6 @@ export default function TabLayout() {
                     );
                 },
                 headerTitleAlign: "center",
-                headerStyle: {
-                    backgroundColor: "#0D0D0D",
-                },
                 headerTitle() {
                     return (
                         <View>
@@ -45,6 +43,7 @@ export default function TabLayout() {
                         </View>
                     );
                 },
+                
             })}
         >
             <Drawer.Screen name="index" />
