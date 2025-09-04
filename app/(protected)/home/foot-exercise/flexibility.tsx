@@ -1,7 +1,7 @@
 import { Layout } from "@/components/layout/layout";
 import { Typography } from "@/components/ui/typography";
 import { useLanguageStore } from "@/store/language";
-import { Image, Text, View } from "react-native";
+import { Image, Text, useWindowDimensions, View } from "react-native";
 import woman from "@/assets/images/woman-upside-down.png";
 import { Button } from "@/components/ui/button";
 import MyCarousel from "@/components/ui/MyCarousel";
@@ -11,6 +11,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useHeaderHeight } from "@react-navigation/elements";
 
 export default function Screen() {
+  const { height } = useWindowDimensions();
   const header_height = useHeaderHeight();
   const { isGerman } = useLanguageStore();
   return (
@@ -23,24 +24,35 @@ export default function Screen() {
             ? "Übungen zur Flexibilitätserhöhung"
             : "Esercizi per aumentare la flessibilità"}
         </Typography>
-        <View className="h-96 w-full my-8">
-
+        <View
+          className="w-full my-8"
+          style={{
+            height: height * 0.5,
+          }}
+        >
           <LinearGradient
-            colors={["rgba(0,0,0,0)", "rgba(0,0,0,1)"]}
+            colors={["rgba(13,13,13,0.5)", "rgba(13,13,13,1)"]}
             start={{ x: 0, y: 1 }}
             end={{ x: 0, y: 0 }}
-            className="absolute inset-0 z-[10] mb-16"
+            className="absolute inset-0 z-[10]"
           />
 
-          <Image
-            source={woman}
-            className="w-full h-full mt-20"
-            resizeMode="cover"
+          <LinearGradient
+            colors={["transparent", "rgba(98, 160, 123, 0.3)"]}
+            className="absolute inset-0 z-[10]"
           />
+
+          <View className="overflow-hidden flex-1">
+            <Image
+              source={woman}
+              className="w-[80%] h-[80%] absolute bottom-0"
+              resizeMode="cover"
+            />
+          </View>
         </View>
       </View>
 
-      <View className="mt-24">
+      <View className="mt-12">
         <Typography className="font-bold text-3xl ">
           {isGerman()
             ? "FeetFirst - Ihr Partner für Fußgesundheit, bietet jetzt die perfekten Fußübungen."

@@ -9,6 +9,7 @@ import {
 import { twMerge } from "tailwind-merge";
 
 type Props = {
+  stickyIndex?: number[];
   children: ReactNode;
   edges?: SafeAreaViewProps["edges"];
   scrollable?: boolean;
@@ -19,6 +20,7 @@ type Props = {
 
 export function Layout({
   scrollable = false,
+  stickyIndex = [],
   children,
   edges = [],
   className,
@@ -41,6 +43,7 @@ export function Layout({
                 flexGrow: 1,
                 paddingBottom: 0,
               }}
+              stickyHeaderIndices={stickyIndex}
               showsVerticalScrollIndicator={false}
               style={{
                 flex: 1,
@@ -63,6 +66,7 @@ export function Layout({
                 flexGrow: 1,
                 paddingBottom: avoidTabbar ? 100 : 0,
               }}
+              stickyHeaderIndices={stickyIndex}
               showsVerticalScrollIndicator={false}
               style={{
                 flex: 1,
@@ -89,7 +93,13 @@ export function Layout({
                 ? 0
                 : 12,
             paddingHorizontal: noPadding ? 0 : 12,
-            paddingBottom: noPadding ? 0 : avoidTabbar ? 24 + 100 : 24,
+            paddingBottom: avoidTabbar
+              ? noPadding
+                ? 0
+                : 24 + 100
+              : noPadding
+                ? 0
+                : 24,
           }}
           className={twMerge("flex-1 bg-background", className)}
           {...props}

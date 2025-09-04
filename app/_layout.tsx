@@ -8,52 +8,52 @@ import './global.css';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
 
 export default function RootLayout() {
-  const { user, onboarding_complete, setUser } = useAuthStore();
-  const router = useRouter();
-  const segments = useSegments();
-  const [isReady, setIsReady] = useState<boolean>(false);
+    const { user, onboarding_complete, setUser } = useAuthStore();
+    const router = useRouter();
+    const segments = useSegments();
+    const [isReady, setIsReady] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (isReady) {
-      router.replace("/(protected)/home/skifinder");
+    useEffect(() => {
+        if (isReady) {
+            router.replace("/(protected)/home");
 
-      // const inProtectedRoute = segments[0] === "(public)";
-      // if (!user) {
-      //     router.replace("/(public)");
-      // } else if (!user.verified) {
-      //     router.replace("/(public)/register/otp-authenticattion");
-      // } else if (!onboarding_complete) {
-      //     router.replace("/on-boarding");
-      // } else if (!inProtectedRoute) {
-      //     router.replace("/(protected)");
-      // }
-    }
-  }, [isReady]);
+            // const inProtectedRoute = segments[0] === "(public)";
+            // if (!user) {
+            //     router.replace("/(public)");
+            // } else if (!user.verified) {
+            //     router.replace("/(public)/register/otp-authenticattion");
+            // } else if (!onboarding_complete) {
+            //     router.replace("/on-boarding");
+            // } else if (!inProtectedRoute) {
+            //     router.replace("/(protected)");
+            // }
+        }
+    }, [isReady]);
 
-  useEffect(() => {
-    (async () => {
-      setUser({
-        email: '',
-        full_name: '',
-        verified: true,
-      });
+    useEffect(() => {
+        (async () => {
+            setUser({
+                email: '',
+                full_name: '',
+                verified: true,
+            });
 
-      setIsReady(true);
-    })();
-  }, []);
+            setIsReady(true);
+        })();
+    }, []);
 
-  return (
-    <KeyboardProvider>
-      <GestureHandlerRootView
-        style={{
-          flex: 1,
-        }}
-      >
-        <Host>
-          <StatusBar style="light" />
-          <Stack screenOptions={{ headerShown: false }} />
-        </Host>
-      </GestureHandlerRootView>
-    </KeyboardProvider>
-  );
+    return (
+        <KeyboardProvider>
+            <GestureHandlerRootView
+                style={{
+                    flex: 1,
+                }}
+            >
+                <Host>
+                    <StatusBar style="light" />
+                    <Stack screenOptions={{ headerShown: false }} />
+                </Host>
+            </GestureHandlerRootView>
+        </KeyboardProvider>
+    );
 }
