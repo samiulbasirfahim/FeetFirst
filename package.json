@@ -11,6 +11,7 @@
     "lint": "expo lint"
   },
   "dependencies": {
+    "@animatereactnative/marquee": "^0.5.2",
     "@donkasun/react-native-outlined-text": "^1.0.2",
     "@expo/vector-icons": "^14.1.0",
     "@react-native-community/datetimepicker": "8.4.1",

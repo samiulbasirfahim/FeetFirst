@@ -58,5 +58,10 @@ export default {
     experiments: {
       typedRoutes: true,
     },
+    extra: {
+      eas: {
+        projectId: "952f0178-820c-4208-b67e-4780c50ce38d",
+      },
+    },
   },
 };
