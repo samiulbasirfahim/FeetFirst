@@ -1,6 +1,13 @@
 import { Layout } from "@/components/layout/layout";
 import { Typography } from "@/components/ui/typography";
-import { Dimensions, Image, Text, TouchableOpacity, View } from "react-native";
+import {
+  Dimensions,
+  Image,
+  Text,
+  TouchableOpacity,
+  useWindowDimensions,
+  View,
+} from "react-native";
 import skifinder from "@/assets/images/skifinder.png";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { LinearGradient } from "expo-linear-gradient";
@@ -17,7 +24,7 @@ import Carousel from "react-native-reanimated-carousel";
 import { useSharedValue } from "react-native-reanimated";
 import Arrow from "@/assets/svgs/arrow-exercise.svg";
 import { VersionInfo } from "@/components/common/version";
-import Map from "@/components/common/map";
+import { Map } from "@/components/common/mapview";
 
 const shoes: ShoeItem[] = [
   {
@@ -59,26 +66,28 @@ const shoes: ShoeItem[] = [
 
 export default function Screen() {
   const { isGerman } = useLanguageStore();
+  const { height } = useWindowDimensions();
 
   const { width } = Dimensions.get("window");
   const progress = useSharedValue<number>(0);
 
   const renderItem = ({ item }: { item: ShoeItem }) => (
-    <View 
+    <View
       className="flex bg-background p-6 border-primary/30 border rounded-2xl w-[76%] h-[530px] relative"
       accessible={true}
-      accessibilityLabel={`${item.itemName || 'Shoe item'} for $${item.price || '850.99'}`}
+      accessibilityLabel={`${item.itemName || "Shoe item"} for $${item.price || "850.99"}`}
     >
       {/* Header Section */}
       <View className="mb-4">
         <Typography className="text-3xl font-medium text-right">
-          {item.itemName || "Find your snowboard boot – perfectly matched for you."}
+          {item.itemName ||
+            "Find your snowboard boot – perfectly matched for you."}
         </Typography>
         <Text className="text-primary text-right text-3xl mt-4">
           ${item.price || "850.99"}
         </Text>
       </View>
-  
+
       {/* Image Container */}
       <View className="h-40 w-full items-center justify-center mt-4 mb-4">
         <Image
@@ -91,22 +100,24 @@ export default function Screen() {
           accessibilityLabel={item.itemName || "Product image"}
         />
       </View>
-  
+
       {/* Brand Logo - Positioned relative to image container */}
       <View className="absolute top-[200px] left-7">
-        <item.brandLogo 
-          height={50} 
-          width={100} 
+        <item.brandLogo
+          height={50}
+          width={100}
           accessible={true}
-          accessibilityLabel={`${item.brandName || 'Brand'} logo`}
+          accessibilityLabel={`${item.brandName || "Brand"} logo`}
         />
       </View>
-  
+
       {/* Arrow Button - Better positioned */}
       <View className="absolute bottom-6 right-6">
-        <TouchableOpacity 
+        <TouchableOpacity
           className="p-3 border border-primary rounded-2xl bg-background"
-          onPress={() => {/* Handle item selection */}}
+          onPress={() => {
+            /* Handle item selection */
+          }}
           accessible={true}
           accessibilityLabel="Select this item"
           accessibilityRole="button"
@@ -190,6 +201,9 @@ export default function Screen() {
       <View className="my-18">
         <Carousel
           autoPlayInterval={2000}
+          // panGestureHandlerProps={{
+          //   activeOffsetX: [-10, 10],
+          // }}
           data={shoes}
           loop={true}
           pagingEnabled={true}
@@ -209,14 +223,17 @@ export default function Screen() {
           renderItem={renderItem}
         />
       </View>
-        
-      {/* map */}
-      <View>
+
+      <View
+        style={{
+          height: height * 0.5,
+        }}
+      >
         <Map />
       </View>
 
       <View>
-      <LinearGradient
+        <LinearGradient
           colors={["rgba(0,0,0,0.3)", "rgba(0,0,0,0.0)"]}
           className="absolute inset-0 z-[99]"
         />
