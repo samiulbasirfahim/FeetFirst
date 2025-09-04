@@ -1,5 +1,5 @@
 import EDIT from "@/assets/svgs/edit.svg";
-import GLOBAL from "@/assets/svgs/global.svg";
+import GLOBAL from "@/assets/svgs/global_white.svg";
 import PROFILE from "@/assets/svgs/profile-circle.svg";
 import TRIANGLE from "@/assets/svgs/triangle.svg";
 import { VersionInfo } from "@/components/common/version";
@@ -74,7 +74,11 @@ export default function Screen() {
           </Typography>
         </Button>
 
-        <Button noWrap variant={"profile_menu"} onPress={() => {}}>
+        <Button
+          noWrap
+          variant={"profile_menu"}
+          onPress={() => router.push("/(protected)/profile/sustainability")}
+        >
           <TRIANGLE />
           <Typography className="text-xl text-primary">
             {isGerman() ? "Nachhaltigkeit" : "Sostenibilità"}

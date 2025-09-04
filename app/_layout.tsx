@@ -1,11 +1,11 @@
-import { useAuthStore } from "@/store/auth";
-import { Stack, useRouter, useSegments } from "expo-router";
-import { StatusBar } from "expo-status-bar";
-import { useEffect, useState } from "react";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { Host } from "react-native-portalize";
-import "./global.css";
-import { KeyboardProvider } from "react-native-keyboard-controller";
+import { useAuthStore } from '@/store/auth';
+import { Stack, useRouter, useSegments } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
+import { useEffect, useState } from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Host } from 'react-native-portalize';
+import './global.css';
+import { KeyboardProvider } from 'react-native-keyboard-controller';
 
 export default function RootLayout() {
   const { user, onboarding_complete, setUser } = useAuthStore();
@@ -33,8 +33,8 @@ export default function RootLayout() {
   useEffect(() => {
     (async () => {
       setUser({
-        email: "",
-        full_name: "",
+        email: '',
+        full_name: '',
         verified: true,
       });
 

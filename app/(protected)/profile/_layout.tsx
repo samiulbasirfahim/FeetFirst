@@ -10,6 +10,11 @@ export default function ProfileLayout() {
   const { top } = useSafeAreaInsets();
   return (
     <>
+      <Stack.Screen
+        options={{
+          headerShown: false,
+        }}
+      />
       <Stack
         screenOptions={{
           headerShadowVisible: false,
@@ -40,10 +45,16 @@ export default function ProfileLayout() {
         />
 
         <Stack.Screen
+          name="sustainability"
+          options={{
+            headerShown: false,
+          }}
+        />
+
+        <Stack.Screen
           name="settings"
           options={{
             headerShown: false,
-            title: isGerman() ? "Einstellungen" : "Impostazioni",
           }}
         />
       </Stack>
