@@ -27,7 +27,7 @@ export default function Screen() {
         <View
           className="w-full my-8"
           style={{
-            height: height * 0.5,
+            height: height * 0.6,
           }}
         >
           <LinearGradient

@@ -12,7 +12,7 @@ import { ScrollView, TouchableOpacity } from "react-native";
 export default function Screen() {
   const { isGerman } = useLanguageStore();
   return (
-    <Layout className="bg-backgroundDark" scrollable>
+    <Layout className="bg-backgroundDark" scrollable avoidTabbar>
       <SettingsGroup>
         <SettingsValue title="E-Mail" value="demo@gmail.com" />
         <SettingsValue
