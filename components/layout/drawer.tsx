@@ -152,6 +152,13 @@ export function CustomDrawer(props: DrawerContentComponentProps) {
             icon={SCAN}
             selected={props.state.index === 5}
           />
+
+<DrawerButton
+            href="/(protected)/home/skifinder"
+            title={isGerman() ? "Punkte FeetFirst" : "Punti FeetFirst"}
+            icon={SCAN}
+            selected={props.state.index === 5}
+          />
         </ScrollView>
 
         {/* Close handle */}
