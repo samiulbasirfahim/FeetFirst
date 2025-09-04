@@ -25,6 +25,9 @@ import { useSharedValue } from "react-native-reanimated";
 import Arrow from "@/assets/svgs/arrow-exercise.svg";
 import { VersionInfo } from "@/components/common/version";
 import { Map } from "@/components/common/mapview";
+import k2 from "@/assets/images/k2.png";
+import dalbello from "@/assets/images/dalbello.png";
+import head from "@/assets/images/head.png";
 
 const shoes: ShoeItem[] = [
   {
@@ -72,11 +75,7 @@ export default function Screen() {
   const progress = useSharedValue<number>(0);
 
   const renderItem = ({ item }: { item: ShoeItem }) => (
-    <View
-      className="flex bg-background p-6 border-primary/30 border rounded-2xl w-[76%] h-[530px] relative"
-      accessible={true}
-      accessibilityLabel={`${item.itemName || "Shoe item"} for $${item.price || "850.99"}`}
-    >
+    <View className="flex-1 bg-background p-6 border-primary/30 border rounded-3xl w-[76%] relative">
       {/* Header Section */}
       <View className="mb-4">
         <Typography className="text-3xl font-medium text-right">
@@ -84,46 +83,28 @@ export default function Screen() {
             "Find your snowboard boot – perfectly matched for you."}
         </Typography>
         <Text className="text-primary text-right text-3xl mt-4">
-          ${item.price || "850.99"}
+          {item.price || "850.99"}
         </Text>
       </View>
 
       {/* Image Container */}
-      <View className="h-40 w-full items-center justify-center mt-4 mb-4">
+      <View className="absolute">
         <Image
           source={
             typeof item.image === "string" ? { uri: item.image } : item.image
           }
-          style={{ width: "100%", height: "100%" }}
-          resizeMode="contain" // Changed from "cover" to show full product
-          accessible={true}
-          accessibilityLabel={item.itemName || "Product image"}
+          style={{ width: 240, height: 290 }}
+          className="absolute top-28 -rotate-[13deg]"
         />
       </View>
 
-      {/* Brand Logo - Positioned relative to image container */}
-      <View className="absolute top-[200px] left-7">
-        <item.brandLogo
-          height={50}
-          width={100}
-          accessible={true}
-          accessibilityLabel={`${item.brandName || "Brand"} logo`}
-        />
+      <View>
+        <View className="absolute top-[160px] left-1">
+          <item.brandLogo height={50} width={100} className="" />
+        </View>
       </View>
-
-      {/* Arrow Button - Better positioned */}
-      <View className="absolute bottom-6 right-6">
-        <TouchableOpacity
-          className="p-3 border border-primary rounded-2xl bg-background"
-          onPress={() => {
-            /* Handle item selection */
-          }}
-          accessible={true}
-          accessibilityLabel="Select this item"
-          accessibilityRole="button"
-        >
-          <Arrow />
-        </TouchableOpacity>
+      <View className="absolute bottom-0 right-0 p-3 border border-primary rounded-3xl">
+        <Arrow />
       </View>
     </View>
   );
@@ -165,15 +146,15 @@ export default function Screen() {
       </View>
 
       {/* sponsors */}
-      <View className="bg-muted-background p-12 mt-8">
-        <Marquee spacing={20} speed={1}>
-          <View className="flex-row gap-6">
-            {/* <K2 /> */}
-            <Text className="text-6xl text-white font-bold">K2</Text>
-            <Text className="text-6xl text-white font-bold">Dalbella</Text>
-            <Text className="text-6xl text-white font-bold">HEAD</Text>
-            {/* <Dalbello width={100} height={100} />
-            <Head width={100} height={100} /> */}
+      <View className="p-8 mt-8">
+        <Marquee spacing={12} speed={1}>
+          <View className="flex-row gap-0 items-center">
+            <Image source={k2} />
+            <Image source={dalbello} className="" />
+            <Image source={head} className="h-2/3" resizeMode="contain" />
+            {/* <K2 />
+            <Dalbello />
+            <Head /> */}
           </View>
         </Marquee>
       </View>
@@ -198,45 +179,59 @@ export default function Screen() {
       </View>
 
       {/* carousel */}
-      <View className="my-18">
-        <Carousel
-          autoPlayInterval={2000}
-          // panGestureHandlerProps={{
-          //   activeOffsetX: [-10, 10],
-          // }}
-          data={shoes}
-          loop={true}
-          pagingEnabled={true}
-          snapEnabled={true}
-          width={width}
-          height={230}
-          style={{
-            width: width,
-            borderColor: "#ffffff",
-          }}
-          mode="parallax"
-          modeConfig={{
-            parallaxScrollingScale: 1,
-            parallaxScrollingOffset: 80,
-          }}
-          onProgressChange={progress}
-          renderItem={renderItem}
-        />
+      <View className="pb-16">
+        <LinearGradient
+          colors={["rgba(98, 160, 123, 0.5)", "transparent"]}
+          start={{ x: 1, y: 1 }}
+          end={{ x: 0.5, y: 0 }}
+          className="absolute inset-0 top-1/2"
+        >
+          {" "}
+        </LinearGradient>
+        <View className="p-4 relative">
+          <Carousel
+            autoPlayInterval={2000}
+            data={shoes}
+            loop={true}
+            pagingEnabled={true}
+            snapEnabled={true}
+            width={width}
+            height={400}
+            style={{
+              width: width,
+              borderColor: "#ffffff",
+            }}
+            mode="parallax"
+            modeConfig={{
+              parallaxScrollingScale: 1,
+              parallaxScrollingOffset: 80,
+            }}
+            onProgressChange={progress}
+            renderItem={renderItem}
+          />
+        </View>
       </View>
 
+      {/* map */}
       <View
         style={{
           height: height * 0.5,
         }}
+        className=""
       >
+        <Text className="text-black absolute">
+          {isGerman()
+            ? "Ihre zuverlässigen Partner im Bereich Ski Finder…"
+            : "Your reliable partners in the Ski Finder sector…"}
+        </Text>
+        <LinearGradient
+          colors={["rgba(0,0,0,0)", "rgba(0,0,0,0.5)"]}
+          className="absolute inset-0 z-[99] mt-10"
+        />
         <Map />
       </View>
 
       <View>
-        <LinearGradient
-          colors={["rgba(0,0,0,0.3)", "rgba(0,0,0,0.0)"]}
-          className="absolute inset-0 z-[99]"
-        />
         <VersionInfo />
       </View>
     </Layout>
