@@ -2,26 +2,52 @@ import { Category } from "@/components/common/category";
 import ShoeHeader from "@/components/common/shoe-header";
 import { VersionInfo } from "@/components/common/version";
 import { Layout } from "@/components/layout/layout";
-import { Link, router } from "expo-router";
+import { Typography } from "@/components/ui/typography";
+import { useLanguageStore } from "@/store/language";
+import { router } from "expo-router";
 import { ImageBackground, useWindowDimensions, View } from "react-native";
 
-const categories = [
-  { title: "Category 1", href: "" },
-  { title: "Category 2", href: "" },
-  { title: "Category 3", href: "" },
+const categoriesDE = [
+  { title: "ALLTAGSSCHUHE", id: "normal" },
+  { title: "SPORTSCHUHE", id: "sports" },
+];
+
+const categoriesIT = [
+  { title: "SCARPE DA TUTTI I GIORNI", id: "normal" },
+  { title: "SCARPE SPORTIVE", id: "sports" },
 ];
 
 export default function Screen() {
+  const { isGerman } = useLanguageStore();
   const { width, height } = useWindowDimensions();
+  const categories = isGerman() ? categoriesDE : categoriesIT;
   return (
-    <Layout className="bg-backgroundDark" scrollable stickyIndex={[0]}>
+    <Layout
+      className="bg-backgroundDark"
+      scrollable
+      stickyIndex={[0]}
+      edges={[]}
+      noPadding
+    >
       <ShoeHeader />
+
       <View
-        className="flex-1 items-center justify-start"
+        className="flex-1 items-center justify-start p-3"
         style={{
           minHeight: height,
         }}
       >
+        <View className="mb-6">
+          <Typography className="text-foreground" variant="title">
+            {isGerman() ? "Shoe Finder FeetFirst" : "Trova scarpe FeetFirst"}
+          </Typography>
+
+          <Typography className="text-foreground" variant="caption">
+            {isGerman()
+              ? "Kategorie wählen wir zeigen dir deine besten Treffer"
+              : "Scegli una categoria e ti mostreremo i risultati migliori."}
+          </Typography>
+        </View>
         <ImageBackground
           source={require("@/assets/images/category_background.png")}
           style={{
@@ -37,19 +63,32 @@ export default function Screen() {
                 router.push({
                   pathname: "/(protected)/shoe-recommendations/subcategory",
                   params: {
-                    selected: category.href,
+                    category: category.id,
                   },
                 });
               }}
-              height={(height * 0.6) / categories.length}
+              height={(height * 0.6) / (categories.length + 1)}
               {...category}
-              last={i === categories.length - 1}
             />
           ))}
+
+          <Category
+            onPress={() => {
+              router.push({
+                pathname: "/(protected)/shoe-recommendations/shoes",
+                params: {
+                  Category: "mountain",
+                },
+              });
+            }}
+            title={isGerman() ? "BERG-TREKKINGSCHUHE" : "BERG-TREKKINGSCHUHE"}
+            height={(height * 0.6) / (categories.length + 1)}
+            last
+          />
         </ImageBackground>
 
         <View
-          className="w-full "
+          className="w-full"
           style={{
             marginBottom: 40,
           }}

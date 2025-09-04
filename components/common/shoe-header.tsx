@@ -10,9 +10,9 @@ export default function ShoeHeader() {
   const [showSearch, setShowSearch] = useState();
   return (
     <View
-      className="flex-row items-center justify-between"
+      className="flex-row items-center justify-between bg-backgroundDark"
       style={{
-        marginTop: top,
+        paddingTop: top + 20,
         marginBottom: 24,
         paddingHorizontal: 14,
       }}
