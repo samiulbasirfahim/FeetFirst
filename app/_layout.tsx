@@ -15,7 +15,7 @@ export default function RootLayout() {
 
     useEffect(() => {
         if (isReady) {
-            router.replace("/(protected)/home");
+            router.replace("/(protected)/home/skifinder");
 
             // const inProtectedRoute = segments[0] === "(public)";
             // if (!user) {
