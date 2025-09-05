@@ -1,26 +1,14 @@
 import { Layout } from "@/components/layout/layout";
 import { Typography } from "@/components/ui/typography";
-import {
-  Dimensions,
-  Image,
-  Text,
-  TouchableOpacity,
-  useWindowDimensions,
-  View,
-} from "react-native";
+import { FlatList, Image, Text, useWindowDimensions, View } from "react-native";
 import skifinder from "@/assets/images/skifinder.png";
-import { useHeaderHeight } from "@react-navigation/elements";
 import { LinearGradient } from "expo-linear-gradient";
 import { useLanguageStore } from "@/store/language";
 import { Button } from "@/components/ui/button";
 import { Marquee } from "@animatereactnative/marquee";
-import K2 from "@/assets/svgs/k2.svg";
-import Dalbello from "@/assets/svgs/dalbello.svg";
-import Head from "@/assets/svgs/head.svg";
-import HomeCarausel, { ShoeItem } from "@/components/ui/carousel-home";
+import { ShoeItem } from "@/components/ui/carousel-home";
 import shoeImage from "@/assets/images/ski-shoe.png";
 import BrandLogoSvg from "@/assets/svgs/Vibram_logo.svg";
-import Carousel from "react-native-reanimated-carousel";
 import { useSharedValue } from "react-native-reanimated";
 import Arrow from "@/assets/svgs/arrow-exercise.svg";
 import { VersionInfo } from "@/components/common/version";
@@ -28,6 +16,7 @@ import { Map } from "@/components/common/mapview";
 import k2 from "@/assets/images/k2.png";
 import dalbello from "@/assets/images/dalbello.png";
 import head from "@/assets/images/head.png";
+import { useState } from "react";
 
 const shoes: ShoeItem[] = [
   {
@@ -69,39 +58,51 @@ const shoes: ShoeItem[] = [
 
 export default function Screen() {
   const { isGerman } = useLanguageStore();
-  const { height } = useWindowDimensions();
+  const { height, width } = useWindowDimensions();
 
-  const { width } = Dimensions.get("window");
-  const progress = useSharedValue<number>(0);
+  const [dimension, setDimension] = useState({
+    width: 0,
+    height: 0,
+  });
 
   const renderItem = ({ item }: { item: ShoeItem }) => (
-    <View className="flex-1 bg-background p-6 border-primary/30 border rounded-3xl w-[76%] relative">
+    <View
+      className="flex-1 bg-background p-6 border-primary/30 border rounded-3xl relative"
+      style={{
+        width: width * 0.86,
+      }}
+      onLayout={(e) => {
+        setDimension({
+          width: e.nativeEvent.layout.width,
+          height: e.nativeEvent.layout.height,
+        });
+      }}
+    >
       {/* Header Section */}
       <View className="mb-4">
-        <Typography className="text-3xl font-medium text-right">
+        <Typography variant="titleSecondary" className="font-medium text-right">
           {item.itemName ||
             "Find your snowboard boot – perfectly matched for you."}
         </Typography>
-        <Text className="text-primary text-right text-3xl mt-4">
+        <Typography
+          variant="titleSecondary"
+          className="text-primary text-right mt-4"
+        >
           {item.price || "850.99"}
-        </Text>
+        </Typography>
       </View>
 
-      {/* Image Container */}
-      <View className="absolute">
-        <Image
-          source={
-            typeof item.image === "string" ? { uri: item.image } : item.image
-          }
-          style={{ width: 240, height: 290 }}
-          className="absolute top-28 -rotate-[13deg]"
-        />
-      </View>
+      <Image
+        source={
+          typeof item.image === "string" ? { uri: item.image } : item.image
+        }
+        style={{ width: width * 0.8, height: dimension.height * 0.8 }}
+        resizeMode="contain"
+        className="absolute bottom-0 -left-10 -rotate-[13deg]"
+      />
 
-      <View>
-        <View className="absolute top-[160px] left-1">
-          <item.brandLogo height={50} width={100} className="" />
-        </View>
+      <View className="absolute left-1 bottom-10">
+        <item.brandLogo height={50} width={100} className="" />
       </View>
       <View className="absolute bottom-0 right-0 p-3 border border-primary rounded-3xl">
         <Arrow />
@@ -148,7 +149,7 @@ export default function Screen() {
       {/* sponsors */}
       <View className="p-8 mt-8">
         <Marquee spacing={12} speed={1}>
-          <View className="flex-row gap-0 items-center">
+          <View className="flex-row gap-0 items-center bg-black">
             <Image source={k2} />
             <Image source={dalbello} className="" />
             <Image source={head} className="h-2/3" resizeMode="contain" />
@@ -189,26 +190,40 @@ export default function Screen() {
           {" "}
         </LinearGradient>
         <View className="p-4 relative">
-          <Carousel
-            autoPlayInterval={2000}
-            data={shoes}
-            loop={true}
-            pagingEnabled={true}
-            snapEnabled={true}
-            width={width}
-            height={400}
-            style={{
-              width: width,
-              borderColor: "#ffffff",
-            }}
-            mode="parallax"
-            modeConfig={{
-              parallaxScrollingScale: 1,
-              parallaxScrollingOffset: 80,
-            }}
-            onProgressChange={progress}
-            renderItem={renderItem}
-          />
+          {
+            <FlatList
+              data={shoes}
+              ItemSeparatorComponent={() => <View style={{ width: 10 }} />}
+              ListFooterComponent={() => <View style={{ width: 40 }} />}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              style={{
+                height: 300,
+                width: width,
+              }}
+              renderItem={renderItem}
+            />
+            //     <Carousel
+            //   autoPlayInterval={2000}
+            //   data={shoes}
+            //   loop={true}
+            //   pagingEnabled={true}
+            //   snapEnabled={true}
+            //   width={width}
+            //   height={400}
+            //   style={{
+            //     width: width,
+            //     borderColor: "#ffffff",
+            //   }}
+            //   mode="parallax"
+            //   modeConfig={{
+            //     parallaxScrollingScale: 1,
+            //     parallaxScrollingOffset: 80,
+            //   }}
+            //   onProgressChange={progress}
+            //   renderItem={renderItem}
+            // />
+          }
         </View>
       </View>
 
