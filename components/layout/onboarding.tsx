@@ -1,8 +1,9 @@
 import { Layout } from "./layout";
 import CheckBox from "@/components/ui/checkbox";
 import { Typography } from "@/components/ui/typography";
+import { useLanguageStore } from "@/store/language";
 import { useRef, useState } from "react";
-import { Pressable, TextInput, View } from "react-native";
+import { Pressable, Text, TextInput, View } from "react-native";
 
 type Props = {
   HeaderComponent?: React.ReactNode;
@@ -25,6 +26,13 @@ export function OnBoardingLayout({
   otherPlaceholder = "Please specify...",
   otherButtonText = "Other",
 }: Props) {
+  const { isGerman } = useLanguageStore();
+
+  otherButtonText = isGerman()
+    ? "Sonstiges (bitte angeben)"
+    : "Altro (specificare)";
+  otherPlaceholder = isGerman() ? "Bitte angeben..." : "Specifica qui...";
+
   const input_ref = useRef<TextInput>(null);
   const [checkedValues, setCheckedValues] = useState<string[]>([]);
   const [selectedValue, setSelectedValue] = useState<string>("");
@@ -73,12 +81,12 @@ export function OnBoardingLayout({
 
   return (
     <Layout scrollable avoidKeyboard edges={["bottom"]}>
-      <View style={{ flex: 1, paddingBottom: 24 }}>
+      <View style={{ flex: 1 }}>
         {HeaderComponent && (
           <View style={{ marginBottom: 16 }}>{HeaderComponent}</View>
         )}
 
-        <View style={{ gap: 16 }}>
+        <View style={{ gap: 16, flex: 1 }}>
           {allOptions.map((item, idx) => (
             <Pressable
               key={`${item}-${idx}`}
@@ -129,14 +137,15 @@ export function OnBoardingLayout({
                     borderRadius: 8,
                   }}
                 >
-                  <Typography className="flex-1 text-lg">
+                  <Text className="text-lg text-foreground">
                     {otherButtonText}
-                  </Typography>
+                  </Text>
                 </Pressable>
               ) : (
                 <TextInput
                   ref={input_ref}
                   autoFocus
+                  onBlur={() => setShowOtherInputField(false)}
                   placeholder={otherPlaceholder}
                   placeholderTextColor="#999"
                   style={{
@@ -157,7 +166,9 @@ export function OnBoardingLayout({
         </View>
 
         {FooterComponent && (
-          <View style={{ marginTop: 16 }}>{FooterComponent}</View>
+          <View style={{ marginTop: "auto", paddingTop: 16 }}>
+            {FooterComponent}
+          </View>
         )}
       </View>
     </Layout>

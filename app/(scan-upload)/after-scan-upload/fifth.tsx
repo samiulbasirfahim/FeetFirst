@@ -1,16 +1,3 @@
-import { Layout } from "@/components/layout/layout";
-import { Button } from "@/components/ui/button";
-import CheckBox from "@/components/ui/checkbox";
-import { Typography } from "@/components/ui/typography";
-import { useLanguageStore } from "@/store/language";
-import { Link } from "expo-router";
-import { useState } from "react";
-import {
-  FlatList,
-  Pressable,
-  View,
-} from "react-native";
-
 const optionsDE: string[] = [
   "Sportlich aktiv (regelmäßiges Training oder sportliche Aktivitäten)",
   "Mäßig aktiv (leichte körperliche Aktivität oder Gehen)",
@@ -25,85 +12,44 @@ const optionsIT: string[] = [
   "Molto poco attivo",
 ];
 
+import { OnBoardingLayout } from "@/components/layout/onboarding";
+import { Button } from "@/components/ui/button";
+import { Typography } from "@/components/ui/typography";
+import { useLanguageStore } from "@/store/language";
+import { Link } from "expo-router";
+
 export default function Screen() {
   const { isGerman } = useLanguageStore();
-
-  const [selectedValue, setSelectedValue] = useState<string | null>(null);
-
-  function toggleCheck(value: string) {
-    setSelectedValue((prev) => (prev === value ? null : value));
-  }
-
-  const baseOptions = isGerman() ? optionsDE : optionsIT;
-  const data = [...baseOptions];
-
+  const list = isGerman() ? optionsDE : optionsIT;
   return (
-    <Layout>
-      <View style={{ flex: 1, paddingBottom: 24 }}>
+    <OnBoardingLayout
+      HeaderComponent={
         <Typography variant="title" className="text-foreground">
           {isGerman()
             ? "Welches Aktivitätslevel treffen am besten auf Sie zu?"
             : "Quale livello di attività è più adatto a te?"}
         </Typography>
-
-        <FlatList
-          style={{ marginTop: 16, flex: 1 }}
-          data={data}
-          keyExtractor={(item, idx) => `${item}-${idx}`}
-          showsVerticalScrollIndicator={true}
-          keyboardDismissMode="on-drag"
-          keyboardShouldPersistTaps={"always"}
-          ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
-          renderItem={({ item }) => (
-            <Pressable
-              onPress={() => toggleCheck(item)}
-              style={{
-                backgroundColor: "#2C2C2D",
-                paddingVertical: 16,
-                paddingHorizontal: 16,
-                borderRadius: 8,
-              }}
-            >
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  gap: 4,
-                }}
-              >
-                <CheckBox
-                  onPress={() => toggleCheck(item)}
-                  unFillColor="#303231"
-                  innerIconStyle={{
-                    borderWidth: 1,
-                    borderColor: "#585C5B",
-                    borderRadius: "50%",
-                  }}
-                  fillColor="#62A07B"
-                  isChecked={selectedValue === item}
-                  iconStyle={{
-                    borderRadius: "50%",
-                  }}
-                />
-                <Typography className="flex-1 text-lg">{item}</Typography>
-              </View>
-            </Pressable>
-          )}
-        />
-      </View>
-
-      <Link asChild href={"/(scan-upload)/after-scan-upload/sixth"}>
-        <Button variant="big">
-          {isGerman() ? "Nächste Frage" : "Prossima domanda"}
-        </Button>
-      </Link>
-
-      <Link asChild href={"/(scan-upload)/after-scan-upload/sixth"}>
-        <Button variant="ghost">
-          {isGerman() ? "Überspringen" : "Saltare"}
-        </Button>
-      </Link>
-    </Layout>
+      }
+      options={list}
+      multiple={false}
+      showOtherInput={false}
+      onSelectionChange={(selection: string[]) => {
+        console.log("Selected:", selection);
+      }}
+      FooterComponent={
+        <>
+          <Link asChild href={"/(scan-upload)/after-scan-upload/sixth"}>
+            <Button variant="big">
+              {isGerman() ? "Nächste Frage" : "Prossima domanda"}
+            </Button>
+          </Link>
+          <Link asChild href={"/(scan-upload)/after-scan-upload/sixth"}>
+            <Button variant="ghost">
+              {isGerman() ? "Überspringen" : "Saltare"}
+            </Button>
+          </Link>
+        </>
+      }
+    />
   );
 }
