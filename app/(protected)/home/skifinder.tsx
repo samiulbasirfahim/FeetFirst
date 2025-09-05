@@ -97,7 +97,7 @@ export default function Screen() {
 
   const renderItem = ({ item }: { item: ShoeItem }) => (
     <View
-      className="flex-1 bg-background p-6 border-primary/30 border rounded-3xl relative"
+      className="flex-1 bg-background p-6 border-primary/30 border rounded-3xl relative ms-3"
       style={{
         width: width * 0.86,
       }}
@@ -222,15 +222,13 @@ export default function Screen() {
           start={{ x: 1, y: 1 }}
           end={{ x: 0.5, y: 0 }}
           className="absolute inset-0 top-1/2"
-        >
-          {" "}
-        </LinearGradient>
-        <View className="p-4 relative">
+        />
+        <View className="py-4 relative">
           {
             <FlatList
               data={shoes}
-              ItemSeparatorComponent={() => <View style={{ width: 10 }} />}
-              ListFooterComponent={() => <View style={{ width: 40 }} />}
+              ItemSeparatorComponent={() => <View style={{ width: 5 }} />}
+              ListFooterComponent={() => <View style={{ width: 30 }} />}
               horizontal={true}
               showsHorizontalScrollIndicator={false}
               style={{

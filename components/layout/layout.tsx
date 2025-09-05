@@ -42,6 +42,7 @@ export function Layout({
               contentContainerStyle={{
                 flexGrow: 1,
                 paddingBottom: 0,
+                gap: 12,
               }}
               stickyHeaderIndices={stickyIndex}
               showsVerticalScrollIndicator={false}
@@ -55,7 +56,7 @@ export function Layout({
                 paddingHorizontal: noPadding ? 0 : 12,
                 paddingBottom: noPadding ? 0 : 24,
               }}
-              bottomOffset={10}
+              bottomOffset={20}
             >
               {children}
               {avoidTabbar && <View style={{ height: 100 }}></View>}
@@ -65,6 +66,7 @@ export function Layout({
               contentContainerStyle={{
                 flexGrow: 1,
                 paddingBottom: avoidTabbar ? 100 : 0,
+                gap: 12,
               }}
               stickyHeaderIndices={stickyIndex}
               showsVerticalScrollIndicator={false}
@@ -87,6 +89,7 @@ export function Layout({
         <SafeAreaView
           edges={edges}
           style={{
+            gap: 12,
             paddingTop: edges.toString().includes("top")
               ? 0
               : noPadding
