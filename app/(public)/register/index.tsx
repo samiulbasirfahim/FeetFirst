@@ -30,7 +30,7 @@ export default function Page() {
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
 
   return (
-    <Layout scrollable avoidKeyboard>
+    <Layout scrollable avoidKeyboard edges={["bottom"]}>
       <Logo className="mb-20" />
 
       <Input

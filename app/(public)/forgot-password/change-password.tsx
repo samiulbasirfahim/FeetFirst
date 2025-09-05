@@ -11,12 +11,13 @@ import { InputPassword } from "@/components/ui/input";
 import { Modal } from "@/components/common/modal";
 import { useState } from "react";
 import { View } from "react-native";
+import { Layout } from "@/components/layout/layout";
 
 export default function Screen() {
     const { isGerman } = useLanguageStore();
     const [showModal, setShowModal] = useState<boolean>(false);
     return (
-        <KeyboardAvoidingLayout>
+        <Layout scrollable avoidKeyboard edges={["bottom"]}>
             <Typography
                 variant="title"
                 className="text-start text-muted-foreground w-full"
@@ -79,6 +80,6 @@ export default function Screen() {
             <Button variant="big" onPress={() => setShowModal(true)}>
                 {isGerman() ? "Passwort ändern" : "Cambia password"}
             </Button>
-        </KeyboardAvoidingLayout>
+        </Layout>
     );
 }

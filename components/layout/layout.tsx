@@ -46,6 +46,7 @@ export function Layout({
               }}
               stickyHeaderIndices={stickyIndex}
               showsVerticalScrollIndicator={false}
+              keyboardDismissMode="on-drag"
               style={{
                 flex: 1,
                 paddingTop: edges.toString().includes("top")
@@ -69,6 +70,7 @@ export function Layout({
                 gap: 12,
               }}
               stickyHeaderIndices={stickyIndex}
+              keyboardDismissMode="on-drag"
               showsVerticalScrollIndicator={false}
               style={{
                 flex: 1,
