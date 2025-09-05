@@ -13,9 +13,9 @@ export default function RootLayout() {
   const segments = useSegments();
   const [isReady, setIsReady] = useState<boolean>(false);
 
-    useEffect(() => {
-        if (isReady) {
-            router.replace("/(protected)/home/imotana-shoes");
+  useEffect(() => {
+    if (isReady) {
+      router.replace("/(protected)/home/skifinder");
 
       // const inProtectedRoute = segments[0] === "(public)";
       // if (!user) {

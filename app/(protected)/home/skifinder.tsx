@@ -1,6 +1,13 @@
 import { Layout } from "@/components/layout/layout";
 import { Typography } from "@/components/ui/typography";
-import { FlatList, Image, Text, useWindowDimensions, View } from "react-native";
+import {
+  FlatList,
+  Image,
+  ImageSourcePropType,
+  Text,
+  useWindowDimensions,
+  View,
+} from "react-native";
 import skifinder from "@/assets/images/skifinder.png";
 import { LinearGradient } from "expo-linear-gradient";
 import { useLanguageStore } from "@/store/language";
@@ -16,7 +23,7 @@ import { Map } from "@/components/common/mapview";
 import k2 from "@/assets/images/k2.png";
 import dalbello from "@/assets/images/dalbello.png";
 import head from "@/assets/images/head.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const shoes: ShoeItem[] = [
   {
@@ -55,6 +62,29 @@ const shoes: ShoeItem[] = [
     image: shoeImage,
   },
 ];
+
+type AutoImageProps = {
+  source: ImageSourcePropType;
+  height: number;
+};
+
+export function AutoImage({ source, height }: AutoImageProps) {
+  const { width, height: originalHeight } = Image.resolveAssetSource(source);
+
+  const ratio = width / originalHeight;
+
+  return (
+    <Image
+      source={source}
+      resizeMode="contain"
+      style={{
+        height,
+        width: ratio * height,
+        // aspectRatio: width / originalHeight, // keep natural ratio
+      }}
+    />
+  );
+}
 
 export default function Screen() {
   const { isGerman } = useLanguageStore();
@@ -147,18 +177,24 @@ export default function Screen() {
       </View>
 
       {/* sponsors */}
-      <View className="p-8 mt-8">
-        <Marquee spacing={12} speed={1}>
-          <View className="flex-row gap-0 items-center bg-black">
-            <Image source={k2} />
-            <Image source={dalbello} className="" />
-            <Image source={head} className="h-2/3" resizeMode="contain" />
-            {/* <K2 />
-            <Dalbello />
-            <Head /> */}
-          </View>
-        </Marquee>
-      </View>
+      <Marquee
+        spacing={0}
+        speed={0.6}
+        style={{
+          marginTop: 28,
+        }}
+      >
+        <View
+          className="bg-black flex-row py-4"
+          style={{
+            gap: 30,
+          }}
+        >
+          <AutoImage source={k2} height={40} />
+          <AutoImage source={dalbello} height={40} />
+          <AutoImage source={head} height={40} />
+        </View>
+      </Marquee>
 
       <View className="mt-8 p-6">
         <Typography className="text-3xl font-medium">
