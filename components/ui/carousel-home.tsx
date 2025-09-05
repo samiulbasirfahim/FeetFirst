@@ -21,9 +21,9 @@ function HomeCarausel({ shoes }) {
 
   const renderItem = ({ item }: { item: ShoeItem }) => (
     <View
-      className="relative  border rounded-2xl  bg-background"
+      className="relative  border border-primary/20 rounded-2xl  bg-background"
       style={{
-        width: width * 0.72,
+        width: width * 0.75,
         marginHorizontal: 10,
         height: 230,
       }}
@@ -36,14 +36,14 @@ function HomeCarausel({ shoes }) {
           style={{ width: 240, height: 240 }}
         />
       </View>
-      <View className="absolute right-5 top-2">
-        <Typography className="font-medium text-foreground text-2xl leading-[24px]">
+      <View className="absolute right-5 top-4">
+        <Typography className="font-medium text-foreground text-[26px] leading-[26px]">
           {item.brandName}
         </Typography>
-        <Typography className="font-medium text-foreground text-2xl leading-[24px]">
+        <Typography className="font-medium text-foreground text-[26px] leading-[26px]">
           {item.itemName}
         </Typography>
-        <Typography className="font-medium text-primary text-2xl mt-1">
+        <Typography className="font-medium text-primary text-[26px]  mt-1">
           {item.price}
         </Typography>
       </View>
@@ -75,7 +75,7 @@ function HomeCarausel({ shoes }) {
         mode="parallax"
         modeConfig={{
           parallaxScrollingScale: 1,
-          parallaxScrollingOffset: 80,
+          parallaxScrollingOffset: 70,
         }}
         onProgressChange={progress}
         renderItem={renderItem}
