@@ -1,15 +1,19 @@
 const optionsDE: string[] = [
-  "Sportlich aktiv (regelmäßiges Training oder sportliche Aktivitäten)",
-  "Mäßig aktiv (leichte körperliche Aktivität oder Gehen)",
-  "Wenig aktiv (hauptsächlich sitzende Tätigkeit)",
-  "Sehr wenig aktiv",
+  "Freizeit / Alltag 149,99€",
+  "Sport-169,99€",
+  "Arbeit/Arbeitsschuhe-169,99€",
+  "Business/Formal-149,99€",
+  "Andere (bitte angeben)-169,99€",
+  "Winsole-Einlage (Radschuheinlage für Leistungssteigerung. - 199,99€)",
 ];
 
 const optionsIT: string[] = [
-  "Attivo nello sport (allenamento regolare o attività sportive)",
-  "Moderatamente attivo (attività fisica leggera o camminata)",
-  "Non molto attivo (principalmente sedentario)",
-  "Molto poco attivo",
+  "Tempo libero / Tutti i giorni 149,99€",
+  "Sport - 169,99 €",
+  "Scarpe da lavoro/da lavoro - 169,99€",
+  "Business/Formale - 149,99 €",
+  "Altro (specificare) - 169,99€",
+  "Soletta Winsole (soletta per scarpe da ciclismo per migliorare le prestazioni. - € 199,99)",
 ];
 
 import { OnBoardingLayout } from "@/components/layout/onboarding";
@@ -26,8 +30,8 @@ export default function Screen() {
       HeaderComponent={
         <Typography variant="title" className="text-foreground">
           {isGerman()
-            ? "Welches Aktivitätslevel treffen am besten auf Sie zu?"
-            : "Quale livello di attività è più adatto a te?"}
+            ? "Für Welchen Zweck Verwenden Sie Die Einlage?"
+            : "Per quale scopo utilizzi l'inserto?"}
         </Typography>
       }
       options={list}
@@ -38,12 +42,13 @@ export default function Screen() {
       }}
       FooterComponent={
         <>
-          <Link asChild href={"/(scan-upload)/after-scan-upload/prev_sixth"}>
+          <Link asChild href={"/(scan-upload)/after-scan-upload/fourth"}>
             <Button variant="big">
               {isGerman() ? "Nächste Frage" : "Prossima domanda"}
             </Button>
           </Link>
-          <Link asChild href={"/(scan-upload)/after-scan-upload/prev_sixth"}>
+
+          <Link asChild href={"/(scan-upload)/after-scan-upload/fourth"}>
             <Button variant="ghost">
               {isGerman() ? "Überspringen" : "Saltare"}
             </Button>

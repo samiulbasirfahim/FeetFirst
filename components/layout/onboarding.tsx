@@ -80,7 +80,7 @@ export function OnBoardingLayout({
     : [selectedValue].filter(Boolean);
 
   return (
-    <Layout scrollable avoidKeyboard edges={["bottom"]}>
+    <Layout scrollable avoidKeyboard>
       <View style={{ flex: 1 }}>
         {HeaderComponent && (
           <View style={{ marginBottom: 16 }}>{HeaderComponent}</View>
@@ -166,7 +166,7 @@ export function OnBoardingLayout({
         </View>
 
         {FooterComponent && (
-          <View style={{ marginTop: "auto", paddingTop: 16 }}>
+          <View style={{ marginTop: "auto", paddingVertical: 16 }}>
             {FooterComponent}
           </View>
         )}

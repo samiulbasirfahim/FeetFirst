@@ -1,15 +1,23 @@
 const optionsDE: string[] = [
-  "Sportlich aktiv (regelmäßiges Training oder sportliche Aktivitäten)",
-  "Mäßig aktiv (leichte körperliche Aktivität oder Gehen)",
-  "Wenig aktiv (hauptsächlich sitzende Tätigkeit)",
-  "Sehr wenig aktiv",
+  "Unter 50kg",
+  "51-60 kg",
+  "61-70 kg",
+  "71-80 kg",
+  "81-90 kg",
+  "91-100 kg",
+  "101-110kg",
+  "Über 10kg",
 ];
 
 const optionsIT: string[] = [
-  "Attivo nello sport (allenamento regolare o attività sportive)",
-  "Moderatamente attivo (attività fisica leggera o camminata)",
-  "Non molto attivo (principalmente sedentario)",
-  "Molto poco attivo",
+  "Sotto i 50 kg",
+  "51-60 kg",
+  "61-70 kg",
+  "71-80 kg",
+  "81-90 kg",
+  "91-100 kg",
+  "101-110 kg",
+  "Oltre 10 kg",
 ];
 
 import { OnBoardingLayout } from "@/components/layout/onboarding";
@@ -26,8 +34,8 @@ export default function Screen() {
       HeaderComponent={
         <Typography variant="title" className="text-foreground">
           {isGerman()
-            ? "Welches Aktivitätslevel treffen am besten auf Sie zu?"
-            : "Quale livello di attività è più adatto a te?"}
+            ? "Wie viel wiegen sie ca.?"
+            : "Quanto pesano approssimativamente?"}
         </Typography>
       }
       options={list}
@@ -38,12 +46,13 @@ export default function Screen() {
       }}
       FooterComponent={
         <>
-          <Link asChild href={"/(scan-upload)/after-scan-upload/prev_sixth"}>
+          <Link asChild href={"/(scan-upload)/after-scan-upload/seventh"}>
             <Button variant="big">
               {isGerman() ? "Nächste Frage" : "Prossima domanda"}
             </Button>
           </Link>
-          <Link asChild href={"/(scan-upload)/after-scan-upload/prev_sixth"}>
+
+          <Link asChild href={"/(scan-upload)/after-scan-upload/seventh"}>
             <Button variant="ghost">
               {isGerman() ? "Überspringen" : "Saltare"}
             </Button>
