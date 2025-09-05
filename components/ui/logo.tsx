@@ -6,52 +6,54 @@ import React from "react";
 import { SvgProps } from "react-native-svg";
 
 export function Logo({ className, ...props }: ImageProps) {
-    return (
-        <Image
-            {...props}
-            source={LOGO}
-            resizeMode="contain"
-            className={twMerge("h-24", className)}
-        />
-    );
+  return (
+    <Image
+      {...props}
+      source={LOGO}
+      resizeMode="contain"
+      className={twMerge("h-24", className)}
+    />
+  );
 }
 
 type Props = {
-    Logo: React.FC<SvgProps>;
+  Logo: React.FC<SvgProps>;
 };
 
 export function LogoWrapper({ Logo }: Props) {
-    return (
+  return (
+    <View className="items-center justify-center">
+      <View
+        style={{
+          backgroundColor: "rgba(rgba(98, 160, 123, 0.12))",
+          padding: 30,
+          borderRadius: "100%",
+        }}
+      >
         <View
-            style={{
-                backgroundColor: "rgba(rgba(98, 160, 123, 0.12))",
-                padding: 30,
-                borderRadius: "100%",
-            }}
+          style={{
+            backgroundColor: "rgba(rgba(98, 160, 123, 0.12))",
+            padding: 50,
+            borderRadius: "100%",
+          }}
         >
-            <View
-                style={{
-                    backgroundColor: "rgba(rgba(98, 160, 123, 0.12))",
-                    padding: 50,
-                    borderRadius: "100%",
-                }}
-            >
-                <Logo />
-            </View>
+          <Logo />
         </View>
-    );
+      </View>
+    </View>
+  );
 }
 
 export function LogoWrapperSub({ Logo }: Props) {
-    return (
-        <View
-            style={{
-                backgroundColor: "#555857",
-                padding: 30,
-                borderRadius: "100%",
-            }}
-        >
-            <Logo />
-        </View>
-    );
+  return (
+    <View
+      style={{
+        backgroundColor: "#555857",
+        padding: 30,
+        borderRadius: "100%",
+      }}
+    >
+      <Logo />
+    </View>
+  );
 }

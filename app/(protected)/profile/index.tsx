@@ -18,7 +18,7 @@ export default function Screen() {
   const email: string = "jone32@gmail.com";
 
   return (
-    <Layout className="bg-backgroundDark">
+    <Layout className="bg-backgroundDark" scrollable avoidTabbar>
       <View className="flex-row justify-between items-center py-4">
         <View>
           <Typography className="text-5xl text-primary font-bold">
@@ -74,7 +74,11 @@ export default function Screen() {
           </Typography>
         </Button>
 
-        <Button noWrap variant={"profile_menu"} onPress={() => {}}>
+        <Button
+          noWrap
+          variant={"profile_menu"}
+          onPress={() => router.push("/others/sustainability")}
+        >
           <TRIANGLE />
           <Typography className="text-xl text-primary">
             {isGerman() ? "Nachhaltigkeit" : "Sostenibilità"}

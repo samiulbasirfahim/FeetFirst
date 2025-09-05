@@ -5,74 +5,73 @@ import { Typography } from "@/components/ui/typography";
 import { useLanguageStore } from "@/store/language";
 import { Link } from "expo-router";
 import React, { useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
-import { SvgProps } from "react-native-svg";
+import { TouchableOpacity, View } from "react-native";
 
 export default function Screen() {
-    const { isGerman } = useLanguageStore();
-    const [selectedGender, setSelectedGender] = useState<"male" | "female">(
-        "male",
-    );
+  const { isGerman } = useLanguageStore();
+  const [selectedGender, setSelectedGender] = useState<"male" | "female">(
+    "male",
+  );
 
-    return (
-        <Layout>
-            <View className="flex-1">
-                <Typography variant="title" className="text-foreground">
-                    {isGerman()
-                        ? "Welche Produkte verwendest du am häufigsten?"
-                        : "Quali sono i prodotti che utilizzi di più?"}
-                </Typography>
+  return (
+    <Layout>
+      <View className="flex-1">
+        <Typography variant="title" className="text-foreground">
+          {isGerman()
+            ? "Welche Produkte verwendest du am häufigsten?"
+            : "Quali sono i prodotti che utilizzi di più?"}
+        </Typography>
 
-                <View className="gap-4 flex-row mt-16">
-                    <GenderButton
-                        title={isGerman() ? "Mann" : "Uomo"}
-                        Icon={"male-sharp"}
-                        onPress={() => setSelectedGender("male")}
-                        selected={selectedGender === "male"}
-                    />
-                    <GenderButton
-                        title={isGerman() ? "Frau" : "Donna"}
-                        Icon={"female-sharp"}
-                        onPress={() => setSelectedGender("female")}
-                        selected={selectedGender === "female"}
-                    />
-                </View>
-            </View>
+        <View className="gap-4 flex-row mt-16 flex-1">
+          <GenderButton
+            title={isGerman() ? "Mann" : "Uomo"}
+            Icon={"male-sharp"}
+            onPress={() => setSelectedGender("male")}
+            selected={selectedGender === "male"}
+          />
+          <GenderButton
+            title={isGerman() ? "Frau" : "Donna"}
+            Icon={"female-sharp"}
+            onPress={() => setSelectedGender("female")}
+            selected={selectedGender === "female"}
+          />
+        </View>
+      </View>
 
-            <Link asChild href={"/on-boarding/foot-issues"}>
-                <Button variant="big">{isGerman() ? "nächste" : "prossima"}</Button>
-            </Link>
-        </Layout>
-    );
+      <Link asChild href={"/on-boarding/foot-issues"}>
+        <Button variant="big">{isGerman() ? "nächste" : "prossima"}</Button>
+      </Link>
+    </Layout>
+  );
 }
 
 type Props = {
-    title: string;
-    selected: boolean;
-    Icon: string;
-    onPress: () => void;
+  title: string;
+  selected: boolean;
+  Icon: string;
+  onPress: () => void;
 };
 function GenderButton({ title, Icon, selected, onPress }: Props) {
-    return (
-        <TouchableOpacity
-            onPress={onPress}
-            activeOpacity={0.7}
-            className={`w-1/2 rounded-lg items-center gap-4 aspect-square justify-center ${selected ? "bg-primary" : "bg-muted-background"}`}
-            style={{
-                aspectRatio: 1 / 1,
-            }}
-        >
-            <Ionicons
-                name={Icon as any}
-                size={44}
-                color={selected ? "white" : "#585C5B"}
-            />
-            <Typography
-                className={selected ? "text-white font-bold" : "text-muted-foreground"}
-                variant="selected"
-            >
-                {title}
-            </Typography>
-        </TouchableOpacity>
-    );
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      activeOpacity={0.7}
+      className={`flex-1 rounded-lg items-center gap-4 aspect-square justify-center ${selected ? "bg-primary" : "bg-muted-background"}`}
+      style={{
+        aspectRatio: 1 / 1,
+      }}
+    >
+      <Ionicons
+        name={Icon as any}
+        size={44}
+        color={selected ? "white" : "#585C5B"}
+      />
+      <Typography
+        className={selected ? "text-white font-bold" : "text-muted-foreground"}
+        variant="selected"
+      >
+        {title}
+      </Typography>
+    </TouchableOpacity>
+  );
 }

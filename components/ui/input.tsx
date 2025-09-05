@@ -15,15 +15,21 @@ type Props = {
 } & TextInputProps;
 
 export function Input({ Icon, className, ...props }: Props) {
-  const clsname = Icon ? "ms-3 ps-3 border-s-2 border-muted-foreground" : "";
+  const clsname = Icon ? "pr-3 border-r-2 border-muted-foreground" : "";
   return (
     <View className="bg-muted-background w-full rounded-xl flex-row px-4 items-center relative">
-      {Icon && <Icon />}
+      <View
+        className={twMerge(
+          "my-0 py-0 pe-3 border-r-2 border-muted-foreground",
+          clsname,
+        )}
+      >
+        {Icon && <Icon />}
+      </View>
       <TextInput
         {...props}
         className={twMerge(
-          clsname,
-          "h-full flex-1 py-4 text-foreground placeholder:text-muted-foreground text-base",
+          "h-full flex-1 py-4 text-foreground placeholder:text-muted-foreground text-base ps-3",
           className,
         )}
         placeholderTextColor="#585C5B"
@@ -35,12 +41,14 @@ export function Input({ Icon, className, ...props }: Props) {
 export function InputPassword({ Icon, className, ...props }: Props) {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   return (
-    <View className="bg-muted-background w-full rounded-xl flex-row px-4 py-4 items-center relative">
-      {Icon && <Icon />}
+    <View className="bg-muted-background w-full rounded-xl flex-row px-4 items-center relative">
+      <View className="my-0 py-0 pe-3 border-r-2 border-muted-foreground">
+        {Icon && <Icon />}
+      </View>
       <TextInput
         {...props}
         className={twMerge(
-          "h-full flex-1 py-[0] ms-3 ps-3 border-s-2 border-muted-foreground text-foreground placeholder:text-muted-foreground text-base",
+          "h-full flex-1 py-4 ps-3  text-foreground placeholder:text-muted-foreground text-base",
           className,
         )}
         placeholderTextColor="#585C5B"

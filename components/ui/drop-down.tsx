@@ -29,7 +29,6 @@ const MultiSelectComponent = ({ list, title }: Props) => {
 
   return (
     <View className="w-full gap-2">
-      <Typography className="text-title">{title}</Typography>
       <Dropdown
         style={{
           borderRadius: 12,

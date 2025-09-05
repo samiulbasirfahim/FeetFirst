@@ -1,5 +1,7 @@
 import AntDesign from "@expo/vector-icons/AntDesign";
 import HOME from "@/assets/svgs/home.svg";
+import SKIFINDER from "@/assets/svgs/skiing.svg";
+import WALKING from "@/assets/svgs/walking-icon.svg";
 import SCAN from "@/assets/svgs/scan.svg";
 import RUNNINGSHOE from "@/assets/svgs/running-shoe.svg";
 import SUPPORT from "@/assets/svgs/support.svg";
@@ -135,22 +137,22 @@ export function CustomDrawer(props: DrawerContentComponentProps) {
             </Typography>
           </Button>
           <DrawerButton
-            href="/(protected)/home/feetfirst-points"
+            href="/(protected)/home/mass-insoles"
             title={isGerman() ? "Masseinlagen" : "Plantari su misura"}
             icon={SUPPORT}
-            selected={props.state.index === 3}
+            selected={props.state.index === 2}
           />
           <DrawerButton
             href="/(protected)/home/foot-exercise"
             title={isGerman() ? "Fussübungen" : "Esercizi per i piedi"}
-            icon={SUPPORT}
-            selected={props.state.index === 5}
+            icon={WALKING}
+            selected={props.state.index === 3}
           />
           <DrawerButton
-            href="/(protected)/home/feetfirst-points"
-            title={isGerman() ? "Punkte FeetFirst" : "Punti FeetFirst"}
-            icon={SCAN}
-            selected={props.state.index === 5}
+            href="/(protected)/home/skifinder"
+            title={"SKIFINDER"}
+            icon={SKIFINDER}
+            selected={props.state.index === 4}
           />
         </ScrollView>
 
