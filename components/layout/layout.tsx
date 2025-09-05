@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import { View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 import {
@@ -16,6 +15,7 @@ type Props = {
   noPadding?: boolean;
   avoidTabbar?: boolean;
   avoidKeyboard?: boolean;
+  onScroll?: (event: any) => void;
 } & SafeAreaViewProps;
 
 export function Layout({
@@ -27,6 +27,7 @@ export function Layout({
   avoidTabbar = false,
   noPadding = false,
   avoidKeyboard = false,
+  onScroll,
   ...props
 }: Props) {
   const padding = {
@@ -50,6 +51,7 @@ export function Layout({
   };
 
   const scrollViewProps = {
+    onScroll,
     stickyHeaderIndices: stickyIndex,
     showsVerticalScrollIndicator: false,
     keyboardDismissMode: "on-drag" as const,

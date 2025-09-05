@@ -15,6 +15,7 @@ export default function TabLayout() {
           backgroundColor: "transparent",
         },
         headerTransparent: true,
+        headerShown: false,
         headerLeft: (props) => {
           return (
             <Button
@@ -46,6 +47,9 @@ export default function TabLayout() {
     >
       <Drawer.Screen name="index" />
       <Drawer.Screen name="feetfirst-points" />
+      <Drawer.Screen name="mass-insoles" />
+      <Drawer.Screen name="foot-exercise" />
+      <Drawer.Screen name="skifinder" />
     </Drawer>
   );
 }

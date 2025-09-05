@@ -2,7 +2,7 @@ import SUBJECT from "@/assets/svgs/discover.svg";
 import MESSAGE from "@/assets/svgs/message.svg";
 import MAN from "@/assets/svgs/profile.svg";
 import EMAIL from "@/assets/svgs/sms.svg";
-import { KeyboardAvoidingLayout } from "@/components/layout/keyboard-avoiding-layout";
+import { Layout } from "@/components/layout/layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useLanguageStore } from "@/store/language";
@@ -14,7 +14,7 @@ export default function Screen() {
   const { isGerman } = useLanguageStore();
   const [show_modal, set_show_modal] = useState<boolean>(false);
   return (
-    <KeyboardAvoidingLayout className="bg-backgroundDark">
+    <Layout scrollable avoidTabbar avoidKeyboard>
       {/* name */}
       <Input
         Icon={MAN}
@@ -69,6 +69,6 @@ export default function Screen() {
       >
         {isGerman() ? "SCHICKEN" : "Invia"}
       </Button>
-    </KeyboardAvoidingLayout>
+    </Layout>
   );
 }

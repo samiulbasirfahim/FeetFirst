@@ -15,11 +15,13 @@ import { TextInput, useWindowDimensions, View } from "react-native";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Layout } from "@/components/layout/layout";
+import { useHeaderHeight } from "@react-navigation/elements";
 
 export default function Screen() {
   const { isGerman } = useLanguageStore();
   const { width } = useWindowDimensions();
   const [scanner_height, setScannerHeight] = useState(0);
+
   return (
     <Layout
       scrollable

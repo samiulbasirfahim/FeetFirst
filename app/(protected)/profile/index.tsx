@@ -1,5 +1,5 @@
 import EDIT from "@/assets/svgs/edit.svg";
-import GLOBAL from "@/assets/svgs/global_white.svg";
+import GLOBAL from "@/assets/svgs/global.svg";
 import PROFILE from "@/assets/svgs/profile-circle.svg";
 import TRIANGLE from "@/assets/svgs/triangle.svg";
 import { VersionInfo } from "@/components/common/version";

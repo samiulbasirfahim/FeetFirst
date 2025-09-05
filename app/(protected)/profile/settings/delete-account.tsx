@@ -1,6 +1,7 @@
 import DELETE from "@/assets/svgs/account_delete.svg";
 import MESSAGE from "@/assets/svgs/message.svg";
 import { Modal } from "@/components/common/modal";
+import { Layout } from "@/components/layout/layout";
 import { Button } from "@/components/ui/button";
 import { LogoWrapperSub } from "@/components/ui/logo";
 import { Typography } from "@/components/ui/typography";
@@ -18,7 +19,7 @@ export default function Screen() {
 
     const [show_modal, set_show_modal] = useState<boolean>(false);
     return (
-        <View className="flex-1 bg-backgroundDark p-4">
+        <Layout className="bg-backgroundDark" avoidKeyboard avoidTabbar scrollable>
             <ScrollView
                 contentContainerClassName="grow gap-4"
                 className="flex-1 bg-backgroundDark"
@@ -144,7 +145,7 @@ export default function Screen() {
                     </View>
                 </View>
             </Modal>
-        </View>
+        </Layout>
     );
 }
 

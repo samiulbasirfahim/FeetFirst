@@ -26,7 +26,7 @@ export function DrawerButton({
         router.replace(href as any);
       }}
     >
-      <Icon />
+      <Icon className="w-4 h-4"/>
       <Typography className="text-xl text-white">{title}</Typography>
     </Button>
   );
