@@ -10,6 +10,7 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { Typography } from "../ui/typography";
+import { ViewProps } from "react-native-svg/lib/typescript/fabric/utils";
 
 const partners = [
   {
@@ -139,7 +140,9 @@ const mapStyle = [
   },
 ];
 
-export default function Map() {
+type Props = {} & ViewProps;
+
+export default function Map({ ...props }: Props) {
   const { height } = useWindowDimensions();
   const mapRef = useRef<any>(null);
   const [selectedMarkerIndex, setSelectedMarkerIndex] = useState(0);
@@ -200,7 +203,8 @@ export default function Map() {
   return (
     <View
       className="relative rounded-b-3xl overflow-hidden"
-      style={{ width: "100%", height: (height / 100) * 60 }}
+      {...props}
+      style={[{ width: "100%", height: (height / 100) * 70 }, props.style]}
     >
       {
         <MapView

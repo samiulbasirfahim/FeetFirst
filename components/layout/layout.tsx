@@ -39,8 +39,6 @@ export function Layout({
   };
 
   const getBottomPadding = (isContentContainer: boolean = false) => {
-    if (noPadding) return 0;
-
     if (avoidTabbar) {
       return isContentContainer
         ? padding.tabbarOffset

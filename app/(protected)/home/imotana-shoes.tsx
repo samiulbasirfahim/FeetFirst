@@ -3,18 +3,16 @@ import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import shoe from "@/assets/images/imotana-shoe-new.png";
 import { Layout } from "@/components/layout/layout";
-import { Typography } from "@/components/ui/typography";
-import logo from "@/assets/images/logoxlogo.png"
+import logo from "@/assets/images/logoxlogo.png";
 import { useLanguageStore } from "@/store/language";
 
 export default function ShoeShopScreen() {
-    const { isGerman } = useLanguageStore()
+  const { isGerman } = useLanguageStore();
   return (
-    <Layout avoidTabbar noPadding scrollable  className="bg-backgroundDark">
-
+    <Layout avoidTabbar noPadding scrollable className="bg-backgroundDark">
       {/* Header Section */}
       <View className="relative">
-      <LinearGradient
+        <LinearGradient
           colors={["transparent", "rgba(98, 160, 123, 0.3)"]}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
@@ -24,30 +22,23 @@ export default function ShoeShopScreen() {
           <Text className="text-white text-3xl font-bold">DOMINATE</Text>
           <Text className="text-white text-3xl font-bold">THE GAME</Text>
         </View>
-        <Image
-          source={shoe}
-          className="w-full h-[250px]"
-          resizeMode="cover"
-        />
+        <Image source={shoe} className="w-full h-[250px]" resizeMode="cover" />
       </View>
 
       {/* Brand Logos */}
       <View className="relative p-6 items-center bg-background">
         <Text className="text-gray-400 absolute top-8">X</Text>
-        <Image className="" source={logo} style={{width: 420, height: 40}} />
+        <Image className="" source={logo} style={{ width: 420, height: 40 }} />
       </View>
 
       {/* Description */}
       <View className="mt-6 flex-row px-8 justify-center">
-
-      <Text className="text-white text-center leading-8 text-xl">
-        {
-            isGerman()
+        <Text className="text-white text-center leading-8 text-xl">
+          {isGerman()
             ? "Dank unserer Partnerschaft mit Imotana erhältst du Fußballschuhe, die individuell auf deinen Fuß angepasst werden."
-            : "Grazie alla nostra partnership con Imotana, riceverai delle scarpe da calcio realizzate su misura per il tuo piede."
-        }
-      </Text>
-        </View>
+            : "Grazie alla nostra partnership con Imotana, riceverai delle scarpe da calcio realizzate su misura per il tuo piede."}
+        </Text>
+      </View>
 
       {/* Product Grid */}
       <View className="flex-row flex-wrap justify-between mt-6">

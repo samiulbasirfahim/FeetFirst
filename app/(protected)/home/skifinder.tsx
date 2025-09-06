@@ -16,7 +16,6 @@ import { Marquee } from "@animatereactnative/marquee";
 import { ShoeItem } from "@/components/ui/carousel-home";
 import shoeImage from "@/assets/images/ski-shoe.png";
 import BrandLogoSvg from "@/assets/svgs/Vibram_logo.svg";
-import { useSharedValue } from "react-native-reanimated";
 import Arrow from "@/assets/svgs/arrow-exercise.svg";
 import { VersionInfo } from "@/components/common/version";
 import { Map } from "@/components/common/mapview";
@@ -24,6 +23,7 @@ import k2 from "@/assets/images/k2.png";
 import dalbello from "@/assets/images/dalbello.png";
 import head from "@/assets/images/head.png";
 import { useEffect, useState } from "react";
+import { useDrawerHeader } from "@/components/common/drawer-header";
 
 const shoes: ShoeItem[] = [
   {
@@ -88,11 +88,15 @@ export function AutoImage({ source, height }: AutoImageProps) {
 
 export default function Screen() {
   const { isGerman } = useLanguageStore();
-  const { height, width } = useWindowDimensions();
+  const { height: heightOfWindow, width } = useWindowDimensions();
 
   const [dimension, setDimension] = useState({
     width: 0,
     height: 0,
+  });
+
+  const { onScroll, HeaderComponent, height } = useDrawerHeader({
+    threeshold: 100,
   });
 
   const renderItem = ({ item }: { item: ShoeItem }) => (
@@ -141,9 +145,22 @@ export default function Screen() {
   );
 
   return (
-    <Layout noPadding avoidTabbar scrollable className="bg-backgroundDark">
+    <Layout
+      noPadding
+      avoidTabbar
+      scrollable
+      className="bg-backgroundDark"
+      onScroll={onScroll}
+      stickyIndex={[0]}
+    >
+      {HeaderComponent}
       {/* header */}
-      <View className="relative">
+      <View
+        className="relative overflow-hidden isolate"
+        style={{
+          marginTop: -height - 20,
+        }}
+      >
         <LinearGradient
           colors={["transparent", "rgba(98, 160, 123, 0.5)"]}
           className="absolute inset-0 z-[10] mt-36"
@@ -264,7 +281,7 @@ export default function Screen() {
       {/* map */}
       <View
         style={{
-          height: height * 0.5,
+          height: heightOfWindow * 0.5,
         }}
         className=""
       >
