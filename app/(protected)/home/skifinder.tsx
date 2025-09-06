@@ -1,33 +1,29 @@
 import { Layout } from "@/components/layout/layout";
 import { Typography } from "@/components/ui/typography";
 import {
-  Dimensions,
+  FlatList,
   Image,
+  ImageSourcePropType,
   Text,
-  TouchableOpacity,
   useWindowDimensions,
   View,
 } from "react-native";
 import skifinder from "@/assets/images/skifinder.png";
-import { useHeaderHeight } from "@react-navigation/elements";
 import { LinearGradient } from "expo-linear-gradient";
 import { useLanguageStore } from "@/store/language";
 import { Button } from "@/components/ui/button";
 import { Marquee } from "@animatereactnative/marquee";
-import K2 from "@/assets/svgs/k2.svg";
-import Dalbello from "@/assets/svgs/dalbello.svg";
-import Head from "@/assets/svgs/head.svg";
-import HomeCarausel, { ShoeItem } from "@/components/ui/carousel-home";
+import { ShoeItem } from "@/components/ui/carousel-home";
 import shoeImage from "@/assets/images/ski-shoe.png";
 import BrandLogoSvg from "@/assets/svgs/Vibram_logo.svg";
-import Carousel from "react-native-reanimated-carousel";
-import { useSharedValue } from "react-native-reanimated";
 import Arrow from "@/assets/svgs/arrow-exercise.svg";
 import { VersionInfo } from "@/components/common/version";
 import { Map } from "@/components/common/mapview";
 import k2 from "@/assets/images/k2.png";
 import dalbello from "@/assets/images/dalbello.png";
 import head from "@/assets/images/head.png";
+import { useEffect, useState } from "react";
+import { useDrawerHeader } from "@/components/common/drawer-header";
 
 const shoes: ShoeItem[] = [
   {
@@ -67,41 +63,80 @@ const shoes: ShoeItem[] = [
   },
 ];
 
+type AutoImageProps = {
+  source: ImageSourcePropType;
+  height: number;
+};
+
+export function AutoImage({ source, height }: AutoImageProps) {
+  const { width, height: originalHeight } = Image.resolveAssetSource(source);
+
+  const ratio = width / originalHeight;
+
+  return (
+    <Image
+      source={source}
+      resizeMode="contain"
+      style={{
+        height,
+        width: ratio * height,
+        // aspectRatio: width / originalHeight, // keep natural ratio
+      }}
+    />
+  );
+}
+
 export default function Screen() {
   const { isGerman } = useLanguageStore();
-  const { height } = useWindowDimensions();
+  const { height: heightOfWindow, width } = useWindowDimensions();
 
-  const { width } = Dimensions.get("window");
-  const progress = useSharedValue<number>(0);
+  const [dimension, setDimension] = useState({
+    width: 0,
+    height: 0,
+  });
+
+  const { onScroll, HeaderComponent, height } = useDrawerHeader({
+    threeshold: 100,
+  });
 
   const renderItem = ({ item }: { item: ShoeItem }) => (
-    <View className="flex-1 bg-background p-6 border-primary/30 border rounded-3xl w-[76%] relative">
+    <View
+      className="flex-1 bg-background p-6 border-primary/30 border rounded-3xl relative ms-3"
+      style={{
+        width: width * 0.86,
+      }}
+      onLayout={(e) => {
+        setDimension({
+          width: e.nativeEvent.layout.width,
+          height: e.nativeEvent.layout.height,
+        });
+      }}
+    >
       {/* Header Section */}
       <View className="mb-4">
-        <Typography className="text-3xl font-medium text-right">
+        <Typography variant="titleSecondary" className="font-medium text-right">
           {item.itemName ||
             "Find your snowboard boot – perfectly matched for you."}
         </Typography>
-        <Text className="text-primary text-right text-3xl mt-4">
+        <Typography
+          variant="titleSecondary"
+          className="text-primary text-right mt-4"
+        >
           {item.price || "850.99"}
-        </Text>
+        </Typography>
       </View>
 
-      {/* Image Container */}
-      <View className="absolute">
-        <Image
-          source={
-            typeof item.image === "string" ? { uri: item.image } : item.image
-          }
-          style={{ width: 240, height: 290 }}
-          className="absolute top-28 -rotate-[13deg]"
-        />
-      </View>
+      <Image
+        source={
+          typeof item.image === "string" ? { uri: item.image } : item.image
+        }
+        style={{ width: width * 0.8, height: dimension.height * 0.8 }}
+        resizeMode="contain"
+        className="absolute bottom-0 -left-10 -rotate-[13deg]"
+      />
 
-      <View>
-        <View className="absolute top-[160px] left-1">
-          <item.brandLogo height={50} width={100} className="" />
-        </View>
+      <View className="absolute left-1 bottom-10">
+        <item.brandLogo height={50} width={100} className="" />
       </View>
       <View className="absolute bottom-0 right-0 p-3 border border-primary rounded-3xl">
         <Arrow />
@@ -110,9 +145,22 @@ export default function Screen() {
   );
 
   return (
-    <Layout noPadding avoidTabbar scrollable className="bg-backgroundDark">
+    <Layout
+      noPadding
+      avoidTabbar
+      scrollable
+      className="bg-backgroundDark"
+      onScroll={onScroll}
+      stickyIndex={[0]}
+    >
+      {HeaderComponent}
       {/* header */}
-      <View className="relative">
+      <View
+        className="relative overflow-hidden isolate"
+        style={{
+          marginTop: -height - 20,
+        }}
+      >
         <LinearGradient
           colors={["transparent", "rgba(98, 160, 123, 0.5)"]}
           className="absolute inset-0 z-[10] mt-36"
@@ -146,18 +194,24 @@ export default function Screen() {
       </View>
 
       {/* sponsors */}
-      <View className="p-8 mt-8">
-        <Marquee spacing={12} speed={1}>
-          <View className="flex-row gap-0 items-center">
-            <Image source={k2} />
-            <Image source={dalbello} className="" />
-            <Image source={head} className="h-2/3" resizeMode="contain" />
-            {/* <K2 />
-            <Dalbello />
-            <Head /> */}
-          </View>
-        </Marquee>
-      </View>
+      <Marquee
+        spacing={0}
+        speed={0.6}
+        style={{
+          marginTop: 28,
+        }}
+      >
+        <View
+          className="bg-black flex-row py-4"
+          style={{
+            gap: 30,
+          }}
+        >
+          <AutoImage source={k2} height={40} />
+          <AutoImage source={dalbello} height={40} />
+          <AutoImage source={head} height={40} />
+        </View>
+      </Marquee>
 
       <View className="mt-8 p-6">
         <Typography className="text-3xl font-medium">
@@ -185,37 +239,49 @@ export default function Screen() {
           start={{ x: 1, y: 1 }}
           end={{ x: 0.5, y: 0 }}
           className="absolute inset-0 top-1/2"
-        >
-          {" "}
-        </LinearGradient>
-        <View className="p-4 relative">
-          <Carousel
-            autoPlayInterval={2000}
-            data={shoes}
-            loop={true}
-            pagingEnabled={true}
-            snapEnabled={true}
-            width={width}
-            height={400}
-            style={{
-              width: width,
-              borderColor: "#ffffff",
-            }}
-            mode="parallax"
-            modeConfig={{
-              parallaxScrollingScale: 1,
-              parallaxScrollingOffset: 80,
-            }}
-            onProgressChange={progress}
-            renderItem={renderItem}
-          />
+        />
+        <View className="py-4 relative">
+          {
+            <FlatList
+              data={shoes}
+              ItemSeparatorComponent={() => <View style={{ width: 5 }} />}
+              ListFooterComponent={() => <View style={{ width: 30 }} />}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              style={{
+                height: 300,
+                width: width,
+              }}
+              renderItem={renderItem}
+            />
+            //     <Carousel
+            //   autoPlayInterval={2000}
+            //   data={shoes}
+            //   loop={true}
+            //   pagingEnabled={true}
+            //   snapEnabled={true}
+            //   width={width}
+            //   height={400}
+            //   style={{
+            //     width: width,
+            //     borderColor: "#ffffff",
+            //   }}
+            //   mode="parallax"
+            //   modeConfig={{
+            //     parallaxScrollingScale: 1,
+            //     parallaxScrollingOffset: 80,
+            //   }}
+            //   onProgressChange={progress}
+            //   renderItem={renderItem}
+            // />
+          }
         </View>
       </View>
 
       {/* map */}
       <View
         style={{
-          height: height * 0.5,
+          height: heightOfWindow * 0.5,
         }}
         className=""
       >

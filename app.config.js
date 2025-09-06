@@ -18,6 +18,7 @@ export default {
       },
     },
     android: {
+      multiDexEnabled: true,
       adaptiveIcon: {
         foregroundImage: "./assets/images/logo.png",
         backgroundColor: "#ffffff",

@@ -9,25 +9,40 @@ import { VersionInfo } from "@/components/common/version";
 import ManAboutTORun from "@/assets/images/man-about-to-run.png";
 import { LinearGradient } from "expo-linear-gradient";
 import { useHeaderHeight } from "@react-navigation/elements";
+import { useState } from "react";
+import { useDrawerHeader } from "@/components/common/drawer-header";
 
 export default function Screen() {
-  const { height } = useWindowDimensions();
-  const header_height = useHeaderHeight();
+  const { height: heightOfWindow } = useWindowDimensions();
   const { isGerman } = useLanguageStore();
+  const [womanDiv, setWomanDiv] = useState(0);
+
+  const { onScroll, HeaderComponent, height } = useDrawerHeader({
+    threeshold: 100,
+  });
   return (
-    <Layout scrollable className="bg-backgroundDark">
-      <View style={{ height: header_height }}></View>
-      {/* header */}
-      <View className="relative -mx-3">
+    <Layout
+      scrollable
+      className="bg-backgroundDark"
+      onScroll={onScroll}
+      stickyIndex={[0]}
+      noPadding
+      avoidTabbar
+    >
+      {HeaderComponent}
+      <View className="relative  relative overflow-hidden">
         <Typography className="absolute z-[99] text-3xl font-bold text-white text-center my-4 leading-tight px-3">
           {isGerman()
             ? "Übungen zur Flexibilitätserhöhung"
             : "Esercizi per aumentare la flessibilità"}
         </Typography>
         <View
-          className="w-full my-8"
+          className="w-full"
           style={{
-            height: height * 0.6,
+            height: heightOfWindow * 0.5,
+          }}
+          onLayout={(e) => {
+            setWomanDiv(e.nativeEvent.layout.width);
           }}
         >
           <LinearGradient
@@ -42,17 +57,20 @@ export default function Screen() {
             className="absolute inset-0 z-[10]"
           />
 
-          <View className="overflow-hidden flex-1">
+          <View className="h-full flex-1 overflow-hidden relative bg-primary items-center justify-end">
             <Image
               source={woman}
-              className="w-[80%] h-[80%] absolute bottom-0"
-              resizeMode="cover"
+              style={{
+                height: womanDiv * 1.5,
+                width: "100%",
+              }}
+              resizeMode="contain"
             />
           </View>
         </View>
       </View>
 
-      <View className="mt-12">
+      <View className="mt-12 px-3">
         <Typography className="font-bold text-3xl ">
           {isGerman()
             ? "FeetFirst - Ihr Partner für Fußgesundheit, bietet jetzt die perfekten Fußübungen."
@@ -65,19 +83,14 @@ export default function Screen() {
         </Text>
       </View>
 
-      {/* product */}
       <View className="mt-8">
-        <Typography className="text-3xl font-bold mb-4">
+        <Typography className="text-3xl font-bold mb-4 px-3">
           {isGerman() ? "Produkte" : "Prodotti"}
         </Typography>
 
         <MyCarousel />
       </View>
-
-      {/* point foot areas of pain */}
-
-      {/* exercise plan */}
-      <View className="pt-8">
+      <View className="pt-8 px-3">
         <Typography className="text-3xl font-bold w-1/2">
           {isGerman()
             ? "Ihr Individueller Übungsplan"
@@ -95,7 +108,7 @@ export default function Screen() {
           </Button>
         </View>
 
-        <View className="h-96 w-full my-8">
+        <View className="h-96 w-full my-8 px-3">
           <LinearGradient
             colors={["rgba(0,0,0,0.1)", "black"]}
             className="absolute inset-0 z-[99] mt-36"

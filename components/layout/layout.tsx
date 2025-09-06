@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import { View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 import {
@@ -16,6 +15,7 @@ type Props = {
   noPadding?: boolean;
   avoidTabbar?: boolean;
   avoidKeyboard?: boolean;
+  onScroll?: (event: any) => void;
 } & SafeAreaViewProps;
 
 export function Layout({
@@ -27,86 +27,86 @@ export function Layout({
   avoidTabbar = false,
   noPadding = false,
   avoidKeyboard = false,
+  onScroll,
   ...props
 }: Props) {
+  const padding = {
+    top: edges.toString().includes("top") ? 0 : noPadding ? 0 : 24,
+    horizontal: noPadding ? 0 : 12,
+    bottom: noPadding ? 0 : 24,
+    tabbarOffset: 100,
+    keyboardBottomOffset: 20,
+  };
+
+  const getBottomPadding = (isContentContainer: boolean = false) => {
+    if (avoidTabbar) {
+      return isContentContainer
+        ? padding.tabbarOffset
+        : padding.bottom + padding.tabbarOffset;
+    }
+
+    return isContentContainer ? 0 : padding.bottom;
+  };
+
+  const scrollViewProps = {
+    onScroll,
+    stickyHeaderIndices: stickyIndex,
+    showsVerticalScrollIndicator: false,
+    keyboardDismissMode: "on-drag" as const,
+    style: {
+      flex: 1,
+      paddingTop: padding.top,
+      paddingHorizontal: padding.horizontal,
+      paddingBottom: scrollable ? 0 : getBottomPadding(),
+    },
+  };
+
+  const commonContentContainerStyle = {
+    flexGrow: 1,
+    gap: 12,
+    paddingBottom: getBottomPadding(true),
+  };
+
+  const safeAreaViewProps = {
+    edges,
+    className: twMerge("flex-1 bg-background", className),
+    ...props,
+  };
+
+  if (scrollable) {
+    return (
+      <SafeAreaView {...safeAreaViewProps}>
+        {avoidKeyboard ? (
+          <KeyboardAwareScrollView
+            {...scrollViewProps}
+            contentContainerStyle={commonContentContainerStyle}
+            bottomOffset={padding.keyboardBottomOffset}
+          >
+            {children}
+          </KeyboardAwareScrollView>
+        ) : (
+          <ScrollView
+            {...scrollViewProps}
+            contentContainerStyle={commonContentContainerStyle}
+          >
+            {children}
+          </ScrollView>
+        )}
+      </SafeAreaView>
+    );
+  }
+
   return (
-    <>
-      {scrollable ? (
-        <SafeAreaView
-          edges={edges}
-          className={twMerge("flex-1 bg-background", className)}
-          {...props}
-        >
-          {avoidKeyboard ? (
-            <KeyboardAwareScrollView
-              contentContainerStyle={{
-                flexGrow: 1,
-                paddingBottom: 0,
-              }}
-              stickyHeaderIndices={stickyIndex}
-              showsVerticalScrollIndicator={false}
-              style={{
-                flex: 1,
-                paddingTop: edges.toString().includes("top")
-                  ? 0
-                  : noPadding
-                    ? 0
-                    : 24,
-                paddingHorizontal: noPadding ? 0 : 12,
-                paddingBottom: noPadding ? 0 : 24,
-              }}
-              bottomOffset={10}
-            >
-              {children}
-              {avoidTabbar && <View style={{ height: 100 }}></View>}
-            </KeyboardAwareScrollView>
-          ) : (
-            <ScrollView
-              contentContainerStyle={{
-                flexGrow: 1,
-                paddingBottom: avoidTabbar ? 100 : 0,
-              }}
-              stickyHeaderIndices={stickyIndex}
-              showsVerticalScrollIndicator={false}
-              style={{
-                flex: 1,
-                paddingTop: edges.toString().includes("top")
-                  ? 0
-                  : noPadding
-                    ? 0
-                    : 24,
-                paddingHorizontal: noPadding ? 0 : 12,
-                paddingBottom: noPadding ? 0 : 24,
-              }}
-            >
-              {children}
-            </ScrollView>
-          )}
-        </SafeAreaView>
-      ) : (
-        <SafeAreaView
-          edges={edges}
-          style={{
-            paddingTop: edges.toString().includes("top")
-              ? 0
-              : noPadding
-                ? 0
-                : 12,
-            paddingHorizontal: noPadding ? 0 : 12,
-            paddingBottom: avoidTabbar
-              ? noPadding
-                ? 0
-                : 24 + 100
-              : noPadding
-                ? 0
-                : 24,
-          }}
-          className={twMerge("flex-1 bg-background", className)}
-          {...props}
-        >
-          {children}
-        </SafeAreaView>
-      )}
-    </>
+    <SafeAreaView
+      {...safeAreaViewProps}
+      style={{
+        gap: 12,
+        paddingTop: padding.top,
+        paddingHorizontal: padding.horizontal,
+        paddingBottom: getBottomPadding(),
+      }}
+    >
+      {children}
+    </SafeAreaView>
   );
 }
