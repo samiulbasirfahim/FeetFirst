@@ -62,7 +62,6 @@ function HomeCarauselSecond({ shoes }) {
             className="pl-1"
         >
             <Carousel
-
                 onConfigurePanGesture={(panGesture) => panGesture.activeOffsetY([-999999, 999999]).activeOffsetX([-20, 20])}
                 autoPlayInterval={2000}
                 data={shoes}
