@@ -68,7 +68,7 @@ export default function Screen() {
           }}
           className="flex items-center justify-center rounded-full"
         >
-          <BlurView className="flex-1 px-2" tint="light" intensity={30}>
+          <BlurView className="flex-1 px-3" tint="light" intensity={30}>
             <HeaderBackButton />
           </BlurView>
         </View>

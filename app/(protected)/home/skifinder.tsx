@@ -80,7 +80,6 @@ export function AutoImage({ source, height }: AutoImageProps) {
       style={{
         height,
         width: ratio * height,
-        // aspectRatio: width / originalHeight, // keep natural ratio
       }}
     />
   );
@@ -235,10 +234,15 @@ export default function Screen() {
       {/* carousel */}
       <View className="pb-16">
         <LinearGradient
-          colors={["rgba(98, 160, 123, 0.5)", "transparent"]}
+          colors={[
+            "rgba(98, 160, 123, 0.6)",
+            "rgba(98, 160, 123, 0.2)",
+            "transparent",
+            "transparent",
+          ]}
           start={{ x: 1, y: 1 }}
-          end={{ x: 0.5, y: 0 }}
-          className="absolute inset-0 top-1/2"
+          end={{ x: 0.55, y: 0 }}
+          className="absolute inset-0"
         />
         <View className="py-4 relative">
           {
@@ -254,26 +258,6 @@ export default function Screen() {
               }}
               renderItem={renderItem}
             />
-            //     <Carousel
-            //   autoPlayInterval={2000}
-            //   data={shoes}
-            //   loop={true}
-            //   pagingEnabled={true}
-            //   snapEnabled={true}
-            //   width={width}
-            //   height={400}
-            //   style={{
-            //     width: width,
-            //     borderColor: "#ffffff",
-            //   }}
-            //   mode="parallax"
-            //   modeConfig={{
-            //     parallaxScrollingScale: 1,
-            //     parallaxScrollingOffset: 80,
-            //   }}
-            //   onProgressChange={progress}
-            //   renderItem={renderItem}
-            // />
           }
         </View>
       </View>
