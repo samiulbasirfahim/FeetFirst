@@ -6,7 +6,7 @@ export default function ShoeRecommendationsLayout() {
     <>
       <Drawer.Screen
         options={{
-          headerShown: true,
+          headerShown: false
         }}
       />
       <Stack

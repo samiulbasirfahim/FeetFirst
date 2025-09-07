@@ -34,7 +34,7 @@ const banners: BannerItem[] = [
     title: 'Erlebe Radfahren neu! Mehr Leistung. Mehr Komfort.',
     desc: 'In Kollaboration mit Winsole',
     button: 'Mehr erfahren',
-    img: require('@/assets/images/Winsole.png'),
+    img: require('@/assets/images/winsole-home.png'),
     logo: Name2,
   },
 ];

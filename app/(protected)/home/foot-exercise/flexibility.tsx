@@ -11,8 +11,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { useState } from 'react';
 import { useDrawerHeader } from '@/components/common/drawer-header';
-import LineBg from '@/assets/svgs/flexible_bg.svg';
-import Leg from '@/assets/svgs/flexible_leg1.svg';
 
 export default function Screen() {
   const { height: heightOfWindow } = useWindowDimensions();
@@ -32,7 +30,7 @@ export default function Screen() {
       avoidTabbar
     >
       {HeaderComponent}
-      <View className="relative overflow-hidden">
+      <View className="relative  relative overflow-hidden">
         <Typography className="absolute z-[99] text-3xl font-bold text-white text-center my-4 leading-tight px-3">
           {isGerman()
             ? 'Übungen zur Flexibilitätserhöhung'
@@ -91,27 +89,6 @@ export default function Screen() {
         </Typography>
 
         <MyCarousel />
-      </View>
-
-      {/* Accordian */}
-      <View className="">
-        <LinearGradient
-          colors={['rgba(0,0,0,1)', 'transparent']}
-          style={{
-            position: 'absolute',
-            left: 0,
-            right: -20,
-            top: 0,
-            height: 250,
-          }}
-          className="z-10"
-        />
-        <View className=" -right-[90px] top-[20px] ">
-          <LineBg />
-        </View>
-        <View className="absolute  left-10">
-          <Leg />
-        </View>
       </View>
       <View className="pt-8 px-3">
         <Typography className="text-3xl font-bold w-1/2">

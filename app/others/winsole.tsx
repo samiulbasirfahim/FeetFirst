@@ -19,6 +19,7 @@ import {
 } from "react-native";
 import { Portal } from "react-native-portalize";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { router } from "expo-router";
 
 export const images: Record<number, any> = {
     1: Image1,
@@ -131,6 +132,7 @@ export default function Screen() {
                         variant="big"
                         textClassName="text-white"
                         className="border-white bg-transparent border-2"
+                        onPress={() => router.push("/(scan-upload)/while-scan-upload")}
                     >
                         {texts.buttonText}
                     </Button>

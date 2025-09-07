@@ -16,7 +16,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Button } from '../ui/button';
 import { DrawerButton } from '../ui/drawer-button';
 import { useLanguageStore } from '@/store/language';
-import { router } from 'expo-router';
+import { router, useNavigation } from 'expo-router';
 import Svg, { Path } from 'react-native-svg';
 import { Portal } from 'react-native-portalize';
 
@@ -25,10 +25,12 @@ import Animated, {
   interpolate,
   useDerivedValue,
 } from 'react-native-reanimated';
+import { TabActions } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
 
 export function CustomDrawer(props: DrawerContentComponentProps) {
+  const navigation = useNavigation();
   const { top: top_safe_padding } = useSafeAreaInsets();
   const { isGerman } = useLanguageStore();
 
@@ -128,7 +130,10 @@ export function CustomDrawer(props: DrawerContentComponentProps) {
             variant={'ghost'}
             onPress={() => {
               closeDrawer();
-              router.navigate('/(protected)/shoe-recommendations');
+              // router.navigate("/(protected)/shoe-recommendations");
+              navigation.dispatch(
+                TabActions.jumpTo('shoe-recommendations', {})
+              );
             }}
           >
             <RUNNINGSHOE />

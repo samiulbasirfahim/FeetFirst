@@ -16,7 +16,6 @@ import { Marquee } from "@animatereactnative/marquee";
 import { ShoeItem } from "@/components/ui/carousel-home";
 import shoeImage from "@/assets/images/ski-shoe.png";
 import BrandLogoSvg from "@/assets/svgs/Vibram_logo.svg";
-import { useSharedValue } from "react-native-reanimated";
 import Arrow from "@/assets/svgs/arrow-exercise.svg";
 import { VersionInfo } from "@/components/common/version";
 import { Map } from "@/components/common/mapview";
@@ -24,6 +23,7 @@ import k2 from "@/assets/images/k2.png";
 import dalbello from "@/assets/images/dalbello.png";
 import head from "@/assets/images/head.png";
 import { useEffect, useState } from "react";
+import { useDrawerHeader } from "@/components/common/drawer-header";
 
 const shoes: ShoeItem[] = [
   {
@@ -80,7 +80,6 @@ export function AutoImage({ source, height }: AutoImageProps) {
       style={{
         height,
         width: ratio * height,
-        // aspectRatio: width / originalHeight, // keep natural ratio
       }}
     />
   );
@@ -88,11 +87,15 @@ export function AutoImage({ source, height }: AutoImageProps) {
 
 export default function Screen() {
   const { isGerman } = useLanguageStore();
-  const { height, width } = useWindowDimensions();
+  const { height: heightOfWindow, width } = useWindowDimensions();
 
   const [dimension, setDimension] = useState({
     width: 0,
     height: 0,
+  });
+
+  const { onScroll, HeaderComponent, height } = useDrawerHeader({
+    threeshold: 100,
   });
 
   const renderItem = ({ item }: { item: ShoeItem }) => (
@@ -141,9 +144,22 @@ export default function Screen() {
   );
 
   return (
-    <Layout noPadding avoidTabbar scrollable className="bg-backgroundDark">
+    <Layout
+      noPadding
+      avoidTabbar
+      scrollable
+      className="bg-backgroundDark"
+      onScroll={onScroll}
+      stickyIndex={[0]}
+    >
+      {HeaderComponent}
       {/* header */}
-      <View className="relative">
+      <View
+        className="relative overflow-hidden isolate"
+        style={{
+          marginTop: -height - 20,
+        }}
+      >
         <LinearGradient
           colors={["transparent", "rgba(98, 160, 123, 0.5)"]}
           className="absolute inset-0 z-[10] mt-36"
@@ -218,10 +234,15 @@ export default function Screen() {
       {/* carousel */}
       <View className="pb-16">
         <LinearGradient
-          colors={["rgba(98, 160, 123, 0.5)", "transparent"]}
+          colors={[
+            "rgba(98, 160, 123, 0.6)",
+            "rgba(98, 160, 123, 0.2)",
+            "transparent",
+            "transparent",
+          ]}
           start={{ x: 1, y: 1 }}
-          end={{ x: 0.5, y: 0 }}
-          className="absolute inset-0 top-1/2"
+          end={{ x: 0.55, y: 0 }}
+          className="absolute inset-0"
         />
         <View className="py-4 relative">
           {
@@ -237,26 +258,6 @@ export default function Screen() {
               }}
               renderItem={renderItem}
             />
-            //     <Carousel
-            //   autoPlayInterval={2000}
-            //   data={shoes}
-            //   loop={true}
-            //   pagingEnabled={true}
-            //   snapEnabled={true}
-            //   width={width}
-            //   height={400}
-            //   style={{
-            //     width: width,
-            //     borderColor: "#ffffff",
-            //   }}
-            //   mode="parallax"
-            //   modeConfig={{
-            //     parallaxScrollingScale: 1,
-            //     parallaxScrollingOffset: 80,
-            //   }}
-            //   onProgressChange={progress}
-            //   renderItem={renderItem}
-            // />
           }
         </View>
       </View>
@@ -264,7 +265,7 @@ export default function Screen() {
       {/* map */}
       <View
         style={{
-          height: height * 0.5,
+          height: heightOfWindow * 0.5,
         }}
         className=""
       >

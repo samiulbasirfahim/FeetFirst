@@ -44,12 +44,14 @@ export default function ProfileLayout() {
           }}
         />
 
-        <Stack.Screen
-          name="sustainability"
-          options={{
-            headerShown: false,
-          }}
-        />
+        {
+          //     <Stack.Screen
+          //   name="sustainability"
+          //   options={{
+          //     headerShown: false,
+          //   }}
+          // />
+        }
 
         <Stack.Screen
           name="settings"

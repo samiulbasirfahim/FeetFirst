@@ -22,6 +22,7 @@ import { Button } from "@/components/ui/button";
 import { VersionInfo } from "@/components/common/version";
 import { Link } from "expo-router";
 import { useHeaderHeight } from "@react-navigation/elements";
+import { useDrawerHeader } from "@/components/common/drawer-header";
 
 const translations = {
   german: {
@@ -89,11 +90,14 @@ const translations = {
 };
 
 export default function Screen() {
-  const header_height = useHeaderHeight();
+  // const header_height = useHeaderHeight();
   const { width } = useWindowDimensions();
 
   const { isGerman } = useLanguageStore();
   const t = isGerman() ? translations.german : translations.italian;
+  const { onScroll, HeaderComponent, height } = useDrawerHeader({
+    threeshold: 100,
+  });
 
   const renderVorteile = (text, Icon) => {
     return (
@@ -109,13 +113,19 @@ export default function Screen() {
   };
 
   return (
-    <Layout className="bg-backgroundDark" scrollable noPadding>
-      <View style={{ height: header_height }}></View>
+    <Layout
+      className="bg-backgroundDark"
+      scrollable
+      noPadding
+      onScroll={onScroll}
+      stickyIndex={[0]}
+    >
+      {HeaderComponent}
       <Typography className="text-3xl font-bold text-white text-center my-4 leading-tight">
         {t.title}
       </Typography>
 
-      <View className="relative h-96 w-full">
+      <View className="relative h-96 w-full overflow-hidden isolate">
         <LinearGradient
           colors={["transparent", "rgba(98, 160, 123, 0.5)"]}
           className="absolute inset-0 z-[10]"

@@ -1,4 +1,3 @@
-import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 import SCANNER from "@/assets/svgs/3d-scanner.svg";
 import WORLD from "@/assets/svgs/global_white.svg";
 import MESSAGE from "@/assets/svgs/message.svg";
@@ -15,12 +14,16 @@ import { TextInput, useWindowDimensions, View } from "react-native";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Layout } from "@/components/layout/layout";
-import { useHeaderHeight } from "@react-navigation/elements";
+import { useDrawerHeader } from "@/components/common/drawer-header";
 
 export default function Screen() {
   const { isGerman } = useLanguageStore();
   const { width } = useWindowDimensions();
   const [scanner_height, setScannerHeight] = useState(0);
+
+  const { HeaderComponent, onScroll, height } = useDrawerHeader({
+    threeshold: 100,
+  });
 
   return (
     <Layout
@@ -29,8 +32,12 @@ export default function Screen() {
       avoidTabbar
       className="bg-backgroundDark"
       noPadding
+      onScroll={onScroll}
+      stickyIndex={[0]}
     >
-      <Map />
+      {HeaderComponent}
+
+      <Map style={{ marginTop: -height - 20 }} />
 
       <View className="p-3 mt-12 gap-4">
         <Typography variant="title" className="text-foreground">
