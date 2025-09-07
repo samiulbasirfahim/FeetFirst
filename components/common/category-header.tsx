@@ -1,8 +1,8 @@
-import { Image, useWindowDimensions, View } from "react-native";
-import { HeaderBackButton } from "../ui/header-back-button";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Ionicons } from "@expo/vector-icons";
-import { useState } from "react";
+import { Image, useWindowDimensions, View } from 'react-native';
+import { HeaderBackButton } from '../ui/header-back-button';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
+import { useState } from 'react';
 
 export default function ShoeHeader() {
   const { top } = useSafeAreaInsets();
@@ -13,7 +13,7 @@ export default function ShoeHeader() {
       className="flex-row items-center justify-between bg-backgroundDark"
       style={{
         paddingTop: top + 20,
-        marginBottom: 24,
+        paddingBottom: 24,
         paddingHorizontal: 14,
       }}
     >
@@ -21,7 +21,7 @@ export default function ShoeHeader() {
 
       <View>
         <Image
-          source={require("@/assets/images/logo-icon.png")}
+          source={require('@/assets/images/logo-icon.png')}
           height={80}
           width={80}
           style={{
