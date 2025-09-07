@@ -1,20 +1,21 @@
-import { Layout } from '@/components/layout/layout';
-import { Typography } from '@/components/ui/typography';
-import { Image, ImageBackground, TouchableOpacity, View } from 'react-native';
-import { useHeaderHeight } from '@react-navigation/elements';
-import { useLanguageStore } from '@/store/language';
-import { Button } from '@/components/ui/button';
-import Herobg from '@/assets/svgs/mass_insole_hero_bg.svg';
-import HeroIcon from '@/assets/svgs/mass_insole_hero_icon.svg';
-import Like from '@/assets/svgs/like_home.svg';
-import Entypo from '@expo/vector-icons/Entypo';
-import TouchButtonBefore from '@/assets/svgs/touch_button_before.svg';
-import TouchButtonAfter from '@/assets/svgs/touch_button_after.svg';
+import { Layout } from "@/components/layout/layout";
+import { Typography } from "@/components/ui/typography";
+import { Image, ImageBackground, TouchableOpacity, View } from "react-native";
+import { useHeaderHeight } from "@react-navigation/elements";
+import { useLanguageStore } from "@/store/language";
+import { Button } from "@/components/ui/button";
+import Herobg from "@/assets/svgs/mass_insole_hero_bg.svg";
+import HeroIcon from "@/assets/svgs/mass_insole_hero_icon.svg";
+import Like from "@/assets/svgs/like_home.svg";
+import Entypo from "@expo/vector-icons/Entypo";
+import TouchButtonBefore from "@/assets/svgs/touch_button_before.svg";
+import TouchButtonAfter from "@/assets/svgs/touch_button_after.svg";
 
-import { Link } from 'expo-router';
-import { useState } from 'react';
-import NewsFlatlist from '@/components/ui/flatlist-news';
-import MassFlatList from '@/components/ui/flatlist-massinsole';
+import { Link } from "expo-router";
+import { useState } from "react";
+import NewsFlatlist from "@/components/ui/flatlist-news";
+import MassFlatList from "@/components/ui/flatlist-massinsole";
+import { useDrawerHeader } from "@/components/common/drawer-header";
 
 export type ShoeItem = {
   title: string;
@@ -24,19 +25,19 @@ export type ShoeItem = {
 
 export const shoesData: ShoeItem[] = [
   {
-    title: 'Sportschuhe',
-    desc: 'Einlagen für jede Sportart – maximale Leistung, optimale Balance.',
-    img: require('@/assets/images/playing.jpg'),
+    title: "Sportschuhe",
+    desc: "Einlagen für jede Sportart – maximale Leistung, optimale Balance.",
+    img: require("@/assets/images/playing.jpg"),
   },
   {
-    title: 'Radschuhe',
-    desc: 'Patentierte Winsole – für maximale Effizienz und optimale Kraftübertragung.',
-    img: require('@/assets/images/cycling.jpg'),
+    title: "Radschuhe",
+    desc: "Patentierte Winsole – für maximale Effizienz und optimale Kraftübertragung.",
+    img: require("@/assets/images/cycling.jpg"),
   },
   {
-    title: 'Alltagssneaker',
-    desc: 'Ganztägiger Komfort und gesunde Fußunterstützung.',
-    img: require('@/assets/images/running.jpg'),
+    title: "Alltagssneaker",
+    desc: "Ganztägiger Komfort und gesunde Fußunterstützung.",
+    img: require("@/assets/images/running.jpg"),
   },
 ];
 
@@ -60,26 +61,37 @@ export default function Screen() {
       return { ...reset, [position]: !prev[position] };
     });
   };
-  const height = useHeaderHeight();
+  const { height, HeaderComponent, onScroll } = useDrawerHeader({
+    threeshold: 100,
+  });
+  // const height = useHeaderHeight();
   const { isGerman } = useLanguageStore();
   return (
-    <Layout avoidTabbar scrollable noPadding className="bg-backgroundDark">
+    <Layout
+      avoidTabbar
+      scrollable
+      noPadding
+      className="bg-backgroundDark"
+      stickyIndex={[0]}
+    >
       {/* Hero  */}
+      {HeaderComponent}
       <View
-        className="bg-background px-3 pt-7 pb-7 rounded-b-[30px] mb-7 h-[250px] overflow-hidden"
+        className="bg-background px-3 rounded-b-[30px] mb-7 overflow-hidden isolate"
         style={{
           paddingTop: height + 20,
-          marginTop: 100,
+          paddingBottom: 140,
+          marginTop: -height - 20,
         }}
       >
         <View className="mb-3 pl-3 pt-5 z-20">
           <Typography className="font-medium text-foreground text-[28px]">
-            {isGerman() ? 'Masseinlagen' : 'Depositi di massa'}
+            {isGerman() ? "Masseinlagen" : "Depositi di massa"}
           </Typography>
           <Typography className=" text-foreground underline text-sm leading-6">
             {isGerman()
-              ? 'Konfiguriere deine Einlage'
-              : 'Configura il tuo deposito'}
+              ? "Konfiguriere deine Einlage"
+              : "Configura il tuo deposito"}
           </Typography>
         </View>
 
@@ -95,7 +107,7 @@ export default function Screen() {
           </View>
           <View className="absolute -left-[145px] -top-4">
             <Image
-              source={require('@/assets/images/mass_insole_hero_sole.png')}
+              source={require("@/assets/images/mass_insole_hero_sole.png")}
               style={{ height: 390, width: 470 }}
             />
           </View>
@@ -109,13 +121,13 @@ export default function Screen() {
         <View>
           <Typography className="font-semibold text-[12px] ">
             {isGerman()
-              ? 'Individuell gefertigt. Präzise angepasst. Spürbar besser.'
-              : 'Prodotto individualmente. Regolato con precisione. Notevolmente migliore.'}
+              ? "Individuell gefertigt. Präzise angepasst. Spürbar besser."
+              : "Prodotto individualmente. Regolato con precisione. Notevolmente migliore."}
           </Typography>
         </View>
 
         <View>
-          <Link href={'/'}>
+          <Link href={"/"}>
             <Typography className="underline  text-white font-light text-[12px]">
               {isGerman()
                 ? `Jetzt testen und selbst überzeugen.`
@@ -126,7 +138,7 @@ export default function Screen() {
         </View>
       </View>
       {/* Sole Details */}
-      <View className="relative">
+      <View className="relative isolate overflow-hidden">
         <View className="relative flex-col w-[90%] mx-auto border border-primary/20 px-6 py-8 rounded-[30px] z-40 bg-background">
           <View className="flex-row justify-between items-center mb-4 ">
             <View className="border border-primary bg-primary/15 p-2.5 rounded-2xl">
@@ -138,7 +150,7 @@ export default function Screen() {
               </Typography>
             </View>
             <View>
-              <Entypo name="chevron-small-up" size={30} color={'#62A07B'} />
+              <Entypo name="chevron-small-up" size={30} color={"#62A07B"} />
             </View>
           </View>
           <View>
@@ -151,13 +163,13 @@ export default function Screen() {
         </View>
         <View className="relative z-20">
           <Image
-            source={require('@/assets/images/foot_sole3.png')}
+            source={require("@/assets/images/foot_sole3.png")}
             style={{ height: 400, width: 550, right: 65, top: 20 }}
           />
           <View className="absolute right-[50px] top-[45px] ">
             <TouchableOpacity
               onPressOut={() => {
-                if (touch.first !== true) handleTouch('first');
+                if (touch.first !== true) handleTouch("first");
               }}
               className="absolute -left-10"
             >
@@ -170,7 +182,7 @@ export default function Screen() {
                     style={{
                       width: 1.5, // thickness of the bar
                       height: 50, // how long it should be
-                      position: 'absolute',
+                      position: "absolute",
                     }}
                     className="absolute right-1/2 bottom-10 bg-primary/50"
                   />
@@ -184,7 +196,7 @@ export default function Screen() {
           <View className="absolute  right-[10px] top-[98px]">
             <TouchableOpacity
               onPressOut={() => {
-                if (touch.second !== true) handleTouch('second');
+                if (touch.second !== true) handleTouch("second");
               }}
               className="absolute -left-10 top-8"
             >
@@ -198,7 +210,7 @@ export default function Screen() {
                       width: 1.5,
                       height: 140,
 
-                      position: 'absolute',
+                      position: "absolute",
                     }}
                     className="absolute right-1/2 bottom-10 bg-primary/50"
                   />
@@ -212,7 +224,7 @@ export default function Screen() {
           <View className="absolute  left-[45px] top-[170px] z-30">
             <TouchableOpacity
               onPressOut={() => {
-                if (touch.third !== true) handleTouch('third');
+                if (touch.third !== true) handleTouch("third");
               }}
               className="absolute -top-12"
             >
@@ -226,7 +238,7 @@ export default function Screen() {
                       width: 1.5, // thickness of the bar
                       height: 140, // how long it should be
 
-                      position: 'absolute',
+                      position: "absolute",
                     }}
                     className="absolute right-1/2 bottom-10 bg-primary/50"
                   />
@@ -240,7 +252,7 @@ export default function Screen() {
           <View className="absolute  -right-5 top-[190px]">
             <TouchableOpacity
               onPressOut={() => {
-                if (touch.fourth !== true) handleTouch('fourth');
+                if (touch.fourth !== true) handleTouch("fourth");
               }}
               className="absolute -left-5 top-10"
             >
@@ -254,7 +266,7 @@ export default function Screen() {
                       width: 1.5, // thickness of the bar
                       height: 240, // how long it should be
 
-                      position: 'absolute',
+                      position: "absolute",
                     }}
                     className="absolute right-1/2 bottom-10 bg-primary/50"
                   />
@@ -291,12 +303,12 @@ export default function Screen() {
               >
                 <View
                   style={{
-                    position: 'absolute',
+                    position: "absolute",
                     top: 0,
                     right: 0,
                     bottom: 0,
                     left: 0,
-                    backgroundColor: 'rgba(0,0,0,0.6)',
+                    backgroundColor: "rgba(0,0,0,0.6)",
                   }}
                 />
                 <View
@@ -314,7 +326,7 @@ export default function Screen() {
                     textClassName="text-base font-semibold"
                     className="w-1/2 rounded-2xl py-2.5 bg-primary/20"
                   >
-                    {isGerman() ? 'Jetzt bestellen' : 'Ordina ora'}
+                    {isGerman() ? "Jetzt bestellen" : "Ordina ora"}
                   </Button>
                 </View>
               </ImageBackground>
@@ -349,7 +361,7 @@ export default function Screen() {
         </View>
         <View className="">
           <Image
-            source={require('@/assets/images/iphoneLeft.png')}
+            source={require("@/assets/images/iphoneLeft.png")}
             style={{
               width: 115,
               height: 240,
@@ -358,7 +370,7 @@ export default function Screen() {
             className=" -translate-x-1/2 absolute bottom-0 -rotate-[15deg]"
           />
           <Image
-            source={require('@/assets/images/iphoneRight.png')}
+            source={require("@/assets/images/iphoneRight.png")}
             style={{
               width: 115,
               height: 240,
@@ -367,7 +379,7 @@ export default function Screen() {
             className=" -translate-x-1/2 absolute bottom-0 rotate-[15deg]"
           />
           <Image
-            source={require('@/assets/images/iphoneMiddle.png')}
+            source={require("@/assets/images/iphoneMiddle.png")}
             style={{ width: 125, height: 260, left: `50%` }}
             className=" -translate-x-1/2"
           />

@@ -7,7 +7,7 @@ import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { Portal } from "react-native-portalize";
 
-export default function Loading() {
+export default function Loading({href}) {
     const { isGerman } = useLanguageStore();
     const [progress, setProgress] = useState(0);
 
@@ -20,8 +20,7 @@ export default function Loading() {
 
     useEffect(() => {
         if (progress >= 1) {
-            console.log("Navigating...");
-            router.replace("/(scan-upload)/after-scan-upload");
+            router.replace(href);
         }
     }, [progress]);
 
