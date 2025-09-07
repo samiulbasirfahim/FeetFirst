@@ -27,7 +27,8 @@ export default function ShoeShopScreen() {
   return (
     <Layout avoidTabbar noPadding scrollable className="bg-backgroundDark">
       {/* Header Section */}
-      <View className="relative">
+     <View>
+     <View className="relative">
         <LinearGradient
           colors={["transparent", "rgba(98, 160, 123, 0.3)"]}
           start={{ x: 0, y: 0 }}
@@ -46,6 +47,7 @@ export default function ShoeShopScreen() {
         <Text className="text-gray-400 absolute top-8">X</Text>
         <Image className="" source={logo} style={{ width: 420, height: 40 }} />
       </View>
+     </View>
 
       {/* Description */}
       <View className="my-6 flex-row px-8 justify-center">
@@ -120,7 +122,7 @@ export default function ShoeShopScreen() {
       </View>
 
       <View className="py-12">
-        <View className="flex-1 px-6 gap-4 mb-4">
+        <View className="flex-1 px-6 gap-4 mb-4 z-[99]">
           <Typography className="text-2xl text-left font-medium">
             {isGerman()
               ? "Bundesliga-Profis vertrauen darauf – du auch?"
