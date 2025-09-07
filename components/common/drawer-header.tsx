@@ -65,7 +65,7 @@ export const useDrawerHeader = ({ threeshold }: { threeshold: number }) => {
         <View className="flex-row items-center justify-between">
           <Button
             variant="ghost"
-            className="p-4 m-0"
+            className="p-4 px-8 m-0"
             onPress={() => {
               navigation.dispatch(DrawerActions.openDrawer());
             }}
@@ -85,7 +85,7 @@ export const useDrawerHeader = ({ threeshold }: { threeshold: number }) => {
 
           <Button
             variant="ghost"
-            className="p-4 m-0"
+            className="p-4 px-8 m-0"
             onPress={() => {
               setShowSearch(true);
             }}

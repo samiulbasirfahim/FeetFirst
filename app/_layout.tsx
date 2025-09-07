@@ -14,7 +14,7 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (isReady) {
-      router.replace("/(scan-upload)/while-scan-upload");
+      router.replace("/(public)");
     }
   }, [isReady]);
 

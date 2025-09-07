@@ -7,12 +7,14 @@ import { SvgProps } from "react-native-svg";
 
 export function Logo({ className, ...props }: ImageProps) {
   return (
-    <Image
-      {...props}
-      source={LOGO}
-      resizeMode="contain"
-      className={twMerge("h-24", className)}
-    />
+    <View className="items-center justify-center">
+      <Image
+        {...props}
+        source={LOGO}
+        resizeMode="contain"
+        className={twMerge("h-24", className)}
+      />
+    </View>
   );
 }
 

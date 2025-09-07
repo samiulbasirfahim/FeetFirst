@@ -31,7 +31,7 @@ export default function Page() {
 
   return (
     <Layout scrollable avoidKeyboard edges={["bottom"]}>
-      <Logo className="mb-20" />
+        <Logo className="mb-20" />
 
       <Input
         Icon={Human}
