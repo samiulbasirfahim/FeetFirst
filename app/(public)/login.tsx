@@ -7,11 +7,28 @@ import { Logo } from "@/components/ui/logo";
 import { Text, TouchableOpacity, View } from "react-native";
 import { Button } from "@/components/ui/button";
 import { Link, router } from "expo-router";
-import { KeyboardAvoidingLayout } from "@/components/layout/keyboard-avoiding-layout";
 import { useAuthStore } from "@/store/auth";
 import { Layout } from "@/components/layout/layout";
 
+import {
+  GoogleSignin,
+  statusCodes,
+  GoogleSigninButton,
+} from "@react-native-google-signin/google-signin";
+import { useState } from "react";
+import { useSignIn } from "@/hooks/useGoogleSignIn";
+import { Typography } from "@/components/ui/typography";
+
+GoogleSignin.configure({
+  scopes: ["https://www.googleapis.com/auth/drive.readonly"],
+  offlineAccess: false,
+  iosClientId: process.env.EXPO_PUBLIC_IOS_OAUTH_TOKEN,
+  forceCodeForRefreshToken: true,
+});
+
 export default function Page() {
+  const { signIn, name } = useSignIn();
+
   const { isGerman } = useLanguageStore();
   const { setUser } = useAuthStore();
 
@@ -86,12 +103,30 @@ export default function Page() {
         />
       </View>
 
-      <TouchableOpacity className="bg-white px-4 py-3 rounded-xl flex-row w-full items-center justify-center gap-4">
-        <GOOGLE />
-        <Text className="text-black font-semibold text-xl text-center">
-          {isGerman() ? "Mit Google fortfahren" : "Continua con Google"}
-        </Text>
-      </TouchableOpacity>
+      {name ? (
+        <>
+          <Typography className="text-center">{name}</Typography>
+          <TouchableOpacity
+            className="bg-red-200 px-4 py-3 rounded-xl flex-row w-full items-center justify-center gap-4"
+            onPress={() => signIn("signout")}
+          >
+            <GOOGLE />
+            <Text className="text-whtie font-semibold text-xl text-center">
+              SIGN OUT
+            </Text>
+          </TouchableOpacity>
+        </>
+      ) : (
+        <TouchableOpacity
+          className="bg-white px-4 py-3 rounded-xl flex-row w-full items-center justify-center gap-4"
+          onPress={() => signIn("signin")}
+        >
+          <GOOGLE />
+          <Text className="text-black font-semibold text-xl text-center">
+            {isGerman() ? "Mit Google fortfahren" : "Continua con Google"}
+          </Text>
+        </TouchableOpacity>
+      )}
     </Layout>
   );
 }

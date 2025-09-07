@@ -40,7 +40,10 @@ export const useDrawerHeader = ({ threeshold }: { threeshold: number }) => {
             className="z-[999999] w-full"
             onLayout={(e) => setHeight(e.nativeEvent.layout.height)}
         >
-            <Animated.View className="absolute inset-0 bg-backgroundDark/30" style={animatedBGStyle}>
+            <Animated.View
+                className="absolute inset-0 bg-backgroundDark/50"
+                style={animatedBGStyle}
+            >
                 <BlurView
                     tint="dark"
                     className="absolute inset-0"
@@ -53,12 +56,11 @@ export const useDrawerHeader = ({ threeshold }: { threeshold: number }) => {
                 style={{
                     paddingTop: top + 12,
                     paddingBottom: 12,
-                    paddingHorizontal: 24,
                 }}
             >
                 <Button
                     variant="ghost"
-                    className="p-0 m-0"
+                    className="p-4 m-0"
                     onPress={() => {
                         navigation.dispatch(DrawerActions.openDrawer());
                     }}
@@ -76,7 +78,9 @@ export const useDrawerHeader = ({ threeshold }: { threeshold: number }) => {
                     />
                 </View>
 
-                <Ionicons name="search" size={24} color="white" />
+                <Button variant="ghost" className="p-4">
+                    <Ionicons name="search" size={24} color="white" />
+                </Button>
             </View>
         </View>
     );

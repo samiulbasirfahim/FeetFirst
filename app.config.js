@@ -38,7 +38,12 @@ export default {
     },
     plugins: [
       "expo-router",
-
+      [
+        "@react-native-google-signin/google-signin",
+        {
+          iosUrlScheme: `com.googleusercontent.apps.${process.env.EXPO_PUBLIC_IOS_OAUTH_TOKEN}`,
+        },
+      ],
       [
         "expo-location",
         {

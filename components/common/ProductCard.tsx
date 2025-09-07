@@ -1,0 +1,79 @@
+import { View, TouchableOpacity, Image, Text } from "react-native";
+import BRANDLOGO from "@/assets/svgs/hoka_logo.svg";
+import Love from "@/assets/svgs/love.svg";
+import Love_filled from "@/assets/svgs/love-filled.svg";
+import { Typography } from "../ui/typography";
+
+interface ProductCardProps {
+  image: any;
+  name: string;
+  price: string | number;
+  liked: boolean;
+  onToggleLike: () => void;
+  colors?: string[];
+}
+
+export function ProductCard({
+  image,
+  name,
+  price,
+  liked,
+  onToggleLike,
+  colors = ["#22c55e", "#16a34a", "#86efac"],
+}: ProductCardProps) {
+  return (
+    <TouchableOpacity
+      activeOpacity={0.8}
+      className="py-3 mb-4 w-[48%] relative"
+    >
+      <View className="bg-background rounded-3xl py-6 relative">
+        <TouchableOpacity
+          onPress={onToggleLike}
+          className="absolute top-3 z-10 p-1 right-3"
+        >
+          {liked ? (
+            <Love_filled width={24} height={24} />
+          ) : (
+            <Love width={24} height={24} />
+          )}
+        </TouchableOpacity>
+
+        <Image
+          source={image}
+          className="w-full h-36 rounded-xl"
+          resizeMode="contain"
+        />
+
+        <View className="absolute left-1/2 -translate-x-1/2 bottom-6">
+          <BRANDLOGO height={50} width={100} />
+        </View>
+      </View>
+
+      <View className="flex-row justify-between items-center relative ps-2 flex-1">
+        <View>
+          <Text className="text-white mt-1 font-semibold">{name}</Text>
+          <Text className="text-primary">$123</Text>
+        </View>
+        <View className="flex-row relative items-center">
+          <View className="flex-row mr-2">
+            {colors.slice(0, 3).map((color, idx) => (
+              <View
+                key={idx}
+                className="mt-1 size-6 rounded-full z-1"
+                style={{
+                  backgroundColor: color,
+                  zIndex: 3 - idx,
+                  left: (2 - idx) * 12,
+                }}
+              />
+            ))}
+          </View>
+          {colors.length - 3 > 0 && (
+            <Typography>+{colors.length - 3}</Typography>
+          )}
+          <Typography variant="caption">+4</Typography>
+        </View>
+      </View>
+    </TouchableOpacity>
+  );
+}
