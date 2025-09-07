@@ -52,13 +52,23 @@ const HomeFlatList = () => {
         >
           <View>
             <LinearGradient
+              colors={['#020202', 'transparent']}
+              style={{
+                position: 'absolute',
+                left: 0,
+                right: 0,
+                top: 0,
+                height: 150,
+              }}
+            />
+            <LinearGradient
               colors={['rgba(0,0,0,1)', 'transparent']}
               style={{
                 position: 'absolute',
                 left: 0,
                 right: 0,
                 top: 70,
-                height: 70,
+                height: 50,
               }}
             />
             <View className="pl-3 pb-4">

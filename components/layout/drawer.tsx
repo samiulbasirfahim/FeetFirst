@@ -1,32 +1,32 @@
-import AntDesign from "@expo/vector-icons/AntDesign";
-import HOME from "@/assets/svgs/home.svg";
-import SKIFINDER from "@/assets/svgs/skiing.svg";
-import WALKING from "@/assets/svgs/walking-icon.svg";
-import SCAN from "@/assets/svgs/scan.svg";
-import RUNNINGSHOE from "@/assets/svgs/running-shoe.svg";
-import SUPPORT from "@/assets/svgs/support.svg";
-import DOCUMENTUPLOAD from "@/assets/svgs/document-upload.svg";
+import AntDesign from '@expo/vector-icons/AntDesign';
+import HOME from '@/assets/svgs/home.svg';
+import SKIFINDER from '@/assets/svgs/skiing.svg';
+import WALKING from '@/assets/svgs/walking-icon.svg';
+import SCAN from '@/assets/svgs/scan.svg';
+import RUNNINGSHOE from '@/assets/svgs/running-shoe.svg';
+import SUPPORT from '@/assets/svgs/support.svg';
+import DOCUMENTUPLOAD from '@/assets/svgs/document-upload.svg';
 import {
   DrawerContentComponentProps,
   useDrawerProgress,
-} from "@react-navigation/drawer";
-import { Image, View, ScrollView, Pressable, Dimensions } from "react-native";
-import { Typography } from "../ui/typography";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Button } from "../ui/button";
-import { DrawerButton } from "../ui/drawer-button";
-import { useLanguageStore } from "@/store/language";
-import { router } from "expo-router";
-import Svg, { Path } from "react-native-svg";
-import { Portal } from "react-native-portalize";
+} from '@react-navigation/drawer';
+import { Image, View, ScrollView, Pressable, Dimensions } from 'react-native';
+import { Typography } from '../ui/typography';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Button } from '../ui/button';
+import { DrawerButton } from '../ui/drawer-button';
+import { useLanguageStore } from '@/store/language';
+import { router } from 'expo-router';
+import Svg, { Path } from 'react-native-svg';
+import { Portal } from 'react-native-portalize';
 
 import Animated, {
   useAnimatedStyle,
   interpolate,
   useDerivedValue,
-} from "react-native-reanimated";
+} from 'react-native-reanimated';
 
-const { width } = Dimensions.get("window");
+const { width } = Dimensions.get('window');
 
 export function CustomDrawer(props: DrawerContentComponentProps) {
   const { top: top_safe_padding } = useSafeAreaInsets();
@@ -35,7 +35,7 @@ export function CustomDrawer(props: DrawerContentComponentProps) {
   const progress = useDrawerProgress();
 
   const pointerEvents = useDerivedValue(() => {
-    return progress.value === 0 ? "none" : "auto";
+    return progress.value === 0 ? 'none' : 'auto';
   });
 
   const drawerStyle = useAnimatedStyle(() => ({
@@ -56,12 +56,12 @@ export function CustomDrawer(props: DrawerContentComponentProps) {
         pointerEvents={pointerEvents as any}
         style={[
           {
-            position: "absolute",
+            position: 'absolute',
             top: 0,
             bottom: 0,
             left: 0,
             right: 0,
-            backgroundColor: "black",
+            backgroundColor: 'black',
           },
           backdropStyle,
         ]}
@@ -73,9 +73,9 @@ export function CustomDrawer(props: DrawerContentComponentProps) {
         style={[
           {
             width: width * 0.85,
-            height: "100%",
-            backgroundColor: "#1A1C1B",
-            position: "absolute",
+            height: '100%',
+            backgroundColor: '#1A1C1B',
+            position: 'absolute',
             left: 0,
             top: 0,
             bottom: 0,
@@ -89,7 +89,7 @@ export function CustomDrawer(props: DrawerContentComponentProps) {
           style={{ paddingTop: top_safe_padding + 20, paddingBottom: 20 }}
         >
           <Image
-            source={{ uri: "https://avatar.iran.liara.run/public/34" }}
+            source={{ uri: 'https://avatar.iran.liara.run/public/34' }}
             className="w-1/3 aspect-square rounded-full"
           />
           <Typography variant="title" numberOfLines={1} className="text-white">
@@ -118,39 +118,39 @@ export function CustomDrawer(props: DrawerContentComponentProps) {
           />
           <DrawerButton
             href="/(protected)/home/feetfirst-points"
-            title={isGerman() ? "Punkte FeetFirst" : "Punti FeetFirst"}
+            title={isGerman() ? 'Punkte FeetFirst' : 'Punti FeetFirst'}
             icon={SCAN}
             selected={props.state.index === 1}
           />
           <Button
             noWrap
             className="flex-row items-center gap-4 p-4"
-            variant={"ghost"}
+            variant={'ghost'}
             onPress={() => {
               closeDrawer();
-              router.navigate("/(protected)/shoe-recommendations");
+              router.navigate('/(protected)/shoe-recommendations');
             }}
           >
             <RUNNINGSHOE />
             <Typography className="text-xl text-white">
-              {isGerman() ? "Schuhemfpehlungen" : "Raccomandazioni di scarpe"}
+              {isGerman() ? 'Schuhemfpehlungen' : 'Raccomandazioni di scarpe'}
             </Typography>
           </Button>
           <DrawerButton
             href="/(protected)/home/mass-insoles"
-            title={isGerman() ? "Masseinlagen" : "Plantari su misura"}
+            title={isGerman() ? 'Masseinlagen' : 'Plantari su misura'}
             icon={SUPPORT}
             selected={props.state.index === 2}
           />
           <DrawerButton
             href="/(protected)/home/foot-exercise"
-            title={isGerman() ? "Fussübungen" : "Esercizi per i piedi"}
+            title={isGerman() ? 'Fussübungen' : 'Esercizi per i piedi'}
             icon={WALKING}
             selected={props.state.index === 3}
           />
           <DrawerButton
             href="/(protected)/home/skifinder"
-            title={"SKIFINDER"}
+            title={'SKIFINDER'}
             icon={SKIFINDER}
             selected={props.state.index === 4}
           />

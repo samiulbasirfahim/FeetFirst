@@ -1,15 +1,17 @@
-import { Layout } from "@/components/layout/layout";
-import { Typography } from "@/components/ui/typography";
-import { useLanguageStore } from "@/store/language";
-import { Image, Text, useWindowDimensions, View } from "react-native";
-import woman from "@/assets/images/woman-upside-down.png";
-import { Button } from "@/components/ui/button";
-import MyCarousel from "@/components/ui/MyCarousel";
-import { VersionInfo } from "@/components/common/version";
-import ManAboutTORun from "@/assets/images/man-about-to-run.png";
-import { LinearGradient } from "expo-linear-gradient";
-import { useHeaderHeight } from "@react-navigation/elements";
-import { useState } from "react";
+import { Layout } from '@/components/layout/layout';
+import { Typography } from '@/components/ui/typography';
+import { useLanguageStore } from '@/store/language';
+import { Image, Text, useWindowDimensions, View } from 'react-native';
+import woman from '@/assets/images/woman-upside-down.png';
+import { Button } from '@/components/ui/button';
+import MyCarousel from '@/components/ui/MyCarousel';
+import { VersionInfo } from '@/components/common/version';
+import ManAboutTORun from '@/assets/images/man-about-to-run.png';
+import { LinearGradient } from 'expo-linear-gradient';
+import { useHeaderHeight } from '@react-navigation/elements';
+import LineBg from '@/assets/svgs/flexible_bg.svg';
+import Leg from '@/assets/svgs/flexible_leg1.svg';
+import { useState } from 'react';
 
 export default function Screen() {
   const { height } = useWindowDimensions();
@@ -17,13 +19,13 @@ export default function Screen() {
   const { isGerman } = useLanguageStore();
   const [womanDiv, setWomanDiv] = useState(0);
   return (
-    <Layout scrollable className="bg-backgroundDark">
+    <Layout scrollable className="bg-[#000000]">
       <View style={{ height: header_height }}></View>
       <View className="relative -mx-3">
         <Typography className="absolute z-[99] text-3xl font-bold text-white text-center my-4 leading-tight px-3">
           {isGerman()
-            ? "Übungen zur Flexibilitätserhöhung"
-            : "Esercizi per aumentare la flessibilità"}
+            ? 'Übungen zur Flexibilitätserhöhung'
+            : 'Esercizi per aumentare la flessibilità'}
         </Typography>
         <View
           className="w-full"
@@ -35,14 +37,14 @@ export default function Screen() {
           }}
         >
           <LinearGradient
-            colors={["rgba(13,13,13,0.5)", "rgba(13,13,13,1)"]}
+            colors={['rgba(13,13,13,0.5)', 'rgba(13,13,13,1)']}
             start={{ x: 0, y: 1 }}
             end={{ x: 0, y: 0 }}
             className="absolute inset-0 z-[10]"
           />
 
           <LinearGradient
-            colors={["transparent", "rgba(98, 160, 123, 0.3)"]}
+            colors={['transparent', 'rgba(98, 160, 123, 0.3)']}
             className="absolute inset-0 z-[10]"
           />
 
@@ -51,7 +53,7 @@ export default function Screen() {
               source={woman}
               style={{
                 height: womanDiv * 1.5,
-                width: "100%",
+                width: '100%',
               }}
               resizeMode="contain"
             />
@@ -62,44 +64,65 @@ export default function Screen() {
       <View className="mt-12">
         <Typography className="font-bold text-3xl ">
           {isGerman()
-            ? "FeetFirst - Ihr Partner für Fußgesundheit, bietet jetzt die perfekten Fußübungen."
-            : "FeetFirst, il tuo partner per la salute dei piedi, ora ti offre gli esercizi perfetti per i piedi."}
+            ? 'FeetFirst - Ihr Partner für Fußgesundheit, bietet jetzt die perfekten Fußübungen.'
+            : 'FeetFirst, il tuo partner per la salute dei piedi, ora ti offre gli esercizi perfetti per i piedi.'}
         </Typography>
         <Text className="text-white mt-4">
           {isGerman()
-            ? "Wählen Sie einfach aus, was Sie erreichen. möchten, sehen Sie sich die Anleitung an und legen Sie los!"
+            ? 'Wählen Sie einfach aus, was Sie erreichen. möchten, sehen Sie sich die Anleitung an und legen Sie los!'
             : "Scegli semplicemente cosa vuoi ottenere. vuoi, dai un'occhiata alle istruzioni e inizia!"}
         </Text>
       </View>
 
       <View className="mt-8">
         <Typography className="text-3xl font-bold mb-4">
-          {isGerman() ? "Produkte" : "Prodotti"}
+          {isGerman() ? 'Produkte' : 'Prodotti'}
         </Typography>
 
         <MyCarousel />
       </View>
+
+      {/* Accordian */}
+      <View className="">
+        <LinearGradient
+          colors={['rgba(0,0,0,1)', 'transparent']}
+          style={{
+            position: 'absolute',
+            left: 0,
+            right: -20,
+            top: 0,
+            height: 250,
+          }}
+          className="z-10"
+        />
+        <View className=" -right-[90px] top-[20px] ">
+          <LineBg />
+        </View>
+        <View className="absolute  left-10">
+          <Leg />
+        </View>
+      </View>
       <View className="pt-8">
         <Typography className="text-3xl font-bold w-1/2">
           {isGerman()
-            ? "Ihr Individueller Übungsplan"
-            : "Il tuo piano di esercizi individuale"}
+            ? 'Ihr Individueller Übungsplan'
+            : 'Il tuo piano di esercizi individuale'}
         </Typography>
         <Text className="text-white my-6">
           {isGerman()
-            ? "Sie können sich jetzt auch Ihren individuellen Übungsplan erstellen lassen – basierend auf Ihrem 3D-Scan, Ihren Fußproblemen und Ihren Zielen."
-            : "Ora puoi anche creare il tuo piano di esercizi personalizzato in base alla scansione 3D, ai problemi del tuo piede e ai tuoi obiettivi."}
+            ? 'Sie können sich jetzt auch Ihren individuellen Übungsplan erstellen lassen – basierend auf Ihrem 3D-Scan, Ihren Fußproblemen und Ihren Zielen.'
+            : 'Ora puoi anche creare il tuo piano di esercizi personalizzato in base alla scansione 3D, ai problemi del tuo piede e ai tuoi obiettivi.'}
         </Text>
 
         <View className="flex-row mb-6">
           <Button variant="outline" className="bg-primary/10 py-4 rounded-2xl">
-            {isGerman() ? "Jetzt erstellen!" : "Crea ora!"}
+            {isGerman() ? 'Jetzt erstellen!' : 'Crea ora!'}
           </Button>
         </View>
 
         <View className="h-96 w-full my-8">
           <LinearGradient
-            colors={["rgba(0,0,0,0.1)", "black"]}
+            colors={['rgba(0,0,0,0.1)', 'black']}
             className="absolute inset-0 z-[99] mt-36"
           />
           <Image
