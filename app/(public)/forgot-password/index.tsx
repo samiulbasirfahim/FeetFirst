@@ -1,6 +1,5 @@
 import SMS from "@/assets/svgs/sms.svg";
 import LOCK from "@/assets/svgs/lock-dot.svg";
-import { KeyboardAvoidingLayout } from "@/components/layout/keyboard-avoiding-layout";
 import { Input } from "@/components/ui/input";
 import { Typography } from "@/components/ui/typography";
 import { useLanguageStore } from "@/store/language";

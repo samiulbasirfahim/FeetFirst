@@ -1,4 +1,3 @@
-import { Layout } from "@/components/layout/layout";
 import { OnBoardingLayout } from "@/components/layout/onboarding";
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";

@@ -1,5 +1,4 @@
 import CHECK from "@/assets/svgs/password-check.svg";
-import { KeyboardAvoidingLayout } from "@/components/layout/keyboard-avoiding-layout";
 import { Button } from "@/components/ui/button";
 import { LogoWrapper } from "@/components/ui/logo";
 import { Typography } from "@/components/ui/typography";

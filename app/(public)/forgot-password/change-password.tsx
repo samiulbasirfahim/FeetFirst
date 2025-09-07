@@ -1,7 +1,6 @@
 import SHIELD from "@/assets/svgs/shield-security.svg";
 import SHIELD_CHECK from "@/assets/svgs/shield-check.svg";
 import LOCK from "@/assets/svgs/lock.svg";
-import { KeyboardAvoidingLayout } from "@/components/layout/keyboard-avoiding-layout";
 import { LogoWrapper, LogoWrapperSub } from "@/components/ui/logo";
 import { Typography } from "@/components/ui/typography";
 import { useLanguageStore } from "@/store/language";

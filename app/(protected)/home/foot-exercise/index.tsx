@@ -20,7 +20,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { OutlinedText } from "@donkasun/react-native-outlined-text";
 import { Button } from "@/components/ui/button";
 import { VersionInfo } from "@/components/common/version";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { useDrawerHeader } from "@/components/common/drawer-header";
 
@@ -308,6 +308,7 @@ export default function Screen() {
             <Button
               variant="outline"
               className="bg-primary/10 py-4 rounded-2xl"
+              onPress={() => router.push("/(exercise-questions)/while-loading")}
             >
               {isGerman() ? "Jetzt erstellen!" : "Crea ora!"}
             </Button>

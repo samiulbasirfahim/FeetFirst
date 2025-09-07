@@ -1,7 +1,6 @@
 import LIKE from "@/assets/svgs/like.svg";
 import LOCK from "@/assets/svgs/lock.svg";
 import { Modal } from "@/components/common/modal";
-import { KeyboardAvoidingLayout } from "@/components/layout/keyboard-avoiding-layout";
 import { Layout } from "@/components/layout/layout";
 import { Button } from "@/components/ui/button";
 import { InputPassword } from "@/components/ui/input";

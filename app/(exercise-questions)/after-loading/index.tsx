@@ -31,7 +31,7 @@ export default function Screen() {
         </Typography>
       </View>
 
-      <Link asChild href={"/(exercise-questions)/after-loading"}>
+      <Link asChild href={"/(exercise-questions)/after-loading/second"}>
         <Button variant="big">
           {isGerman()
             ? "Fortfahren und mit deinen gezielten, persönlichen Fragen starten"

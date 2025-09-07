@@ -11,7 +11,7 @@ import Entypo from "@expo/vector-icons/Entypo";
 import TouchButtonBefore from "@/assets/svgs/touch_button_before.svg";
 import TouchButtonAfter from "@/assets/svgs/touch_button_after.svg";
 
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { useState } from "react";
 import NewsFlatlist from "@/components/ui/flatlist-news";
 import MassFlatList from "@/components/ui/flatlist-massinsole";
@@ -322,6 +322,9 @@ export default function Screen() {
                     {item.desc}
                   </Typography>
                   <Button
+                    onPress={() =>
+                      router.push("/(scan-upload)/while-scan-upload")
+                    }
                     variant="outline"
                     textClassName="text-base font-semibold"
                     className="w-1/2 rounded-2xl py-2.5 bg-primary/20"
