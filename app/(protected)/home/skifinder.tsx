@@ -24,6 +24,7 @@ import dalbello from "@/assets/images/dalbello.png";
 import head from "@/assets/images/head.png";
 import { useEffect, useState } from "react";
 import { useDrawerHeader } from "@/components/common/drawer-header";
+import { AutoImage } from "@/components/ui/auto-image";
 
 const shoes: ShoeItem[] = [
     {
@@ -62,28 +63,6 @@ const shoes: ShoeItem[] = [
         image: shoeImage,
     },
 ];
-
-type AutoImageProps = {
-    source: ImageSourcePropType;
-    height: number;
-};
-
-export function AutoImage({ source, height }: AutoImageProps) {
-    const { width, height: originalHeight } = Image.resolveAssetSource(source);
-
-    const ratio = width / originalHeight;
-
-    return (
-        <Image
-            source={source}
-            resizeMode="contain"
-            style={{
-                height,
-                width: ratio * height,
-            }}
-        />
-    );
-}
 
 export default function Screen() {
     const { isGerman } = useLanguageStore();
