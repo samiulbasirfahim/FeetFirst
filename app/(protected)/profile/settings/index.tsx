@@ -1,3 +1,5 @@
+import { LogOutModal } from "@/components/common/logout-modal";
+import { Modal } from "@/components/common/modal";
 import {
   SettingsButton,
   SettingsGroup,
@@ -7,10 +9,12 @@ import { Layout } from "@/components/layout/layout";
 import { Typography } from "@/components/ui/typography";
 import { useLanguageStore } from "@/store/language";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { useState } from "react";
 import { ScrollView, TouchableOpacity } from "react-native";
 
 export default function Screen() {
   const { isGerman } = useLanguageStore();
+  const [showModal, setShowModal] = useState(false);
   return (
     <Layout className="bg-backgroundDark" scrollable avoidTabbar>
       <SettingsGroup>
@@ -85,7 +89,10 @@ export default function Screen() {
       </SettingsGroup>
 
       <SettingsGroup>
-        <TouchableOpacity className="flex-row justify-between items-center p-4 border-b-muted-foreground w-full">
+        <TouchableOpacity
+          className="flex-row justify-between items-center p-4 border-b-muted-foreground w-full"
+          onPress={() => setShowModal(true)}
+        >
           <Typography variant="selected" className="text-white">
             {isGerman() ? "Abmelden" : "Disconnessione"}
           </Typography>
@@ -96,6 +103,8 @@ export default function Screen() {
           />
         </TouchableOpacity>
       </SettingsGroup>
+
+      <LogOutModal isOpen={showModal} onClose={()=> setShowModal(false)}/>
     </Layout>
   );
 }

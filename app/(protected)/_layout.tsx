@@ -40,9 +40,6 @@ export default function ProtectedLayout() {
           name="shoe-recommendations"
           options={{
             tabBarLabel: "Shoes",
-            // tabBarLabel: isGerman()
-            //     ? "Schuhemfpehlungen"
-            //     : "Raccomandazioni di scarpe",
           }}
         />
         <Tabs.Screen

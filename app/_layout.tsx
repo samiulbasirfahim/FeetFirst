@@ -14,7 +14,7 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (isReady) {
-      router.replace("/(protected)/shoe-recommendations/shoes/shoe-details");
+      router.replace("/(protected)/home");
     }
   }, [isReady]);
 
