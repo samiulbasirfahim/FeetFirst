@@ -1,66 +1,66 @@
-import { VersionInfo } from "@/components/common/version";
-import { Layout } from "@/components/layout/layout";
-import { useLanguageStore } from "@/store/language";
-import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
-import React, { useState } from "react";
+import { VersionInfo } from '@/components/common/version';
+import { Layout } from '@/components/layout/layout';
+import { useLanguageStore } from '@/store/language';
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import React, { useState } from 'react';
 import {
-    FlatList,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
-} from "react-native";
-import Collapsible from "react-native-collapsible";
+  FlatList,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import Collapsible from 'react-native-collapsible';
 
 const FAQ_DATA = [
   {
-    id: "1",
-    question_de: "Wie funktioniert die FeetF1rst App?",
+    id: '1',
+    question_de: 'Wie funktioniert die FeetF1rst App?',
     answer_de:
-      "Die App funktioniert auf Basis deines 3D-Scans. Nach dem Scan erhältst du einen Link per E-Mail mit allen weiteren Schritten und Empfehlungen.",
+      'Die App funktioniert auf Basis deines 3D-Scans. Nach dem Scan erhältst du einen Link per E-Mail mit allen weiteren Schritten und Empfehlungen.',
     question_it: "Come funziona l'app FeetF1rst?",
     answer_it:
       "L'app funziona sulla base della tua scansione 3D. Dopo la scansione riceverai un link via e-mail con tutti i passaggi successivi e i consigli personalizzati.",
   },
   {
-    id: "2",
-    question_de: "Wo kann ich den 3D-Scan machen?",
+    id: '2',
+    question_de: 'Wo kann ich den 3D-Scan machen?',
     answer_de:
       "Alle Scan-Standorte findest du direkt in der App im Menüpunkt 'FeetF1rst Points'. Dort kannst du einen passenden Standort in deiner Nähe auswählen.",
-    question_it: "Dove posso fare la scansione 3D?",
+    question_it: 'Dove posso fare la scansione 3D?',
     answer_it:
       "Tutti i punti di scansione si trovano direttamente nell'app nella sezione 'FeetF1rst Points'. Lì puoi scegliere una sede vicino a te.",
   },
   {
-    id: "3",
-    question_de: "Muss ich meinen 3D-Scan regelmäßig erneuern?",
+    id: '3',
+    question_de: 'Muss ich meinen 3D-Scan regelmäßig erneuern?',
     answer_de:
-      "Nein, dein Scan bleibt gespeichert und kann jederzeit genutzt werden, solange sich deine Fußmaße nicht wesentlich verändern.",
-    question_it: "Devo ripetere regolarmente la mia scansione 3D?",
+      'Nein, dein Scan bleibt gespeichert und kann jederzeit genutzt werden, solange sich deine Fußmaße nicht wesentlich verändern.',
+    question_it: 'Devo ripetere regolarmente la mia scansione 3D?',
     answer_it:
-      "No, la tua scansione rimane salvata e può essere utilizzata in qualsiasi momento, a meno che le tue misure del piede non cambino in modo significativo.",
+      'No, la tua scansione rimane salvata e può essere utilizzata in qualsiasi momento, a meno che le tue misure del piede non cambino in modo significativo.',
   },
 ];
 
 const supportAreas = [
-  "ALLGEMEINES",
-  "SHOE FINDER",
-  "MASSEINLAGEN",
-  "MASSSCHUHE",
-  "FUSSÜBUNGEN",
-  "SUPPORT",
+  'ALLGEMEINES',
+  'SHOE FINDER',
+  'MASSEINLAGEN',
+  'MASSSCHUHE',
+  'FUSSÜBUNGEN',
+  'SUPPORT',
 ];
 
 const supportText = {
   de: [
-    "Sie haben nicht gefunden, was Sie suchen?",
-    "Unser Support-Team steht Ihnen jederzeit zur Verfügung.",
-    "Jetzt kontaktieren!",
+    'Sie haben nicht gefunden, was Sie suchen?',
+    'Unser Support-Team steht Ihnen jederzeit zur Verfügung.',
+    'Jetzt kontaktieren!',
   ],
   it: [
-    "Non hai trovato quello che cerchi?",
-    "Il nostro team di supporto è a tua disposizione in qualsiasi momento.",
-    "Contattaci ora!",
+    'Non hai trovato quello che cerchi?',
+    'Il nostro team di supporto è a tua disposizione in qualsiasi momento.',
+    'Contattaci ora!',
   ],
 };
 
@@ -77,7 +77,7 @@ export default function Screen() {
     answer: string;
   }) => {
     const [expanded, setExpanded] = useState<boolean>(false);
-    const preview = answer.slice(0, 88) + (answer.length > 80 ? " ..." : "");
+    const preview = answer.slice(0, 88) + (answer.length > 80 ? ' ...' : '');
 
     return (
       <View className="mb-4 px-4">
@@ -86,14 +86,14 @@ export default function Screen() {
           {expanded ? answer : preview}
           {answer.length > 80 && !expanded && (
             <Text onPress={() => setExpanded(true)}>
-              {isGerman() ? "[mehr]" : "[Di più]"}
+              {isGerman() ? '[mehr]' : '[Di più]'}
             </Text>
           )}
         </Text>
         {expanded && (
           <TouchableOpacity onPress={() => setExpanded(false)}>
             <Text className="text-white">
-              {isGerman() ? "[weniger]" : "[meno]"}
+              {isGerman() ? '[weniger]' : '[meno]'}
             </Text>
           </TouchableOpacity>
         )}
@@ -110,7 +110,7 @@ export default function Screen() {
           onPress={() => setActiveSection(isActive ? null : item)}
         >
           <Text className="text-white text-xl">{item}</Text>
-          <Text className="text-white text-3xl">{isActive ? "–" : "+"}</Text>
+          <Text className="text-white text-3xl">{isActive ? '–' : '+'}</Text>
         </TouchableOpacity>
         <Collapsible collapsed={!isActive}>
           <Text className="text-gray-400 mb-3">
@@ -122,28 +122,28 @@ export default function Screen() {
   };
   // Combine all data into sections for a single FlatList
   const allSections = [
-    { type: "header", id: "header" },
-    { type: "faq-title", id: "faq-title" },
-    ...FAQ_DATA.map((item) => ({ type: "faq", ...item })),
-    { type: "support-title", id: "support-title" },
+    { type: 'header', id: 'header' },
+    { type: 'faq-title', id: 'faq-title' },
+    ...FAQ_DATA.map((item) => ({ type: 'faq', ...item })),
+    { type: 'support-title', id: 'support-title' },
     ...supportAreas.map((area, index) => ({
-      type: "support",
+      type: 'support',
       id: `support-${index}`,
       area,
     })),
-    { type: "footer", id: "footer" },
+    { type: 'footer', id: 'footer' },
   ];
 
   const renderItem = ({ item }: any) => {
     switch (item.type) {
-      case "header":
+      case 'header':
         return (
           <View className="flex justify-center items-center">
             <TextInput
               placeholder={
                 isGerman()
-                  ? "Wie können wir Ihnen helfen?"
-                  : "Come possiamo aiutarla?"
+                  ? 'Wie können wir Ihnen helfen?'
+                  : 'Come possiamo aiutarla?'
               }
               className="text-white"
               placeholderTextColor="#9CA3AF"
@@ -152,37 +152,37 @@ export default function Screen() {
           </View>
         );
 
-      case "faq-title":
+      case 'faq-title':
         return (
           <View className="my-8">
             <Text className="text-white font-bold text-2xl">
-              {isGerman() ? "IHRE HÄUFIGSTEN FRAGEN" : "DOMANDE PIÙ FREQUENTI"}
+              {isGerman() ? 'IHRE HÄUFIGSTEN FRAGEN' : 'DOMANDE PIÙ FREQUENTI'}
             </Text>
           </View>
         );
 
-      case "faq":
+      case 'faq':
         return isGerman() ? (
           <FAQItem question={item.question_de} answer={item.answer_de} />
         ) : (
           <FAQItem question={item.question_it} answer={item.answer_it} />
         );
 
-      case "support-title":
+      case 'support-title':
         return (
           <View className="my-12">
             <Text className="text-white font-bold text-2xl">
               {isGerman()
-                ? "ALLE SUPPORT BEREICHE"
-                : "TUTTE LE AREE DI SUPPORTO"}
+                ? 'ALLE SUPPORT BEREICHE'
+                : 'TUTTE LE AREE DI SUPPORTO'}
             </Text>
           </View>
         );
 
-      case "support":
+      case 'support':
         return renderSupportItem({ item: item.area });
 
-      case "footer":
+      case 'footer':
         return (
           <View>
             <View className="flex-row gap-6 px-4 items-center my-12">
