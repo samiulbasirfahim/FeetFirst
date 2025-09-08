@@ -41,7 +41,6 @@ export const useDrawerHeader = ({ threeshold }: { threeshold: number }) => {
 
     const HeaderComponent = (
         <View
-            pointerEvents="box-none"
             style={{
                 elevation: 10,
             }}
@@ -71,7 +70,7 @@ export const useDrawerHeader = ({ threeshold }: { threeshold: number }) => {
                 <View className="flex-row items-center justify-between">
                     <Button
                         variant="ghost"
-                        className="p-4 px-8 m-0"
+                        className="py-4 px-8 m-0 bg-primary rounded-none"
                         onPress={() => {
                             navigation.dispatch(DrawerActions.openDrawer());
                         }}
@@ -91,7 +90,7 @@ export const useDrawerHeader = ({ threeshold }: { threeshold: number }) => {
 
                     <Button
                         variant="ghost"
-                        className="p-4 px-8 m-0"
+                        className="py-4 px-8 m-0 bg-primary rounded-none"
                         onPress={() => {
                             setShowSearch(true);
                         }}
