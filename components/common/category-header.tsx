@@ -15,6 +15,7 @@ export default function ShoeHeader() {
         paddingTop: top + 20,
         paddingBottom: 24,
         paddingHorizontal: 14,
+        elevation: 10,
       }}
     >
       <HeaderBackButton />

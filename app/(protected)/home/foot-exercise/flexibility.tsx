@@ -16,7 +16,6 @@ import MyCarousel from '@/components/ui/MyCarousel';
 import { VersionInfo } from '@/components/common/version';
 import ManAboutTORun from '@/assets/images/man-about-to-run.png';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useHeaderHeight } from '@react-navigation/elements';
 import React, { Component, useEffect, useState } from 'react';
 import { useDrawerHeader } from '@/components/common/drawer-header';
 import LineBg from '@/assets/svgs/flexible_bg.svg';
@@ -25,7 +24,6 @@ import { BlurView } from 'expo-blur';
 import * as AccordionPrimitive from '@rn-primitives/accordion';
 import Accordion from 'react-native-collapsible/Accordion';
 import * as Animatable from 'react-native-animatable';
-import AccordionAnimation from '@/components/ui/accordion-animation';
 import Animated, {
   Layout as ReanimatedLayout,
   FadeInDown,
@@ -188,7 +186,7 @@ export default function Screen() {
         <MyCarousel />
       </View>
       {/* Accordian */}
-      <View className="">
+      <View className="isolate overflow-hidden">
         <LinearGradient
           colors={['rgba(0,0,0,1)', 'transparent']}
           style={{
@@ -200,7 +198,7 @@ export default function Screen() {
           }}
           className="z-10"
         />
-        <View className=" -right-[90px] top-[20px] ">
+        <View className="-right-[90px] top-[20px] ">
           <LineBg />
         </View>
         <View className="absolute  left-10">
@@ -212,7 +210,7 @@ export default function Screen() {
             onPressOut={() => {
               handleTouch('first');
             }}
-            className="z-10   "
+            className="z-10"
           >
             {touch.first === false ? (
               <BlurView
@@ -236,7 +234,7 @@ export default function Screen() {
             onPressOut={() => {
               handleTouch('second');
             }}
-            className="z-10   "
+            className="z-10"
           >
             {touch.second === false ? (
               <BlurView
@@ -260,7 +258,7 @@ export default function Screen() {
             onPressOut={() => {
               handleTouch('third');
             }}
-            className="z-10   "
+            className="z-10"
           >
             {touch.third === false ? (
               <BlurView
@@ -306,7 +304,7 @@ export default function Screen() {
         </View>
       </View>
 
-      <View className="mt-10 w-[90%] mx-auto">
+      <View className="mt-10 w-[90%] mx-auto isolate overflow-hidden">
         <Accordion
           activeSections={activeSections}
           sections={CONTENT}

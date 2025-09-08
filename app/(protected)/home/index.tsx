@@ -3,7 +3,13 @@ import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
 import { useLanguageStore } from "@/store/language";
 import { Link, router, useNavigation } from "expo-router";
-import { Image, TouchableOpacity, View, ImageBackground, Pressable } from "react-native";
+import {
+    Image,
+    TouchableOpacity,
+    View,
+    ImageBackground,
+    Pressable,
+} from "react-native";
 import Herobg from "@/assets/svgs/hero_bg.svg";
 import Herofeet from "@/assets/images/hero_feet.png";
 import Herodot from "@/assets/svgs/hero_dot.svg";
@@ -255,7 +261,15 @@ Provalo ora e verifica tu stesso.`}
                                         {
                                             name: "shoe-recommendations",
                                             state: {
-                                                routes: [{ name: "index" }, { name: "subcategory" }],
+                                                routes: [
+                                                    { name: "index" },
+                                                    {
+                                                        name: "subcategory",
+                                                        params: {
+                                                            category: "all",
+                                                        },
+                                                    },
+                                                ],
                                                 index: 1,
                                             },
                                         },
@@ -457,13 +471,12 @@ Provalo ora e verifica tu stesso.`}
                                             state: {
                                                 routes: [
                                                     { name: "index" },
-                                                    { name: "subcategory" },
                                                     {
                                                         name: "shoes",
                                                         params: { category: "sports" },
                                                     },
                                                 ],
-                                                index: 2,
+                                                index: 1,
                                             },
                                         },
                                     ],
@@ -509,7 +522,12 @@ Provalo ora e verifica tu stesso.`}
                                     backgroundColor: "rgba(0,0,0,0.7)",
                                 }}
                             />
-                            <Pressable onPress={() => router.push("/(protected)/home/foot-exercise/flexibility")} className="px-4 py-5 flex-col gap-2">
+                            <Pressable
+                                onPress={() =>
+                                    router.push("/(protected)/home/foot-exercise/flexibility")
+                                }
+                                className="px-4 py-5 flex-col gap-2"
+                            >
                                 <View className="flex-row justify-between ">
                                     <Typography className="text-base font-medium text-[#C3C3C3]">
                                         Basic plan

@@ -42,7 +42,7 @@ export default function Screen() {
         </>
       }
       FooterComponent={
-        <Link href={"/others/winsole"} asChild>
+        <Link href={"/others/winsole"} asChild replace>
           <Button variant="big">
             {isGerman()
               ? "Abschliessen und Einlage in den Warenkorb legen"

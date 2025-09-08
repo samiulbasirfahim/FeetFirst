@@ -73,6 +73,7 @@ export default function Screen() {
       noPadding
       className="bg-backgroundDark"
       stickyIndex={[0]}
+      onScroll={onScroll}
     >
       {/* Hero  */}
       {HeaderComponent}
