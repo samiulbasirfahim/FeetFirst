@@ -16,6 +16,7 @@ import { useState } from "react";
 import NewsFlatlist from "@/components/ui/flatlist-news";
 import MassFlatList from "@/components/ui/flatlist-massinsole";
 import { useDrawerHeader } from "@/components/common/drawer-header";
+import { TwoDAccordian } from "@/components/common/2d-accordian";
 
 export type ShoeItem = {
     title: string;
@@ -139,8 +140,11 @@ export default function Screen() {
                         </Link>
                     </View>
                 </View>
+
+
+                <TwoDAccordian />
                 {/* Sole Details */}
-                <View className="relative isolate overflow-hidden">
+                {/* <View className="relative isolate overflow-hidden">
                     <View className="relative flex-col w-[90%] mx-auto border border-primary/20 px-6 py-8 rounded-[30px] z-40 bg-background">
                         <View className="flex-row justify-between items-center mb-4 ">
                             <View className="border border-primary bg-primary/15 p-2.5 rounded-2xl">
@@ -280,7 +284,7 @@ export default function Screen() {
                             </Typography>
                         </View>
                     </View>
-                </View>
+                </View> */}
                 {/* Individual Insole */}
                 <View className="w-[90%] mx-auto -mt-[90px]">
                     <View className="mb-5">

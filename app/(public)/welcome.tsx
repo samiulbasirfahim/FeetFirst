@@ -15,12 +15,13 @@ export default function Page() {
       <ImageBackground source={BG} className="flex-1" resizeMode="cover">
         <LinearGradient
           colors={["rgba(0,0,0,0.65)", "rgba(0,0,0,0.8)"]}
+          pointerEvents="none"
           style={{
             position: "absolute",
             top: 0,
             bottom: 0,
             left: 0,
-            right: 0
+            right: 0,
           }}
         />
         <SafeAreaView className="bg-transparent items-center justify-between flex-1 p-6">
