@@ -61,14 +61,14 @@ export function OnBoardingLayout({
       const newCustomOptions = [...customOptions, trimmed];
       setCustomOptions(newCustomOptions);
 
-      if (multiple) {
-        const newCheckedValues = [...checkedValues, trimmed];
-        setCheckedValues(newCheckedValues);
-        onSelectionChange(newCheckedValues);
-      } else {
-        setSelectedValue(trimmed);
-        onSelectionChange([trimmed]);
-      }
+      // if (multiple) {
+      //   const newCheckedValues = [...checkedValues, trimmed];
+      //   setCheckedValues(newCheckedValues);
+      //   onSelectionChange(newCheckedValues);
+      // } else {
+      //   setSelectedValue(trimmed);
+      //   onSelectionChange([trimmed]);
+      // }
     }
     setShowOtherInputField(false);
     setOtherValue("");
