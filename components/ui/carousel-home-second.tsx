@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Image, View, Dimensions } from 'react-native';
+import { Image, View, Dimensions, ImageSourcePropType } from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
 import { Typography } from './typography';
 import { useSharedValue } from 'react-native-reanimated';
@@ -11,13 +11,14 @@ export type ShoeItemSecond = {
     itemName: string;
     brandLogo: React.FC<SvgProps>;
     price: string;
-    image: string;
+    image: ImageSourcePropType;
     brandName: string;
 };
 
 function HomeCarauselSecond({ shoes }) {
     const { width } = Dimensions.get('window');
     const progress = useSharedValue<number>(0);
+    console.log(width);
 
     const renderItem = ({ item }: { item: ShoeItemSecond }) => (
         <View
@@ -29,7 +30,7 @@ function HomeCarauselSecond({ shoes }) {
             }}
         >
             <View className="absolute z-50">
-                <Image source={item.image} style={{ width: 340, height: 280 }} />
+                <Image source={item.image} style={{ width: (width * 0.75)/.8 , height: 280 }} />
             </View>
             <View className="pl-8">
                 <View className="flex-row gap-3 pb-2">
@@ -58,7 +59,6 @@ function HomeCarauselSecond({ shoes }) {
     return (
         <View
             id="carousel-component"
-            dataSet={{ kind: 'basic-layouts', name: 'parallax' }}
             className="pl-1"
         >
             <Carousel
@@ -77,7 +77,7 @@ function HomeCarauselSecond({ shoes }) {
                 mode="parallax"
                 modeConfig={{
                     parallaxScrollingScale: 0.9,
-                    parallaxScrollingOffset: 78,
+                    parallaxScrollingOffset: width/5,
                 }}
                 onProgressChange={progress}
                 renderItem={renderItem}
