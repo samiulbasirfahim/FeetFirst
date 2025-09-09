@@ -1,19 +1,19 @@
-import { Stack } from "expo-router";
-import Drawer from "expo-router/drawer";
+import { Stack, Tabs } from "expo-router";
 
 export default function ShoeRecommendationsLayout() {
-  return (
-    <>
-      <Drawer.Screen
-        options={{
-          headerShown: true,
-        }}
-      />
-      <Stack
-        screenOptions={{
-          headerShown: false,
-        }}
-      />
-    </>
-  );
+    return (
+        <>
+            <Tabs.Screen
+                options={{
+                    headerShown: true,
+                    popToTopOnBlur: true,
+                }}
+            />
+            <Stack
+                screenOptions={{
+                    headerShown: false,
+                }}
+            />
+        </>
+    );
 }

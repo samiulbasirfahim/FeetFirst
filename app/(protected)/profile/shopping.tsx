@@ -92,6 +92,11 @@ const OrderCard = ({ item }: { item: (typeof orders)[0] }) => {
                     }}
                     style={{ width: "100%", height: 80, resizeMode: "cover" }}
                 />
+                <View className="bg-primary absolute top-0 rounded-xl px-2 -translate-y-1/2">
+                    <Typography className="text-white font-semibold">
+                        {item.fit} Fit
+                    </Typography>
+                </View>
 
                 <Button
                     variant="outline"

@@ -174,11 +174,13 @@ export default function Screen() {
                                 variant="outline"
                                 textClassName="text-white font-normal text-sm"
                                 className="border-white/15 rounded-full bg-white/10 flex-1 justify-center "
+                                onPress={() => router.push("/home/mass-insoles")}
                             >
                                 {isGerman() ? "Masseinlage" : "Plantare"}
                             </Button>
                             <Button
                                 variant="outline"
+                                onPress={() => router.push("/home/foot-exercise")}
                                 textClassName="text-white font-normal text-sm"
                                 className="border-white/15 rounded-full bg-white/10 flex-1 justify-center"
                             >
@@ -255,30 +257,15 @@ Provalo ora e verifica tu stesso.`}
                     </View>
                     <View className="w-[60%] mt-5 ml-6">
                         <Button
-                            onPress={() =>
-                                navigation.dispatch(
-                                    CommonActions.reset({
-                                        index: 0,
-                                        routes: [
-                                            {
-                                                name: "shoe-recommendations",
-                                                state: {
-                                                    routes: [
-                                                        { name: "index" },
-                                                        {
-                                                            name: "subcategory",
-                                                            params: {
-                                                                category: "all",
-                                                            },
-                                                        },
-                                                    ],
-                                                    index: 1,
-                                                },
-                                            },
-                                        ],
-                                    }),
-                                )
-                            }
+                            onPress={() => {
+                                router.push({
+                                    pathname: "/shoe-recommendations/subcategory",
+                                    params: {
+                                        category: "all",
+                                        from: "home",
+                                    },
+                                });
+                            }}
                             variant="outline"
                             textClassName=" text-base font-medium"
                             className="border-primary rounded-[12px] bg-primary/15 py-[6px] font-medium"
@@ -464,26 +451,32 @@ Provalo ora e verifica tu stesso.`}
                     <View className="w-[40%] mt-4 ml-9">
                         <Button
                             onPress={() => {
-                                navigation.dispatch(
-                                    CommonActions.reset({
-                                        index: 0,
-                                        routes: [
-                                            {
-                                                name: "shoe-recommendations",
-                                                state: {
-                                                    routes: [
-                                                        { name: "index" },
-                                                        {
-                                                            name: "shoes",
-                                                            params: { category: "sports" },
-                                                        },
-                                                    ],
-                                                    index: 1,
-                                                },
-                                            },
-                                        ],
-                                    }),
-                                );
+                                router.replace({
+                                    pathname: "/shoe-recommendations/shoes/shoe-details",
+                                    params: {
+                                        category: "sports",
+                                    },
+                                });
+                                // navigation.dispatch(
+                                //     CommonActions.reset({
+                                //         index: 0,
+                                //         routes: [
+                                //             {
+                                //                 name: "shoe-recommendations",
+                                //                 state: {
+                                //                     routes: [
+                                //                         { name: "index" },
+                                //                         {
+                                //                             name: "shoes",
+                                //                             params: { category: "sports" },
+                                //                         },
+                                //                     ],
+                                //                     index: 1,
+                                //                 },
+                                //             },
+                                //         ],
+                                //     }),
+                                // );
                             }}
                             variant="outline"
                             textClassName=" text-base font-medium"

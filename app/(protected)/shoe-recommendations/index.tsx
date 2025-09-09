@@ -22,80 +22,75 @@ export default function Screen() {
     const { width, height } = useWindowDimensions();
     const categories = isGerman() ? categoriesDE : categoriesIT;
     return (
-        <Layout
-            className="bg-backgroundDark"
-            scrollable
-            stickyIndex={[0]}
-            edges={[]}
-            noPadding
-        >
+        <View className="flex-1">
             <ShoeHeader />
-
-            <View
-                className="flex-1 items-center justify-start p-3"
-                style={{
-                    minHeight: height,
-                }}
-            >
-                <View className="mb-6">
-                    <Typography className="text-foreground" variant="title">
-                        {isGerman() ? "Shoe Finder FeetFirst" : "Trova scarpe FeetFirst"}
-                    </Typography>
-
-                    <Typography className="text-foreground" variant="caption">
-                        {isGerman()
-                            ? "Kategorie wählen wir zeigen dir deine besten Treffer"
-                            : "Scegli una categoria e ti mostreremo i risultati migliori."}
-                    </Typography>
-                </View>
-                <ImageBackground
-                    source={require("@/assets/images/category_background.png")}
+            <Layout className="bg-backgroundDark" scrollable edges={[]} noPadding>
+                <View
+                    className="flex-1 items-center justify-start p-3"
                     style={{
-                        width: width * 0.9,
-                        height: height * 0.6,
+                        minHeight: height,
                     }}
-                    resizeMode="cover"
                 >
-                    {categories.map((category, i) => (
+                    <View className="mb-6">
+                        <Typography className="text-foreground" variant="title">
+                            {isGerman() ? "Shoe Finder FeetFirst" : "Trova scarpe FeetFirst"}
+                        </Typography>
+
+                        <Typography className="text-foreground" variant="caption">
+                            {isGerman()
+                                ? "Kategorie wählen wir zeigen dir deine besten Treffer"
+                                : "Scegli una categoria e ti mostreremo i risultati migliori."}
+                        </Typography>
+                    </View>
+                    <ImageBackground
+                        source={require("@/assets/images/category_background.png")}
+                        style={{
+                            width: width * 0.9,
+                            height: height * 0.6,
+                        }}
+                        resizeMode="cover"
+                    >
+                        {categories.map((category, i) => (
+                            <Category
+                                key={i}
+                                onPress={() => {
+                                    router.push({
+                                        pathname: "/(protected)/shoe-recommendations/subcategory",
+                                        params: {
+                                            category: category.id,
+                                        },
+                                    });
+                                }}
+                                height={(height * 0.6) / (categories.length + 1)}
+                                {...category}
+                            />
+                        ))}
+
                         <Category
-                            key={i}
                             onPress={() => {
                                 router.push({
-                                    pathname: "/(protected)/shoe-recommendations/subcategory",
+                                    pathname: "/(protected)/shoe-recommendations/shoes",
                                     params: {
-                                        category: category.id,
+                                        Category: "mountain",
                                     },
                                 });
                             }}
+                            title={isGerman() ? "BERG-TREKKINGSCHUHE" : "BERG-TREKKINGSCHUHE"}
                             height={(height * 0.6) / (categories.length + 1)}
-                            {...category}
+                            last
                         />
-                    ))}
+                    </ImageBackground>
 
-                    <Category
-                        onPress={() => {
-                            router.push({
-                                pathname: "/(protected)/shoe-recommendations/shoes",
-                                params: {
-                                    Category: "mountain",
-                                },
-                            });
+                    <View
+                        className="w-full"
+                        style={{
+                            marginBottom: 40,
                         }}
-                        title={isGerman() ? "BERG-TREKKINGSCHUHE" : "BERG-TREKKINGSCHUHE"}
-                        height={(height * 0.6) / (categories.length + 1)}
-                        last
-                    />
-                </ImageBackground>
-
-                <View
-                    className="w-full"
-                    style={{
-                        marginBottom: 40,
-                    }}
-                >
-                    <VersionInfo />
+                    >
+                        <VersionInfo />
+                    </View>
                 </View>
-            </View>
-        </Layout>
+            </Layout>
+        </View>
     );
 }

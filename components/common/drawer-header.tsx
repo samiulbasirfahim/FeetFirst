@@ -70,7 +70,7 @@ export const useDrawerHeader = ({ threeshold }: { threeshold: number }) => {
                 <View className="flex-row items-center justify-between">
                     <Button
                         variant="ghost"
-                        className="py-4 px-8 m-0 bg-primary rounded-none"
+                        className="py-6 px-8 m-0 rounded-none"
                         onPress={() => {
                             navigation.dispatch(DrawerActions.openDrawer());
                         }}
@@ -90,7 +90,7 @@ export const useDrawerHeader = ({ threeshold }: { threeshold: number }) => {
 
                     <Button
                         variant="ghost"
-                        className="py-4 px-8 m-0 bg-primary rounded-none"
+                        className="py-4 px-8 m-0 rounded-none"
                         onPress={() => {
                             setShowSearch(true);
                         }}
@@ -99,9 +99,12 @@ export const useDrawerHeader = ({ threeshold }: { threeshold: number }) => {
                     </Button>
                 </View>
                 {showSearch && (
-                    <View className="px-3 mt-3 flex-row items-center gap-3">
-                        <TextInput className="flex-1 bg-transparent border-2 rounded-lg border-muted-background placeholder:text-muted-foreground text-foreground ps-2" />
-                        <Pressable onPressIn={() => setShowSearch(false)}>
+                    <View className="ps-3 py-2 flex-row items-center gap-3">
+                        <TextInput className="flex-1 bg-transparent border-2 rounded-lg border-muted-background/50 placeholder:text-muted-foreground text-foreground ps-2" />
+                        <Pressable
+                            className="px-4 m-0 rounded-none"
+                            onPressIn={() => setShowSearch(false)}
+                        >
                             <Entypo name="cross" size={28} color="white" />
                         </Pressable>
                     </View>

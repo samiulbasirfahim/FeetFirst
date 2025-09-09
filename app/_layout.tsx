@@ -14,7 +14,7 @@ export default function RootLayout() {
 
     useEffect(() => {
         if (isReady) {
-            router.replace("/(protected)/home/foot-exercise/flexibility");
+            router.replace("/(protected)/home");
         }
     }, [isReady]);
 

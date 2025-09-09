@@ -21,9 +21,7 @@ import { useDrawerHeader } from "@/components/common/drawer-header";
 import LineBg from "@/assets/svgs/flexible_bg.svg";
 import Leg from "@/assets/svgs/flexible_leg1.svg";
 import { BlurView } from "expo-blur";
-import * as AccordionPrimitive from "@rn-primitives/accordion";
 import Accordion from "react-native-collapsible/Accordion";
-import * as Animatable from "react-native-animatable";
 import Animated, {
     Layout as ReanimatedLayout,
     FadeInDown,
