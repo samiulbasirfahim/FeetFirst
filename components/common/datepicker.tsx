@@ -2,7 +2,7 @@ import { Platform } from "react-native";
 import RNDateTimePicker, {
   DateTimePickerAndroid,
 } from "@react-native-community/datetimepicker";
-import { View } from "react-native-animatable";
+import { View } from "react-native";
 import { Typography } from "../ui/typography";
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
@@ -31,12 +31,11 @@ function IOSDateTimePicker({ onChange, currentDate }: DatePcikerProps) {
   return (
     <RNDateTimePicker
       onChange={(_, date) => onChange(date || new Date())}
-      style={{ alignSelf: "center" }}
-      accentColor="#0d0d0d"
+      style={{ alignSelf: "center", backgroundColor: "#1A1C1B" }}
       maximumDate={new Date()}
       mode="date"
       value={currentDate}
-      display="default"
+      display="calendar"
     />
   );
 }
@@ -47,24 +46,40 @@ type Props = {
 };
 
 export function DatePicker({ onClickOutside, showDateTimePicker }: Props) {
-  const date = new Date();
+  const [date, setDate] = useState(new Date());
   if (Platform.OS === "ios")
     return (
-      <View>
-        {showDateTimePicker && (
-          <IOSDateTimePicker
-            onChange={(date) => onClickOutside(date)}
-            currentDate={date}
-          />
-        )}
-      </View>
+      <Modal
+        isOpen={showDateTimePicker}
+        onClickOutside={() => onClickOutside(date)}
+      >
+        <View className="bg-background p-4 rounded-lg">
+          <View className="py-4">
+            <IOSDateTimePicker
+              onChange={(date) => setDate(date)}
+              currentDate={date}
+            />
+          </View>
+          <View className="border-t-2 border-muted-foreground py-4">
+            <Typography variant="subtitle" className="text-center">
+              Date:{" "}
+              {date
+                ? `${date.getDate()}, ${date.toLocaleDateString("en-US", { month: "short" })}, ${date.getFullYear()}`
+                : ""}
+            </Typography>
+          </View>
+        </View>
+      </Modal>
     );
 
   return (
     <View>
       {showDateTimePicker && (
         <AndroidDateTimePicker
-          onChange={(date) => onClickOutside(date)}
+          onChange={(date) => {
+            setDate(date);
+            onClickOutside(date);
+          }}
           currentDate={date}
         />
       )}
