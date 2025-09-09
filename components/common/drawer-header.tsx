@@ -10,13 +10,13 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { Button } from "../ui/button";
 import { useState } from "react";
-import { useNavigation } from "expo-router";
+import { router, useNavigation } from "expo-router";
 import { DrawerActions } from "@react-navigation/native";
 import { BlurView } from "expo-blur";
 import { Input } from "../ui/input";
 import { TextInput } from "react-native";
 
-export const useDrawerHeader = ({ threeshold }: { threeshold: number }) => {
+export const useDrawerHeader = ({ threeshold, shouldGoBack = false }: { threeshold: number; shouldGoBack?: boolean }) => {
     const { top } = useSafeAreaInsets();
     const [height, setHeight] = useState(0);
     const [showSearch, setShowSearch] = useState(false);
@@ -72,10 +72,16 @@ export const useDrawerHeader = ({ threeshold }: { threeshold: number }) => {
                         variant="ghost"
                         className="py-6 px-8 m-0 rounded-none"
                         onPress={() => {
+                            if (shouldGoBack) return router.back()
                             navigation.dispatch(DrawerActions.openDrawer());
                         }}
                     >
-                        <JAM_MENU />
+                        {
+                            shouldGoBack ?
+                                <Ionicons name="chevron-back-outline" size={24} color="white" />
+                                :
+                                <JAM_MENU />
+                        }
                     </Button>
 
                     <View>
@@ -101,8 +107,8 @@ export const useDrawerHeader = ({ threeshold }: { threeshold: number }) => {
                 {showSearch && (
                     <View className="ps-3 py-2 flex-row items-center gap-3">
                         <TextInput className="flex-1 py-3 bg-transparent border-2 rounded-lg border-muted-background/50 placeholder:text-muted-foreground text-foreground ps-2" />
-                   
-                       
+
+
                         <Pressable
                             className="px-4 m-0 rounded-none"
                             onPressIn={() => setShowSearch(false)}

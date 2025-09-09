@@ -112,6 +112,7 @@ export default function Screen() {
 
     const { onScroll, HeaderComponent, height } = useDrawerHeader({
         threeshold: 100,
+        shouldGoBack: true
     });
     return (
         <View className="flex-1">
@@ -128,7 +129,7 @@ export default function Screen() {
             >
                 <View style={{ height: height + 20 }}></View>
                 <View className="relative  overflow-hidden">
-                    <Typography className="absolute z-[99] text-3xl font-bold text-white text-center my-4 leading-tight px-3">
+                    <Typography className="absolute z-[999] text-3xl font-bold text-white text-center my-4 leading-tight px-3">
                         {isGerman()
                             ? "Übungen zur Flexibilitätserhöhung"
                             : "Esercizi per aumentare la flessibilità"}
@@ -213,6 +214,7 @@ export default function Screen() {
                             right: -20,
                             top: 0,
                             height: 250,
+                            zIndex: 99
                         }}
                         className="z-10"
                     />

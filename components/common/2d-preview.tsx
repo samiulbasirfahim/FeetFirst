@@ -48,6 +48,7 @@ export default function TwoDPreview() {
                     right: -20,
                     top: 0,
                     height: 250,
+                    zIndex: 99
                 }}
                 className="z-10"
             />
