@@ -38,7 +38,14 @@ export default function ShoeShopScreen() {
               colors={["transparent", "rgba(98, 160, 123, 0.3)"]}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 1 }}
-              className="absolute inset-0 z-[10]"
+              style={{
+                position: "absolute",
+                left: 0,
+                right: 0,
+                top: 0,
+                bottom: 0,
+                zIndex: 99
+              }}
             />
             <View className="mt-36 px-6">
               <Text className="text-white text-3xl font-bold">DOMINATE</Text>
@@ -142,13 +149,29 @@ export default function ShoeShopScreen() {
           </View>
           <LinearGradient
             colors={["rgba(16, 16, 16, 1)", "rgba(13, 13, 13, 0)"]}
-            className="absolute inset-0 z-[10]"
+            style={{
+              position: "absolute",
+              left: 0,
+              right: 0,
+              top: 0,
+              bottom: 0,
+              zIndex: 99
+            }}
+
             start={{ x: 0, y: 1 }}
             end={{ x: 0, y: 0 }}
           />
           <LinearGradient
             colors={["rgba(16, 16, 16, 0.8)", "rgba(13, 13, 13, 0)"]}
             className="absolute inset-0 z-[10] h-[250px]"
+            style={{
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              position: "absolute",
+              zIndex: 99,
+            }}
             start={{ x: 0, y: 0 }}
             end={{ x: 0, y: 1 }}
           />

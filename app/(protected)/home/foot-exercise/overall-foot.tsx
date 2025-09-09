@@ -21,9 +21,7 @@ import { useDrawerHeader } from "@/components/common/drawer-header";
 import LineBg from "@/assets/svgs/flexible_bg.svg";
 import Leg from "@/assets/svgs/flexible_leg1.svg";
 import { BlurView } from "expo-blur";
-import * as AccordionPrimitive from "@rn-primitives/accordion";
 import Accordion from "react-native-collapsible/Accordion";
-import * as Animatable from "react-native-animatable";
 import Animated, {
     Layout as ReanimatedLayout,
     FadeInDown,
@@ -146,7 +144,14 @@ export default function Screen() {
                     >
                         <LinearGradient
                             colors={["rgba(0,0,0,1)", "rgba(0,0,0,0.5)", "rgba(0,0,0,0)"]}
-                            className="absolute inset-0 z-[10]"
+                            style={{
+                                position: "absolute",
+                                left: 0,
+                                right: 0,
+                                top: 0,
+                                bottom: 0,
+                                zIndex: 99
+                            }}
                         />
 
                         <LinearGradient
@@ -155,7 +160,14 @@ export default function Screen() {
                                 "rgba(98, 160, 123, 0.3)",
                                 "rgba(98, 160, 123, 0.7)",
                             ]}
-                            className="absolute inset-0 z-[10]"
+                            style={{
+                                position: "absolute",
+                                left: 0,
+                                right: 0,
+                                top: 0,
+                                bottom: 0,
+                                zIndex: 99
+                            }}
                         />
 
                         <View className="h-full flex-1 overflow-hidden relative bg-primary items-center justify-end">
@@ -400,7 +412,15 @@ export default function Screen() {
                     <View className="h-96 w-full my-8 px-3">
                         <LinearGradient
                             colors={["rgba(0,0,0,0.1)", "black"]}
-                            className="absolute inset-0 z-[99] mt-36"
+                            className="mt-36"
+                            style={{
+                                position: "absolute",
+                                left: 0,
+                                right: 0,
+                                top: 0,
+                                bottom: 0,
+                                zIndex: 99
+                            }}
                         />
                         <Image
                             source={ManAboutTORun}

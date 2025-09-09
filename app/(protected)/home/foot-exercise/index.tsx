@@ -131,13 +131,27 @@ export default function Screen() {
                 <View className="relative h-96 w-full overflow-hidden isolate">
                     <LinearGradient
                         colors={["transparent", "rgba(98, 160, 123, 0.5)"]}
-                        className="absolute inset-0 z-[10]"
+                        style={{
+                            position: "absolute",
+                            left: 0,
+                            right: 0,
+                            top: 0,
+                            bottom: 0,
+                            zIndex: 99
+                        }}
                     />
 
                     <LinearGradient
                         // Background Linear Gradient
                         colors={["rgba(13,13,13,1)", "transparent"]}
-                        className="absolute inset-0 z-[10]"
+                        style={{
+                            position: "absolute",
+                            left: 0,
+                            right: 0,
+                            top: 0,
+                            bottom: 0,
+                            zIndex: 99
+                        }}
                     />
 
                     <Image source={Woman} className="w-full h-full" resizeMode="cover" />
@@ -245,7 +259,15 @@ export default function Screen() {
                     <View className="relative -mt-6 h-96 w-full">
                         <LinearGradient
                             colors={["rgba(0,0,0,0.3)", "rgba(0,0,0,0.0)"]}
-                            className="absolute inset-0 z-[99]"
+
+                            style={{
+                                position: "absolute",
+                                left: 0,
+                                right: 0,
+                                top: 0,
+                                bottom: 0,
+                                zIndex: 99
+                            }}
                         />
                         <Image
                             source={Culves}
@@ -326,7 +348,15 @@ export default function Screen() {
                         <View className="h-96 w-full my-8">
                             <LinearGradient
                                 colors={["rgba(0,0,0,0.1)", "black"]}
-                                className="absolute inset-0 z-[99] mt-36"
+                                className="mt-36"
+                                style={{
+                                    position: "absolute",
+                                    left: 0,
+                                    right: 0,
+                                    top: 0,
+                                    bottom: 0,
+                                    zIndex: 99
+                                }}
                             />
                             <Image
                                 source={ManAboutTORun}

@@ -286,10 +286,11 @@ Provalo ora e verifica tu stesso.`}
                         <Button
                             onPress={() => {
                                 router.push({
-                                    pathname: "/shoe-recommendations/subcategory",
+                                    pathname: "/shoe-recommendations",
                                     params: {
                                         category: "all",
-                                        from: "home",
+                                        redirect: "/shoe-recommendations/subcategory",
+                                        redirectId: Math.random().toString(),
                                     },
                                 });
                             }}
@@ -546,32 +547,14 @@ Provalo ora e verifica tu stesso.`}
                     <View className="w-[40%] mt-4 ml-9">
                         <Button
                             onPress={() => {
-                                router.replace({
-                                    pathname: "/shoe-recommendations/shoes/shoe-details",
+                                router.push({
+                                    pathname: "/shoe-recommendations",
                                     params: {
                                         category: "sports",
+                                        redirect: "/shoe-recommendations/shoes",
+                                        redirectId: Math.random().toString(),
                                     },
                                 });
-                                // navigation.dispatch(
-                                //     CommonActions.reset({
-                                //         index: 0,
-                                //         routes: [
-                                //             {
-                                //                 name: "shoe-recommendations",
-                                //                 state: {
-                                //                     routes: [
-                                //                         { name: "index" },
-                                //                         {
-                                //                             name: "shoes",
-                                //                             params: { category: "sports" },
-                                //                         },
-                                //                     ],
-                                //                     index: 1,
-                                //                 },
-                                //             },
-                                //         ],
-                                //     }),
-                                // );
                             }}
                             variant="outline"
                             textClassName=" text-base font-medium"

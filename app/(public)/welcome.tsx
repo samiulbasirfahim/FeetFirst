@@ -17,7 +17,10 @@ export default function Page() {
           colors={["rgba(0,0,0,0.65)", "rgba(0,0,0,0.8)"]}
           style={{
             position: "absolute",
-            inset: 0,
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0
           }}
         />
         <SafeAreaView className="bg-transparent items-center justify-between flex-1 p-6">

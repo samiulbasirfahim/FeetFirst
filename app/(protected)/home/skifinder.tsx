@@ -139,10 +139,25 @@ export default function Screen() {
                     <LinearGradient
                         colors={["transparent", "rgba(98, 160, 123, 0.5)"]}
                         className="absolute inset-0 z-[10] mt-36"
+                        style={{
+                            position: "absolute",
+                            left: 0,
+                            right: 0,
+                            top: 0,
+                            bottom: 0,
+                            zIndex: 99
+                        }}
                     />
                     <LinearGradient
                         colors={["rgba(0,0,0, 0.5)", "transparent"]}
-                        className="absolute inset-0 z-[10]"
+                        style={{
+                            position: "absolute",
+                            left: 0,
+                            right: 0,
+                            top: 0,
+                            bottom: 0,
+                            zIndex: 99
+                        }}
                     />
                     <Image
                         source={skifinder}
@@ -218,7 +233,14 @@ export default function Screen() {
                         ]}
                         start={{ x: 1, y: 1 }}
                         end={{ x: 0.55, y: 0 }}
-                        className="absolute inset-0"
+                        style={{
+                            position: "absolute",
+                            left: 0,
+                            right: 0,
+                            top: 0,
+                            bottom: 0,
+                            zIndex: 99
+                        }}
                     />
                     <View className="py-4 relative">
                         {
@@ -252,7 +274,15 @@ export default function Screen() {
                     </Text>
                     <LinearGradient
                         colors={["rgba(0,0,0,0)", "rgba(0,0,0,0.5)"]}
-                        className="absolute inset-0 z-[99] mt-10"
+                        className="mt-10"
+                        style={{
+                            position: "absolute",
+                            left: 0,
+                            right: 0,
+                            top: 0,
+                            bottom: 0,
+                            zIndex: 99
+                        }}
                     />
                     <Map />
                 </View>
