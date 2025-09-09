@@ -34,8 +34,10 @@ function IOSDateTimePicker({ onChange, currentDate }: DatePcikerProps) {
       style={{ alignSelf: "center", backgroundColor: "#1A1C1B" }}
       maximumDate={new Date()}
       mode="date"
+      textColor="#62A07B"
+      accentColor="#62A07B"
       value={currentDate}
-      display="calendar"
+      display="compact"
     />
   );
 }
@@ -61,11 +63,8 @@ export function DatePicker({ onClickOutside, showDateTimePicker }: Props) {
             />
           </View>
           <View className="border-t-2 border-muted-foreground py-4">
-            <Typography variant="subtitle" className="text-center">
-              Date:{" "}
-              {date
-                ? `${date.getDate()}, ${date.toLocaleDateString("en-US", { month: "short" })}, ${date.getFullYear()}`
-                : ""}
+            <Typography variant="subtitle" className="text-center text-primary">
+              Pick Your Date Of Birth
             </Typography>
           </View>
         </View>

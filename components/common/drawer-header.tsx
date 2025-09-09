@@ -100,7 +100,9 @@ export const useDrawerHeader = ({ threeshold }: { threeshold: number }) => {
                 </View>
                 {showSearch && (
                     <View className="ps-3 py-2 flex-row items-center gap-3">
-                        <TextInput className="flex-1 bg-transparent border-2 rounded-lg border-muted-background/50 placeholder:text-muted-foreground text-foreground ps-2" />
+                        <TextInput className="flex-1 py-3 bg-transparent border-2 rounded-lg border-muted-background/50 placeholder:text-muted-foreground text-foreground ps-2" />
+                   
+                       
                         <Pressable
                             className="px-4 m-0 rounded-none"
                             onPressIn={() => setShowSearch(false)}

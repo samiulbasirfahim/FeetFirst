@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { Platform } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 import {
@@ -80,7 +81,7 @@ export function Layout({
           <KeyboardAwareScrollView
             {...scrollViewProps}
             contentContainerStyle={commonContentContainerStyle}
-            bottomOffset={padding.keyboardBottomOffset}
+            bottomOffset={Platform.OS === "android" ? padding.keyboardBottomOffset : 40}
           >
             {children}
           </KeyboardAwareScrollView>

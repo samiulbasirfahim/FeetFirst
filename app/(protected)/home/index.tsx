@@ -9,6 +9,8 @@ import {
     View,
     ImageBackground,
     Pressable,
+    useWindowDimensions,
+    Platform,
 } from "react-native";
 import Herobg from "@/assets/svgs/hero_bg.svg";
 import Herofeet from "@/assets/images/hero_feet.png";
@@ -131,6 +133,7 @@ export default function Screen() {
     };
 
     const { isGerman } = useLanguageStore();
+    const { width: dm_width } = useWindowDimensions()
     const { HeaderComponent, onScroll, height } = useDrawerHeader({
         threeshold: 100,
     });
@@ -204,10 +207,9 @@ export default function Screen() {
                     </View>
                     <View
                         style={{
-                            position: 'relative',
-                            top: '-118%',
-                            right: '-15%'
-
+                            position: 'absolute',
+                            top: height - 10,
+                            left: dm_width > 400 ? 40 : 10
                         }}
                         pointerEvents="none"
                     >
@@ -215,7 +217,7 @@ export default function Screen() {
                             <Herobg height={300} width={300} />
                         </View>
                         <View className="absolute left-[178px] -top-[10px]">
-                            
+
                             <Image source={Herofeet} style={{ height: 250, width: 200 }} />
                         </View>
                         <View className="absolute left-[265px] top-[45px]">
@@ -381,95 +383,95 @@ Provalo ora e verifica tu stesso.`}
                                 </Typography>
                             </View>
                             <View style={{
-                                    position: 'absolute',
-                                    right: '25%',
-                                    top: '19%'
-                                }}>
-                            <TouchableOpacity
-                                onPressOut={() => handleTouch("second")}
-                                className="absolute -left-10 top-8"
-                            >
-                                {touch.second === false ? (
-                                    <TouchButtonBefore height={35} width={35} />
-                                ) : (
-                                    <>
-                                        <TouchButtonAfter height={35} width={35} />
-                                        <View
-                                            style={{
-                                                width: 1.5,
-                                                height: 140,
+                                position: 'absolute',
+                                right: '25%',
+                                top: '19%'
+                            }}>
+                                <TouchableOpacity
+                                    onPressOut={() => handleTouch("second")}
+                                    className="absolute -left-10 top-8"
+                                >
+                                    {touch.second === false ? (
+                                        <TouchButtonBefore height={35} width={35} />
+                                    ) : (
+                                        <>
+                                            <TouchButtonAfter height={35} width={35} />
+                                            <View
+                                                style={{
+                                                    width: 1.5,
+                                                    height: 140,
 
-                                                position: "absolute",
-                                            }}
-                                            className="absolute right-1/2 bottom-10 bg-primary/50"
-                                        />
-                                    </>
-                                )}
-                            </TouchableOpacity>
-                            <Typography className="w-[150px] font-medium text-base leading-[14px] pl-2">
-                                Längere Lebensdauer Ihrer Schuhe
-                            </Typography>
-                        </View>
-                        <View style={{
-                                    position: 'absolute',
-                                    right: '50%',
-                                    top: '40%'
-                                }}>
-                            <TouchableOpacity
-                                onPressOut={() => handleTouch("third")}
-                                className="absolute -top-12"
-                            >
-                                {touch.third === false ? (
-                                    <TouchButtonBefore height={35} width={35} />
-                                ) : (
-                                    <>
-                                        <TouchButtonAfter height={35} width={35} />
-                                        <View
-                                            style={{
-                                                width: 1.5, // thickness of the bar
-                                                height: 140, // how long it should be
+                                                    position: "absolute",
+                                                }}
+                                                className="absolute right-1/2 bottom-10 bg-primary/50"
+                                            />
+                                        </>
+                                    )}
+                                </TouchableOpacity>
+                                <Typography className="w-[150px] font-medium text-base leading-[14px] pl-2">
+                                    Längere Lebensdauer Ihrer Schuhe
+                                </Typography>
+                            </View>
+                            <View style={{
+                                position: 'absolute',
+                                right: '50%',
+                                top: '40%'
+                            }}>
+                                <TouchableOpacity
+                                    onPressOut={() => handleTouch("third")}
+                                    className="absolute -top-12"
+                                >
+                                    {touch.third === false ? (
+                                        <TouchButtonBefore height={35} width={35} />
+                                    ) : (
+                                        <>
+                                            <TouchButtonAfter height={35} width={35} />
+                                            <View
+                                                style={{
+                                                    width: 1.5, // thickness of the bar
+                                                    height: 140, // how long it should be
 
-                                                position: "absolute",
-                                            }}
-                                            className="absolute right-1/2 bottom-10 bg-primary/50"
-                                        />
-                                    </>
-                                )}
-                            </TouchableOpacity>
-                            <Typography className=" w-[150px]  font-medium text-base leading-[14px] pl-2">
-                                Schmerzreduktion & Problembehandlung
-                            </Typography>
-                        </View>
-                        <View style={{
-                                    position: 'absolute',
-                                    right: '20%',
-                                    top: '43%'
-                                }}>
-                            <TouchableOpacity
-                                onPressOut={() => handleTouch("fourth")}
-                                className="absolute -left-5 top-10"
-                            >
-                                {touch.fourth === false ? (
-                                    <TouchButtonBefore height={35} width={35} />
-                                ) : (
-                                    <>
-                                        <TouchButtonAfter height={35} width={35} />
-                                        <View
-                                            style={{
-                                                width: 1.5,
-                                                height: 240,
+                                                    position: "absolute",
+                                                }}
+                                                className="absolute right-1/2 bottom-10 bg-primary/50"
+                                            />
+                                        </>
+                                    )}
+                                </TouchableOpacity>
+                                <Typography className=" w-[150px]  font-medium text-base leading-[14px] pl-2">
+                                    Schmerzreduktion & Problembehandlung
+                                </Typography>
+                            </View>
+                            <View style={{
+                                position: 'absolute',
+                                right: '20%',
+                                top: '43%'
+                            }}>
+                                <TouchableOpacity
+                                    onPressOut={() => handleTouch("fourth")}
+                                    className="absolute -left-5 top-10"
+                                >
+                                    {touch.fourth === false ? (
+                                        <TouchButtonBefore height={35} width={35} />
+                                    ) : (
+                                        <>
+                                            <TouchButtonAfter height={35} width={35} />
+                                            <View
+                                                style={{
+                                                    width: 1.5,
+                                                    height: 240,
 
-                                                position: "absolute",
-                                            }}
-                                            className="absolute right-1/2 bottom-10 bg-primary/50"
-                                        />
-                                    </>
-                                )}
-                            </TouchableOpacity>
-                            <Typography className="w-[150px] font-medium text-base leading-[14px] ">
-                                Vorbeugung von Fehlstellungen
-                            </Typography>
-                        </View>
+                                                    position: "absolute",
+                                                }}
+                                                className="absolute right-1/2 bottom-10 bg-primary/50"
+                                            />
+                                        </>
+                                    )}
+                                </TouchableOpacity>
+                                <Typography className="w-[150px] font-medium text-base leading-[14px] ">
+                                    Vorbeugung von Fehlstellungen
+                                </Typography>
+                            </View>
                         </ImageBackground>
                         {/* <View className="absolute right-[50px] top-[45px] ">
                             <TouchableOpacity
@@ -522,8 +524,8 @@ Provalo ora e verifica tu stesso.`}
                                 Längere Lebensdauer Ihrer Schuhe
                             </Typography>
                         </View> */}
-                        
-                        
+
+
                     </View>
                 </View>
 
