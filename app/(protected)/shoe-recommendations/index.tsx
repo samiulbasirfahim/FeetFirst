@@ -31,6 +31,8 @@ export default function Screen() {
     if (redirect && redirectId && !processedRedirects.current.has(redirectId)) {
       processedRedirects.current.add(redirectId);
 
+      if (router.canDismiss()) router.dismissAll();
+
       router.push({
         pathname: redirect as any,
         params: {
