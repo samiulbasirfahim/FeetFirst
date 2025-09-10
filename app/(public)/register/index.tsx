@@ -112,6 +112,9 @@ export default function Page() {
           setDateOfBirth(date);
           setShowDatePicker(false);
         }}
+        closeModal={() => {
+            setShowDatePicker(false);
+        }}
       />
 
       <Modal
