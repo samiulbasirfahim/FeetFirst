@@ -31,10 +31,20 @@ export function TabBar({
               canPreventDefault: true,
             });
 
-            if (!isFocused && !event.defaultPrevented) {
+            if (event.defaultPrevented) return;
+
+            if (isFocused) {
+              // 👇 Reset stack when pressing active tab
+              navigation.navigate({
+                name: route.name,
+                params: route.params,
+                merge: true, // ensures it goes back to the first screen in that tab
+              });
+            } else {
               navigation.navigate(route.name, route.params);
             }
           };
+
 
           const onLongPress = () => {
             navigation.emit({
