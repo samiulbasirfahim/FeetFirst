@@ -14,7 +14,7 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (isReady) {
-      router.replace("/(protected)/home");
+      router.replace("/(public)");
     }
   }, [isReady]);
 

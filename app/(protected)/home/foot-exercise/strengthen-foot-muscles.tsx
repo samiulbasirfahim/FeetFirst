@@ -207,6 +207,7 @@ export default function Screen() {
                 {/* Accordian */}
                 <View className="isolate">
                     <LinearGradient
+                        pointerEvents="none"
                         colors={["rgba(0,0,0,1)", "transparent"]}
                         style={{
                             position: "absolute",

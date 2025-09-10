@@ -52,11 +52,11 @@ export function InputPassword({ Icon, className, ...props }: Props) {
           className,
         )}
         placeholderTextColor="#585C5B"
-        secureTextEntry={showPassword}
+        secureTextEntry={!showPassword}
       />
 
       <TouchableOpacity onPress={() => setShowPassword((state) => !state)}>
-        {!showPassword ? <Eye /> : <EyeSlash />}
+        {showPassword ? <Eye /> : <EyeSlash />}
       </TouchableOpacity>
     </View>
   );

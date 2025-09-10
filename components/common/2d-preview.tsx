@@ -41,6 +41,7 @@ export default function TwoDPreview() {
     return (
         <View className="isolate">
             <LinearGradient
+                pointerEvents="none"
                 colors={["rgba(0,0,0,1)", "transparent"]}
                 style={{
                     position: "absolute",
