@@ -137,6 +137,7 @@ export default function Screen() {
             >
                 <View className="relative overflow-hidden isolate">
                     <LinearGradient
+                        pointerEvents="none"
                         colors={["transparent", "rgba(98, 160, 123, 0.5)"]}
                         className="absolute inset-0 z-[10] mt-36"
                         style={{
@@ -149,6 +150,7 @@ export default function Screen() {
                         }}
                     />
                     <LinearGradient
+                        pointerEvents="none"
                         colors={["rgba(0,0,0, 0.5)", "transparent"]}
                         style={{
                             position: "absolute",
@@ -164,7 +166,7 @@ export default function Screen() {
                         className="w-full h-[450px]"
                         resizeMode="cover"
                     />
-                    <Typography className="absolute text-white text-5xl bottom-8 left-0 right-0 text-center font-medium z-10">
+                    <Typography className="z-[999] absolute text-white text-5xl bottom-8 left-0 right-0 text-center font-medium">
                         SKIFINDER
                     </Typography>
                 </View>
@@ -226,6 +228,7 @@ export default function Screen() {
                 {/* carousel */}
                 <View className="pb-16">
                     <LinearGradient
+                        pointerEvents="none"
                         colors={[
                             "rgba(98, 160, 123, 0.6)",
                             "rgba(98, 160, 123, 0.2)",
@@ -275,6 +278,7 @@ export default function Screen() {
                     </Text>
                     <LinearGradient
                         colors={["rgba(0,0,0,0)", "rgba(0,0,0,0.5)"]}
+                        pointerEvents="none"
                         className="mt-10"
                         style={{
                             position: "absolute",

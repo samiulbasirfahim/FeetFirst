@@ -144,6 +144,7 @@ export default function Screen() {
                         }}
                     >
                         <LinearGradient
+                            pointerEvents="none"
                             colors={["rgba(0,0,0,1)", "rgba(0,0,0,0.5)", "rgba(0,0,0,0)"]}
                             style={{
                                 position: "absolute",
@@ -156,6 +157,7 @@ export default function Screen() {
                         />
 
                         <LinearGradient
+                            pointerEvents="none"
                             colors={[
                                 "transparent",
                                 "rgba(98, 160, 123, 0.3)",
@@ -207,6 +209,7 @@ export default function Screen() {
                 {/* Accordian */}
                 <View className="isolate">
                     <LinearGradient
+
                         pointerEvents="none"
                         colors={["rgba(0,0,0,1)", "transparent"]}
                         style={{
@@ -414,6 +417,7 @@ export default function Screen() {
 
                     <View className="h-96 w-full my-8 px-3">
                         <LinearGradient
+                            pointerEvents="none"
                             colors={["rgba(0,0,0,0.1)", "black"]}
                             className="mt-36"
                             style={{

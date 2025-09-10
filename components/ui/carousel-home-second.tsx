@@ -30,7 +30,7 @@ function HomeCarauselSecond({ shoes }) {
             }}
         >
             <View className="absolute z-50">
-                <Image source={item.image} style={{ width: (width * 0.75)/.8 , height: 280 }} />
+                <Image source={item.image} style={{ width: (width * 0.75) / .8, height: 280 }} />
             </View>
             <View className="pl-8">
                 <View className="flex-row gap-3 pb-2">
@@ -62,7 +62,10 @@ function HomeCarauselSecond({ shoes }) {
             className="pl-1"
         >
             <Carousel
-                onConfigurePanGesture={(panGesture) => panGesture.activeOffsetY([-999999, 999999]).activeOffsetX([-20, 20])}
+                onConfigurePanGesture={(panGesture) =>
+                    panGesture
+                        .activeOffsetX([-5, 5])
+                        .failOffsetY([-5, 5])}
                 autoPlayInterval={2000}
                 data={shoes}
                 loop={true}
@@ -77,7 +80,7 @@ function HomeCarauselSecond({ shoes }) {
                 mode="parallax"
                 modeConfig={{
                     parallaxScrollingScale: 0.9,
-                    parallaxScrollingOffset: width/5,
+                    parallaxScrollingOffset: width / 5,
                 }}
                 onProgressChange={progress}
                 renderItem={renderItem}

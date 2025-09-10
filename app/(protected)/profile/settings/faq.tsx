@@ -145,7 +145,7 @@ export default function Screen() {
                   ? 'Wie können wir Ihnen helfen?'
                   : 'Come possiamo aiutarla?'
               }
-              className="text-white"
+              className="text-white py-3"
               placeholderTextColor="#9CA3AF"
             />
             <View className="h-0.5 w-full bg-white"></View>
@@ -211,6 +211,9 @@ export default function Screen() {
         data={allSections}
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
+        contentContainerStyle={{
+          paddingBottom: 100,
+        }}
         showsVerticalScrollIndicator={false}
       />
     </Layout>

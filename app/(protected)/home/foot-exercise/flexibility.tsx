@@ -153,9 +153,11 @@ export default function Screen() {
                                 bottom: 0,
                                 zIndex: 99
                             }}
+                            pointerEvents="none"
                         />
 
                         <LinearGradient
+                            pointerEvents="none"
                             colors={[
                                 "transparent",
                                 "rgba(98, 160, 123, 0.3)",
@@ -414,6 +416,7 @@ export default function Screen() {
 
                     <View className="h-96 w-full my-8 px-3">
                         <LinearGradient
+                            pointerEvents="none"
                             colors={["rgba(0,0,0,0.1)", "black"]}
                             className="mt-36"
                             style={{

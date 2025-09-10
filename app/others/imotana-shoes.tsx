@@ -35,6 +35,7 @@ export default function ShoeShopScreen() {
         <View>
           <View className="relative">
             <LinearGradient
+              pointerEvents="none"
               colors={["transparent", "rgba(98, 160, 123, 0.3)"]}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 1 }}
@@ -148,6 +149,7 @@ export default function ShoeShopScreen() {
             </Button>
           </View>
           <LinearGradient
+            pointerEvents="none"
             colors={["rgba(16, 16, 16, 1)", "rgba(13, 13, 13, 0)"]}
             style={{
               position: "absolute",
@@ -162,6 +164,7 @@ export default function ShoeShopScreen() {
             end={{ x: 0, y: 0 }}
           />
           <LinearGradient
+            pointerEvents="none"
             colors={["rgba(16, 16, 16, 0.8)", "rgba(13, 13, 13, 0)"]}
             className="absolute inset-0 z-[10] h-[250px]"
             style={{

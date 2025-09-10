@@ -94,8 +94,9 @@ export default function ProductCarousel() {
     <View>
       <Carousel
         onConfigurePanGesture={(panGesture) =>
-          panGesture.activeOffsetY([-999999, 999999]).activeOffsetX([-20, 20])
-        }
+          panGesture
+            .activeOffsetX([-5, 5])
+            .failOffsetY([-5, 5])}
         loop
         autoPlay
         autoPlayInterval={4000}

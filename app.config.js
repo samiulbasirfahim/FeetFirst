@@ -13,6 +13,9 @@ export default {
     ios: {
       supportsTablet: true,
       bundleIdentifier: "com.samiulbasirfahim.rxen.feetfirst",
+      infoPlist: {
+        ITSAppUsesNonExemptEncryption: false
+      },
       config: {
         googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
       },

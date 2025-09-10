@@ -130,6 +130,7 @@ export default function Screen() {
 
                 <View className="relative h-96 w-full overflow-hidden isolate">
                     <LinearGradient
+                        pointerEvents="none"
                         colors={["transparent", "rgba(98, 160, 123, 0.5)"]}
                         style={{
                             position: "absolute",
@@ -142,6 +143,7 @@ export default function Screen() {
                     />
 
                     <LinearGradient
+                        pointerEvents="none"
                         // Background Linear Gradient
                         colors={["rgba(13,13,13,1)", "transparent"]}
                         style={{
@@ -258,6 +260,7 @@ export default function Screen() {
 
                     <View className="relative -mt-6 h-96 w-full">
                         <LinearGradient
+                            pointerEvents="none"
                             colors={["rgba(0,0,0,0.3)", "rgba(0,0,0,0.0)"]}
 
                             style={{
@@ -347,6 +350,7 @@ export default function Screen() {
 
                         <View className="h-96 w-full my-8">
                             <LinearGradient
+                                pointerEvents="none"
                                 colors={["rgba(0,0,0,0.1)", "black"]}
                                 className="mt-36"
                                 style={{

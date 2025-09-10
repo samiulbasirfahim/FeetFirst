@@ -63,7 +63,10 @@ function HomeCarausel({ shoes }) {
             <Carousel
                 autoPlayInterval={2000}
                 data={shoes}
-                onConfigurePanGesture={(panGesture) => panGesture.activeOffsetY([-999999, 999999]).activeOffsetX([-20, 20])}
+                onConfigurePanGesture={(panGesture) =>
+                    panGesture
+                        .activeOffsetX([-5, 5])
+                        .failOffsetY([-5, 5])}
                 loop={true}
                 pagingEnabled={true}
                 snapEnabled={true}

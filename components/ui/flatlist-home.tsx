@@ -55,6 +55,7 @@ const HomeFlatList = () => {
         >
           <View>
             <LinearGradient
+              pointerEvents="none"
               colors={["#020202", "transparent"]}
               style={{
                 position: "absolute",
@@ -65,6 +66,7 @@ const HomeFlatList = () => {
               }}
             />
             <LinearGradient
+              pointerEvents="none"
               colors={["rgba(0,0,0,1)", "transparent"]}
               style={{
                 position: "absolute",
@@ -92,6 +94,7 @@ const HomeFlatList = () => {
             </View>
           </View>
           <LinearGradient
+            pointerEvents="none"
             colors={["transparent", "rgba(0,0,0,1)"]}
             locations={[0.2, 0.8]}
             style={{

@@ -77,9 +77,7 @@ export default function SettingsLayout() {
             <Stack.Screen
                 name="privacy-policy"
                 options={{
-                    title: isGerman()
-                        ? "Allgemeine Geschäftsbedingungen"
-                        : "Termini e condizioni",
+                    title: isGerman() ? "Datenschutzrichtlinie" : "Politica sulla riservatezza"
                 }}
             />
 
