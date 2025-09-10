@@ -113,25 +113,6 @@ const shoesSecond: ShoeItemSecond[] = [
 
 export default function Screen() {
     const navigation = useNavigation();
-    const [touch, setTouch] = useState({
-        first: true,
-        second: false,
-        third: false,
-        fourth: false,
-    });
-
-    const handleTouch = (position) => {
-        setTouch((prev) => {
-            const reset = {
-                first: false,
-                second: false,
-                third: false,
-                fourth: false,
-            };
-
-            return { ...reset, [position]: !prev[position] };
-        });
-    };
 
     const { isGerman } = useLanguageStore();
     const { width: dm_width } = useWindowDimensions()

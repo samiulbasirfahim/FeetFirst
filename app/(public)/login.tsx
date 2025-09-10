@@ -4,7 +4,7 @@ import SMS from "@/assets/svgs/sms.svg";
 import LOCK from "@/assets/svgs/lock.svg";
 import { useLanguageStore } from "@/store/language";
 import { Logo } from "@/components/ui/logo";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Platform, Text, TouchableOpacity, View } from "react-native";
 import { Button } from "@/components/ui/button";
 import { Link, router } from "expo-router";
 import { useAuthStore } from "@/store/auth";
@@ -20,7 +20,7 @@ import { useSignIn } from "@/hooks/useGoogleSignIn";
 import { Typography } from "@/components/ui/typography";
 
 GoogleSignin.configure({
-  scopes: ["https://www.googleapis.com/auth/drive.readonly"],
+  scopes: [],
   offlineAccess: false,
   iosClientId: process.env.EXPO_PUBLIC_IOS_OAUTH_TOKEN,
   forceCodeForRefreshToken: true,
@@ -119,7 +119,11 @@ export default function Page() {
       ) : (
         <TouchableOpacity
           className="bg-white px-4 py-3 rounded-xl flex-row w-full items-center justify-center gap-4"
-          onPress={() => signIn("signin")}
+          onPress={() => {
+            if (Platform.OS === "android") {
+              signIn("signin")
+            }
+          }}
         >
           <GOOGLE />
           <Text className="text-black font-semibold text-xl text-center">
