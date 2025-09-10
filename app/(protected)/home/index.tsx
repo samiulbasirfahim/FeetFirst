@@ -243,14 +243,14 @@ export default function Screen() {
                         </Typography>
                     </View>
                     <View>
-                        <Link href={"/"}>
+                        {/* <Link href={"/"}> */}
                             <Typography className="underline  text-white font-light text-[12px]">
                                 {isGerman()
                                     ? `Jetzt testen und selbst überzeugen.`
                                     : `
 Provalo ora e verifica tu stesso.`}
                             </Typography>
-                        </Link>
+                        {/* </Link> */}
                     </View>
                 </View>
 
