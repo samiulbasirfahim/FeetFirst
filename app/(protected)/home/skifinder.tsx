@@ -145,7 +145,7 @@ export default function Screen() {
                             right: 0,
                             top: 0,
                             bottom: 0,
-                            zIndex: 99
+                            zIndex: 99,
                         }}
                     />
                     <LinearGradient
@@ -156,7 +156,7 @@ export default function Screen() {
                             right: 0,
                             top: 0,
                             bottom: 0,
-                            zIndex: 99
+                            zIndex: 99,
                         }}
                     />
                     <Image
@@ -187,6 +187,7 @@ export default function Screen() {
                 <Marquee
                     spacing={0}
                     speed={0.6}
+                    withGesture={false}
                     style={{
                         marginTop: 28,
                     }}
@@ -239,7 +240,7 @@ export default function Screen() {
                             right: 0,
                             top: 0,
                             bottom: 0,
-                            zIndex: 99
+                            zIndex: 99,
                         }}
                     />
                     <View className="py-4 relative">
@@ -281,7 +282,7 @@ export default function Screen() {
                             right: 0,
                             top: 0,
                             bottom: 0,
-                            zIndex: 99
+                            zIndex: 99,
                         }}
                     />
                     <Map />

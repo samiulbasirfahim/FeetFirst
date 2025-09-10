@@ -6,10 +6,9 @@ import { useLanguageStore } from "@/store/language";
 import { Button } from "@/components/ui/button";
 import Herobg from "@/assets/svgs/mass_insole_hero_bg.svg";
 import HeroIcon from "@/assets/svgs/mass_insole_hero_icon.svg";
-import Like from "@/assets/svgs/like_home.svg";
-import Entypo from "@expo/vector-icons/Entypo";
-import TouchButtonBefore from "@/assets/svgs/touch_button_before.svg";
-import TouchButtonAfter from "@/assets/svgs/touch_button_after.svg";
+import k2 from "@/assets/images/k2.png";
+import dalbello from "@/assets/images/dalbello.png";
+import head from "@/assets/images/head.png";
 
 import { Link, router } from "expo-router";
 import { useState } from "react";
@@ -17,6 +16,8 @@ import NewsFlatlist from "@/components/ui/flatlist-news";
 import MassFlatList from "@/components/ui/flatlist-massinsole";
 import { useDrawerHeader } from "@/components/common/drawer-header";
 import { TwoDAccordian } from "@/components/common/2d-accordian";
+import { Marquee } from "@animatereactnative/marquee";
+import { AutoImage } from "@/components/ui/auto-image";
 
 export type ShoeItem = {
     title: string;
@@ -141,6 +142,30 @@ export default function Screen() {
                     </View>
                 </View>
 
+                <View
+                    style={{
+                        marginTop: 28,
+                    }}
+                >
+                    <Typography
+                        className="text-center mb-2 text-muted-foreground"
+                        variant="titleSecondary"
+                    >
+                        OUR PARTNERS
+                    </Typography>
+                    <Marquee spacing={0} speed={0.6} withGesture={false}>
+                        <View
+                            className="bg-black flex-row py-4 opacity-40"
+                            style={{
+                                gap: 30,
+                            }}
+                        >
+                            <AutoImage source={k2} height={40} />
+                            <AutoImage source={dalbello} height={40} />
+                            <AutoImage source={head} height={40} />
+                        </View>
+                    </Marquee>
+                </View>
 
                 <TwoDAccordian />
                 {/* Sole Details */}

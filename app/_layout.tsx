@@ -15,6 +15,7 @@ export default function RootLayout() {
   useEffect(() => {
     if (isReady) {
       router.replace("/(public)");
+      // router.replace("/(protected)/home/mass-insoles");
     }
   }, [isReady]);
 
