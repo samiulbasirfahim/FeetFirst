@@ -131,14 +131,14 @@ export default function Screen() {
                     </View>
 
                     <View>
-                        <Link href={"/"}>
-                            <Typography className="underline  text-white font-light text-[12px]">
-                                {isGerman()
-                                    ? `Jetzt testen und selbst überzeugen.`
-                                    : `
+                        {/* <Link href={"/"}> */}
+                        <Typography className="underline  text-white font-light text-[12px]">
+                            {isGerman()
+                                ? `Jetzt testen und selbst überzeugen.`
+                                : `
       Provalo ora e verifica tu stesso.`}
-                            </Typography>
-                        </Link>
+                        </Typography>
+                        {/* </Link> */}
                     </View>
                 </View>
 

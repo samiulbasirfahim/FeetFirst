@@ -3,7 +3,7 @@ import CheckBox from "@/components/ui/checkbox";
 import { Typography } from "@/components/ui/typography";
 import { useLanguageStore } from "@/store/language";
 import { useRef, useState } from "react";
-import { Pressable, Text, TextInput, View } from "react-native";
+import { Pressable, Text, TextInput, View, Keyboard } from "react-native";
 
 type Props = {
   HeaderComponent?: React.ReactNode;
@@ -36,7 +36,6 @@ export function OnBoardingLayout({
   const input_ref = useRef<TextInput>(null);
   const [checkedValues, setCheckedValues] = useState<string[]>([]);
   const [selectedValue, setSelectedValue] = useState<string>("");
-  const [customOptions, setCustomOptions] = useState<string[]>([]);
   const [showOtherInputField, setShowOtherInputField] = useState(false);
   const [otherValue, setOtherValue] = useState("");
 
@@ -56,25 +55,12 @@ export function OnBoardingLayout({
   }
 
   const handleOtherSubmit = () => {
-    const trimmed = otherValue.trim();
-    if (trimmed.length > 0) {
-      const newCustomOptions = [...customOptions, trimmed];
-      setCustomOptions(newCustomOptions);
-
-      // if (multiple) {
-      //   const newCheckedValues = [...checkedValues, trimmed];
-      //   setCheckedValues(newCheckedValues);
-      //   onSelectionChange(newCheckedValues);
-      // } else {
-      //   setSelectedValue(trimmed);
-      //   onSelectionChange([trimmed]);
-      // }
-    }
-    setShowOtherInputField(false);
-    setOtherValue("");
+    Keyboard.dismiss(); // Hide the keyboard
+    // setShowOtherInputField(false); // Hide the input field
+    // setOtherValue(""); // Clear the value
   };
 
-  const allOptions = [...options, ...customOptions];
+  const allOptions = [...options];
   const currentSelection = multiple
     ? checkedValues
     : [selectedValue].filter(Boolean);
@@ -145,7 +131,7 @@ export function OnBoardingLayout({
                 <TextInput
                   ref={input_ref}
                   autoFocus
-                  onBlur={() => setShowOtherInputField(false)}
+                  // onBlur={() => setShowOtherInputField(false)} // Hide input when user taps outside
                   placeholder={otherPlaceholder}
                   placeholderTextColor="#999"
                   style={{
@@ -158,7 +144,7 @@ export function OnBoardingLayout({
                   }}
                   value={otherValue}
                   onChangeText={setOtherValue}
-                  onSubmitEditing={handleOtherSubmit}
+                  onSubmitEditing={handleOtherSubmit} // Just hide the input field
                 />
               )}
             </View>

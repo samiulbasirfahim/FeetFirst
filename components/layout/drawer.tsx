@@ -171,12 +171,16 @@ export function CustomDrawer(props: DrawerContentComponentProps) {
                     <Svg height={100} width={50}>
                         <Path d="M0,0 Q50,50 0,100 Z" fill="#1A1C1B" />
                     </Svg>
-                    <AntDesign
-                        name="closecircleo"
-                        size={24}
-                        color="white"
+                    <Pressable
                         className="absolute -translate-x-[40%] top-[38%]"
-                    />
+                        onPress={closeDrawer}
+                    >
+                        <AntDesign
+                            name="closecircleo"
+                            size={24}
+                            color="white"
+                        />
+                    </Pressable>
                 </Pressable>
             </Animated.View>
         </Portal>
