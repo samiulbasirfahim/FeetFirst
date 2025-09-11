@@ -138,7 +138,7 @@ export default function ShoeShopScreen() {
             <Typography className="text-2xl text-center font-medium w-2/3">
               {isGerman()
                 ? "NOSIZENEEDED – Durch neueste Technologie zum perfekten Schuh"
-                : "NoSiZENEEDED – L’ultima tecnologia per la scarpa perfetta"}
+                : "NOSIZENEEDED – L’ultima tecnologia per la scarpa perfetta"}
             </Typography>
           </View>
         </View>
