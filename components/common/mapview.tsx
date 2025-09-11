@@ -144,10 +144,13 @@ export function Map() {
                 customMapStyle={mapStyle}
                 provider={PROVIDER_GOOGLE}
                 mapType="standard"
-                scrollEnabled={false}
             >
-                <Marker coordinate={origin} />
-                <Marker coordinate={destination} />
+                <Marker
+                    coordinate={{
+                        latitude: location?.coords.latitude ?? partners[0].lat,
+                        longitude: location?.coords.longitude ?? partners[0].lng,
+                    }}
+                />
                 {
                     // <MapViewDirections
                     //   apikey={process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY || ""}
