@@ -1,7 +1,8 @@
 import { Layout } from "@/components/layout/layout";
 import { Typography } from "@/components/ui/typography";
+import PARTNER1 from "@/assets/svgs/feetfirst-partner.svg";
+import PARTNER2 from "@/assets/svgs/partern-2.svg";
 import { Image, ImageBackground, TouchableOpacity, View } from "react-native";
-import { useHeaderHeight } from "@react-navigation/elements";
 import { useLanguageStore } from "@/store/language";
 import { Button } from "@/components/ui/button";
 import Herobg from "@/assets/svgs/mass_insole_hero_bg.svg";
@@ -44,25 +45,6 @@ export const shoesData: ShoeItem[] = [
 ];
 
 export default function Screen() {
-    const [touch, setTouch] = useState({
-        first: true,
-        second: false,
-        third: false,
-        fourth: false,
-    });
-
-    const handleTouch = (position) => {
-        setTouch((prev) => {
-            const reset = {
-                first: false,
-                second: false,
-                third: false,
-                fourth: false,
-            };
-
-            return { ...reset, [position]: !prev[position] };
-        });
-    };
     const { height, HeaderComponent, onScroll } = useDrawerHeader({
         threeshold: 100,
     });
@@ -147,24 +129,38 @@ export default function Screen() {
                         marginTop: 28,
                     }}
                 >
-                    <Typography
-                        className="text-center mb-2 text-muted-foreground"
-                        variant="titleSecondary"
-                    >
-                        OUR PARTNERS
-                    </Typography>
-                    <Marquee spacing={0} speed={0.6} withGesture={false}>
-                        <View
-                            className="bg-black flex-row py-4 opacity-40"
-                            style={{
-                                gap: 30,
-                            }}
-                        >
-                            <AutoImage source={k2} height={40} />
-                            <AutoImage source={dalbello} height={40} />
-                            <AutoImage source={head} height={40} />
+                    {
+                        // <Typography
+                        //     className="text-center mb-2 text-muted-foreground"
+                        //     variant="titleSecondary"
+                        // >
+                        //     OUR PARTNERS
+                        // </Typography>
+                    }
+
+                    <View className="bg-[#333340]/40 items-center justify-between py-4 flex-row px-4">
+                        <View className="items-center">
+                            <Typography className="font-bold text-xl">OUR</Typography>
+                            <Typography className="font-bold text-xl">PARTNERS</Typography>
                         </View>
-                    </Marquee>
+                        <PARTNER1 />
+                        <PARTNER2 />
+                    </View>
+
+                    {
+                        // <Marquee spacing={0} speed={0.6} withGesture={false}>
+                        //     <View
+                        //         className="bg-black flex-row py-4 opacity-40"
+                        //         style={{
+                        //             gap: 30,
+                        //         }}
+                        //     >
+                        //         <AutoImage source={k2} height={40} />
+                        //         <AutoImage source={dalbello} height={40} />
+                        //         <AutoImage source={head} height={40} />
+                        //     </View>
+                        // </Marquee>
+                    }
                 </View>
 
                 <TwoDAccordian />
