@@ -1,4 +1,4 @@
-import BG from "@/assets/images/welcome-screen.png";
+import BG from "@/assets/images/welcome-image.png";
 import { LinearGradient } from "expo-linear-gradient";
 import { useLanguageStore } from "@/store/language";
 import { ImageBackground, Text, View } from "react-native";
@@ -14,7 +14,7 @@ export default function Page() {
       <Stack.Screen options={{ headerShown: false }} />
       <ImageBackground source={BG} className="flex-1" resizeMode="cover">
         <LinearGradient
-          colors={["rgba(0,0,0,0.65)", "rgba(0,0,0,0.8)"]}
+          colors={["rgba(0,0,0,0.25)", "rgba(0,0,0,0.6)" ,  "rgba(0,0,0,0.8)"]}
           pointerEvents="none"
           style={{
             position: "absolute",
