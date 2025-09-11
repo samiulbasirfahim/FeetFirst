@@ -243,14 +243,14 @@ export default function Screen() {
                         </Typography>
                     </View>
                     <View>
-                        {/* <Link href={"/"}> */}
+                        <Link href={"/(protected)/shoe-recommendations"}>
                             <Typography className="underline  text-white font-light text-[12px]">
                                 {isGerman()
                                     ? `Jetzt testen und selbst überzeugen.`
                                     : `
 Provalo ora e verifica tu stesso.`}
                             </Typography>
-                        {/* </Link> */}
+                        </Link>
                     </View>
                 </View>
 
@@ -269,11 +269,6 @@ Provalo ora e verifica tu stesso.`}
                             onPress={() => {
                                 router.push({
                                     pathname: "/(protected)/shoe-recommendations",
-                                    params: {
-                                        category: "all",
-                                        redirect: "/shoe-recommendations/subcategory",
-                                        redirectId: Math.random().toString(),
-                                    },
                                 });
                             }}
                             variant="outline"
@@ -336,7 +331,7 @@ Provalo ora e verifica tu stesso.`}
                                     pathname: "/shoe-recommendations",
                                     params: {
                                         category: "sports",
-                                        redirect: "/shoe-recommendations/shoes",
+                                        redirect: "/shoe-recommendations/subcategory",
                                         redirectId: Math.random().toString(),
                                     },
                                 });
