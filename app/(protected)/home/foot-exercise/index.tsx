@@ -138,7 +138,7 @@ export default function Screen() {
                             right: 0,
                             top: 0,
                             bottom: 0,
-                            zIndex: 99
+                            zIndex: 99,
                         }}
                     />
 
@@ -152,7 +152,7 @@ export default function Screen() {
                             right: 0,
                             top: 0,
                             bottom: 0,
-                            zIndex: 99
+                            zIndex: 99,
                         }}
                     />
 
@@ -160,13 +160,13 @@ export default function Screen() {
 
                     <Typography
                         variant="subtitle"
-                        className="text-white absolute top-2 left-1/2 -translate-x-1/2 z-[99] text-center "
+                        className="text-foreground absolute top-2 left-1/2 -translate-x-1/2 z-[99] text-center font-semibold"
                     >
                         {isGerman()
                             ? "Von Physiotherapeuten entwickelt"
                             : "Sviluppato da fisioterapisti"}
                     </Typography>
-                    <Text className="text-white absolute top-2 left-1/2 -translate-x-1/2 z-[99] text-center mt-8">
+                    <Text className="text-foreground absolute top-2 left-1/2 -translate-x-1/2 z-[99] text-center mt-8 font-semibold">
                         {isGerman() ? "– exklusiv für Sie" : "- esclusivamente per te"}
                     </Text>
                 </View>
@@ -181,7 +181,7 @@ export default function Screen() {
                         </Typography>
                     </View>
                     <View className="mt-6">
-                        <Typography className="text-xl text-white mb-3">
+                        <Typography className="text-xl text-foreground mb-3">
                             {isGerman()
                                 ? "Schon wenige Minuten täglich machen spürbar den Unterschied: für mehr Stabilität, Beweglichkeit und Wohlbefinden."
                                 : "Bastano pochi minuti al giorno per fare una differenza notevole: maggiore stabilità, mobilità e benessere."}
@@ -262,14 +262,13 @@ export default function Screen() {
                         <LinearGradient
                             pointerEvents="none"
                             colors={["rgba(0,0,0,0.3)", "rgba(0,0,0,0.0)"]}
-
                             style={{
                                 position: "absolute",
                                 left: 0,
                                 right: 0,
                                 top: 0,
                                 bottom: 0,
-                                zIndex: 99
+                                zIndex: 99,
                             }}
                         />
                         <Image
@@ -359,7 +358,7 @@ export default function Screen() {
                                     right: 0,
                                     top: 0,
                                     bottom: 0,
-                                    zIndex: 99
+                                    zIndex: 99,
                                 }}
                             />
                             <Image

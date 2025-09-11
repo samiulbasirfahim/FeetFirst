@@ -3,7 +3,6 @@ import { Typography } from "@/components/ui/typography";
 import { useLanguageStore } from "@/store/language";
 import {
     Image,
-    StyleSheet,
     Text,
     TouchableOpacity,
     TouchableWithoutFeedback,
@@ -16,7 +15,7 @@ import MyCarousel from "@/components/ui/MyCarousel";
 import { VersionInfo } from "@/components/common/version";
 import ManAboutTORun from "@/assets/images/man-about-to-run.png";
 import { LinearGradient } from "expo-linear-gradient";
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDrawerHeader } from "@/components/common/drawer-header";
 import LineBg from "@/assets/svgs/flexible_bg.svg";
 import Leg from "@/assets/svgs/flexible_leg1.svg";
@@ -27,25 +26,7 @@ import Animated, {
     FadeInDown,
     FadeOutUp,
 } from "react-native-reanimated";
-import AntDesign from "@expo/vector-icons/AntDesign";
 import ArrowAnimatedDesign from "@/components/ui/animated-arrow";
-
-const SELECTORS = [
-    {
-        title: "First",
-        value: 0,
-    },
-    {
-        title: "Third",
-        value: 2,
-    },
-    {
-        title: "None",
-    },
-];
-
-const BACON_IPSUM =
-    "Bacon ipsum dolor amet chuck turducken landjaeger tongue spare ribs. Picanha beef prosciutto meatball turkey shoulder shank salami cupim doner jowl pork belly cow. Chicken shankle rump swine tail frankfurter meatloaf ground round flank ham hock tongue shank andouille boudin brisket. ";
 
 const CONTENT = [
     {
@@ -112,7 +93,7 @@ export default function Screen() {
 
     const { onScroll, HeaderComponent, height } = useDrawerHeader({
         threeshold: 100,
-        shouldGoBack: true
+        shouldGoBack: true,
     });
     return (
         <View className="flex-1">
@@ -151,7 +132,7 @@ export default function Screen() {
                                 right: 0,
                                 top: 0,
                                 bottom: 0,
-                                zIndex: 99
+                                zIndex: 99,
                             }}
                             pointerEvents="none"
                         />
@@ -169,7 +150,7 @@ export default function Screen() {
                                 right: 0,
                                 top: 0,
                                 bottom: 0,
-                                zIndex: 99
+                                zIndex: 99,
                             }}
                         />
 
@@ -187,12 +168,12 @@ export default function Screen() {
                 </View>
 
                 <View className="mt-12 px-3">
-                    <Typography className="font-bold text-3xl ">
+                    <Typography className="font-bold text-3xl">
                         {isGerman()
-                            ? "FeetFirst - Ihr Partner für Fußgesundheit, bietet jetzt die perfekten Fußübungen."
-                            : "FeetFirst, il tuo partner per la salute dei piedi, ora ti offre gli esercizi perfetti per i piedi."}
+                            ? "FeetF1rst - Ihr Partner für Fußgesundheit, bietet jetzt die perfekten Fußübungen."
+                            : "FeetF1rst, il tuo partner per la salute dei piedi, ora ti offre gli esercizi perfetti per i piedi."}
                     </Typography>
-                    <Text className="text-white mt-4">
+                    <Text className="text-white mt-4 font-semibold">
                         {isGerman()
                             ? "Wählen Sie einfach aus, was Sie erreichen. möchten, sehen Sie sich die Anleitung an und legen Sie los!"
                             : "Scegli semplicemente cosa vuoi ottenere. vuoi, dai un'occhiata alle istruzioni e inizia!"}
@@ -217,7 +198,7 @@ export default function Screen() {
                             right: -20,
                             top: 0,
                             height: 250,
-                            zIndex: 99
+                            zIndex: 99,
                         }}
                         className="z-10"
                     />
@@ -425,7 +406,7 @@ export default function Screen() {
                                 right: 0,
                                 top: 0,
                                 bottom: 0,
-                                zIndex: 99
+                                zIndex: 99,
                             }}
                         />
                         <Image
