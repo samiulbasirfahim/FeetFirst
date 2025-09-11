@@ -34,7 +34,7 @@ export default function Screen() {
   return (
     <OnBoardingLayout
       HeaderComponent={
-        <Typography variant="title" className="text-foreground">
+        <Typography variant="onboarding-header">
           {isGerman()
             ? "Wofür interessieren Sie sich besonders?"
             : "A cosa sei particolarmente interessato/a?"}

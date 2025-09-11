@@ -10,6 +10,7 @@ const variants = {
     caption: "text-lg text-muted-foreground text-muted-foreground",
     selected: "font-semibold text-primary text-lg",
     muted: "text-muted-foreground text-lg font-semibold",
+    "onboarding-header": "font-semibold text-primary text-xl text-foreground"
 };
 
 type Props = TextProps & {
