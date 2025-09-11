@@ -20,6 +20,7 @@ import {
 import { Portal } from "react-native-portalize";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { router } from "expo-router";
+import { useDrawerHeader } from "@/components/common/drawer-header";
 
 export const images: Record<number, any> = {
     1: Image1,
@@ -81,6 +82,17 @@ export default function Screen() {
     const { top } = useSafeAreaInsets();
 
     const texts = isGerman() ? pagesDE : pagesIT;
+
+
+    const {
+        HeaderComponent,
+        onScroll,
+        height: h_heihgt
+    } = useDrawerHeader({
+        threeshold: 100,
+        shouldGoBack: true
+    })
+
     return (
         <>
             <Drawer.Screen
@@ -88,98 +100,106 @@ export default function Screen() {
                     headerShown: false,
                 }}
             />
-            <Layout noPadding scrollable avoidTabbar className="bg-backgroundDark">
-                <Portal>
-                    <View
-                        style={{
-                            top: top + 10,
-                            left: 10,
-                            position: "absolute",
-                            zIndex: 20,
-                            overflow: "hidden",
-                        }}
-                        className="flex items-center justify-center rounded-full"
-                    >
-                        <BlurView className="flex-1 px-2" tint="light" intensity={30}>
-                            <HeaderBackButton />
-                        </BlurView>
-                    </View>
-                </Portal>
+            <View className="flex-1">
 
-                <ImageBackground
-                    source={require("@/assets/images/winsole.jpg")}
-                    style={{
-                        height: height * 0.4,
-                        width: "100%",
-                    }}
-                >
-                    <View className="absolute inset-0 bg-backgroundDark/70 items-center justify-center">
-                        <Typography variant="title" className="text-foreground text-center">
-                            {texts.tittle1}
-                        </Typography>
-                    </View>
-                </ImageBackground>
 
-                <View className="py-4 gap-4 p-3">
-                    <Typography variant="body" className="text-center">
-                        {texts.subtittle1a}
-                    </Typography>
-                    <Typography variant="subtitle" className="text-white text-center">
-                        {texts.subtittle1b}
-                    </Typography>
+                {HeaderComponent}
 
-                    <Button
-                        variant="big"
-                        textClassName="text-white"
-                        className="border-white bg-transparent border-2"
-                        onPress={() => router.push("/(scan-upload)/while-scan-upload")}
-                    >
-                        {texts.buttonText}
-                    </Button>
+                <Layout onScroll={onScroll} noPadding scrollable avoidTabbar className="bg-backgroundDark" style={{
+                    marginTop: - h_heihgt - 20,
+                }}>
+                    {/* <Portal>
+                        <View
+                            style={{
+                                top: top + 10,
+                                left: 10,
+                                position: "absolute",
+                                zIndex: 20,
+                                overflow: "hidden",
+                            }}
+                            className="flex items-center justify-center rounded-full"
+                        >
+                            <BlurView className="flex-1 px-3" tint="light" intensity={30}>
+                                <HeaderBackButton />
+                            </BlurView>
+                        </View>
+                    </Portal> */}
 
                     <ImageBackground
-                        resizeMode="cover"
-                        source={require("@/assets/images/winsol-bottom.jpg")}
-                        className="p-2 items-center justify-end"
+                        source={require("@/assets/images/winsole.jpg")}
                         style={{
-                            height: height * 0.4,
+                            height: height * 0.4 + h_heihgt,
+                            width: "100%",
                         }}
                     >
-                        <Typography className="bg-backgroundDark p-1 text-center">
-                            {texts.imageText}
-                        </Typography>
+                        <View className="absolute inset-0 bg-backgroundDark/70 items-center justify-center">
+                            <Typography variant="title" className="text-foreground text-center">
+                                {texts.tittle1}
+                            </Typography>
+                        </View>
                     </ImageBackground>
-                    <Typography variant="title" className="text-foreground">
-                        {texts.tittle2}
-                    </Typography>
-                    <Typography>{texts.subtittle2a}</Typography>
 
-                    <View className="flex-row">
+                    <View className="py-4 gap-4 p-3">
+                        <Typography variant="body" className="text-center">
+                            {texts.subtittle1a}
+                        </Typography>
+                        <Typography variant="subtitle" className="text-white text-center">
+                            {texts.subtittle1b}
+                        </Typography>
+
                         <Button
-                            variant="ghost"
-                            className="p-0"
-                            textClassName="underline text-white underline-offset-4 text-xl"
+                            variant="big"
+                            textClassName="text-white"
+                            className="border-white bg-transparent border-2"
+                            onPress={() => router.push("/(scan-upload)/while-scan-upload")}
                         >
-                            {texts.button2}
+                            {texts.buttonText}
                         </Button>
-                    </View>
 
-                    <View className="gap-4">
-                        {texts.benefits.map((benifit, index) => {
-                            return (
-                                <View key={index} className="flex-row items-center">
-                                    <Image source={images[index + 1]} className="w-20 h-20" />
-                                    <View className="flex-grow-0 shrink px-2">
-                                        <Typography>{benifit}</Typography>
+                        <ImageBackground
+                            resizeMode="cover"
+                            source={require("@/assets/images/winsol-bottom.jpg")}
+                            className="p-2 items-center justify-end"
+                            style={{
+                                height: height * 0.4,
+                            }}
+                        >
+                            <Typography className="bg-backgroundDark p-1 text-center">
+                                {texts.imageText}
+                            </Typography>
+                        </ImageBackground>
+                        <Typography variant="title" className="text-foreground">
+                            {texts.tittle2}
+                        </Typography>
+                        <Typography>{texts.subtittle2a}</Typography>
+
+                        <View className="flex-row">
+                            <Button
+                                variant="ghost"
+                                className="p-0"
+                                textClassName="underline text-white underline-offset-4 text-xl"
+                            >
+                                {texts.button2}
+                            </Button>
+                        </View>
+
+                        <View className="gap-4">
+                            {texts.benefits.map((benifit, index) => {
+                                return (
+                                    <View key={index} className="flex-row items-center">
+                                        <Image source={images[index + 1]} className="w-20 h-20" />
+                                        <View className="flex-grow-0 shrink px-2">
+                                            <Typography>{benifit}</Typography>
+                                        </View>
                                     </View>
-                                </View>
-                            );
-                        })}
-                    </View>
+                                );
+                            })}
+                        </View>
 
-                    <VersionInfo />
-                </View>
-            </Layout>
+                        <VersionInfo />
+                    </View>
+                </Layout>
+            </View>
         </>
     );
 }

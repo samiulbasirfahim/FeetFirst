@@ -138,7 +138,7 @@ export function TwoDAccordian() {
                                 </>
                             )}
                         </TouchableOpacity>
-                        <Typography className=" w-[150px]  font-medium text-base leading-[14px] pl-2">
+                        <Typography className=" w-[150px] font-medium text-base leading-[14px]">
                             Schmerzreduktion & Problembehandlung
                         </Typography>
                     </View>

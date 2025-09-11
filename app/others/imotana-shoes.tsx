@@ -13,6 +13,7 @@ import footballBg from "@/assets/images/foot-ball-background.png";
 import goalKepper from "@/assets/images/goal-keeper.png";
 import { Button } from "@/components/ui/button";
 import ShoeHeader from "@/components/common/category-header";
+import { VersionInfo } from "@/components/common/version";
 
 export default function ShoeShopScreen() {
   const { isGerman } = useLanguageStore();
@@ -135,7 +136,7 @@ export default function ShoeShopScreen() {
         </View>
 
         <View className="py-12">
-          <View className="flex-1 px-6 gap-4 mb-4 z-[99]">
+          <View className="flex-1 px-6 gap-4 mb-4 z-[999]">
             <Typography className="text-2xl text-left font-medium">
               {isGerman()
                 ? "Bundesliga-Profis vertrauen darauf – du auch?"
@@ -184,6 +185,7 @@ export default function ShoeShopScreen() {
             resizeMode="cover"
           />
         </View>
+        <VersionInfo />
       </Layout>
     </View>
   );
