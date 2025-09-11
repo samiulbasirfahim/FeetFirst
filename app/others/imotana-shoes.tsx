@@ -12,12 +12,18 @@ import shoeDetail from "@/assets/images/shoe-feat.png";
 import footballBg from "@/assets/images/foot-ball-background.png";
 import goalKepper from "@/assets/images/goal-keeper.png";
 import { Button } from "@/components/ui/button";
-import ShoeHeader from "@/components/common/category-header";
 import { VersionInfo } from "@/components/common/version";
+import { useDrawerHeader } from "@/components/common/drawer-header";
+import { router } from "expo-router";
 
 export default function ShoeShopScreen() {
   const { isGerman } = useLanguageStore();
   const [likedItems, setLikedItems] = useState<boolean[]>(Array(4).fill(false));
+
+  const { HeaderComponent, onScroll, height } = useDrawerHeader({
+    threeshold: 100,
+    shouldGoBack: true
+  })
 
   const toggleLike = (index: number) => {
     setLikedItems((prev) => {
@@ -29,9 +35,11 @@ export default function ShoeShopScreen() {
   return (
     <View className="flex-1">
 
-      <ShoeHeader />
+      {HeaderComponent}
 
-      <Layout avoidTabbar noPadding scrollable className="bg-backgroundDark">
+      <Layout avoidTabbar noPadding onScroll={onScroll} scrollable className="bg-backgroundDark" style={{
+        marginTop: -height,
+      }}>
         {/* Header Section */}
         <View>
           <View className="relative">
@@ -65,7 +73,7 @@ export default function ShoeShopScreen() {
 
         {/* Description */}
         <View className="my-6 flex-row px-8 justify-center">
-          <Text className="text-white text-center leading-8 text-xl">
+          <Text className="text-white text-center leading-8 text-xl font-semibold">
             {isGerman()
               ? "Dank unserer Partnerschaft mit Imotana erhältst du Fußballschuhe, die individuell auf deinen Fuß angepasst werden."
               : "Grazie alla nostra partnership con Imotana, riceverai delle scarpe da calcio realizzate su misura per il tuo piede."}
@@ -129,8 +137,8 @@ export default function ShoeShopScreen() {
           <View className="absolute inset-0 flex-1 justify-center items-center px-8">
             <Typography className="text-2xl text-center font-medium w-2/3">
               {isGerman()
-                ? "NoSiZENEEDED – Durch neueste Technologie zum perfekten Schuh"
-                : "NoSiZENEEDED – L’ultima tecnologia per la scarpa perfetta"}
+                ? "NOSIZENEEDED – Durch neueste Technologie zum perfekten Schuh"
+                : "NOSIZENEEDED – L’ultima tecnologia per la scarpa perfetta"}
             </Typography>
           </View>
         </View>
@@ -143,6 +151,16 @@ export default function ShoeShopScreen() {
                 : "I professionisti della Bundesliga ci credono, e tu?"}
             </Typography>
             <Button
+              onPress={() => {
+                router.push({
+                  pathname: "/shoe-recommendations",
+                  params: {
+                    category: "football-shoes",
+                    redirect: "/shoe-recommendations/shoes",
+                    redirectId: Math.random().toString(),
+                  },
+                })
+              }}
               variant="outline"
               className="bg-primary/10 w-1/3 py-4 rounded-2xl"
             >
