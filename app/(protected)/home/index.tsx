@@ -268,7 +268,7 @@ Provalo ora e verifica tu stesso.`}
                         <Button
                             onPress={() => {
                                 router.push({
-                                    pathname: "/shoe-recommendations",
+                                    pathname: "/(protected)/shoe-recommendations",
                                     params: {
                                         category: "all",
                                         redirect: "/shoe-recommendations/subcategory",
