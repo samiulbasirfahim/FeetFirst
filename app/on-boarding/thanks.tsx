@@ -8,7 +8,7 @@ export default function Screen() {
     const { isGerman } = useLanguageStore();
     return (
         <Layout className="justify-between">
-            <Typography variant="title" className="text-foreground">
+        <Typography variant="onboarding-header">
                 {isGerman()
                     ? "Das war’s! Danke, dass Sie Teil der wachsenden FeetF1rst-Familie sind. Gemeinsam gestalten wir die Zukunft des Schuhkaufs."
                     : "È tutto! Grazie per far parte della crescente famiglia FeetF1rst. Insieme stiamo plasmando il futuro dell'acquisto di scarpe."}

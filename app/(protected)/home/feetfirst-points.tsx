@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Layout } from "@/components/layout/layout";
 import { useDrawerHeader } from "@/components/common/drawer-header";
+import { OpenWebLink } from "@/lib/web-link";
 
 export default function Screen() {
     const { isGerman } = useLanguageStore();
@@ -89,6 +90,7 @@ export default function Screen() {
                         </Typography>
 
                         <Button
+                        onPress={()=> OpenWebLink("https://feetf1rst.com/")}
                             variant="ghost"
                             className="bg-primary/50 border-primary border-2 mb-4"
                             textClassName="text-white"
@@ -117,7 +119,7 @@ export default function Screen() {
                     </Typography>
                     <Input Icon={MAN} placeholder={isGerman() ? "Namen" : "nomi"} />
 
-                    <Input Icon={EMAIL} placeholder={isGerman() ? "E-Mail" : "Email"} />
+                    <Input editable={false} defaultValue="info@feetf1rst.com" Icon={EMAIL} placeholder={isGerman() ? "E-Mail" : "Email"} />
 
                     <Input
                         Icon={WORLD}

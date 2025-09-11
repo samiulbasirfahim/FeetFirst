@@ -92,7 +92,7 @@ export function OnBoardingLayout({
                   gap: 4,
                 }}
               >
-                <Typography className="flex-1 text-lg">{item}</Typography>
+                <Typography className="flex-1 text-lg text-foreground" variant="selected">{item}</Typography>
                 <CheckBox
                   onPress={() => toggleCheck(item)}
                   unFillColor="#303231"
@@ -113,40 +113,24 @@ export function OnBoardingLayout({
 
           {showOtherInput && (
             <View>
-              {!showOtherInputField ? (
-                <Pressable
-                  onPress={() => setShowOtherInputField(true)}
-                  style={{
-                    backgroundColor: "#2C2C2D",
-                    paddingVertical: 16,
-                    paddingHorizontal: 16,
-                    borderRadius: 8,
-                  }}
-                >
-                  <Text className="text-lg text-foreground">
-                    {otherButtonText}
-                  </Text>
-                </Pressable>
-              ) : (
-                <TextInput
-                  ref={input_ref}
-                  autoFocus
-                  // onBlur={() => setShowOtherInputField(false)} // Hide input when user taps outside
-                  placeholder={otherPlaceholder}
-                  placeholderTextColor="#999"
-                  style={{
-                    backgroundColor: "#2C2C2D",
-                    paddingVertical: 16,
-                    paddingHorizontal: 16,
-                    borderRadius: 8,
-                    fontSize: 16,
-                    color: "#FFFFFF",
-                  }}
-                  value={otherValue}
-                  onChangeText={setOtherValue}
-                  onSubmitEditing={handleOtherSubmit} // Just hide the input field
-                />
-              )}
+              <TextInput
+                ref={input_ref}
+                // autoFocus
+                placeholder={otherPlaceholder}
+                placeholderTextColor="#999"
+                className="placeholder:font-semibold"
+                style={{
+                  backgroundColor: "#2C2C2D",
+                  paddingVertical: 16,
+                  paddingHorizontal: 16,
+                  borderRadius: 8,
+                  fontSize: 16,
+                  color: "#FFFFFF",
+                }}
+                value={otherValue}
+                onChangeText={setOtherValue}
+                onSubmitEditing={handleOtherSubmit}
+              />
             </View>
           )}
         </View>
