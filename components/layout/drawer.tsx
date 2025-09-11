@@ -100,7 +100,7 @@ export function CustomDrawer(props: DrawerContentComponentProps) {
                         John Due
                     </Typography>
 
-                    <Button
+                    {/* <Button
                         className="items-center justify-center flex-row gap-2 bg-white"
                         variant="primary"
                         noWrap
@@ -109,7 +109,7 @@ export function CustomDrawer(props: DrawerContentComponentProps) {
                         <Typography className="text-lg text-background">
                             Upload PDF
                         </Typography>
-                    </Button>
+                    </Button> */}
                 </View>
 
                 {/* Menu */}
@@ -122,7 +122,8 @@ export function CustomDrawer(props: DrawerContentComponentProps) {
                     />
                     <DrawerButton
                         href="/(protected)/home/feetfirst-points"
-                        title={isGerman() ? "Punkte FeetFirst" : "Punti FeetFirst"}
+                        // title={isGerman() ? "Punkte FeetFirst" : "Punti FeetFirst"}
+                        title="FeetF1rst Points"
                         icon={SCAN}
                         selected={props.state.index === 1}
                     />
