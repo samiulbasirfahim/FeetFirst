@@ -100,7 +100,7 @@ export default function TwoDPreview() {
           </View>
         </View>
 
-        <View>
+        <View className="relative">
           <TouchableOpacity
             onPressOut={() => {
               handleTouch('fourth');
