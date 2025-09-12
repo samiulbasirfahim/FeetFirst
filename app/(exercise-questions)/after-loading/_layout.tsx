@@ -39,6 +39,7 @@ export default function OnBoardingLayout() {
         <Tabs.Screen name="third" />
         <Tabs.Screen name="fourth" />
         <Tabs.Screen name="fifth" />
+        <Tabs.Screen name="sixth" />
       </Tabs>
     </SafeAreaView>
   );
