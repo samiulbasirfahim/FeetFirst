@@ -1,13 +1,15 @@
 const optionsDE: string[] = [
-    "Ja, ich merke instabilität",
-    "Teilweise / nur in bestimmten Situationen",
-    "Nein, mein Gleichgewicht ist gu",
+  "Leistungssteigerung im Training oder Wettkampf",
+  "Unterstützung bei Beschwerden (z. B. Knie, Fuß oder Druckstellen)",
+  "Mehr Stabilität und Komfort",
+  "Verletzungen und Schmerzen vorbeuge",
 ];
 
 const optionsIT: string[] = [
-    "Sì, noto instabilità",
-    "Parzialmente / solo in determinate situazioni",
-    "No, il mio equilibrio è buon",
+  "Aumento delle prestazioni in allenamento o in gara",
+  "Supporto per disturbi (ad esempio ginocchia, piedi o punti di pressione)",
+  "Più stabilità e comfort",
+  "Prevenire lesioni e dolor",
 ];
 
 import { OnBoardingLayout } from "@/components/layout/onboarding";
@@ -17,44 +19,42 @@ import { useLanguageStore } from "@/store/language";
 import { Link } from "expo-router";
 
 export default function Screen() {
-    const { isGerman } = useLanguageStore();
-    const list = isGerman() ? optionsDE : optionsIT;
-    return (
-        <OnBoardingLayout
-            HeaderComponent={
-                <Typography variant="title" className="text-foreground text-xl">
-                    {isGerman()
-                        ? "Fühlen Sie sich in Ihrem Gleichgewicht manchmal unsicher - z. B. beim Stehen auf einem Bein oder beim schnellen Richtungswechsel?"
-                        : "Ti capita a volte di avere un equilibrio instabile, ad esempio quando stai in piedi su una gamba o quando cambi direzione rapidamente?"}
-                </Typography>
-            }
-            options={list}
-            multiple={false}
-            showOtherInput={false}
-            onSelectionChange={(selection: string[]) => {
-                console.log("Selected:", selection);
-            }}
-            otherPlaceholder={isGerman() ? "Bitte angeben..." : "Specifica qui..."}
-            otherButtonText={
-                isGerman() ? "Sonstiges (bitte angeben)" : "Altro (specificare)"
-            }
-            FooterComponent={
-                <>
-                    <Link asChild href={"/winsole-questions/after-loading/seventh"}>
-                        <Button variant="big">
-                            {isGerman()
-                                ? "Abschliessen und in den Warenkorb legen"
-                                : "Completa e aggiungi al carrello"}
-                        </Button>
-                    </Link>
+  const { isGerman } = useLanguageStore();
+  const list = isGerman() ? optionsDE : optionsIT;
+  return (
+    <OnBoardingLayout
+      HeaderComponent={
+        <Typography variant="title" className="text-foreground text-xl">
+          {isGerman()
+            ? "Welche Ziele Verfolgst Du Mit Deinen Winsole-Einlagen?"
+            : "Quali sono i tuoi obiettivi con le solette Winsole?"}
+        </Typography>
+      }
+      options={list}
+      multiple={false}
+      showOtherInput={false}
+      onSelectionChange={(selection: string[]) => {
+        console.log("Selected:", selection);
+      }}
+      otherPlaceholder={isGerman() ? "Bitte angeben..." : "Specifica qui..."}
+      otherButtonText={
+        isGerman() ? "Sonstiges (bitte angeben)" : "Altro (specificare)"
+      }
+      FooterComponent={
+        <>
+          <Link asChild href={"/winsole-questions/after-loading/seventh"}>
+            <Button variant="big">
+              {isGerman() ? "Nächste Frage" : "Prossima domanda"}
+            </Button>
+          </Link>
 
-                    <Link asChild href={"/winsole-questions/after-loading/seventh"}>
-                        <Button variant="ghost">
-                            {isGerman() ? "Überspringen" : "Saltare"}
-                        </Button>
-                    </Link>
-                </>
-            }
-        />
-    );
+          <Link asChild href={"/winsole-questions/after-loading/seventh"}>
+            <Button variant="ghost">
+              {isGerman() ? "Überspringen" : "Saltare"}
+            </Button>
+          </Link>
+        </>
+      }
+    />
+  );
 }
