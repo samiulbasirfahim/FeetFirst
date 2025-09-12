@@ -1,16 +1,6 @@
-const optionsDE: string[] = [
-  "Sportlich aktiv (regelmäßiges Training oder sportliche Aktivitäten)",
-  "Mäßig aktiv (leichte körperliche Aktivität oder Gehen)",
-  "Wenig aktiv (hauptsächlich sitzende Tätigkeit)",
-  "Sehr wenig aktiv",
-];
+const optionsDE: string[] = ["Ja (bitte erläutern)", "Nein"];
 
-const optionsIT: string[] = [
-  "Attivo nello sport (allenamento regolare o attività sportive)",
-  "Moderatamente attivo (attività fisica leggera o camminata)",
-  "Non molto attivo (principalmente sedentario)",
-  "Molto poco attivo",
-];
+const optionsIT: string[] = ["Sì (per favore spiega)", "NO"];
 
 import { OnBoardingLayout } from "@/components/layout/onboarding";
 import { Button } from "@/components/ui/button";
@@ -24,10 +14,10 @@ export default function Screen() {
   return (
     <OnBoardingLayout
       HeaderComponent={
-        <Typography variant="title" className="text-foreground">
+        <Typography variant="onboarding-header" className="text-foreground">
           {isGerman()
-            ? "Welches Aktivitätslevel treffen am besten auf Sie zu?"
-            : "Quale livello di attività è più adatto a te?"}
+            ? "Haben Sie Probleme Mit Ihrem Gleichgewicht, Gang Oder Der Beweglichkeit?"
+            : "Hai problemi di equilibrio, andatura o mobilità?"}
         </Typography>
       }
       options={list}
@@ -38,12 +28,13 @@ export default function Screen() {
       }}
       FooterComponent={
         <>
-          <Link asChild href={"/(scan-upload)/after-scan-upload/prev_sixth"}>
+          <Link asChild href={"/(scan-upload)/after-scan-upload/sixth"}>
             <Button variant="big">
               {isGerman() ? "Nächste Frage" : "Prossima domanda"}
             </Button>
           </Link>
-          <Link asChild href={"/(scan-upload)/after-scan-upload/prev_sixth"}>
+
+          <Link asChild href={"/(scan-upload)/after-scan-upload/sixth"}>
             <Button variant="ghost">
               {isGerman() ? "Überspringen" : "Saltare"}
             </Button>

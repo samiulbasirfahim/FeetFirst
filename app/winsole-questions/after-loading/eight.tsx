@@ -2,12 +2,25 @@ import { OnBoardingLayout } from "@/components/layout/onboarding";
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
 import { useLanguageStore } from "@/store/language";
+import { useParamStore } from "@/store/paramStore"; // ✅ import global param store
 import { Link, router } from "expo-router";
-import { View } from "react-native";
-import { TextInput } from "react-native";
+import { View, TextInput } from "react-native";
 
 export default function Screen() {
   const { isGerman } = useLanguageStore();
+  const { getParam } = useParamStore();
+
+  const handleFinish = () => {
+    const cameFromScanUpload = getParam("came_from_scan_upload") === "true";
+
+    if (cameFromScanUpload) {
+      router.push("/(scan-upload)/after-scan-upload/fourth");
+    } else {
+      router.dismissAll();
+      router.back();
+    }
+  };
+
   return (
     <OnBoardingLayout
       multiple={false}
@@ -33,22 +46,16 @@ export default function Screen() {
               : "Assicurati subito che si adatti perfettamente alle tue scarpe specificando il tuo modello o cercando la tua scarpa tramite il sistema FeetFirst."}
           </Typography>
 
-          <View className={"mt-8 flex-row items-center gap-2"}>
+          <View className="mt-8 flex-row items-center gap-2">
             <Typography className="text-foreground" variant="subtitle">
               {isGerman() ? "Modell angeben" : "Specificare il modello"}
             </Typography>
-            <TextInput className="flex-1 border-b-2 pb-1 -translate-y-1/4 border-dotted border-foreground"></TextInput>
+            <TextInput className="flex-1 border-b-2 pb-1 -translate-y-1/4 border-dotted border-foreground" />
           </View>
         </>
       }
       FooterComponent={
-        <Button
-          variant="big"
-          onPress={() => {
-            router.dismissAll();
-            router.back();
-          }}
-        >
+        <Button variant="big" onPress={handleFinish}>
           {isGerman()
             ? "Abschliessen und Einlage in den Warenkorb legen"
             : "Completa e aggiungi il deposito al carrello"}

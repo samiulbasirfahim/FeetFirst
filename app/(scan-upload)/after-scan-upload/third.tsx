@@ -1,45 +1,44 @@
-const optionsDE: string[] = [
-  "Freizeit / Alltag 149,99€",
-  "Sport-169,99€",
-  "Arbeit/Arbeitsschuhe-169,99€",
-  "Business/Formal-149,99€",
-  "Andere (bitte angeben)-169,99€",
-  "Winsole-Einlage (Radschuheinlage für Leistungssteigerung. - 199,99€)",
-];
-
-const optionsIT: string[] = [
-  "Tempo libero / Tutti i giorni 149,99€",
-  "Sport - 169,99 €",
-  "Scarpe da lavoro/da lavoro - 169,99€",
-  "Business/Formale - 149,99 €",
-  "Altro (specificare) - 169,99€",
-  "Soletta Winsole (soletta per scarpe da ciclismo per migliorare le prestazioni. - € 199,99)",
-];
-
 import { OnBoardingLayout } from "@/components/layout/onboarding";
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
 import { useLanguageStore } from "@/store/language";
-import { Link } from "expo-router";
+import { Link,  useLocalSearchParams } from "expo-router";
+import {  View } from "react-native";
 
-export default function Screen() {
+function FirstScreen() {
   const { isGerman } = useLanguageStore();
+
+  const optionsDE: string[] = [
+    "Sneaker",
+    "Halbschuhe",
+    "Stiefeletten",
+    "Hausschuhe",
+  ];
+  const optionsIT: string[] = [
+    "Sneaker",
+    "Scarpe basse",
+    "Stivaletti",
+    "Pantofole",
+  ];
   const list = isGerman() ? optionsDE : optionsIT;
+
   return (
     <OnBoardingLayout
       HeaderComponent={
-        <Typography variant="title" className="text-foreground">
-          {isGerman()
-            ? "Für Welchen Zweck Verwenden Sie Die Einlage?"
-            : "Per quale scopo utilizzi l'inserto?"}
+        <Typography variant="onboarding-header" className="text-foreground">
+          {isGerman() ? "Für Welchen Einsatz?" : "Per quale utilizzo?"}
         </Typography>
       }
       options={list}
       multiple={false}
-      showOtherInput={false}
+      showOtherInput={true}
       onSelectionChange={(selection: string[]) => {
         console.log("Selected:", selection);
       }}
+      otherPlaceholder={isGerman() ? "Bitte angeben..." : "Specifica qui..."}
+      otherButtonText={
+        isGerman() ? "Sonstiges (bitte angeben)" : "Altro (specificare)"
+      }
       FooterComponent={
         <>
           <Link asChild href={"/(scan-upload)/after-scan-upload/fourth"}>
@@ -47,7 +46,6 @@ export default function Screen() {
               {isGerman() ? "Nächste Frage" : "Prossima domanda"}
             </Button>
           </Link>
-
           <Link asChild href={"/(scan-upload)/after-scan-upload/fourth"}>
             <Button variant="ghost">
               {isGerman() ? "Überspringen" : "Saltare"}
@@ -57,4 +55,69 @@ export default function Screen() {
       }
     />
   );
+}
+
+function SecondScreen() {
+  const { isGerman } = useLanguageStore();
+
+  const optionsDE: string[] = [
+    "Sportschuhe",
+    "Laufschuhe",
+    "Skischuhe",
+    "Tennisschuhe",
+    "Fußballschuhe",
+    "Basketballschuhe",
+  ];
+  const optionsIT: string[] = [
+    "Scarpe sportive",
+    "Scarpe da corsa",
+    "Scarponi da sci",
+    "Scarpe da tennis",
+    "Scarpe da calcio",
+    "Scarpe da basket",
+  ];
+  const list = isGerman() ? optionsDE : optionsIT;
+
+  return (
+    <OnBoardingLayout
+      HeaderComponent={
+        <Typography variant="onboarding-header" className="text-foreground">
+          {isGerman() ? "Für Welchen Einsatz?" : "Per quale utilizzo?"}
+        </Typography>
+      }
+      options={list}
+      multiple={false}
+      showOtherInput={true}
+      onSelectionChange={(selection: string[]) => {
+        console.log("Selected:", selection);
+      }}
+      otherPlaceholder={isGerman() ? "Bitte angeben..." : "Specifica qui..."}
+      otherButtonText={
+        isGerman() ? "Sonstiges (bitte angeben)" : "Altro (specificare)"
+      }
+      FooterComponent={
+        <>
+          <Link asChild href={"/(scan-upload)/after-scan-upload/fourth"}>
+            <Button variant="big">
+              {isGerman() ? "Nächste Frage" : "Prossima domanda"}
+            </Button>
+          </Link>
+          <Link asChild href={"/(scan-upload)/after-scan-upload/fourth"}>
+            <Button variant="ghost">
+              {isGerman() ? "Überspringen" : "Saltare"}
+            </Button>
+          </Link>
+        </>
+      }
+    />
+  );
+}
+
+export default function Screen() {
+  const { picked } = useLocalSearchParams();
+  if (!picked) return <View className="bg-background flex-1"></View>;
+
+  if (picked === "freizeit") return <FirstScreen />;
+  if (picked === "sports") return <SecondScreen />;
+  return <View className="bg-background flex-1"></View>;
 }

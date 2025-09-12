@@ -1,13 +1,13 @@
 const optionsDE: string[] = [
-  "Wenig aktiv (viel sitzen",
+  "Wenig aktiv (viel sitzen)",
   "Mäßig aktiv (Spazieren, Alltagsbewegung)",
-  "Sehr aktiv (Sport, körperliche Arbeit, viel Stehen",
+  "Sehr aktiv (Sport, körperliche Arbeit, viel Stehen)",
 ];
 
 const optionsIT: string[] = [
   "Non molto attivo (stare seduto molto)",
   "Moderatamente attivo (camminare, esercizio quotidiano)",
-  "Molto attivo (sport, lavoro fisico, molto in piedi",
+  "Molto attivo (sport, lavoro fisico, molto in piedi)",
 ];
 
 import { OnBoardingLayout } from "@/components/layout/onboarding";
@@ -22,7 +22,7 @@ export default function Screen() {
   return (
     <OnBoardingLayout
       HeaderComponent={
-        <Typography variant="title" className="text-foreground">
+        <Typography variant="onboarding-header" className="text-foreground">
           {isGerman()
             ? "Wie Aktiv Sind Sie Im Alltag Oder Beruf?"
             : "Quanto sei attivo nella vita quotidiana o al lavoro?"}

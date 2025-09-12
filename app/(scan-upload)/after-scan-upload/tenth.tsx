@@ -24,7 +24,7 @@ export default function Screen() {
   return (
     <OnBoardingLayout
       HeaderComponent={
-        <Typography variant="title" className="text-foreground">
+        <Typography variant="onboarding-header" className="text-foreground">
           {isGerman()
             ? "Welche Erwartungen Oder Ziele Haben Sie Mit Den Einlagen?"
             : "Quali sono le tue aspettative o i tuoi obiettivi riguardo alle solette?"}

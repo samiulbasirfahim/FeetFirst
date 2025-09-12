@@ -13,7 +13,7 @@ export default function Screen() {
   return (
     <OnBoardingLayout
       HeaderComponent={
-        <Typography variant="title" className="text-foreground">
+        <Typography variant="onboarding-header" className="text-foreground">
           {isGerman()
             ? "Haben Sie Eine Bevorzugte Farbe Für Den Überzug Ihrer Einlagen?"
             : "Hai un colore preferito per la fodera delle tue solette?"}

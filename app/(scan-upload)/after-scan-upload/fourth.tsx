@@ -1,19 +1,15 @@
 const optionsDE: string[] = [
-  "Sportschuhe",
-  "Laufschuhe",
-  "Skischuhe",
-  "Tennisschuhe",
-  "Fußballschuhe",
-  "Basketballschuhe",
+  "Sportlich aktiv (regelmäßiges Training oder sportliche Aktivitäten)",
+  "Mäßig aktiv (leichte körperliche Aktivität oder Gehen)",
+  "Wenig aktiv (hauptsächlich sitzende Tätigkeit)",
+  "Sehr wenig aktiv",
 ];
 
 const optionsIT: string[] = [
-  "Scarpe sportive",
-  "Scarpe da corsa",
-  "Scarponi da sci",
-  "Scarpe da tennis",
-  "Scarpe da calcio",
-  "Scarpe da basket",
+  "Attivo nello sport (allenamento regolare o attività sportive)",
+  "Moderatamente attivo (attività fisica leggera o camminata)",
+  "Non molto attivo (principalmente sedentario)",
+  "Molto poco attivo",
 ];
 
 import { OnBoardingLayout } from "@/components/layout/onboarding";
@@ -28,20 +24,18 @@ export default function Screen() {
   return (
     <OnBoardingLayout
       HeaderComponent={
-        <Typography variant="title" className="text-foreground">
-          {isGerman() ? "Für Welchen Einsatz?" : "Per quale utilizzo?"}
+        <Typography variant="onboarding-header" className="text-foreground">
+          {isGerman()
+            ? "Welches Aktivitätslevel treffen am besten auf Sie zu?"
+            : "Quale livello di attività è più adatto a te?"}
         </Typography>
       }
       options={list}
       multiple={false}
-      showOtherInput={true}
+      showOtherInput={false}
       onSelectionChange={(selection: string[]) => {
         console.log("Selected:", selection);
       }}
-      otherPlaceholder={isGerman() ? "Bitte angeben..." : "Specifica qui..."}
-      otherButtonText={
-        isGerman() ? "Sonstiges (bitte angeben)" : "Altro (specificare)"
-      }
       FooterComponent={
         <>
           <Link asChild href={"/(scan-upload)/after-scan-upload/fifth"}>
@@ -49,7 +43,6 @@ export default function Screen() {
               {isGerman() ? "Nächste Frage" : "Prossima domanda"}
             </Button>
           </Link>
-
           <Link asChild href={"/(scan-upload)/after-scan-upload/fifth"}>
             <Button variant="ghost">
               {isGerman() ? "Überspringen" : "Saltare"}

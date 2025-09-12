@@ -26,7 +26,7 @@ export default function Screen() {
   return (
     <OnBoardingLayout
       HeaderComponent={
-        <Typography variant="title" className="text-foreground">
+        <Typography variant="onboarding-header" className="text-foreground">
           {isGerman()
             ? "Was möchten Sie mit den Übungen erreichen?"
             : "Wie Aktiv Sind Sie Im Alltag Oder Beruf?"}

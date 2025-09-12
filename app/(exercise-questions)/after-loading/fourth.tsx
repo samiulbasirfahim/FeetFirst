@@ -7,33 +7,36 @@ import { Link } from "expo-router";
 import { View } from "react-native";
 
 export default function Screen() {
-    const { isGerman } = useLanguageStore();
-    return (
-        <Layout className="justify-between" scrollable>
-            <View className="flex-1 items-center gap-4">
-                <Typography variant="title" className="text-foreground text-center">
-                    {isGerman()
-                        ? "Haben Sie Schmerzen? Wenn ja, bitte markieren Sie die betroffenen Bereiche auf dem 2D-Modell."
-                        : "Avverti dolore? In tal caso, contrassegna le aree interessate sul modello 2D."}
-                </Typography>
-            </View>
-            <View className="mb-14 mt-4">
-                <TwoDPreview />
-            </View>
+  const { isGerman } = useLanguageStore();
+  return (
+    <Layout className="justify-between" scrollable>
+      <View className="flex-1 items-center gap-4">
+        <Typography
+          variant="onboarding-header"
+          className="text-foreground text-center"
+        >
+          {isGerman()
+            ? "Haben Sie Schmerzen? Wenn ja, bitte markieren Sie die betroffenen Bereiche auf dem 2D-Modell."
+            : "Avverti dolore? In tal caso, contrassegna le aree interessate sul modello 2D."}
+        </Typography>
+      </View>
+      <View className="mb-20 mt-4 -mx-3">
+        <TwoDPreview />
+      </View>
 
-            <View className="mb-14">
-                <Link asChild href={"/(exercise-questions)/after-loading/fifth"}>
-                    <Button variant="big">
-                        {isGerman() ? "Nächste Frage" : "Prossima domanda"}
-                    </Button>
-                </Link>
+      <View className="mb-14">
+        <Link asChild href={"/(exercise-questions)/after-loading/fifth"}>
+          <Button variant="big">
+            {isGerman() ? "Nächste Frage" : "Prossima domanda"}
+          </Button>
+        </Link>
 
-                <Link asChild href={"/(exercise-questions)/after-loading/fifth"}>
-                    <Button variant="ghost">
-                        {isGerman() ? "Überspringen" : "Saltare"}
-                    </Button>
-                </Link>
-            </View>
-        </Layout>
-    );
+        <Link asChild href={"/(exercise-questions)/after-loading/fifth"}>
+          <Button variant="ghost">
+            {isGerman() ? "Überspringen" : "Saltare"}
+          </Button>
+        </Link>
+      </View>
+    </Layout>
+  );
 }

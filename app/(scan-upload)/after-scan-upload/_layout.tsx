@@ -2,7 +2,6 @@ import ProgressBar from "@/components/common/progress-bar";
 import { HeaderBackButton } from "@/components/ui/header-back-button";
 import { Typography } from "@/components/ui/typography";
 import { useLanguageStore } from "@/store/language";
-import { HeaderTitle } from "@react-navigation/elements";
 import {
   createMaterialTopTabNavigator,
   MaterialTopTabBarProps,
@@ -78,15 +77,6 @@ export default function OnBoardingLayout() {
         />
 
         <Tabs.Screen
-          name="prev_sixth"
-          options={{
-            title: isGerman()
-              ? "Orthopädische Maßeinlage"
-              : "Plantare ortopedico personalizzato",
-          }}
-        />
-
-        <Tabs.Screen
           name="sixth"
           options={{
             title: isGerman()
@@ -140,7 +130,6 @@ export default function OnBoardingLayout() {
           }}
         />
 
-
         <Tabs.Screen
           name="thirteenth"
           options={{
@@ -150,7 +139,6 @@ export default function OnBoardingLayout() {
           }}
         />
 
-
         <Tabs.Screen
           name="fourteenth"
           options={{
@@ -159,7 +147,6 @@ export default function OnBoardingLayout() {
               : "Plantare ortopedico personalizzato",
           }}
         />
-
       </Tabs>
     </SafeAreaView>
   );

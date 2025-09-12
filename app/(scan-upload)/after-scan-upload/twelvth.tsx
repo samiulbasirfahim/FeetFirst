@@ -22,7 +22,7 @@ export default function Screen() {
   return (
     <OnBoardingLayout
       HeaderComponent={
-        <Typography variant="title" className="text-foreground">
+        <Typography variant="onboarding-header" className="text-foreground">
           {isGerman()
             ? "Wählen Sie Bitte Einen Unserer Exklusiven Partner Aus, Der Ihre Maßeinlage Für Sie Anfertigen Soll."
             : "Seleziona uno dei nostri partner esclusivi per realizzare la soletta personalizzata per te."}

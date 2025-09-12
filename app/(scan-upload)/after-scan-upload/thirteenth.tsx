@@ -9,7 +9,7 @@ export default function Screen() {
   return (
     <OnBoardingLayout
       HeaderComponent={
-        <Typography variant="title" className="text-foreground">
+        <Typography variant="onboarding-header" className="text-foreground">
           {isGerman()
             ? "Sonstige Anliegen Oder Fragen Zur Fußgesundheit:"
             : "Altre preoccupazioni o domande sulla salute dei piedi:"}
