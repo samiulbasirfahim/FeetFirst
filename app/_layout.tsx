@@ -14,9 +14,7 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (isReady) {
-
-      router.replace("/(public)");
-
+      router.replace('/(exercise-questions)/after-loading/fourth');
     }
   }, [isReady]);
 
