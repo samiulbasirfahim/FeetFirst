@@ -46,13 +46,13 @@ export default function Screen() {
       }
       FooterComponent={
         <>
-          <Link asChild href={"/(exercise-questions)/after-loading/sixth"}>
+          <Link asChild href={"/winsole-questions/after-loading/sixth"}>
             <Button variant="big">
               {isGerman() ? "Nächste Frage" : "Prossima domanda"}
             </Button>
           </Link>
 
-          <Link asChild href={"/(exercise-questions)/after-loading/sixth"}>
+          <Link asChild href={"/winsole-questions/after-loading/sixth"}>
             <Button variant="ghost">
               {isGerman() ? "Überspringen" : "Saltare"}
             </Button>
