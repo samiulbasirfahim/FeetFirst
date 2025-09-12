@@ -24,7 +24,7 @@ export default function Screen() {
   return (
     <OnBoardingLayout
       HeaderComponent={
-        <Typography variant="title" className="text-foreground text-xl">
+        <Typography variant="onboarding-header" className="text-foreground">
           {isGerman()
             ? "Welche Ziele Verfolgst Du Mit Deinen Winsole-Einlagen?"
             : "Quali sono i tuoi obiettivi con le solette Winsole?"}

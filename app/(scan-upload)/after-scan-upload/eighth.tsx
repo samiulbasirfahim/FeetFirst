@@ -28,7 +28,7 @@ export default function Screen() {
   return (
     <OnBoardingLayout
       HeaderComponent={
-        <Typography variant="title" className="text-foreground">
+        <Typography variant="onboarding-header" className="text-foreground">
           {isGerman()
             ? "Haben Sie sonst noch relevante Schmerzen oder Beschwerden?"
             : "Hai altri dolori o fastidi rilevanti?"}
@@ -42,13 +42,13 @@ export default function Screen() {
       }}
       FooterComponent={
         <>
-          <Link asChild href={"/(scan-upload)/after-scan-upload/ninth"}>
+          <Link asChild href={"/(scan-upload)/after-scan-upload/tenth"}>
             <Button variant="big">
               {isGerman() ? "Nächste Frage" : "Prossima domanda"}
             </Button>
           </Link>
 
-          <Link asChild href={"/(scan-upload)/after-scan-upload/ninth"}>
+          <Link asChild href={"/(scan-upload)/after-scan-upload/tenth"}>
             <Button variant="ghost">
               {isGerman() ? "Überspringen" : "Saltare"}
             </Button>
