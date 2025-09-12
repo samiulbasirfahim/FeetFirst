@@ -132,7 +132,7 @@ export default function Screen() {
                 >
                     <View className="mb-6">
                         <Typography className="text-foreground" variant="title">
-                            {isGerman() ? "Shoe Finder FeetFirst" : "Trova scarpe FeetFirst"}
+                            {isGerman() ? "Shoe Finder FeetF1rst" : "Trova scarpe FeetF1rst"}
                         </Typography>
 
                         <Typography className="text-foreground" variant="caption">

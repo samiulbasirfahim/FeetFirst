@@ -1,5 +1,5 @@
 import Loading from "@/components/common/loading";
 
 export default function Screen() {
-  return <Loading href={"/(exercise-questions)/after-loading"} />;
+  return <Loading href={"/winsole-questions/after-loading"} />;
 }

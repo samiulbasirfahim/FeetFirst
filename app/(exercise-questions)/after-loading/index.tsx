@@ -10,7 +10,7 @@ export default function Screen() {
   return (
     <Layout className="justify-between">
       <View className="flex-1 items-center gap-4">
-        <Typography variant="title" className="text-foreground text-center">
+        <Typography variant="onboarding-header" className="text-foreground text-center">
           {isGerman()
             ? "Willkommen bei Ihrem persönlichen Übungsplan für gesunde Füße!"
             : "Benvenuti al vostro programma di esercizi personalizzato per piedi sani!"}
