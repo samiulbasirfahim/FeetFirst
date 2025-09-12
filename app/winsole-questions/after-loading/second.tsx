@@ -1,19 +1,13 @@
 const optionsDE: string[] = [
-    "Nein",
-    "Ja, Rückenschmerzen",
-    "Ja, Hüftprobleme",
-    "Ja, Gelenkschmerzen",
-    "Ja, Wadenprobleme",
-    "Ja, Achilessehnenprobleme",
+    "Regelmäßig im Training oder Wettkampf",
+    "Mehrmals pro Woche für Fitness oder Alltag",
+    "Gelegentlich oder nur sporadisch",
 ];
 
 const optionsIT: string[] = [
-    "NO",
-    "Sì, mal di schiena",
-    "E, Hyftprobleme",
-    "Sì, dolori articolari",
-    "Sì, problemi al polpaccio",
-    "Sì, problemi al tendine d'Achille",
+    "Regolarmente in allenamento o in gara",
+    "Più volte a settimana per il fitness o per l'uso quotidiano",
+    "Occasionalmente o solo sporadicamente",
 ];
 
 import { OnBoardingLayout } from "@/components/layout/onboarding";
@@ -28,15 +22,15 @@ export default function Screen() {
     return (
         <OnBoardingLayout
             HeaderComponent={
-                <Typography variant="title" className="text-foreground">
+                <Typography variant="onboarding-header" className="text-foreground">
                     {isGerman()
-                        ? "Haben Sie aktuell Beschwerden oder Schmerzen an den Füßen?"
-                        : "Attualmente avverti fastidio o dolore ai piedi?"}
+                        ? "Wie intensiv nutzt du dein Rad?"
+                        : "Quanto intensamente usi la tua bici?"}
                 </Typography>
             }
             options={list}
             multiple={false}
-            showOtherInput={true}
+            showOtherInput={false}
             onSelectionChange={(selection: string[]) => {
                 console.log("Selected:", selection);
             }}
@@ -46,13 +40,13 @@ export default function Screen() {
             }
             FooterComponent={
                 <>
-                    <Link asChild href={"/(exercise-questions)/after-loading/sixth"}>
+                    <Link asChild href={"/winsole-questions/after-loading/third"}>
                         <Button variant="big">
                             {isGerman() ? "Nächste Frage" : "Prossima domanda"}
                         </Button>
                     </Link>
 
-                    <Link asChild href={"/(exercise-questions)/after-loading/sixth"}>
+                    <Link asChild href={"/winsole-questions/after-loading/third"}>
                         <Button variant="ghost">
                             {isGerman() ? "Überspringen" : "Saltare"}
                         </Button>

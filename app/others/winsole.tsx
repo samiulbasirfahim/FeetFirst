@@ -151,7 +151,7 @@ export default function Screen() {
                             variant="big"
                             textClassName="text-white"
                             className="border-white bg-transparent border-2"
-                            onPress={() => router.push("/(scan-upload)/while-scan-upload")}
+                            onPress={() => router.push("/winsole-questions/while-loading")}
                         >
                             {texts.buttonText}
                         </Button>
@@ -178,6 +178,9 @@ export default function Screen() {
                                 variant="ghost"
                                 className="p-0"
                                 textClassName="underline text-white underline-offset-4 text-xl"
+                                onPress={() => {
+                                    router.push("/winsole-questions/while-loading")
+                                }}
                             >
                                 {texts.button2}
                             </Button>

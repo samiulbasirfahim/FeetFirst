@@ -1,7 +1,8 @@
 import { Layout } from "@/components/layout/layout";
 import { Typography } from "@/components/ui/typography";
+import PARTNER1 from "@/assets/svgs/feetfirst-partner.svg";
+import PARTNER2 from "@/assets/svgs/partern-2.svg";
 import { Image, ImageBackground, TouchableOpacity, View } from "react-native";
-import { useHeaderHeight } from "@react-navigation/elements";
 import { useLanguageStore } from "@/store/language";
 import { Button } from "@/components/ui/button";
 import Herobg from "@/assets/svgs/mass_insole_hero_bg.svg";
@@ -44,25 +45,6 @@ export const shoesData: ShoeItem[] = [
 ];
 
 export default function Screen() {
-    const [touch, setTouch] = useState({
-        first: true,
-        second: false,
-        third: false,
-        fourth: false,
-    });
-
-    const handleTouch = (position) => {
-        setTouch((prev) => {
-            const reset = {
-                first: false,
-                second: false,
-                third: false,
-                fourth: false,
-            };
-
-            return { ...reset, [position]: !prev[position] };
-        });
-    };
     const { height, HeaderComponent, onScroll } = useDrawerHeader({
         threeshold: 100,
     });
@@ -92,11 +74,13 @@ export default function Screen() {
                         <Typography className="font-medium text-foreground text-[28px]">
                             {isGerman() ? "Masseinlagen" : "Depositi di massa"}
                         </Typography>
-                        <Typography className=" text-foreground underline text-sm leading-6">
-                            {isGerman()
-                                ? "Konfiguriere deine Einlage"
-                                : "Configura il tuo deposito"}
-                        </Typography>
+                        <Link href={"/(scan-upload)/while-scan-upload"}>
+                            <Typography className=" text-foreground underline text-sm leading-6">
+                                {isGerman()
+                                    ? "Konfiguriere deine Einlage"
+                                    : "Configura il tuo deposito"}
+                            </Typography>
+                        </Link>
                     </View>
 
                     <View
@@ -131,14 +115,13 @@ export default function Screen() {
                     </View>
 
                     <View>
-                        {/* <Link href={"/"}> */}
-                        <Typography className="underline  text-white font-light text-[12px]">
-                            {isGerman()
-                                ? `Jetzt testen und selbst überzeugen.`
-                                : `
-      Provalo ora e verifica tu stesso.`}
-                        </Typography>
-                        {/* </Link> */}
+                        <Link href={"/(scan-upload)/while-scan-upload"}>
+                            <Typography className="underline  text-white font-light text-[12px]">
+                                {isGerman()
+                                    ? `Jetzt testen und selbst überzeugen.`
+                                    : `Provalo ora e verifica tu stesso.`}
+                            </Typography>
+                        </Link>
                     </View>
                 </View>
 
@@ -147,169 +130,42 @@ export default function Screen() {
                         marginTop: 28,
                     }}
                 >
-                    <Typography
-                        className="text-center mb-2 text-muted-foreground"
-                        variant="titleSecondary"
-                    >
-                        OUR PARTNERS
-                    </Typography>
-                    <Marquee spacing={0} speed={0.6} withGesture={false}>
-                        <View
-                            className="bg-black flex-row py-4 opacity-40"
-                            style={{
-                                gap: 30,
-                            }}
-                        >
-                            <AutoImage source={k2} height={40} />
-                            <AutoImage source={dalbello} height={40} />
-                            <AutoImage source={head} height={40} />
+                    {
+                        // <Typography
+                        //     className="text-center mb-2 text-muted-foreground"
+                        //     variant="titleSecondary"
+                        // >
+                        //     OUR PARTNERS
+                        // </Typography>
+                    }
+
+                    <View className="bg-[#333340]/40 items-center justify-between py-4 flex-row px-4">
+                        <View className="items-center">
+                            <Typography className="font-bold text-xl">OUR</Typography>
+                            <Typography className="font-bold text-xl">PARTNERS</Typography>
                         </View>
-                    </Marquee>
+                        <PARTNER1 />
+                        <PARTNER2 />
+                    </View>
+
+                    {
+                        // <Marquee spacing={0} speed={0.6} withGesture={false}>
+                        //     <View
+                        //         className="bg-black flex-row py-4 opacity-40"
+                        //         style={{
+                        //             gap: 30,
+                        //         }}
+                        //     >
+                        //         <AutoImage source={k2} height={40} />
+                        //         <AutoImage source={dalbello} height={40} />
+                        //         <AutoImage source={head} height={40} />
+                        //     </View>
+                        // </Marquee>
+                    }
                 </View>
 
                 <TwoDAccordian />
-                {/* Sole Details */}
-                {/* <View className="relative isolate overflow-hidden">
-                    <View className="relative flex-col w-[90%] mx-auto border border-primary/20 px-6 py-8 rounded-[30px] z-40 bg-background">
-                        <View className="flex-row justify-between items-center mb-4 ">
-                            <View className="border border-primary bg-primary/15 p-2.5 rounded-2xl">
-                                <Like height={24} width={24} />
-                            </View>
-                            <View>
-                                <Typography className="font-medium text-sm">
-                                    Vorbeugung von Fehlstellungen
-                                </Typography>
-                            </View>
-                            <View>
-                                <Entypo name="chevron-small-up" size={30} color={"#62A07B"} />
-                            </View>
-                        </View>
-                        <View>
-                            <Typography className="text-sm">
-                                Unterstützt die natürliche Fußhaltung, beugt Fehlstellungen wie
-                                Plattfüßen oder Überpronation vor und sorgt für gesunde
-                                Bewegungsabläufe langfristig.
-                            </Typography>
-                        </View>
-                    </View>
-                    <View className="relative z-20">
-                        <Image
-                            source={require("@/assets/images/foot_sole3.png")}
-                            style={{ height: 400, width: 550, right: 65, top: 20 }}
-                        />
-                        <View className="absolute right-[50px] top-[45px] ">
-                            <TouchableOpacity
-                                onPressOut={() => {
-                                    if (touch.first !== true) handleTouch("first");
-                                }}
-                                className="absolute -left-10"
-                            >
-                                {touch.first === false ? (
-                                    <TouchButtonBefore height={35} width={35} />
-                                ) : (
-                                    <>
-                                        <TouchButtonAfter height={35} width={35} />
-                                        <View
-                                            style={{
-                                                width: 1.5, // thickness of the bar
-                                                height: 50, // how long it should be
-                                                position: "absolute",
-                                            }}
-                                            className="absolute right-1/2 bottom-10 bg-primary/50"
-                                        />
-                                    </>
-                                )}
-                            </TouchableOpacity>
-                            <Typography className="w-[150px] font-medium text-base leading-[14px] pl-2">
-                                Leistungssteigerung mit Einlagen
-                            </Typography>
-                        </View>
-                        <View className="absolute  right-[10px] top-[98px]">
-                            <TouchableOpacity
-                                onPressOut={() => {
-                                    if (touch.second !== true) handleTouch("second");
-                                }}
-                                className="absolute -left-10 top-8"
-                            >
-                                {touch.second === false ? (
-                                    <TouchButtonBefore height={35} width={35} />
-                                ) : (
-                                    <>
-                                        <TouchButtonAfter height={35} width={35} />
-                                        <View
-                                            style={{
-                                                width: 1.5,
-                                                height: 140,
 
-                                                position: "absolute",
-                                            }}
-                                            className="absolute right-1/2 bottom-10 bg-primary/50"
-                                        />
-                                    </>
-                                )}
-                            </TouchableOpacity>
-                            <Typography className="w-[150px] font-medium text-base leading-[14px] pl-2">
-                                Längere Lebensdauer Ihrer Schuhe
-                            </Typography>
-                        </View>
-                        <View className="absolute  left-[45px] top-[170px] z-30">
-                            <TouchableOpacity
-                                onPressOut={() => {
-                                    if (touch.third !== true) handleTouch("third");
-                                }}
-                                className="absolute -top-12"
-                            >
-                                {touch.third === false ? (
-                                    <TouchButtonBefore height={35} width={35} />
-                                ) : (
-                                    <>
-                                        <TouchButtonAfter height={35} width={35} />
-                                        <View
-                                            style={{
-                                                width: 1.5, // thickness of the bar
-                                                height: 140, // how long it should be
-
-                                                position: "absolute",
-                                            }}
-                                            className="absolute right-1/2 bottom-10 bg-primary/50"
-                                        />
-                                    </>
-                                )}
-                            </TouchableOpacity>
-                            <Typography className=" w-[150px]  font-medium text-base leading-[14px] pl-2">
-                                Schmerzreduktion & Problembehandlung
-                            </Typography>
-                        </View>
-                        <View className="absolute  -right-5 top-[190px]">
-                            <TouchableOpacity
-                                onPressOut={() => {
-                                    if (touch.fourth !== true) handleTouch("fourth");
-                                }}
-                                className="absolute -left-5 top-10"
-                            >
-                                {touch.fourth === false ? (
-                                    <TouchButtonBefore height={35} width={35} />
-                                ) : (
-                                    <>
-                                        <TouchButtonAfter height={35} width={35} />
-                                        <View
-                                            style={{
-                                                width: 1.5, // thickness of the bar
-                                                height: 240, // how long it should be
-
-                                                position: "absolute",
-                                            }}
-                                            className="absolute right-1/2 bottom-10 bg-primary/50"
-                                        />
-                                    </>
-                                )}
-                            </TouchableOpacity>
-                            <Typography className="w-[150px] font-medium text-base leading-[14px] ">
-                                Vorbeugung von Fehlstellungen
-                            </Typography>
-                        </View>
-                    </View>
-                </View> */}
                 {/* Individual Insole */}
                 <View className="w-[90%] mx-auto -mt-[90px]">
                     <View className="mb-5">

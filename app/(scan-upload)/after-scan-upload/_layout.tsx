@@ -114,15 +114,6 @@ export default function OnBoardingLayout() {
         />
 
         <Tabs.Screen
-          name="ninth"
-          options={{
-            title: isGerman()
-              ? "Orthopädische Maßeinlage"
-              : "Plantare ortopedico personalizzato",
-          }}
-        />
-
-        <Tabs.Screen
           name="tenth"
           options={{
             title: isGerman()

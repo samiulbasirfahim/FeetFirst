@@ -1,9 +1,8 @@
-import { Dropdown } from "react-native-element-dropdown";
 import ShoeHeader from "@/components/common/category-header";
 import { Layout } from "@/components/layout/layout";
 import { Typography } from "@/components/ui/typography";
 import { useLanguageStore } from "@/store/language";
-import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, Image, View } from "react-native";
 import { ShoppingDropDown } from "@/components/common/shopping-dropdown";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
