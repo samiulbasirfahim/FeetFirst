@@ -12,7 +12,7 @@ type Props = {
   showOtherInput?: boolean;
   multiple?: boolean;
   onSelectionChange: (selection: string[]) => void;
-  otherPlaceholder?: string;
+  otherPlaceholder?: string | null;
   otherButtonText?: string;
 };
 
@@ -23,20 +23,21 @@ export function OnBoardingLayout({
   showOtherInput = false,
   multiple = false,
   onSelectionChange,
-  otherPlaceholder = "Please specify...",
+  otherPlaceholder = null,
   otherButtonText = "Other",
 }: Props) {
   const { isGerman } = useLanguageStore();
 
-  otherButtonText = isGerman()
-    ? "Sonstiges (bitte angeben)"
-    : "Altro (specificare)";
-  otherPlaceholder = isGerman() ? "Bitte angeben..." : "Specifica qui...";
+  if (!otherPlaceholder) {
+    otherButtonText = isGerman()
+      ? "Sonstiges (bitte angeben)"
+      : "Altro (specificare)";
+    otherPlaceholder = isGerman() ? "Bitte angeben..." : "Specifica qui...";
+  }
 
   const input_ref = useRef<TextInput>(null);
   const [checkedValues, setCheckedValues] = useState<string[]>([]);
   const [selectedValue, setSelectedValue] = useState<string>("");
-  const [showOtherInputField, setShowOtherInputField] = useState(false);
   const [otherValue, setOtherValue] = useState("");
 
   function toggleCheck(value: string) {
@@ -79,7 +80,7 @@ export function OnBoardingLayout({
               onPress={() => toggleCheck(item)}
               style={{
                 backgroundColor: "#2C2C2D",
-                paddingVertical: 16,
+                paddingVertical: 14,
                 paddingHorizontal: 16,
                 borderRadius: 8,
               }}
@@ -92,7 +93,12 @@ export function OnBoardingLayout({
                   gap: 4,
                 }}
               >
-                <Typography className="flex-1 text-lg text-foreground" variant="selected">{item}</Typography>
+                <Typography
+                  className="flex-1 text-lg text-foreground"
+                  variant="selected"
+                >
+                  {item}
+                </Typography>
                 <CheckBox
                   onPress={() => toggleCheck(item)}
                   unFillColor="#303231"

@@ -32,7 +32,7 @@ export default function Screen() {
     return (
         <OnBoardingLayout
             HeaderComponent={
-                <Typography variant="title" className="text-foreground">
+                <Typography variant="onboarding-header" className="text-foreground">
                     {isGerman()
                         ? "Wie viel wiegen sie ca.?"
                         : "Quanto pesano approssimativamente?"}

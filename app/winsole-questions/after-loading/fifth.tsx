@@ -28,7 +28,7 @@ export default function Screen() {
   return (
     <OnBoardingLayout
       HeaderComponent={
-        <Typography variant="title" className="text-foreground">
+        <Typography variant="onboarding-header" className="text-foreground">
           {isGerman()
             ? "Haben Sie aktuell Beschwerden oder Schmerzen an den Füßen?"
             : "Attualmente avverti fastidio o dolore ai piedi?"}
