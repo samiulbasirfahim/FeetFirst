@@ -1,15 +1,3 @@
-const optionsDE: string[] = [
-  "Laufgut Ziegler (Heilbronn, Deutschland)",
-  "Putzer Orthopädie (Bozen, Italien)",
-  "Wallenborn Sportorthopädie (Köln, Deutschland)",
-];
-
-const optionsIT: string[] = [
-  "Laufgut Ziegler (Heilbronn, Germania)",
-  "Putzer Orthopaedics (Bolzano, Italia)",
-  "Wallenborn Sports Orthopedics (Colonia, Germania)",
-];
-
 import { OnBoardingLayout } from "@/components/layout/onboarding";
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
@@ -18,7 +6,6 @@ import { Link } from "expo-router";
 
 export default function Screen() {
   const { isGerman } = useLanguageStore();
-  const list = isGerman() ? optionsDE : optionsIT;
   return (
     <OnBoardingLayout
       HeaderComponent={

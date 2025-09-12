@@ -14,7 +14,7 @@ import { OnBoardingLayout } from "@/components/layout/onboarding";
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
 import { useLanguageStore } from "@/store/language";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 
 export default function Screen() {
     const { isGerman } = useLanguageStore();
@@ -40,19 +40,27 @@ export default function Screen() {
             }
             FooterComponent={
                 <>
-                    <Link asChild href={"/(protected)/home/foot-exercise"}>
-                        <Button variant="big">
-                            {isGerman()
-                                ? "Abschliessen und in den Warenkorb legen"
-                                : "Completa e aggiungi al carrello"}
-                        </Button>
-                    </Link>
+                    <Button
+                        variant="big"
+                        onPress={() => {
+                            router.dismissAll();
+                            router.back();
+                        }}
+                    >
+                        {isGerman()
+                            ? "Abschliessen und in den Warenkorb legen"
+                            : "Completa e aggiungi al carrello"}
+                    </Button>
 
-                    <Link asChild href={"/(protected)/home/foot-exercise"}>
-                        <Button variant="ghost">
-                            {isGerman() ? "Überspringen" : "Saltare"}
-                        </Button>
-                    </Link>
+                    <Button
+                        variant="ghost"
+                        onPress={() => {
+                            router.dismissAll();
+                            router.back();
+                        }}
+                    >
+                        {isGerman() ? "Überspringen" : "Saltare"}
+                    </Button>
                 </>
             }
         />

@@ -39,6 +39,7 @@ export default function OnBoardingLayout() {
         <Tabs.Screen name="third" />
         <Tabs.Screen name="fourth" />
         <Tabs.Screen name="fifth" />
+        <Tabs.Screen name="sixth" />
       </Tabs>
     </SafeAreaView>
   );
@@ -63,7 +64,7 @@ function CustomTabBar({ state, descriptors }: MaterialTopTabBarProps) {
         />
       </View>
       <View className="justify-center flex-row items-center relative px-4 py-2">
-        <View className="absolute left-4">
+        <View className="absolute left-4 bg-transparent">
           <HeaderBackButton />
         </View>
         <Typography className="text-lg font-semibold">

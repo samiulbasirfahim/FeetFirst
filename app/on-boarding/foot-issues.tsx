@@ -14,7 +14,7 @@ export default function Screen() {
   return (
     <Layout scrollable avoidKeyboard>
       <View className="flex-1">
-        <Typography variant="title" className="text-foreground">
+        <Typography variant="onboarding-header">
           {isGerman()
             ? "Welche Produkte verwendest du am häufigsten?"
             : "Quali sono i prodotti che utilizzi di più?"}

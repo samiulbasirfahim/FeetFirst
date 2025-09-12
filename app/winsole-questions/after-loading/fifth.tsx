@@ -1,6 +1,20 @@
-const optionsDE: string[] = ["Ja (bitte erläutern)", "Nein"];
+const optionsDE: string[] = [
+  "Nein",
+  "Ja, Rückenschmerzen",
+  "Ja, Hüftprobleme",
+  "Ja, Gelenkschmerzen",
+  "Ja, Wadenprobleme",
+  "Ja, Achilessehnenprobleme",
+];
 
-const optionsIT: string[] = ["Sì (per favore spiega)", "NO"];
+const optionsIT: string[] = [
+  "NO",
+  "Sì, mal di schiena",
+  "E, Hyftprobleme",
+  "Sì, dolori articolari",
+  "Sì, problemi al polpaccio",
+  "Sì, problemi al tendine d'Achille",
+];
 
 import { OnBoardingLayout } from "@/components/layout/onboarding";
 import { Button } from "@/components/ui/button";
@@ -16,25 +30,29 @@ export default function Screen() {
       HeaderComponent={
         <Typography variant="title" className="text-foreground">
           {isGerman()
-            ? "Haben Sie Probleme Mit Ihrem Gleichgewicht, Gang Oder Der Beweglichkeit?"
-            : "Hai problemi di equilibrio, andatura o mobilità?"}
+            ? "Haben Sie aktuell Beschwerden oder Schmerzen an den Füßen?"
+            : "Attualmente avverti fastidio o dolore ai piedi?"}
         </Typography>
       }
       options={list}
       multiple={false}
-      showOtherInput={false}
+      showOtherInput={true}
       onSelectionChange={(selection: string[]) => {
         console.log("Selected:", selection);
       }}
+      otherPlaceholder={isGerman() ? "Bitte angeben..." : "Specifica qui..."}
+      otherButtonText={
+        isGerman() ? "Sonstiges (bitte angeben)" : "Altro (specificare)"
+      }
       FooterComponent={
         <>
-          <Link asChild href={"/(scan-upload)/after-scan-upload/tenth"}>
+          <Link asChild href={"/(exercise-questions)/after-loading/sixth"}>
             <Button variant="big">
               {isGerman() ? "Nächste Frage" : "Prossima domanda"}
             </Button>
           </Link>
 
-          <Link asChild href={"/(scan-upload)/after-scan-upload/tenth"}>
+          <Link asChild href={"/(exercise-questions)/after-loading/sixth"}>
             <Button variant="ghost">
               {isGerman() ? "Überspringen" : "Saltare"}
             </Button>

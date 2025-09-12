@@ -10,14 +10,15 @@ import { useEffect, useRef } from "react";
 import { ImageBackground, useWindowDimensions, View } from "react-native";
 
 const categoriesDE = [
-  { title: "ALLTAGSSCHUHE", id: "normal" },
-  { title: "SPORTSCHUHE", id: "sports" },
+  { title: "Alltagsschuhe", id: "normal" },
+  { title: "Sportschuhe", id: "sports" },
 ];
 
 const categoriesIT = [
-  { title: "SCARPE DA TUTTI I GIORNI", id: "normal" },
-  { title: "SCARPE SPORTIVE", id: "sports" },
+  { title: "Scarpe da tutti i giorni", id: "normal" },
+  { title: "Scarpe sportive", id: "sports" },
 ];
+
 
 export default function Screen() {
   const { isGerman } = useLanguageStore();
@@ -53,11 +54,11 @@ export default function Screen() {
           }}
         >
           <View className="mb-6">
-            <Typography className="text-foreground" variant="title">
+            <Typography variant="title" className="text-foreground">
               {isGerman() ? "Shoe Finder FeetFirst" : "Trova scarpe FeetFirst"}
             </Typography>
 
-            <Typography className="text-foreground" variant="caption">
+            <Typography className="text-foreground" variant="selected">
               {isGerman()
                 ? "Kategorie wählen wir zeigen dir deine besten Treffer"
                 : "Scegli una categoria e ti mostreremo i risultati migliori."}
@@ -96,7 +97,8 @@ export default function Screen() {
                   },
                 });
               }}
-              title={isGerman() ? "BERG-TREKKINGSCHUHE" : "BERG-TREKKINGSCHUHE"}
+              title={isGerman() ? "Berg Trekkingschuhe" : "Berg Trekkingschuhe"}
+
               height={(height * 0.6) / (categories.length + 1)}
               last
             />

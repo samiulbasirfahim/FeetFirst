@@ -21,19 +21,17 @@ export default function Screen() {
                 <TwoDPreview />
             </View>
 
-            <View className="mb-14">
-                <Link asChild href={"/(exercise-questions)/after-loading/fifth"}>
-                    <Button variant="big">
-                        {isGerman() ? "Nächste Frage" : "Prossima domanda"}
-                    </Button>
-                </Link>
+            <Link asChild href={"/winsole-questions/after-loading/fifth"}>
+                <Button variant="big">
+                    {isGerman() ? "Nächste Frage" : "Prossima domanda"}
+                </Button>
+            </Link>
 
-                <Link asChild href={"/(exercise-questions)/after-loading/fifth"}>
-                    <Button variant="ghost">
-                        {isGerman() ? "Überspringen" : "Saltare"}
-                    </Button>
-                </Link>
-            </View>
+            <Link asChild href={"/winsole-questions/after-loading/fifth"}>
+                <Button variant="ghost">
+                    {isGerman() ? "Überspringen" : "Saltare"}
+                </Button>
+            </Link>
         </Layout>
     );
 }

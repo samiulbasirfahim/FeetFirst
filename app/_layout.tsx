@@ -14,8 +14,9 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (isReady) {
-      router.replace('/others/imotana-shoes');
-      // router.replace("/(protected)/home");
+
+      router.replace("/(public)");
+
     }
   }, [isReady]);
 
