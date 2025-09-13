@@ -33,20 +33,34 @@ export function ProductCard({
       className="py-3 mb-4 w-[48%] relative min-h-[260px] overflow-hidden"
     >
       <View className="bg-background rounded-3xl py-6 relative">
-        <TouchableOpacity
-          onPress={onToggleLike}
-          className="absolute top-3 z-10 p-1 right-3"
-        >
-          {liked ? (
-            <Love_filled width={24} height={24} />
+        <View className="flex-row px-4 justify-between items-center">
+          {fitValue ? (
+            <View className="px-2 py-1 border border-primary bg-primary rounded-lg">
+              <Typography
+                className="text-white text-sm"
+                style={{
+                  lineHeight: 12,
+                }}
+              >
+                {`${fitValue}%
+FIT`}
+              </Typography>
+            </View>
           ) : (
-            <Love width={24} height={24} />
+            <View></View>
           )}
-        </TouchableOpacity>
+          <TouchableOpacity onPress={onToggleLike} className="">
+            {liked ? (
+              <Love_filled width={24} height={24} />
+            ) : (
+              <Love width={24} height={24} />
+            )}
+          </TouchableOpacity>
+        </View>
 
         <Image
           source={image}
-          className="w-full h-36 rounded-xl"
+          className="w-full h-36 rounded-xl -mt-4"
           resizeMode="contain"
         />
 
