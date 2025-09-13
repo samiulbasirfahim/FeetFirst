@@ -37,7 +37,9 @@ export default function Screen() {
             <Typography className="text-foreground" variant="subtitle">
               {isGerman() ? "Modell angeben" : "Specificare il modello"}
             </Typography>
-            <TextInput className="flex-1 border-b-2 pb-1 -translate-y-1/4 border-dotted border-foreground"></TextInput>
+            <View className="flex-1 border-foreground border-solid border-b-2">
+            <TextInput className="flex-1 py-2 border-dotted border-foreground text-foreground" />
+            </View>
           </View>
         </>
       }
@@ -45,8 +47,8 @@ export default function Screen() {
         <Button
           variant="big"
           onPress={() => {
-            router.dismissAll();
-            router.back();
+            router.replace("/(protected)/home/mass-insoles")
+            
           }}
         >
           {isGerman()

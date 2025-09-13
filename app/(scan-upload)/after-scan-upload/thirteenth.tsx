@@ -15,9 +15,10 @@ export default function Screen() {
             : "Altre preoccupazioni o domande sulla salute dei piedi:"}
         </Typography>
       }
-      options={isGerman() ? ["[Freitextfeld]"] : ["[Testo libero]"]}
+      options={[]}
       multiple={false}
-      showOtherInput={false}
+      showOtherInput={true}
+      otherPlaceholder={isGerman() ? "Freitextfeld" : "Testo libero"}
       onSelectionChange={(selection: string[]) => {
         console.log("Selected:", selection);
       }}

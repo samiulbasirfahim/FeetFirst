@@ -77,7 +77,6 @@ export default function Screen() {
           >
             <Button
               variant="big"
-              disabled={!picked}
               onPress={handleBeforeNavigate} // ✅ store before navigating
             >
               {isGerman() ? "Nächste Frage" : "Prossima domanda"}
