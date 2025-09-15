@@ -14,7 +14,7 @@ export default function Screen() {
   return (
     <Layout scrollable avoidKeyboard>
       <View className="flex-1">
-        <Typography variant="onboarding-header">
+        <Typography variant="onboarding-header" className="text-white font-pathSemiBold text-[20px]">
           {isGerman()
             ? "Welche Produkte verwendest du am häufigsten?"
             : "Quali sono i prodotti che utilizzi di più?"}
@@ -39,7 +39,7 @@ export default function Screen() {
       </View>
 
       <Link asChild href={"/on-boarding/thanks"}>
-        <Button variant="big">{isGerman() ? "nächste" : "prossima"}</Button>
+        <Button variant="big" textClassName="text-white font-pathSemiBold text-[16px] py-1">{isGerman() ? "nächste" : "prossima"}</Button>
       </Link>
     </Layout>
   );

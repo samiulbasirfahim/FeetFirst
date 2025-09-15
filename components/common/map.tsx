@@ -276,7 +276,7 @@ export default function Map({ ...props }: Props) {
                     ))}
                 </MapView>
             }
-            {false && (
+            {true && (
                 <View className="absolute bottom-0 left-0 right-0 bg-backgroundDark/90 backdrop-blur-md border-t border-primary/20">
                     <View className="p-4">
                         <Typography className="text-white font-semibold text-lg mb-3">

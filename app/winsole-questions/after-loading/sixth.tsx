@@ -24,7 +24,7 @@ export default function Screen() {
   return (
     <OnBoardingLayout
       HeaderComponent={
-        <Typography variant="onboarding-header" className="text-foreground">
+        <Typography variant="onboarding-header" className="text-white font-pathSemiBold text-[20px]">
           {isGerman()
             ? "Welche Ziele Verfolgst Du Mit Deinen Winsole-Einlagen?"
             : "Quali sono i tuoi obiettivi con le solette Winsole?"}
@@ -43,7 +43,7 @@ export default function Screen() {
       FooterComponent={
         <>
           <Link asChild href={"/winsole-questions/after-loading/seventh"}>
-            <Button variant="big">
+            <Button variant="big" textClassName="text-white font-pathSemiBold text-[16px] py-1">
               {isGerman() ? "Nächste Frage" : "Prossima domanda"}
             </Button>
           </Link>

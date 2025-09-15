@@ -22,7 +22,7 @@ export default function Screen() {
   return (
     <OnBoardingLayout
       HeaderComponent={
-        <Typography variant="onboarding-header" className="text-foreground">
+        <Typography variant="onboarding-header" className="text-white font-pathSemiBold text-[20px]">
           {isGerman()
             ? "Wie Aktiv Sind Sie Im Alltag Oder Beruf?"
             : "Quanto sei attivo nella vita quotidiana o al lavoro?"}
@@ -41,7 +41,7 @@ export default function Screen() {
       FooterComponent={
         <>
           <Link asChild href={"/(exercise-questions)/after-loading/fourth"}>
-            <Button variant="big">
+            <Button variant="big" textClassName="text-white font-pathSemiBold text-[16px] py-1">
               {isGerman() ? "Nächste Frage" : "Prossima domanda"}
             </Button>
           </Link>

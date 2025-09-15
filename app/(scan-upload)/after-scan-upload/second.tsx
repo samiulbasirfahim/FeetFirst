@@ -57,7 +57,7 @@ export default function Screen() {
   return (
     <OnBoardingLayout
       HeaderComponent={
-        <Typography variant="onboarding-header" className="text-foreground">
+        <Typography variant="onboarding-header" className="text-white font-pathSemiBold text-[20px]">
           {isGerman()
             ? "Für Welchen Zweck Verwenden Sie Die Einlage?"
             : "Per quale scopo utilizzi l'inserto?"}
@@ -77,6 +77,7 @@ export default function Screen() {
           >
             <Button
               variant="big"
+              textClassName="font-pathSemiBold text-[16px] py-1"
               onPress={handleBeforeNavigate} // ✅ store before navigating
             >
               {isGerman() ? "Nächste Frage" : "Prossima domanda"}

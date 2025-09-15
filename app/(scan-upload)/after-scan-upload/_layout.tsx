@@ -173,7 +173,7 @@ function CustomTabBar({ state, descriptors }: MaterialTopTabBarProps) {
         <View className="absolute left-4">
           <HeaderBackButton />
         </View>
-        <Typography className="text-lg font-semibold">
+        <Typography className="text-lg font-pathSemiBold text-white">
           {options.title}
         </Typography>
       </View>

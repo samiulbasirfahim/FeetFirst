@@ -124,7 +124,7 @@ export default function Screen() {
                 }}
             >
                 <View style={{ height: height + 20 }}></View>
-                <Typography className="text-3xl font-bold text-white text-center my-4 leading-tight">
+                <Typography className=" font-poppinsBold text-[24px] text-white text-center my-4 leading-tight">
                     {t.title}
                 </Typography>
 
@@ -160,7 +160,7 @@ export default function Screen() {
 
                     <Typography
                         variant="subtitle"
-                        className="text-foreground absolute top-2 left-1/2 -translate-x-1/2 z-[99] text-center font-semibold"
+                        className="text-foreground absolute top-2 left-1/2 -translate-x-1/2 z-[99] text-center font-poppinsSemiBold"
                     >
                         {isGerman()
                             ? "Von Physiotherapeuten entwickelt"
@@ -176,18 +176,18 @@ export default function Screen() {
                     }}
                 >
                     <View className="mt-8">
-                        <Typography className="text-white text-xl font-bold leading-6">
+                        <Typography className="text-white font-poppinsBold text-[20px] pt-1">
                             {t.description}
                         </Typography>
                     </View>
                     <View className="mt-6">
-                        <Typography className="text-xl text-foreground mb-3">
+                        <Typography className="mb-3 font-poppinsRegular text-[14px]">
                             {isGerman()
                                 ? "Schon wenige Minuten täglich machen spürbar den Unterschied: für mehr Stabilität, Beweglichkeit und Wohlbefinden."
                                 : "Bastano pochi minuti al giorno per fare una differenza notevole: maggiore stabilità, mobilità e benessere."}
                         </Typography>
 
-                        <Typography className="text-xl font-bold text-white my-4">
+                        <Typography className=" font-pathBold text-[20px] text-white my-4">
                             {isGerman() ? "Wähle deine Kategorie" : "Scegli la tua categoria"}
                         </Typography>
                     </View>
@@ -201,7 +201,7 @@ export default function Screen() {
                     >
                         <TouchableOpacity activeOpacity={0.9} className="mb-6">
                             <View className="bg-muted-background border-2 border-primary/40 p-6 rounded-3xl relative">
-                                <Text className="text-white text-lg">
+                                <Text className="text-white font-poppinsRegular text-[16px]">
                                     {isGerman()
                                         ? "Gezielte Übungen zur Stärkung der Fußmuskulatur"
                                         : "Esercizi mirati per rafforzare i muscoli del piede"}
@@ -222,7 +222,7 @@ export default function Screen() {
                     >
                         <TouchableOpacity activeOpacity={0.9} className="mb-6">
                             <View className="bg-muted-background p-6 border-2 border-primary/40 rounded-3xl relative">
-                                <Text className="text-white w-2/3 text-lg">
+                                <Text className="text-white font-poppinsRegular text-[16px] w-2/3 ">
                                     {isGerman()
                                         ? "Übungen zur Flexibilitätserhöhung"
                                         : "Esercizi per aumentare la flessibilità"}
@@ -243,7 +243,7 @@ export default function Screen() {
                     >
                         <TouchableOpacity activeOpacity={0.9} className="mb-6">
                             <View className="bg-muted-background border-2 border-primary/40 p-6 rounded-3xl relative">
-                                <Text className="text-white text-lg">
+                                <Text className="text-white font-poppinsRegular text-[16px]">
                                     {isGerman()
                                         ? "Allgemeine Übungen für die gesamte Fussgesundheit"
                                         : "Esercizi generali per la salute generale del piede"}
@@ -294,7 +294,7 @@ export default function Screen() {
 
                     {/* Vorteile */}
                     <View className="pt-8">
-                        <Typography className="text-4xl font-bold text-white mb-8">
+                        <Typography className="text-white font-poppinsBold text-[28px] mb-8">
                             {isGerman() ? "Vorteile" : "Vantaggi"}
                         </Typography>
                     </View>
@@ -324,12 +324,12 @@ export default function Screen() {
 
                     {/* exercise plan */}
                     <View className="pt-8">
-                        <Typography className="text-3xl font-bold w-1/2">
+                        <Typography className="text-white font-poppinsBold text-[26px] w-1/2">
                             {isGerman()
                                 ? "Ihr Individueller Übungsplan"
                                 : "Il tuo piano di esercizi individuale"}
                         </Typography>
-                        <Text className="text-white my-6">
+                        <Text className="text-white font-poppinsRegular text-[14px] my-6">
                             {isGerman()
                                 ? "Sie können sich jetzt auch Ihren individuellen Übungsplan erstellen lassen – basierend auf Ihrem 3D-Scan, Ihren Fußproblemen und Ihren Zielen."
                                 : "Ora puoi anche creare il tuo piano di esercizi personalizzato in base alla scansione 3D, ai problemi del tuo piede e ai tuoi obiettivi."}

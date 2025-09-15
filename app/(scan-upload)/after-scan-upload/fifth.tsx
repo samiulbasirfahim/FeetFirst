@@ -38,7 +38,7 @@ export default function Screen() {
       <View style={{ flex: 1 }}>
         {/* Header */}
         <View style={{ marginBottom: 16 }}>
-          <Typography variant="onboarding-header" className="text-foreground">
+          <Typography variant="onboarding-header" className="text-white font-pathSemiBold text-[20px]">
             {isGerman()
               ? "Haben Sie Probleme Mit Ihrem Gleichgewicht, Gang Oder Der Beweglichkeit?"
               : "Hai problemi di equilibrio, andatura o mobilità?"}
@@ -53,7 +53,7 @@ export default function Screen() {
               isGerman() ? "Ja (bitte erläutern)" : "Sì (per favore spiega)"
             }
             placeholderTextColor="#999"
-            className="placeholder:font-semibold"
+            className="placeholder:font-pathMedium placeholder:text-[16px] placeholder:text-foreground"
             style={{
               backgroundColor: "#2C2C2D",
               paddingVertical: 16,
@@ -88,7 +88,7 @@ export default function Screen() {
                 }}
               >
                 <Typography
-                  className="flex-1 text-lg text-foreground"
+                  className="flex-1 text-lg text-foreground font-pathMedium text-[16px]"
                   variant="selected"
                 >
                   {item}
@@ -115,7 +115,7 @@ export default function Screen() {
         {/* Footer */}
         <View style={{ marginTop: "auto", paddingVertical: 16 }}>
           <Link asChild href={"/(scan-upload)/after-scan-upload/sixth"}>
-            <Button variant="big">
+            <Button variant="big" textClassName="text-white font-pathSemiBold text-[16px] py-1">
               {isGerman() ? "Nächste Frage" : "Prossima domanda"}
             </Button>
           </Link>

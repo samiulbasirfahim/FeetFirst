@@ -27,6 +27,7 @@ import Animated, {
     FadeOutUp,
 } from "react-native-reanimated";
 import ArrowAnimatedDesign from "@/components/ui/animated-arrow";
+import { Link, router } from "expo-router";
 
 const CONTENT = [
     {
@@ -110,7 +111,7 @@ export default function Screen() {
             >
                 <View style={{ height: height + 20 }}></View>
                 <View className="relative  overflow-hidden">
-                    <Typography className="absolute z-[999] text-3xl font-bold text-white text-center my-4 leading-tight px-3">
+                    <Typography className="absolute z-[999] font-poppinsBold text-[24px] text-white   text-center my-4 leading-tight px-3">
                         {isGerman()
                             ? "Übungen zur Flexibilitätserhöhung"
                             : "Esercizi per aumentare la flessibilità"}
@@ -168,12 +169,12 @@ export default function Screen() {
                 </View>
 
                 <View className="mt-12 px-3">
-                    <Typography className="font-bold text-3xl">
+                    <Typography className="font-poppinsBold text-[20px] text-white ">
                         {isGerman()
                             ? "FeetF1rst - Ihr Partner für Fußgesundheit, bietet jetzt die perfekten Fußübungen."
                             : "FeetF1rst, il tuo partner per la salute dei piedi, ora ti offre gli esercizi perfetti per i piedi."}
                     </Typography>
-                    <Text className="text-white mt-4 font-semibold">
+                    <Text className=" mt-4 font-poppinsRegular text-[14px] text-white">
                         {isGerman()
                             ? "Wählen Sie einfach aus, was Sie erreichen. möchten, sehen Sie sich die Anleitung an und legen Sie los!"
                             : "Scegli semplicemente cosa vuoi ottenere. vuoi, dai un'occhiata alle istruzioni e inizia!"}
@@ -181,7 +182,7 @@ export default function Screen() {
                 </View>
 
                 <View className="mt-8">
-                    <Typography className="text-3xl font-bold mb-4 px-3">
+                    <Typography className="font-poppinsBold text-[24px] text-white mb-4 px-3">
                         {isGerman() ? "Produkte" : "Prodotti"}
                     </Typography>
 
@@ -380,7 +381,7 @@ export default function Screen() {
                             ? "Ihr Individueller Übungsplan"
                             : "Il tuo piano di esercizi individuale"}
                     </Typography>
-                    <Text className="text-white my-6">
+                    <Text className="text-white font-poppinsRegular text-[14px] my-6">
                         {isGerman()
                             ? "Sie können sich jetzt auch Ihren individuellen Übungsplan erstellen lassen – basierend auf Ihrem 3D-Scan, Ihren Fußproblemen und Ihren Zielen."
                             : "Ora puoi anche creare il tuo piano di esercizi personalizzato in base alla scansione 3D, ai problemi del tuo piede e ai tuoi obiettivi."}
@@ -390,6 +391,9 @@ export default function Screen() {
                         <Button
                             variant="outline"
                             className="bg-primary/10 py-4 rounded-2xl"
+                            onPress={() =>
+                                    router.push("/(exercise-questions)/while-loading")
+                                }
                         >
                             {isGerman() ? "Jetzt erstellen!" : "Crea ora!"}
                         </Button>

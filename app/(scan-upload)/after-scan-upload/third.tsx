@@ -25,7 +25,7 @@ function FirstScreen() {
   return (
     <OnBoardingLayout
       HeaderComponent={
-        <Typography variant="onboarding-header" className="text-foreground">
+        <Typography variant="onboarding-header" className="text-white font-pathSemiBold text-[20px]">
           {isGerman() ? "Für Welchen Einsatz?" : "Per quale utilizzo?"}
         </Typography>
       }
@@ -98,7 +98,7 @@ function SecondScreen() {
       FooterComponent={
         <>
           <Link asChild href={"/(scan-upload)/after-scan-upload/fourth"}>
-            <Button variant="big">
+            <Button variant="big" textClassName="text-white font-pathSemiBold text-[16px] py-1">
               {isGerman() ? "Nächste Frage" : "Prossima domanda"}
             </Button>
           </Link>

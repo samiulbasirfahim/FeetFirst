@@ -34,7 +34,7 @@ export default function Screen() {
   return (
     <OnBoardingLayout
       HeaderComponent={
-        <Typography variant="onboarding-header">
+        <Typography variant="onboarding-header" className="text-white font-pathSemiBold text-[20px]">
           {isGerman()
             ? "Wofür interessieren Sie sich besonders?"
             : "A cosa sei particolarmente interessato/a?"}
@@ -48,7 +48,7 @@ export default function Screen() {
       }}
       FooterComponent={
         <Link asChild href={"/on-boarding/gender"}>
-          <Button variant="big">{isGerman() ? "nächste" : "prossima"}</Button>
+          <Button variant="big" textClassName="text-white font-pathSemiBold text-[16px] py-1">{isGerman() ? "nächste" : "prossima"}</Button>
         </Link>
       }
     />

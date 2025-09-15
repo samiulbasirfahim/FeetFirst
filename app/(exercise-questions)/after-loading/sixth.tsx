@@ -22,7 +22,7 @@ export default function Screen() {
   return (
     <OnBoardingLayout
       HeaderComponent={
-        <Typography variant="onboarding-header" className="text-foreground">
+        <Typography variant="onboarding-header" className="text-white font-pathSemiBold text-[20px]">
           {isGerman()
             ? "Fühlen Sie sich in Ihrem Gleichgewicht manchmal unsicher - z. B. beim Stehen auf einem Bein oder beim schnellen Richtungswechsel?"
             : "Ti capita a volte di avere un equilibrio instabile, ad esempio quando stai in piedi su una gamba o quando cambi direzione rapidamente?"}
@@ -46,6 +46,7 @@ export default function Screen() {
               router.dismissAll();
               router.back();
             }}
+            textClassName="text-white font-pathSemiBold text-[16px] py-1"
           >
             {isGerman()
               ? "Abschliessen und in den Warenkorb legen"

@@ -94,7 +94,7 @@ export function OnBoardingLayout({
                 }}
               >
                 <Typography
-                  className="flex-1 text-lg text-foreground"
+                  className="flex-1 text-lg text-foreground font-pathMedium text-[16px]"
                   variant="selected"
                 >
                   {item}

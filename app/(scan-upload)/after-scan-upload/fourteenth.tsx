@@ -21,13 +21,13 @@ export default function Screen() {
       }
       HeaderComponent={
         <>
-          <Typography variant="onboarding-header" className="text-foreground">
+          <Typography variant="onboarding-header" className="text-white font-pathSemiBold text-[20px] mb-3">
             {isGerman()
               ? "Glückwunsch, Sie Haben Ihre Einlage Erfolgreich Konfiguriert!"
               : "Congratulazioni, hai configurato correttamente il tuo deposito!"}
           </Typography>
 
-          <Typography variant="subtitle" className="text-foreground">
+          <Typography variant="subtitle" className="text-white font-pathRegular text-[14px]">
             {isGerman()
               ? "Stellen Sie Jetzt Sicher, Dass Sie Perfekt In Ihre Schuhe Passt, Indem Sie Ihr Modell Angeben Oder Mit Dem FeetFirst-System Nach Ihrem Schuh Suchen."
               : "Assicurati subito che si adatti perfettamente alle tue scarpe specificando il tuo modello o cercando la tua scarpa tramite il sistema FeetFirst."}
@@ -50,6 +50,7 @@ export default function Screen() {
             router.replace("/(protected)/home/mass-insoles")
             
           }}
+          textClassName="text-white font-pathSemiBold text-[16px] py-1"
         >
           {isGerman()
             ? "Abschliessen und Einlage in den Warenkorb legen"

@@ -15,6 +15,18 @@ module.exports = {
         'muted-foreground': '#585C5B',
         boldText: '#C3C3C3',
       },
+      fontFamily: {
+        pathRegular: ["PathRegular"],
+        pathSemiBold: ["PathSemi"],
+        pathMedium: ["PathMedium"],
+        pathBold: ["PathBold"],
+        poppinsRegular: ['PoppinsRegular'],
+        poppinsSemiBold: ['PoppinsSemi'],
+        poppinsMedium: ['PoppinsMedium'],
+        poppinsBold: ['PoppinsBold'],
+        test: ['Test'],
+        
+      },
     },
   },
   plugins: [],

@@ -4,7 +4,9 @@ import {
     FlatList,
     Image,
     ImageSourcePropType,
+    ScrollView,
     Text,
+    TouchableOpacity,
     useWindowDimensions,
     View,
 } from "react-native";
@@ -25,6 +27,71 @@ import head from "@/assets/images/head.png";
 import { useEffect, useState } from "react";
 import { useDrawerHeader } from "@/components/common/drawer-header";
 import { AutoImage } from "@/components/ui/auto-image";
+
+
+const partners = [
+    {
+        title: "Brandenburger Tor",
+        address: "Pariser Platz, 10117 Berlin, Germany",
+        lat: 52.5163,
+        lng: 13.3777,
+    },
+    {
+        title: "Kölner Dom",
+        address: "Domkloster 4, 50667 Köln, Germany",
+        lat: 50.9413,
+        lng: 6.9583,
+    },
+    {
+        title: "Neuschwanstein Schloss",
+        address: "Neuschwansteinstraße 20, 87645 Schwangau, Germany",
+        lat: 47.5576,
+        lng: 10.7498,
+    },
+    {
+        title: "Frauenkirche Dresden",
+        address: "Neumarkt, 01067 Dresden, Germany",
+        lat: 51.0504,
+        lng: 13.7373,
+    },
+    {
+        title: "Heidelberger Schloss",
+        address: "Schlosshof 1, 69117 Heidelberg, Germany",
+        lat: 49.41,
+        lng: 8.715,
+    },
+    {
+        title: "Holstentor Lübeck",
+        address: "Holstentorplatz, 23552 Lübeck, Germany",
+        lat: 53.8689,
+        lng: 10.6866,
+    },
+    {
+        title: "Schloss Sanssouci",
+        address: "Maulbeerallee, 14469 Potsdam, Germany",
+        lat: 52.4036,
+        lng: 13.054,
+    },
+    {
+        title: "Olympiastadion Berlin",
+        address: "Olympischer Platz 3, 14053 Berlin, Germany",
+        lat: 52.5145,
+        lng: 13.2394,
+    },
+    {
+        title: "Rathaus Hamburg",
+        address: "Rathausmarkt 1, 20095 Hamburg, Germany",
+        lat: 53.5503,
+        lng: 10.005,
+    },
+    {
+        title: "Zugspitze",
+        address: "82491 Grainau, Germany",
+        lat: 47.421,
+        lng: 10.985,
+    },
+];
+
 
 const shoes: ShoeItem[] = [
     {
@@ -76,6 +143,8 @@ export default function Screen() {
     const { onScroll, HeaderComponent, height } = useDrawerHeader({
         threeshold: 100,
     });
+
+    
 
     const renderItem = ({ item }: { item: ShoeItem }) => (
         <View
@@ -265,6 +334,42 @@ export default function Screen() {
                 </View>
 
                 {/* map */}
+                <View className="-mt-4">
+                    {true && (
+                                <View className=" bottom-0 left-0 right-0 bg-backgroundDark/90 backdrop-blur-md border-t border-primary/20">
+                                    <View className="p-4">
+                                        <Typography className="text-white font-semibold text-lg mb-3">
+                                            Partners
+                                        </Typography>
+                                        <ScrollView
+                                            horizontal
+                                            showsHorizontalScrollIndicator={false}
+                                            contentContainerStyle={{ paddingRight: 16 }}
+                                        >
+                                            {partners.map((marker, index) => (
+                                                <TouchableOpacity
+                                                    key={index}
+                                                    onPress={() => {}}
+                                                    className={`mr-3 p-3 rounded-lg border min-w-32 gap-1 bg-tab-background/50 border-primary/30`}
+                                                >
+                                                    <Text
+                                                        className={`text-base font-medium leading-tight text-white`}
+                                                    >
+                                                        {marker.title}
+                                                    </Text>
+                
+                                                    <Text
+                                                        className={`text-sm font-medium leading-tight text-white`}
+                                                    >
+                                                        {marker.address}
+                                                    </Text>
+                                                </TouchableOpacity>
+                                            ))}
+                                        </ScrollView>
+                                    </View>
+                                </View>
+                            )}
+                </View>
                 <View
                     style={{
                         height: heightOfWindow * 0.5,
@@ -289,8 +394,11 @@ export default function Screen() {
                             zIndex: 99,
                         }}
                     />
+                    
                     <Map />
                 </View>
+
+                
 
                 <View>
                     <VersionInfo />

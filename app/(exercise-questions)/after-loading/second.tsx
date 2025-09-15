@@ -26,7 +26,7 @@ export default function Screen() {
   return (
     <OnBoardingLayout
       HeaderComponent={
-        <Typography variant="onboarding-header" className="text-foreground">
+        <Typography variant="onboarding-header" className="text-white font-pathSemiBold text-[20px]">
           {isGerman()
             ? "Was möchten Sie mit den Übungen erreichen?"
             : "Wie Aktiv Sind Sie Im Alltag Oder Beruf?"}
@@ -45,7 +45,7 @@ export default function Screen() {
       FooterComponent={
         <>
           <Link asChild href={"/(exercise-questions)/after-loading/third"}>
-            <Button variant="big">
+            <Button variant="big" textClassName="text-white font-pathSemiBold text-[16px] py-1">
               {isGerman() ? "Nächste Frage" : "Prossima domanda"}
             </Button>
           </Link>

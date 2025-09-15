@@ -141,7 +141,7 @@ export default function Screen() {
                     <View className="mb-3">
                         <Typography
                             variant="title"
-                            className="font-medium text-foreground text-[30px]"
+                            className=" text-foreground text-[30px] font-medium"
                         >
                             {isGerman() ? "Willkommen" : "Benvenuto"}
                         </Typography>

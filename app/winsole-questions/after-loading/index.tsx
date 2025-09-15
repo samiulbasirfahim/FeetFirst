@@ -10,20 +10,20 @@ export default function Screen() {
     return (
         <Layout className="justify-between">
             <View className="flex-1 items-center gap-4">
-                <Typography variant="onboarding-header" className="text-center">
+                <Typography variant="onboarding-header" className="text-center text-white font-pathSemiBold text-[20px]">
                     {isGerman()
                         ? "Willkommen im Winsole-Konfigurator!"
                         : "Benvenuti al configuratore Winsole!"}
                 </Typography>
 
-                <Typography variant="subtitle" className="text-foreground text-center">
+                <Typography variant="subtitle" className="text-white font-pathSemiBold text-[15px] text-center">
                     {isGerman()
                         ? "Starte jetzt mit wenigen persönlichen Fragen und sichere dir die weltweit führende Radschuheinlage - individuell für dich gefertigt."
                         : "Inizia subito con poche domande personali e assicurati la soletta per scarpe da ciclismo leader al mondo, realizzata su misura per te."}
                 </Typography>
                 <Typography
                     variant="subtitle"
-                    className="text-foreground text-center mt-6"
+                    className="text-white font-pathBold text-[15px] text-center mt-6"
                 >
                     {isGerman()
                         ? "Ab 199,99 € schaffst du eine einzigartige, leistungssteigernde Verbindung zwischen Fuß und Radschuh.."
@@ -32,7 +32,7 @@ export default function Screen() {
             </View>
 
             <Link asChild href={"/winsole-questions/after-loading/second"}>
-                <Button variant="big">
+                <Button variant="big" textClassName="text-white font-pathSemiBold text-[16px] py-1">
                     {isGerman()
                         ? "Fortfahren"
                         : "Continuare"}

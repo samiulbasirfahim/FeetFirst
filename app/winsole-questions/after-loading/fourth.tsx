@@ -13,7 +13,7 @@ export default function Screen() {
       <View className="flex-1 items-center gap-4">
         <Typography
           variant="onboarding-header"
-          className="text-foreground text-center"
+          className="text-white font-pathSemiBold text-[20px] text-center"
         >
           {isGerman()
             ? "Haben Sie Schmerzen? Wenn ja, bitte markieren Sie die betroffenen Bereiche auf dem 2D-Modell."
@@ -26,7 +26,7 @@ export default function Screen() {
 
       <View className="mb-20">
         <Link asChild href={"/winsole-questions/after-loading/fifth"}>
-          <Button variant="big">
+          <Button variant="big" textClassName="text-white font-pathSemiBold text-[16px] py-1">
             {isGerman() ? "Nächste Frage" : "Prossima domanda"}
           </Button>
         </Link>

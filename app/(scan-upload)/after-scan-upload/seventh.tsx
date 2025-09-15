@@ -11,7 +11,7 @@ export default function Screen() {
   return (
     <Layout scrollable>
       <View style={{ flex: 1, paddingBottom: 24 }}>
-        <Typography variant="onboarding-header" className="text-foreground">
+        <Typography variant="onboarding-header" className="text-white font-pathSemiBold text-[20px]">
           {isGerman()
             ? "Haben Sie Schmerzen? Wenn ja, bitte markieren Sie die betroffenen Bereiche auf dem 2D-Modell"
             : "Avverti dolore? In tal caso, contrassegna le aree interessate sul modello 2D."}
@@ -24,7 +24,7 @@ export default function Screen() {
 
       <View className="mb-20">
         <Link asChild href={"/(scan-upload)/after-scan-upload/eighth"}>
-          <Button variant="big">
+          <Button variant="big" textClassName="text-white font-pathSemiBold text-[16px] py-1">
             {isGerman() ? "Nächste Frage" : "Prossima domanda"}
           </Button>
         </Link>

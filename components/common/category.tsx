@@ -28,7 +28,7 @@ export function Category({ height, title, last = false, ...props }: Props) {
                 width: "100%",
             }}
         >
-            <Typography variant="title" className="text-white font-bold text-center">
+            <Typography variant="title" className="text-white text-center font-semibold text-[24px] uppercase pr-1">
                 {title}
             </Typography>
         </TouchableOpacity>
@@ -64,7 +64,7 @@ export function SubCategory({
             >
                 <Typography
                     variant="title"
-                    className="text-white font-bold text-center px-2"
+                    className=" text-white  font-semibold text-[24px] uppercase pr-1 text-center "
                 >
                     {title}
                 </Typography>
