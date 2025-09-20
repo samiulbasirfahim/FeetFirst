@@ -6,35 +6,40 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Host } from "react-native-portalize";
 import "./global.css";
 import { KeyboardProvider } from "react-native-keyboard-controller";
-import { useFonts } from 'expo-font';
-import {View} from 'react-native'
+import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
+import { View } from "react-native";
+import { Text } from "react-native";
+
+SplashScreen.setOptions({
+    duration: 0,
+    fade: true,
+});
+
+SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
     const { user, onboarding_complete, setUser } = useAuthStore();
     const router = useRouter();
     const [isReady, setIsReady] = useState<boolean>(false);
     const [fontsLoaded] = useFonts({
-    PathRegular: require('@/assets/fonts/PathwayExtreme_14pt-Regular.ttf'),
-    PathMedium: require('@/assets/fonts/PathwayExtreme_14pt-Medium.ttf'), 
-    PathSemi: require('@/assets/fonts/PathwayExtreme_14pt-SemiBold.ttf'),
-    PathBold: require('@/assets/fonts/PathwayExtreme_14pt-Bold.ttf'),
-    PoppinsRegular: require('@/assets/fonts/Poppins-Regular.ttf'),
-    PoppinsMedium: require('@/assets/fonts/Poppins-Medium.ttf'),
-    PoppinsSemi: require('@/assets/fonts/Poppins-SemiBold.ttf'),
-    PoppinsBold: require('@/assets/fonts/Poppins-Bold.ttf'),
-    Test: require('@/assets/fonts/ImperialScript-Regular.ttf'),
-    
-  });
-
-//   if (!fontsLoaded) {
-//     return <></>; // or a splash loader
-//   }
+        PathRegular: require("@/assets/fonts/PathwayExtreme_14pt-Regular.ttf"),
+        PathMedium: require("@/assets/fonts/PathwayExtreme_14pt-Medium.ttf"),
+        PathSemi: require("@/assets/fonts/PathwayExtreme_14pt-SemiBold.ttf"),
+        PathBold: require("@/assets/fonts/PathwayExtreme_14pt-Bold.ttf"),
+        PoppinsRegular: require("@/assets/fonts/Poppins-Regular.ttf"),
+        PoppinsMedium: require("@/assets/fonts/Poppins-Medium.ttf"),
+        PoppinsSemi: require("@/assets/fonts/Poppins-SemiBold.ttf"),
+        PoppinsBold: require("@/assets/fonts/Poppins-Bold.ttf"),
+        Test: require("@/assets/fonts/ImperialScript-Regular.ttf"),
+    });
 
     useEffect(() => {
-        if (isReady) {
+        if (fontsLoaded) {
+            SplashScreen.hide();
             router.replace("/(public)");
         }
-    }, [isReady]);
+    }, [isReady, fontsLoaded]);
 
     useEffect(() => {
         (async () => {
@@ -48,6 +53,11 @@ export default function RootLayout() {
         })();
     }, []);
 
+    // if (!isReady || !fontsLoaded) return null;
+
+    if (!fontsLoaded) {
+        return null;
+    }
     return (
         <KeyboardProvider>
             <GestureHandlerRootView
