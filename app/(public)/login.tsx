@@ -6,18 +6,16 @@ import { useLanguageStore } from "@/store/language";
 import { Logo } from "@/components/ui/logo";
 import { Platform, Text, TouchableOpacity, View } from "react-native";
 import { Button } from "@/components/ui/button";
-import { Link, router } from "expo-router";
+import { router } from "expo-router";
 import { useAuthStore } from "@/store/auth";
 import { Layout } from "@/components/layout/layout";
 
-import {
-  GoogleSignin,
-  statusCodes,
-  GoogleSigninButton,
-} from "@react-native-google-signin/google-signin";
-import { useState } from "react";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { useSignIn } from "@/hooks/useGoogleSignIn";
 import { Typography } from "@/components/ui/typography";
+import { useEffect, useState } from "react";
+import { LoginForm } from "@/type/auth";
+import { useLogin } from "@/lib/queries/auth";
 
 GoogleSignin.configure({
   scopes: [],
@@ -32,17 +30,74 @@ export default function Page() {
   const { isGerman } = useLanguageStore();
   const { setUser } = useAuthStore();
 
+  const [form, setForm] = useState<LoginForm>({ email: "", password: "" });
+  const {
+    data: userInfo,
+    isPending,
+    mutate: triggerLogin,
+    error,
+    isError,
+  } = useLogin();
+
+  useEffect(() => {
+    console.log(error);
+  }, [isError, error]);
+
+  const [formErrors, setFormErrors] = useState<{ [key: string]: string[] }>({});
+
+  const handleLogin = (e: any) => {
+    e.preventDefault();
+    setFormErrors({});
+
+    const errors: { [key: string]: string[] } = {};
+
+    if (!form.email.trim()) {
+      errors.email = ["This field is required"];
+    }
+
+    if (!form.password.trim()) {
+      errors.password = ["This field is required"];
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
+    }
+    triggerLogin(form, {
+      onError: (err: any) => {
+        if (err?.data) {
+          setFormErrors(err.data);
+        } else {
+          console.log(err);
+        }
+      },
+      onSuccess: (data) => {
+        // setUser(data as); // update auth store
+        // router.push("/dashboard"); // redirect after login
+      },
+    });
+  };
+
   return (
     <Layout scrollable avoidKeyboard edges={["bottom"]}>
       <Logo className="mb-20" />
       <Input
         Icon={SMS}
         placeholder={isGerman() ? "E-Mail eingeben" : "Inserisci l'email"}
+        inputMode="email"
+        value={form.email}
+        onChangeText={(text) => setForm((prev) => ({ ...prev, email: text }))}
+        error={formErrors.email?.[0]}
       />
 
       <InputPassword
         Icon={LOCK}
         placeholder={isGerman() ? "Passwort eingeben" : "Inserisci password"}
+        value={form.password}
+        onChangeText={(text) =>
+          setForm((prev) => ({ ...prev, password: text }))
+        }
+        error={formErrors.password?.[0]}
       />
       <View
         className="w-full flex-row"
@@ -55,21 +110,20 @@ export default function Page() {
         </Button>
       </View>
 
-      <Link asChild href={"/(protected)/home"}>
-        <Button
-          variant="big"
-          className="w-full"
-          onPress={() =>
-            setUser({
-              email: "",
-              full_name: "",
-              verified: true,
-            })
-          }
-        >
-          {isGerman() ? "Anmelden" : "Accesso"}
-        </Button>
-      </Link>
+      <Button
+        variant="big"
+        className="w-full"
+        onPress={handleLogin}
+        disabled={isPending}
+      >
+        {isGerman() ? "Anmelden" : "Accesso"}
+      </Button>
+
+      {formErrors.non_field_errors && (
+        <Typography className="text-red-500 text-center mb-2">
+          {formErrors.non_field_errors[0]}
+        </Typography>
+      )}
 
       <View className="w-full flex-row items-center">
         <View
@@ -121,7 +175,7 @@ export default function Page() {
           className="bg-white px-4 py-3 rounded-xl flex-row w-full items-center justify-center gap-4"
           onPress={() => {
             if (Platform.OS === "android") {
-              signIn("signin")
+              signIn("signin");
             }
           }}
         >

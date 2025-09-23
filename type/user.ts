@@ -1,9 +1,8 @@
-export type User = {
-    full_name: string;
+export type RegisteredUser = {
+    id: number;
+    name: string;
     email: string;
-    gender?: "male" | "female";
-    verified: boolean;
+    date_of_birth: string;
+    image: string | null;
+    phone: string | null;
 };
-
-
-

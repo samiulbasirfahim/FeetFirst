@@ -1,3 +1,4 @@
+import { queryClient } from "@/lib/queryClient"
 import { useAuthStore } from "@/store/auth";
 import { Stack, useRouter, useSegments } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -10,6 +11,7 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { View } from "react-native";
 import { Text } from "react-native";
+import { QueryClientProvider } from "@tanstack/react-query";
 
 SplashScreen.setOptions({
     duration: 0,
@@ -34,6 +36,8 @@ export default function RootLayout() {
         Test: require("@/assets/fonts/ImperialScript-Regular.ttf"),
     });
 
+    const authintacted = false;
+
     useEffect(() => {
         if (fontsLoaded) {
             SplashScreen.hide();
@@ -53,11 +57,8 @@ export default function RootLayout() {
         })();
     }, []);
 
-    // if (!isReady || !fontsLoaded) return null;
+    if (!fontsLoaded) return null;
 
-    if (!fontsLoaded) {
-        return null;
-    }
     return (
         <KeyboardProvider>
             <GestureHandlerRootView
@@ -67,7 +68,21 @@ export default function RootLayout() {
             >
                 <Host>
                     <StatusBar style="light" />
-                    <Stack screenOptions={{ headerShown: false }} />
+                    <QueryClientProvider client={queryClient}>
+                        <Stack screenOptions={{ headerShown: false }}>
+                            <Stack.Protected guard={authintacted}>
+                                <Stack.Screen name="(protected)" />
+                                <Stack.Screen name="winsole-questions" />
+                                <Stack.Screen name="others" />
+                                <Stack.Screen name="on-boarding" />
+                                <Stack.Screen name="(scan-upload)" />
+                                <Stack.Screen name="(exercise-questions)" />
+                            </Stack.Protected>
+                            <Stack.Protected guard={!authintacted}>
+                                <Stack.Screen name="(public)" />
+                            </Stack.Protected>
+                        </Stack>
+                    </QueryClientProvider>
                 </Host>
             </GestureHandlerRootView>
         </KeyboardProvider>
