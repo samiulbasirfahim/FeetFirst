@@ -1,4 +1,5 @@
-import { queryClient } from "@/lib/queryClient"
+import { queryClient } from "@/lib/queryClient";
+import { autoLogin } from "@/lib/init";
 import { useAuthStore } from "@/store/auth";
 import { Stack, useRouter, useSegments } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -7,10 +8,8 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Host } from "react-native-portalize";
 import "./global.css";
 import { KeyboardProvider } from "react-native-keyboard-controller";
-import { useFonts } from "expo-font";
+import { isLoaded, useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import { View } from "react-native";
-import { Text } from "react-native";
 import { QueryClientProvider } from "@tanstack/react-query";
 
 SplashScreen.setOptions({
@@ -21,9 +20,11 @@ SplashScreen.setOptions({
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-    const { user, onboarding_complete, setUser } = useAuthStore();
+    const { user, isLoggedIn, onboarding_complete, setUser } = useAuthStore();
+
     const router = useRouter();
     const [isReady, setIsReady] = useState<boolean>(false);
+
     const [fontsLoaded] = useFonts({
         PathRegular: require("@/assets/fonts/PathwayExtreme_14pt-Regular.ttf"),
         PathMedium: require("@/assets/fonts/PathwayExtreme_14pt-Medium.ttf"),
@@ -36,28 +37,23 @@ export default function RootLayout() {
         Test: require("@/assets/fonts/ImperialScript-Regular.ttf"),
     });
 
-    const authintacted = false;
-
     useEffect(() => {
-        if (fontsLoaded) {
+        if (fontsLoaded && isReady) {
             SplashScreen.hide();
-            router.replace("/(public)");
+            console.log("IsLoggedIn: ", isLoggedIn);
         }
     }, [isReady, fontsLoaded]);
 
     useEffect(() => {
         (async () => {
-            setUser({
-                email: "",
-                full_name: "",
-                verified: true,
+            await autoLogin((user) => {
+                setUser(user)
             });
-
             setIsReady(true);
         })();
     }, []);
 
-    if (!fontsLoaded) return null;
+    if (!fontsLoaded || !isReady) return null;
 
     return (
         <KeyboardProvider>
@@ -70,16 +66,16 @@ export default function RootLayout() {
                     <StatusBar style="light" />
                     <QueryClientProvider client={queryClient}>
                         <Stack screenOptions={{ headerShown: false }}>
-                            <Stack.Protected guard={authintacted}>
-                                <Stack.Screen name="(protected)" />
-                                <Stack.Screen name="winsole-questions" />
-                                <Stack.Screen name="others" />
-                                <Stack.Screen name="on-boarding" />
-                                <Stack.Screen name="(scan-upload)" />
-                                <Stack.Screen name="(exercise-questions)" />
-                            </Stack.Protected>
-                            <Stack.Protected guard={!authintacted}>
+                            <Stack.Protected guard={!isLoggedIn}>
                                 <Stack.Screen name="(public)" />
+                            </Stack.Protected>
+                            <Stack.Protected guard={isLoggedIn}>
+                                <Stack.Screen name="(protected)" />
+                                <Stack.Screen name="(exercise-questions)" />
+                                <Stack.Screen name="(scan-upload)" />
+                                <Stack.Screen name="/on-boarding" />
+                                <Stack.Screen name="/others" />
+                                <Stack.Screen name="/winsole-questions" />
                             </Stack.Protected>
                         </Stack>
                     </QueryClientProvider>

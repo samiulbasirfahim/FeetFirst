@@ -25,7 +25,7 @@ export default function ProtectedLayout() {
                 tabBarPosition="bottom"
                 screenOptions={{
                     swipeEnabled: false,
-                    lazy: true,
+                    lazy: false,
                 
                 }}
                 tabBar={(options) => <TabBar {...options} />}

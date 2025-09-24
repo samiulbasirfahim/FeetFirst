@@ -6,7 +6,6 @@ import { useLanguageStore } from "@/store/language";
 import { Logo } from "@/components/ui/logo";
 import { Platform, Text, TouchableOpacity, View } from "react-native";
 import { Button } from "@/components/ui/button";
-import { router } from "expo-router";
 import { useAuthStore } from "@/store/auth";
 import { Layout } from "@/components/layout/layout";
 
@@ -16,6 +15,9 @@ import { Typography } from "@/components/ui/typography";
 import { useEffect, useState } from "react";
 import { LoginForm } from "@/type/auth";
 import { useLogin } from "@/lib/queries/auth";
+import { useRouter } from "expo-router";
+import { setItem } from "@/store/mmkv";
+import { User } from "@/type/user";
 
 GoogleSignin.configure({
   scopes: [],
@@ -26,6 +28,7 @@ GoogleSignin.configure({
 
 export default function Page() {
   const { signIn, name } = useSignIn();
+  const router = useRouter();
 
   const { isGerman } = useLanguageStore();
   const { setUser } = useAuthStore();
@@ -71,9 +74,25 @@ export default function Page() {
           console.log(err);
         }
       },
-      onSuccess: (data) => {
-        // setUser(data as); // update auth store
-        // router.push("/dashboard"); // redirect after login
+      onSuccess: (data: any) => {
+        const access_token = data.access;
+        const refresh_token = data.access;
+
+        setItem("access_token", access_token);
+        setItem("refresh_token", refresh_token);
+
+        const mappedUser: User = {
+          id: data.user.id,
+          name: data.user.name,
+          email: data.user.email,
+          date_of_birth: data.user.date_of_birth,
+          image: data.user.image ?? "",
+          phone: data.user.phone,
+        };
+
+        setUser(mappedUser);
+
+        router.replace("/(protected)/home");
       },
     });
   };
@@ -86,7 +105,9 @@ export default function Page() {
         placeholder={isGerman() ? "E-Mail eingeben" : "Inserisci l'email"}
         inputMode="email"
         value={form.email}
-        onChangeText={(text) => setForm((prev) => ({ ...prev, email: text }))}
+        onChangeText={(text) =>
+          setForm((prev) => ({ ...prev, email: text.toLowerCase() }))
+        }
         error={formErrors.email?.[0]}
       />
 

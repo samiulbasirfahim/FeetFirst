@@ -6,9 +6,14 @@ const { width, height } = Dimensions.get("window");
 
 type Props = {
     numberOfDigits: number;
+    onChange: (otp: string) => void;
 } & OtpInputProps;
 
-const ResponsiveOtpInput = ({ numberOfDigits = 4, ...props }: Props) => {
+const ResponsiveOtpInput = ({
+    numberOfDigits = 4,
+    onChange,
+    ...props
+}: Props) => {
     const boxWidth = Math.min(width * 0.18, 80);
     const boxHeight = Math.min(height * 0.07, 60);
     const gapSize = Math.min(width * 0.03, 12);
@@ -18,6 +23,7 @@ const ResponsiveOtpInput = ({ numberOfDigits = 4, ...props }: Props) => {
         <View>
             <OtpInput
                 numberOfDigits={numberOfDigits}
+                onTextChange={onChange}
                 theme={{
                     containerStyle: {
                         justifyContent: "center",

@@ -6,6 +6,7 @@ import { Typography } from "../ui/typography";
 import { useLanguageStore } from "@/store/language";
 import { Button } from "../ui/button";
 import { router, useNavigation } from "expo-router";
+import { useAuthStore } from "@/store/auth";
 
 type Props = {
     isOpen: boolean;
@@ -13,7 +14,7 @@ type Props = {
 };
 export function LogOutModal({ isOpen, onClose }: Props) {
     const { isGerman } = useLanguageStore();
-    const navigation = useNavigation();
+    const { logOut } = useAuthStore();
     return (
         <Modal isOpen={isOpen} onClickOutside={onClose}>
             <View className="flex-col items-center justify-center py-10 px-4 gap-6">
@@ -31,7 +32,9 @@ export function LogOutModal({ isOpen, onClose }: Props) {
                 <View className="flex-row gap-2">
                     <Button
                         onPress={() => {
-                            router.replace("/(public)");
+                            logOut((sucecss) => {
+                                if (sucecss) router.replace("/(public)");
+                            });
                         }}
                         className="bg-transparent border-primary border-2  w-1/2"
                         textClassName="text-primary"
