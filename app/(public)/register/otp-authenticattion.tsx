@@ -6,86 +6,131 @@ import { useLanguageStore } from "@/store/language";
 import ResponsiveOtpInput from "@/components/ui/otp-input";
 import { Layout } from "@/components/layout/layout";
 import { useState } from "react";
-import { useVerifyOTP } from "@/lib/queries/auth";
+import { useVerifyOTP, useOTP } from "@/lib/queries/auth";
 import { Text } from "react-native";
 import { useRouter, useLocalSearchParams } from "expo-router";
+import { ApiError } from "@/lib/fetcher";
 
 export default function OTPScreen() {
-  const { isGerman } = useLanguageStore();
-  const [otp, setOtp] = useState<string>("");
-  const [error, setError] = useState<string | null>(null);
+    const { isGerman } = useLanguageStore();
+    const [otp, setOtp] = useState<string>("");
+    const [error, setError] = useState<string | null>(null);
+    const [message, setMessage] = useState<string | null>(null);
 
-  const { email } = useLocalSearchParams<{ email: string }>(); // 👈 assume email is passed from previous screen
-  const router = useRouter();
+    const { email } = useLocalSearchParams<{ email: string }>();
+    const router = useRouter();
 
-  const { mutate: verifyOtp, isPending } = useVerifyOTP();
+    const { mutate: verifyOtp, isPending: isVerifying } = useVerifyOTP();
+    const { mutate: resendOtp, isPending: isResending } = useOTP();
 
-  const handleVerify = () => {
-    setError(null);
+    const handleVerify = () => {
+        setError(null);
+        setMessage(null);
 
-    if (!otp || otp.length < 4) {
-      setError(
-        isGerman()
-          ? "Bitte gib den vollständigen Code ein."
-          : "Inserisci il codice completo.",
-      );
-      return;
-    }
+        if (!otp || otp.length < 4) {
+            setError(
+                isGerman()
+                    ? "Bitte gib den vollständigen Code ein."
+                    : "Inserisci il codice completo.",
+            );
+            return;
+        }
 
-    verifyOtp(
-      { email, otp },
-      {
-        onSuccess: (res: any) => {
-          if (!res.success) {
-            setError(res.error);
-          } else {
-            console.log("OTP verified");
-            router.replace("/on-boarding");
-          }
-        },
-        onError: () => {
-          setError(
-            isGerman()
-              ? "Etwas ist schief gelaufen. Versuche es erneut."
-              : "Qualcosa è andato storto. Riprova.",
-          );
-        },
-      },
+        verifyOtp(
+            { email, otp_code: otp },
+            {
+                onSuccess: (res: any) => {
+                    router.replace("/on-boarding");
+                },
+                onError: (err) => {
+                    if (err instanceof ApiError) {
+                        setError(err.data.error);
+                    }
+                    setError(
+                        isGerman()
+                            ? "Etwas ist schief gelaufen. Versuche es erneut."
+                            : "Qualcosa è andato storto. Riprova.",
+                    );
+                },
+            },
+        );
+    };
+
+    const handleResend = () => {
+        setError(null);
+        setMessage(null);
+
+        resendOtp(
+            { email, task: "Verify Account" },
+            {
+                onSuccess: (res: any) => {
+                    if (res.success) {
+                        setMessage(
+                            isGerman()
+                                ? "OTP erfolgreich erneut gesendet."
+                                : "OTP inviato nuovamente con successo.",
+                        );
+                    } else {
+                        setError(res.error);
+                    }
+                },
+                onError: (err) => {
+                    console.log(err);
+                    setError(
+                        isGerman()
+                            ? "Etwas ist schief gelaufen. Versuche es erneut."
+                            : "Qualcosa è andato storto. Riprova.",
+                    );
+                },
+            },
+        );
+    };
+
+    return (
+        <Layout avoidKeyboard scrollable>
+            <Typography
+                variant="title"
+                className="text-start text-muted-foreground w-full"
+            >
+                {isGerman() ? "OTP-Authentifizierung" : "Autenticazione OTP"}
+            </Typography>
+
+            <LogoWrapper Logo={CHECK} />
+
+            <Typography variant="subtitle" className="text-center text-white">
+                {isGerman()
+                    ? "Gib den Verifizierungscode ein, den wir dir per E-Mail geschickt haben."
+                    : "Inserisci il codice di verifica che ti abbiamo inviato via email."}
+            </Typography>
+
+            <ResponsiveOtpInput
+                onChange={(text) => setOtp(text)}
+                numberOfDigits={4}
+            />
+
+            {error && <Text className="text-red-500 mt-2 text-center">{error}</Text>}
+            {message && (
+                <Text className="text-green-500 mt-2 text-center">{message}</Text>
+            )}
+
+            <Button
+                variant="big"
+                onPress={handleVerify}
+                disabled={isVerifying}
+                isLoading={isVerifying}
+            >
+                {isGerman() ? "Überprüfen" : "Verificare"}
+            </Button>
+
+            <Button
+                variant="outline"
+                onPress={handleResend}
+                disabled={isResending}
+                isLoading={isResending}
+                className="mt-4"
+            >
+                {isGerman() ? "OTP erneut senden" : "Invia nuovamente OTP"}
+            </Button>
+        </Layout>
     );
-  };
-
-  return (
-    <Layout avoidKeyboard scrollable>
-      <Typography
-        variant="title"
-        className="text-start text-muted-foreground w-full"
-      >
-        {isGerman() ? "OTP-Authentifizierung" : "Autenticazione OTP"}
-      </Typography>
-
-      <LogoWrapper Logo={CHECK} />
-      <Typography variant="subtitle" className="text-center text-white">
-        {isGerman()
-          ? "Gib den Verifizierungscode ein, den wir dir per E-Mail geschickt haben."
-          : "Inserisci il codice di verifica che ti abbiamo inviato via email."}
-      </Typography>
-
-      <ResponsiveOtpInput
-        onChange={(text) => setOtp(text)}
-        numberOfDigits={4}
-      />
-
-      {error && <Text className="text-red-500 mt-2 text-center">{error}</Text>}
-
-      <Button variant="big" onPress={handleVerify} disabled={isPending}>
-        {isPending
-          ? isGerman()
-            ? "Überprüfen..."
-            : "Verifica in corso..."
-          : isGerman()
-            ? "Überprüfen"
-            : "Verificare"}
-      </Button>
-    </Layout>
-  );
 }

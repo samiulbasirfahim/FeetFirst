@@ -1,5 +1,3 @@
-import { User } from "./user";
-
 export type LoginForm = {
     email: string;
     password: string;
@@ -15,13 +13,13 @@ export type RegisterForm = {
 
 export type OtpRequest = {
     email: string;
-    task: "reset_password";
+    task: string;
 };
 
 
 export type VerifyOtpRequest = {
     email: string;
-    otp: string;
+    otp_code: string;
 };
 
 

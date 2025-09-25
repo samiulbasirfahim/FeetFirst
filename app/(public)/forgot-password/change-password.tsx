@@ -5,7 +5,7 @@ import { LogoWrapper, LogoWrapperSub } from "@/components/ui/logo";
 import { Typography } from "@/components/ui/typography";
 import { useLanguageStore } from "@/store/language";
 import { Button } from "@/components/ui/button";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { InputPassword } from "@/components/ui/input";
 import { Modal } from "@/components/common/modal";
 import { useState } from "react";
@@ -15,6 +15,12 @@ import { Layout } from "@/components/layout/layout";
 export default function Screen() {
     const { isGerman } = useLanguageStore();
     const [showModal, setShowModal] = useState<boolean>(false);
+    const { email } = useLocalSearchParams<{ email: string }>()
+
+
+
+
+
     return (
         <Layout scrollable avoidKeyboard edges={["bottom"]}>
             <Typography

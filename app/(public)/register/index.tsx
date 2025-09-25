@@ -54,6 +54,10 @@ export default function Page() {
         if (!form.password.trim()) errors.password = ["This field is required"];
         if (!form.confirm_password.trim())
             errors.confirm_password = ["This field is required"];
+
+        if (form.password.length < 8) {
+            errors.password = ["Password must be at least 8 charecters"];
+        }
         if (
             form.password &&
             form.confirm_password &&
@@ -72,8 +76,8 @@ export default function Page() {
 
         triggerRegister(
             {
-                name: form.name,
-                email: form.email,
+                name: form.name.trim(),
+                email: form.email.trim().toLowerCase(),
                 password: form.password,
                 date_of_birth: dateOfBirth
                     ? `${dateOfBirth.getFullYear()}-${(dateOfBirth.getMonth() + 1)
@@ -95,7 +99,12 @@ export default function Page() {
                 },
                 onSuccess: (data) => {
                     console.log("Registered successfully:", data);
-                    router.push("/register/otp-authenticattion");
+                    router.push({
+                        pathname: "/register/otp-authenticattion",
+                        params: {
+                            email: form.email.trim().toLowerCase(),
+                        },
+                    });
                 },
             },
         );
@@ -239,7 +248,13 @@ export default function Page() {
                 </View>
             </Modal>
 
-            <Button variant="big" className="w-full" onPress={handleRegister}>
+            <Button
+                variant="big"
+                className="w-full"
+                onPress={handleRegister}
+                disabled={isPending}
+                isLoading={isPending}
+            >
                 {isGerman() ? "Registrieren" : "Registrati"}
             </Button>
         </Layout>
