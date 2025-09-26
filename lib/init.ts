@@ -4,6 +4,7 @@ import { fetcher } from "./fetcher";
 import { AutoLoginBody } from "@/type/auth";
 import { User } from "@/type/user";
 import { useGetOnboardingQuestion } from "@/lib/queries/onboarding-question";
+import { useLanguageStore } from "@/store/language";
 
 interface AutoLoginResult {
   success: boolean;
@@ -16,6 +17,7 @@ export function useAutoLogin() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<any>(null);
   const { mutate: fetchOnboardingQuestion } = useGetOnboardingQuestion();
+  const { setLanguage } = useLanguageStore();
 
   const autoLogin = useCallback(
     async (callback?: (user: User) => void): Promise<AutoLoginResult> => {
@@ -43,6 +45,10 @@ export function useAutoLogin() {
           } as AutoLoginBody,
           method: "POST",
         });
+
+        const language = data.user.language;
+        setLanguage(language);
+        console.log(language);
 
         const mappedUser: User = {
           id: data.user.id,
