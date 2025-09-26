@@ -1,10 +1,10 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { OnboardingQuestion } from "@/type/onboarding-question";
+import { OnboardingQuestions } from "@/type/onboarding-question";
 import { fetcher } from "../fetcher";
 
 export function useSetOnboardingQuestion() {
     return useMutation({
-        mutationFn: (data: OnboardingQuestion) =>
+        mutationFn: (data: OnboardingQuestions) =>
             fetcher("/api/surveys/onboarding-surveys/", {
                 auth: true,
                 body: data,
@@ -14,9 +14,8 @@ export function useSetOnboardingQuestion() {
 }
 
 export function useGetOnboardingQuestion() {
-    return useQuery({
-        queryKey: ["onboarding-question"],
-        queryFn: () =>
+    return useMutation({
+        mutationFn: () =>
             fetcher("/api/surveys/onboarding-surveys/", {
                 auth: true,
                 method: "GET",

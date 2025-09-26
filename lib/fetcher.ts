@@ -1,3 +1,5 @@
+import { getString } from "@/store/mmkv";
+
 const BASE_URL = "https://ape-in-eft.ngrok-free.app";
 
 export class ApiError extends Error {
@@ -30,11 +32,13 @@ export async function fetcher<T>(
     };
 
     if (auth) {
-        const token = "";
+        const token = getString("access_token");
         if (token) {
             finalHeaders["Authorization"] = `Bearer ${token}`;
         }
+        console.log(finalHeaders)
     }
+
 
     const res = await fetch(`${BASE_URL}${endpoint}`, {
         method,

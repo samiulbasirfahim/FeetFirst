@@ -3,30 +3,32 @@ import { Text, TextProps } from "react-native";
 import { twMerge } from "tailwind-merge";
 
 const variants = {
-    title: "text-3xl text-primary font-bold tracking-tight text-balance",
-    titleSecondary: "text-2xl text-foreground font-bold tracking-tight text-balance",
-    subtitle: "text-lg tracking-tight text-muted-foreground",
-    body: "text-base text-foreground leading-7 text-foreground",
-    caption: "text-lg text-muted-foreground text-muted-foreground",
-    selected: "font-semibold text-primary text-lg",
-    muted: "text-muted-foreground text-lg font-semibold",
-    "onboarding-header": "font-semibold text-primary text-2xl text-foreground"
+  title: "text-3xl text-primary font-bold tracking-tight text-balance",
+  titleSecondary:
+    "text-2xl text-foreground font-bold tracking-tight text-balance",
+  subtitle: "text-lg tracking-tight text-muted-foreground",
+  body: "text-base text-foreground leading-7 text-foreground",
+  caption: "text-lg text-muted-foreground text-muted-foreground",
+  selected: "font-semibold text-primary text-lg",
+  muted: "text-muted-foreground text-lg font-semibold",
+  "onboarding-header": "font-semibold text-primary text-2xl text-foreground",
+  error: "text-red-500 text-center mb-2",
 };
 
 type Props = TextProps & {
-    variant?: keyof typeof variants;
-    children: ReactNode;
+  variant?: keyof typeof variants;
+  children: ReactNode;
 };
 
 export const Typography = ({
-    children,
-    variant = "body",
-    className,
-    ...props
+  children,
+  variant = "body",
+  className,
+  ...props
 }: Props) => {
-    return (
-        <Text {...props} className={twMerge(variants[variant], className)}>
-            {children}
-        </Text>
-    );
+  return (
+    <Text {...props} className={twMerge(variants[variant], className)}>
+      {children}
+    </Text>
+  );
 };

@@ -1,6 +1,6 @@
-export type OnboardingQuestion = {
-    sources: string[];
+export type OnboardingQuestions = {
+    discovery_question: string[];
     interests: string[];
-    product_preference: string;
+    gender: string;
     foot_problems: string;
 };

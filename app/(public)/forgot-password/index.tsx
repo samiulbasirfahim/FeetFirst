@@ -33,6 +33,7 @@ export default function Page() {
 
                     if (err instanceof ApiError) {
                         const apiError = err.data?.error;
+                        console.log(apiError)
 
                         if (apiError === "User not found.") {
                             message = isGerman()
