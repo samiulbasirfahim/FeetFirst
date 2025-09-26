@@ -10,6 +10,8 @@ import { useVerifyOTP, useOTP } from "@/lib/queries/auth";
 import { Text } from "react-native";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { ApiError } from "@/lib/fetcher";
+import { User } from "@/type/user";
+import { setItem } from "@/store/mmkv";
 
 export default function OTPScreen() {
   const { isGerman } = useLanguageStore();
@@ -41,10 +43,21 @@ export default function OTPScreen() {
       { email, otp_code: otp },
       {
         onSuccess: (res: any) => {
-          console.log(res);
+          const access_token = res.access;
+          const refresh_token = res.access;
+
+          const mappedUser: User = {
+            id: res.user.id,
+            name: res.user.name,
+            email: res.user.email,
+            date_of_birth: res.user.date_of_birth,
+            image: res.user.image ?? "",
+            phone: res.user.phone,
+          };
+
           router.push({
             pathname: "/(public)/forgot-password/change-password",
-            params: { email },
+            params: { email, access_token },
           });
         },
         onError: (err) => {

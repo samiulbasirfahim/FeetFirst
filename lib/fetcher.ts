@@ -48,6 +48,8 @@ export async function fetcher<T>(
     });
 
     let data: any;
+    console.log("Body: ",body)
+    console.log("Response: ", data)
     try {
         data = await res.json();
     } catch {

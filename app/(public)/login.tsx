@@ -100,7 +100,7 @@ export default function Page() {
             onSuccess: (res) => {
               console.log(res);
               setUser(mappedUser);
-              if ((res as []).length > 0) {
+              if ((res as any).id) {
                 router.replace("/(protected)/home");
               } else {
                 router.push("/on-boarding");

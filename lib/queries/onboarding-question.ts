@@ -16,7 +16,7 @@ export function useSetOnboardingQuestion() {
 export function useGetOnboardingQuestion() {
     return useMutation({
         mutationFn: () =>
-            fetcher("/api/surveys/onboarding-surveys/", {
+            fetcher("/api/surveys/onboarding-surveys/me", {
                 auth: true,
                 method: "GET",
             }),

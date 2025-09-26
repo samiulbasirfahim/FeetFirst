@@ -22,7 +22,7 @@ const MultiSelectComponent = ({ list, title }: Props) => {
     }, [list]);
 
     const renderItem = (item: Data) => (
-        <View className="flex-row items-center rounded-xl justify-between px-4 py-3 bg-muted-background">
+        <View className="flex-row items-center justify-between px-4 py-3 bg-muted-background">
             <Typography>{item.label}</Typography>
         </View>
     );

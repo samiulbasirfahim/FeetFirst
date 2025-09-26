@@ -81,7 +81,7 @@ export function useAutoLogin() {
               console.log("Onboarding question: ", onboardingData);
               setIsLoading(false);
 
-              if ((onboardingData as []).length > 0) {
+              if ((onboardingData as any).id) {
                 resolve({
                   success: true,
                   user: mappedUser,
