@@ -1,5 +1,11 @@
 import { ReactNode } from "react";
-import { TouchableOpacity, TouchableOpacityProps, Text } from "react-native";
+import {
+  TouchableOpacity,
+  TouchableOpacityProps,
+  Text,
+  ActivityIndicator,
+  View,
+} from "react-native";
 import { twMerge } from "tailwind-merge";
 
 const variants = {
@@ -23,11 +29,22 @@ const textVariants = {
   profile_menu: "",
 };
 
+const spinnerColors = {
+  primary: "white",
+  secondary: "white",
+  outline: "primary",
+  ghost: "foreground",
+  destructive: "white",
+  big: "white",
+  profile_menu: "primary",
+};
+
 type Props = TouchableOpacityProps & {
   variant?: keyof typeof variants;
   children: ReactNode;
   className?: string;
   textClassName?: string;
+  isLoading?: boolean;
   noWrap?: boolean;
 };
 
@@ -36,16 +53,37 @@ export const Button = ({
   variant = "primary",
   className,
   noWrap = false,
+  isLoading = false,
   textClassName,
   ...props
 }: Props) => {
   return (
     <TouchableOpacity
       activeOpacity={0.7}
+      disabled={isLoading || props.disabled}
       {...props}
-      className={twMerge(variants[variant], className)}
+      style={[
+        {
+          opacity: isLoading || props.disabled ? 0.5 : 1,
+        },
+        props.style,
+      ]}
+      className={twMerge(
+        variants[variant],
+        isLoading && "opacity-80",
+        className,
+      )}
     >
-      {noWrap ? (
+      {isLoading ? (
+        <View className="flex-row items-center justify-center gap-2">
+          <ActivityIndicator size="small" color={spinnerColors[variant]} />
+          {!noWrap && (
+            <Text className={twMerge(textVariants[variant], textClassName)}>
+              Loading...
+            </Text>
+          )}
+        </View>
+      ) : noWrap ? (
         children
       ) : (
         <Text className={twMerge(textVariants[variant], textClassName)}>

@@ -1,9 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import * as Location from "expo-location";
-import { View } from "react-native";
-import { Typography } from "../ui/typography";
-// import MapViewDirections from "react-native-maps-directions";
 
 const mapStyle = [
     {

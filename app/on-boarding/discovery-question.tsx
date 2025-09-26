@@ -16,15 +16,22 @@ import { OnBoardingLayout } from "@/components/layout/onboarding";
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
 import { useLanguageStore } from "@/store/language";
+import useOnboardingQuestionStore from "@/store/onboarding-questions";
 import { Link } from "expo-router";
+import { useState } from "react";
 
 export default function Screen() {
   const { isGerman } = useLanguageStore();
+  const { setOnboardingQuestion } = useOnboardingQuestionStore();
   const list = isGerman() ? optionsDE : optionsIT;
+  const [goNext, setGoNext] = useState(false);
   return (
     <OnBoardingLayout
       HeaderComponent={
-        <Typography variant="onboarding-header" className="text-white font-pathSemiBold text-[20px]">
+        <Typography
+          variant="onboarding-header"
+          className="text-white font-pathSemiBold text-[20px]"
+        >
           {isGerman()
             ? "Wie haben Sie FeetF1rst entdeckt?"
             : "Come ha scoperto FeetF1rst?"}
@@ -34,11 +41,18 @@ export default function Screen() {
       multiple={true}
       showOtherInput={true}
       onSelectionChange={(selection: string[]) => {
-        console.log("Selected:", selection);
+        setGoNext(selection.length > 0);
+        setOnboardingQuestion("discovery_question", selection);
       }}
       FooterComponent={
         <Link asChild href={"/on-boarding/interests-question"}>
-          <Button variant="big" textClassName="text-white font-pathSemiBold text-[16px] py-1">{isGerman() ? "nächste" : "prossima"}</Button>
+          <Button
+            variant="big"
+            disabled={!goNext}
+            textClassName="text-white font-pathSemiBold text-[16px] py-1"
+          >
+            {isGerman() ? "nächste" : "prossima"}
+          </Button>
         </Link>
       }
     />

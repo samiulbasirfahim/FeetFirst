@@ -3,6 +3,7 @@ import { Layout } from "@/components/layout/layout";
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
 import { useLanguageStore } from "@/store/language";
+import useOnboardingQuestionStore from "@/store/onboarding-questions";
 import { Link } from "expo-router";
 import React, { useState } from "react";
 import { TextInput, View } from "react-native";
@@ -10,11 +11,15 @@ import { TextInput, View } from "react-native";
 export default function Screen() {
   const { isGerman } = useLanguageStore();
   const [text, setText] = useState("");
+  const { setOnboardingQuestion } = useOnboardingQuestionStore();
 
   return (
     <Layout scrollable avoidKeyboard>
       <View className="flex-1">
-        <Typography variant="onboarding-header" className="text-white font-pathSemiBold text-[20px]">
+        <Typography
+          variant="onboarding-header"
+          className="text-white font-pathSemiBold text-[20px]"
+        >
           {isGerman()
             ? "Welche Produkte verwendest du am häufigsten?"
             : "Quali sono i prodotti che utilizzi di più?"}
@@ -27,7 +32,10 @@ export default function Screen() {
           <TextInput
             multiline
             value={text}
-            onChangeText={setText}
+            onChangeText={(t) => {
+              setText(t);
+              setOnboardingQuestion("foot_problems", t);
+            }}
             className="text-foreground bg-muted-background flex-1 h-52"
             style={{
               lineHeight: 22,
@@ -39,7 +47,12 @@ export default function Screen() {
       </View>
 
       <Link asChild href={"/on-boarding/thanks"}>
-        <Button variant="big" textClassName="text-white font-pathSemiBold text-[16px] py-1">{isGerman() ? "nächste" : "prossima"}</Button>
+        <Button
+          variant="big"
+          textClassName="text-white font-pathSemiBold text-[16px] py-1"
+        >
+          {isGerman() ? "nächste" : "prossima"}
+        </Button>
       </Link>
     </Layout>
   );

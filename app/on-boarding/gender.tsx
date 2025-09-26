@@ -6,9 +6,11 @@ import { useLanguageStore } from "@/store/language";
 import { Link } from "expo-router";
 import React, { useState } from "react";
 import { TouchableOpacity, View } from "react-native";
+import useOnboardingQuestionStore from "@/store/onboarding-questions";
 
 export default function Screen() {
   const { isGerman } = useLanguageStore();
+  const { setOnboardingQuestion } = useOnboardingQuestionStore();
   const [selectedGender, setSelectedGender] = useState<"male" | "female">(
     "male",
   );
@@ -16,7 +18,10 @@ export default function Screen() {
   return (
     <Layout>
       <View className="flex-1">
-        <Typography variant="onboarding-header" className="text-white font-pathSemiBold text-[20px]">
+        <Typography
+          variant="onboarding-header"
+          className="text-white font-pathSemiBold text-[20px]"
+        >
           {isGerman()
             ? "Welche Produkte verwendest du am häufigsten?"
             : "Quali sono i prodotti che utilizzi di più?"}
@@ -26,20 +31,31 @@ export default function Screen() {
           <GenderButton
             title={isGerman() ? "Mann" : "Uomo"}
             Icon={"male-sharp"}
-            onPress={() => setSelectedGender("male")}
+            onPress={() => {
+              setSelectedGender("male");
+              setOnboardingQuestion("gender", "man");
+            }}
             selected={selectedGender === "male"}
           />
           <GenderButton
             title={isGerman() ? "Frau" : "Donna"}
             Icon={"female-sharp"}
-            onPress={() => setSelectedGender("female")}
+            onPress={() => {
+              setSelectedGender("female");
+              setOnboardingQuestion("gender", "woman");
+            }}
             selected={selectedGender === "female"}
           />
         </View>
       </View>
 
       <Link asChild href={"/on-boarding/foot-issues"}>
-        <Button variant="big" textClassName="text-white font-pathSemiBold text-[16px] py-1">{isGerman() ? "nächste" : "prossima"}</Button>
+        <Button
+          variant="big"
+          textClassName="text-white font-pathSemiBold text-[16px] py-1"
+        >
+          {isGerman() ? "nächste" : "prossima"}
+        </Button>
       </Link>
     </Layout>
   );

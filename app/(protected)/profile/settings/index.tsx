@@ -7,6 +7,7 @@ import {
 } from "@/components/common/settings-group";
 import { Layout } from "@/components/layout/layout";
 import { Typography } from "@/components/ui/typography";
+import { useAuthStore } from "@/store/auth";
 import { useLanguageStore } from "@/store/language";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useState } from "react";
@@ -15,17 +16,18 @@ import { ScrollView, TouchableOpacity } from "react-native";
 export default function Screen() {
   const { isGerman } = useLanguageStore();
   const [showModal, setShowModal] = useState(false);
+  const { user } = useAuthStore();
   return (
     <Layout className="bg-backgroundDark" scrollable avoidTabbar>
       <SettingsGroup>
-        <SettingsValue title="E-Mail" value="demo@gmail.com" />
+        <SettingsValue title="E-Mail" value={user?.email ?? ""} />
         <SettingsValue
           title={isGerman() ? "Telefonnummer" : "Numero di telefono"}
-          value="+1 123 456 7890"
+          value={user?.phone ?? "+"}
         />
         <SettingsValue
           title={isGerman() ? "Geburtsdatum" : "Data di nascita"}
-          value="20.07.03"
+          value={user?.date_of_birth ?? ""}
         />
         <SettingsButton
           title={isGerman() ? "Adresse" : "Indirizzo"}
@@ -104,7 +106,7 @@ export default function Screen() {
         </TouchableOpacity>
       </SettingsGroup>
 
-      <LogOutModal isOpen={showModal} onClose={()=> setShowModal(false)}/>
+      <LogOutModal isOpen={showModal} onClose={() => setShowModal(false)} />
     </Layout>
   );
 }

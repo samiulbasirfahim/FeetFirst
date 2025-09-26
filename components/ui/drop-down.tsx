@@ -1,70 +1,56 @@
-import React, { useEffect, useState } from "react";
-import { View } from "react-native";
-import { Dropdown } from "react-native-element-dropdown";
-import { Typography } from "./typography";
+import React, { useState } from "react";
+import { TouchableOpacity, Text, View, FlatList } from "react-native";
 
-type Props = {
+type MultiSelectProps = {
     list: string[];
-    title?: string;
+    value: string;
+    onChange: (val: string) => void;
 };
 
-type Data = {
-    label: string;
-    value: number;
-};
-
-const MultiSelectComponent = ({ list, title }: Props) => {
-    const [data, setData] = useState<Data[]>([]);
-    const [selected, setSelected] = useState<number | null>(null);
-
-    useEffect(() => {
-        setData(list.map((l, i) => ({ label: l, value: i })));
-    }, [list]);
-
-    const renderItem = (item: Data) => (
-        <View className="flex-row items-center rounded-xl justify-between px-4 py-3 bg-muted-background">
-            <Typography>{item.label}</Typography>
-        </View>
-    );
+export default function MultiSelectComponent({
+    list,
+    value,
+    onChange,
+}: MultiSelectProps) {
+    const [open, setOpen] = useState(false);
 
     return (
-        <View className="w-full gap-2">
-            {(title?.length ?? 0) > 0 && (
-                <Typography className="text-title text-white">{title}</Typography>
-            )}
-            <Dropdown
-                style={{
-                    borderRadius: 12,
-                    paddingVertical: 14,
-                    paddingHorizontal: 10,
-                    backgroundColor: "#303231",
-                }}
-                placeholderStyle={{ fontSize: 16, color: "#585C5B" }}
-                selectedTextStyle={{ fontSize: 14, color: "#BAC4C6" }}
-                data={data}
-                labelField="label"
-                valueField="value"
-                placeholder="Select item"
-                value={selected}
-                itemContainerStyle={{
-                    backgroundColor: "transparent",
-                    padding: 0,
-                    borderRadius: 12,
-                }}
-                containerStyle={{
-                    backgroundColor: "#303231",
-                    padding: 4,
-                    gap: 4,
+        <View className="relative">
+            {/* Selected value */}
+            <TouchableOpacity
+                onPress={() => setOpen((prev) => !prev)}
+                className="border border-muted-background rounded-lg p-3 bg-background"
+            >
+                <Text className="text-foreground">
+                    {value || "Select a country"}
+                </Text>
+            </TouchableOpacity>
 
-                    borderWidth: 0,
-                    borderRadius: 12,
-                }}
-                searchPlaceholder="Search..."
-                onChange={(item) => setSelected(item.value)}
-                renderItem={renderItem}
-            />
+            {/* Dropdown list */}
+            {open && (
+                <View className="absolute z-10 bg-background border border-muted-background rounded-lg mt-1 w-full">
+                    <FlatList
+                        data={list}
+                        keyExtractor={(item) => item}
+                        renderItem={({ item }) => (
+                            <TouchableOpacity
+                                className="p-3"
+                                onPress={() => {
+                                    onChange(item);
+                                    setOpen(false);
+                                }}
+                            >
+                                <Text
+                                    className={`${value === item ? "text-primary font-bold" : "text-foreground"
+                                        }`}
+                                >
+                                    {item}
+                                </Text>
+                            </TouchableOpacity>
+                        )}
+                    />
+                </View>
+            )}
         </View>
     );
-};
-
-export default MultiSelectComponent;
+}

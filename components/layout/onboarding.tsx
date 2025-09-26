@@ -2,8 +2,8 @@ import { Layout } from "./layout";
 import CheckBox from "@/components/ui/checkbox";
 import { Typography } from "@/components/ui/typography";
 import { useLanguageStore } from "@/store/language";
-import { useRef, useState } from "react";
-import { Pressable, Text, TextInput, View, Keyboard } from "react-native";
+import { useState } from "react";
+import { Pressable, TextInput, View, Keyboard } from "react-native";
 
 type Props = {
   HeaderComponent?: React.ReactNode;
@@ -12,7 +12,7 @@ type Props = {
   showOtherInput?: boolean;
   multiple?: boolean;
   onSelectionChange: (selection: string[]) => void;
-  otherPlaceholder?: string | null;
+  otherPlaceholder?: string;
   otherButtonText?: string;
 };
 
@@ -23,45 +23,48 @@ export function OnBoardingLayout({
   showOtherInput = false,
   multiple = false,
   onSelectionChange,
-  otherPlaceholder = null,
-  otherButtonText = "Other",
+  otherPlaceholder,
+  otherButtonText,
 }: Props) {
   const { isGerman } = useLanguageStore();
-
-  if (!otherPlaceholder) {
-    otherButtonText = isGerman()
-      ? "Sonstiges (bitte angeben)"
-      : "Altro (specificare)";
-    otherPlaceholder = isGerman() ? "Bitte angeben..." : "Specifica qui...";
-  }
-
-  const input_ref = useRef<TextInput>(null);
   const [checkedValues, setCheckedValues] = useState<string[]>([]);
   const [selectedValue, setSelectedValue] = useState<string>("");
   const [otherValue, setOtherValue] = useState("");
 
-  function toggleCheck(value: string) {
+  // Get localized placeholder text
+  const getPlaceholder = () => {
+    if (otherPlaceholder) return otherPlaceholder;
+    return isGerman() ? "Bitte angeben..." : "Specifica qui...";
+  };
+
+  const toggleCheck = (value: string) => {
     if (multiple) {
-      const newCheckedValues = checkedValues.includes(value)
+      const newValues = checkedValues.includes(value)
         ? checkedValues.filter((v) => v !== value)
         : [...checkedValues, value];
 
-      setCheckedValues(newCheckedValues);
-      onSelectionChange(newCheckedValues);
+      setCheckedValues(newValues);
+      onSelectionChange([...newValues, ...(otherValue ? [otherValue] : [])]);
     } else {
-      const newSelectedValue = selectedValue === value ? "" : value;
-      setSelectedValue(newSelectedValue);
-      onSelectionChange([newSelectedValue]);
+      const newValue = selectedValue === value ? "" : value;
+      setSelectedValue(newValue);
+      onSelectionChange(
+        [newValue, ...(otherValue ? [otherValue] : [])].filter(Boolean),
+      );
     }
-  }
-
-  const handleOtherSubmit = () => {
-    Keyboard.dismiss(); // Hide the keyboard
-    // setShowOtherInputField(false); // Hide the input field
-    // setOtherValue(""); // Clear the value
   };
 
-  const allOptions = [...options];
+  const handleOtherInputChange = (text: string) => {
+    setOtherValue(text);
+    if (multiple) {
+      onSelectionChange([...checkedValues, ...(text ? [text] : [])]);
+    } else {
+      onSelectionChange(
+        [selectedValue, ...(text ? [text] : [])].filter(Boolean),
+      );
+    }
+  };
+
   const currentSelection = multiple
     ? checkedValues
     : [selectedValue].filter(Boolean);
@@ -74,7 +77,7 @@ export function OnBoardingLayout({
         )}
 
         <View style={{ gap: 16, flex: 1 }}>
-          {allOptions.map((item, idx) => (
+          {options.map((item, idx) => (
             <Pressable
               key={`${item}-${idx}`}
               onPress={() => toggleCheck(item)}
@@ -109,35 +112,29 @@ export function OnBoardingLayout({
                   }}
                   fillColor="#62A07B"
                   isChecked={currentSelection.includes(item)}
-                  iconStyle={{
-                    borderRadius: 6,
-                  }}
+                  iconStyle={{ borderRadius: 6 }}
                 />
               </View>
             </Pressable>
           ))}
 
           {showOtherInput && (
-            <View>
-              <TextInput
-                ref={input_ref}
-                // autoFocus
-                placeholder={otherPlaceholder}
-                placeholderTextColor="#999"
-                className="placeholder:font-semibold"
-                style={{
-                  backgroundColor: "#2C2C2D",
-                  paddingVertical: 16,
-                  paddingHorizontal: 16,
-                  borderRadius: 8,
-                  fontSize: 16,
-                  color: "#FFFFFF",
-                }}
-                value={otherValue}
-                onChangeText={setOtherValue}
-                onSubmitEditing={handleOtherSubmit}
-              />
-            </View>
+            <TextInput
+              placeholder={getPlaceholder()}
+              placeholderTextColor="#999"
+              className="placeholder:font-semibold"
+              style={{
+                backgroundColor: "#2C2C2D",
+                paddingVertical: 16,
+                paddingHorizontal: 16,
+                borderRadius: 8,
+                fontSize: 16,
+                color: "#FFFFFF",
+              }}
+              value={otherValue}
+              onChangeText={handleOtherInputChange}
+              onSubmitEditing={Keyboard.dismiss}
+            />
           )}
         </View>
 

@@ -1,0 +1,42 @@
+import TwoDPreview from "@/components/common/2d-preview";
+import { Layout } from "@/components/layout/layout";
+import { Button } from "@/components/ui/button";
+import { Typography } from "@/components/ui/typography";
+import { useLanguageStore } from "@/store/language";
+import { Link } from "expo-router";
+import { View } from "react-native";
+
+export default function Screen() {
+  const { isGerman } = useLanguageStore();
+  return (
+    <Layout className="justify-between" scrollable>
+      <View className="flex-1 items-center gap-4">
+        <Typography
+          variant="onboarding-header"
+          className="text-white font-pathSemiBold text-[20px] text-center"
+        >
+          {isGerman()
+            ? "Haben Sie Schmerzen? Wenn ja, bitte markieren Sie die betroffenen Bereiche auf dem 2D-Modell."
+            : "Avverti dolore? In tal caso, contrassegna le aree interessate sul modello 2D."}
+        </Typography>
+      </View>
+      <View className="mb-20 mt-4 -mx-3">
+        <TwoDPreview />
+      </View>
+
+      <View className="mb-14">
+        <Link asChild href={"/(exercise-questions)/after-loading/fifth"}>
+          <Button variant="big" textClassName="text-white font-pathSemiBold text-[16px] py-1">
+            {isGerman() ? "Nächste Frage" : "Prossima domanda"}
+          </Button>
+        </Link>
+
+        <Link asChild href={"/(exercise-questions)/after-loading/fifth"}>
+          <Button variant="ghost">
+            {isGerman() ? "Überspringen" : "Saltare"}
+          </Button>
+        </Link>
+      </View>
+    </Layout>
+  );
+}
