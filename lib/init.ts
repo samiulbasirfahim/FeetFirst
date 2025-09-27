@@ -57,6 +57,10 @@ export function useAutoLogin() {
           phone: data.user.phone,
         };
 
+        console.log("Mapped User is: ",mappedUser);
+        
+        
+
         if (!data.user.is_active) {
           console.log("USER ISNT VERIFIED");
           setIsLoading(false);

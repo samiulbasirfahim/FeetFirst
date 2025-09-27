@@ -114,14 +114,16 @@ export default function Screen() {
 
         const userPayload: any = {
             name: `${form.name} ${form.surname}`.trim(),
+            phone: payload.phone_number 
         };
         if (language) userPayload.language = language;
 
         const afterAddressSuccess = () => {
             trigger_user(userPayload, {
                 onSuccess: (udata) => {
+                    console.log("After user update: ", udata)
                     const language = (udata as any).language;
-                    setUser({ ...(user as any), name: (udata as any).name });
+                    setUser({ ...(user as any), name: (udata as any).name, phone: userPayload.phone });
                     setLanguage(language);
                 },
                 onError: (uerr) => {

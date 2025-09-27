@@ -26,6 +26,7 @@ export function useUpdateAddress() {
 
 export function useGetAddress() {
     return useQuery({
+        initialData: [],
         queryKey: ["user-address"],
         queryFn: () =>
             fetcher("/api/users/addresses/me/", {

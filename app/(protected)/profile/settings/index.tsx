@@ -1,5 +1,4 @@
 import { LogOutModal } from "@/components/common/logout-modal";
-import { Modal } from "@/components/common/modal";
 import {
   SettingsButton,
   SettingsGroup,
