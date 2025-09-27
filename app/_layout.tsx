@@ -52,6 +52,7 @@ export function RootLayout() {
     const initializeAuth = async () => {
       try {
         const result = await autoLogin(setUser);
+        if (result.user) setUser(result.user);
         if (result.action) {
           setTimeout(() => {
             switch (result.action) {
@@ -70,7 +71,7 @@ export function RootLayout() {
           }, 100);
         }
       } catch (error) {
-        console.error("Auto-login failed:", error);
+        // console.error("Auto-login failed:", error);
       } finally {
         setIsReady(true);
       }
@@ -81,7 +82,7 @@ export function RootLayout() {
 
   useEffect(() => {
     if (autoLoginError) {
-      console.error("Auto-login error:", autoLoginError);
+      // console.error("Auto-login error:", autoLoginError);
     }
   }, [autoLoginError]);
 

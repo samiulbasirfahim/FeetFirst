@@ -35,8 +35,6 @@ export function useAutoLogin() {
         return { success: false, user: null };
       }
 
-      console.log("AutoLogin started with tokens:", { access, refresh });
-
       try {
         const data: any = await fetcher("/api/users/verify-access/", {
           body: {
@@ -64,7 +62,7 @@ export function useAutoLogin() {
           setIsLoading(false);
           return {
             success: false,
-            user: mappedUser,
+            user: { ...mappedUser },
             action: "navigate_otp",
             navigationParams: {
               pathname: "/(public)/register/otp-authenticattion",
@@ -84,26 +82,31 @@ export function useAutoLogin() {
         return new Promise((resolve) => {
           fetchOnboardingQuestion(undefined, {
             onSuccess: (onboardingData) => {
-              console.log("Onboarding question: ", onboardingData);
+              // console.log("Onboarding question: ", onboardingData);
               setIsLoading(false);
 
               if ((onboardingData as any).id) {
                 resolve({
                   success: true,
-                  user: mappedUser,
+                  user: {
+                    ...mappedUser,
+                    gender: (onboardingData as any).gender,
+                  },
                   action: "navigate_home",
                 });
               } else {
-                console.log("SHOULD REDIRECT TO ONBOARDING");
                 resolve({
                   success: true,
-                  user: mappedUser,
+                  user: {
+                    ...mappedUser,
+                    gender: (onboardingData as any).gender,
+                  },
                   action: "navigate_onboarding",
                 });
               }
             },
             onError: (err) => {
-              console.log("Onboarding check failed:", err);
+              // console.log("Onboarding check failed:", err);
               setIsLoading(false);
               resolve({
                 success: true,

@@ -36,9 +36,7 @@ export async function fetcher<T>(
         if (token) {
             finalHeaders["Authorization"] = `Bearer ${token}`;
         }
-        console.log(finalHeaders)
     }
-
 
     const res = await fetch(`${BASE_URL}${endpoint}`, {
         method,
@@ -48,13 +46,13 @@ export async function fetcher<T>(
     });
 
     let data: any;
-    console.log("Body: ",body)
-    console.log("Response: ", data)
     try {
         data = await res.json();
     } catch {
         data = null;
     }
+    // console.log("Final Header: ", finalHeaders);
+    console.log("DATA", data);
 
     if (!res.ok) {
         throw new ApiError(res.status, data);

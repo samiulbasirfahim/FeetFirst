@@ -7,6 +7,7 @@ import { useLanguageStore } from "@/store/language";
 import { Button } from "../ui/button";
 import { router, useNavigation } from "expo-router";
 import { useAuthStore } from "@/store/auth";
+import { getString } from "@/store/mmkv";
 
 type Props = {
   isOpen: boolean;
@@ -32,7 +33,7 @@ export function LogOutModal({ isOpen, onClose }: Props) {
         <View className="flex-row gap-2">
           <Button
             onPress={() => {
-              logOut((sucecss) => {
+              logOut(getString("refresh_token") ?? "", (sucecss) => {
                 if (sucecss) router.replace("/(public)");
               });
             }}

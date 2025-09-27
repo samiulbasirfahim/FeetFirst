@@ -1,24 +1,36 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { fetcher } from "@/lib/fetcher";
-import type { CreateAddress, UpdateUser } from "@/type/user";
-
-export function useUpdateUser() {
-  return useMutation({
-    mutationFn: (data: UpdateUser & { access_token: string }) =>
-      fetcher("/api/users/update/", {
-        method: "PATCH",
-        auth: true,
-        body: data,
-      }),
-  });
-}
+import type { CreateAddress } from "@/type/user";
 
 export function useCreateAddress() {
-  return useMutation({
-    mutationFn: (data: CreateAddress) =>
-      fetcher("/api/users/addresses/", {
-        method: "POST",
-        auth: true,
-      }),
-  });
+    return useMutation({
+        mutationFn: (data: CreateAddress) =>
+            fetcher("/api/users/addresses/", {
+                method: "POST",
+                body: data,
+                auth: true,
+            }),
+    });
+}
+
+export function useUpdateAddress() {
+    return useMutation({
+        mutationFn: (data: CreateAddress) =>
+            fetcher("/api/users/addresses/me/", {
+                method: "PATCH",
+                body: data,
+                auth: true,
+            }),
+    });
+}
+
+export function useGetAddress() {
+    return useQuery({
+        queryKey: ["user-address"],
+        queryFn: () =>
+            fetcher("/api/users/addresses/me/", {
+                method: "GET",
+                auth: true,
+            }),
+    });
 }

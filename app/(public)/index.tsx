@@ -9,7 +9,6 @@ import React from "react";
 import { SvgProps } from "react-native-svg";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Button } from "@/components/ui/button";
-import InfoModal from "@/components/common/info-modal";
 
 export default function Page() {
   const { isGerman } = useLanguageStore();
@@ -41,8 +40,6 @@ export default function Page() {
               />
             </View>
           </View>
-
-          <InfoModal>HELLO</InfoModal>
 
           <Button variant="big" onPress={() => router.push("/welcome")}>
             {isGerman() ? "Fortfahren" : "Continuare"}

@@ -103,12 +103,15 @@ export default function OTPScreen() {
           }
         },
         onError: (err) => {
-          console.log(err);
-          setError(
-            isGerman()
-              ? "Etwas ist schief gelaufen. Versuche es erneut."
-              : "Qualcosa è andato storto. Riprova.",
-          );
+          if (err instanceof ApiError) {
+            setError(err.data.error);
+          } else {
+            setError(
+              isGerman()
+                ? "Etwas ist schief gelaufen. Versuche es erneut."
+                : "Qualcosa è andato storto. Riprova.",
+            );
+          }
         },
       },
     );
@@ -138,7 +141,7 @@ export default function OTPScreen() {
 
       {error && <Text className="text-red-500 mt-2 text-center">{error}</Text>}
       {message && (
-        <Text className="text-green-500 mt-2 text-center">{message}</Text>
+        <Text className="text-primary mt-2 text-center">{message}</Text>
       )}
 
       <Button
