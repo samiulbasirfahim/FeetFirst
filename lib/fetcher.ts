@@ -1,6 +1,6 @@
 import { getString } from "@/store/mmkv";
 
-const BASE_URL = "https://ape-in-eft.ngrok-free.app";
+export const BASE_URL = "https://ape-in-eft.ngrok-free.app";
 
 export class ApiError extends Error {
     public status: number;
@@ -14,7 +14,7 @@ export class ApiError extends Error {
 }
 
 type Options = {
-    method?: "GET" | "POST" | "PATCH" | "DELETE";
+    method?: "GET" | "POST" | "PATCH" | "DELETE" | "PUT";
     body?: any;
     headers?: Record<string, string>;
     auth?: boolean;

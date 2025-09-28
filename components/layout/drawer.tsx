@@ -26,10 +26,14 @@ import Animated, {
     useDerivedValue,
 } from "react-native-reanimated";
 import { TabActions } from "@react-navigation/native";
+import { useAuthStore } from "@/store/auth";
+import { AvatarImage } from "../common/Avatar";
 
 const { width } = Dimensions.get("window");
 
 export function CustomDrawer(props: DrawerContentComponentProps) {
+    const { user } = useAuthStore();
+
     const navigation = useNavigation();
     const { top: top_safe_padding } = useSafeAreaInsets();
     const { isGerman } = useLanguageStore();
@@ -92,9 +96,8 @@ export function CustomDrawer(props: DrawerContentComponentProps) {
                     className="bg-primary items-center justify-center gap-4"
                     style={{ paddingTop: top_safe_padding + 20, paddingBottom: 20 }}
                 >
-                    <Image
-                        source={{ uri: "https://avatar.iran.liara.run/public/34" }}
-                        className="w-1/3 aspect-square rounded-full"
+                    <AvatarImage
+                        uri={user?.image ?? "https://avatar.iran.liara.run/public/34"}
                     />
                     <Typography variant="title" numberOfLines={1} className="text-white">
                         John Due
@@ -176,11 +179,7 @@ export function CustomDrawer(props: DrawerContentComponentProps) {
                         className="absolute -translate-x-[40%] top-[38%]"
                         onPress={closeDrawer}
                     >
-                        <AntDesign
-                            name="closecircleo"
-                            size={24}
-                            color="white"
-                        />
+                        <AntDesign name="closecircleo" size={24} color="white" />
                     </Pressable>
                 </Pressable>
             </Animated.View>

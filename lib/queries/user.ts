@@ -5,7 +5,7 @@ import { UpdateUser } from "@/type/user";
 
 export function useUpdateUser() {
     return useMutation({
-        mutationFn: (data: UpdateUser & { access_token: string }) =>
+        mutationFn: (data: UpdateUser) =>
             fetcher("/api/users/update/", {
                 method: "PATCH",
                 auth: true,

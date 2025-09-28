@@ -14,7 +14,7 @@ import { useLanguageStore } from "@/store/language";
 import { CreateAddress } from "@/type/user";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 
 export default function Screen() {
@@ -105,7 +105,7 @@ export default function Screen() {
             city: form.city,
             phone_number: form.phoneNumber,
             country: form.country,
-            comments: form.comments
+            comments: form.comments,
         };
 
         let language: string | null = null;
@@ -114,17 +114,23 @@ export default function Screen() {
 
         const userPayload: any = {
             name: `${form.name} ${form.surname}`.trim(),
-            phone: payload.phone_number 
+            phone: payload.phone_number,
         };
         if (language) userPayload.language = language;
 
         const afterAddressSuccess = () => {
             trigger_user(userPayload, {
                 onSuccess: (udata) => {
-                    console.log("After user update: ", udata)
+                    console.log("After user update: ", udata);
                     const language = (udata as any).language;
-                    setUser({ ...(user as any), name: (udata as any).name, phone: userPayload.phone });
+                    setUser({
+                        ...(user as any),
+                        name: (udata as any).name,
+                        phone: userPayload.phone,
+                    });
                     setLanguage(language);
+
+                    router.canGoBack() && router.back();
                 },
                 onError: (uerr) => {
                     if (uerr instanceof ApiError)

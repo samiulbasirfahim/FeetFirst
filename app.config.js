@@ -14,7 +14,7 @@ export default {
             supportsTablet: true,
             bundleIdentifier: "com.samiulbasirfahim.rxen.feetfirst",
             infoPlist: {
-                ITSAppUsesNonExemptEncryption: false
+                ITSAppUsesNonExemptEncryption: false,
             },
             config: {
                 googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
@@ -61,6 +61,13 @@ export default {
                     imageWidth: 200,
                     resizeMode: "contain",
                     backgroundColor: "#1A1C1B",
+                },
+            ],
+            [
+                "expo-image-picker",
+                {
+                    photosPermission:
+                        "The app accesses your photos to let you set it as your avatar.",
                 },
             ],
         ],
