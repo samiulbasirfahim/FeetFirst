@@ -1,54 +1,79 @@
-import * as React from 'react';
-import { Image, View, Dimensions, ImageSourcePropType } from 'react-native';
-import Carousel from 'react-native-reanimated-carousel';
-import { Typography } from './typography';
-import { useSharedValue } from 'react-native-reanimated';
-import Arrow from '@/assets/svgs/arrow-exercise.svg';
+import * as React from "react";
+import { Image, View, Dimensions, ImageSourcePropType } from "react-native";
+import Carousel from "react-native-reanimated-carousel";
+import { Typography } from "./typography";
+import { useSharedValue } from "react-native-reanimated";
+import Arrow from "@/assets/svgs/arrow-exercise.svg";
 
-import { SvgProps } from 'react-native-svg';
+import { ShoeItem } from "@/type/product";
+import { BrandLogoPlaceholder, ItemImagePlaceholder } from "@/lib/placeholder";
 
-export type ShoeItemSecond = {
-    itemName: string;
-    brandLogo: React.FC<SvgProps>;
-    price: string;
-    image: ImageSourcePropType;
-    brandName: string;
-};
+const HEIGHT = 310;
 
 function HomeCarauselSecond({ shoes }) {
-    const { width } = Dimensions.get('window');
+    const { width } = Dimensions.get("window");
     const progress = useSharedValue<number>(0);
-    console.log(width);
 
-    const renderItem = ({ item }: { item: ShoeItemSecond }) => (
+    const renderItem = ({ item }: { item: ShoeItem }) => (
         <View
             className="relative  border border-primary/20 rounded-2xl  bg-background py-10"
             style={{
                 width: width * 0.75,
                 marginHorizontal: 10,
-                height: 310,
+                height: HEIGHT,
             }}
         >
-            <View className="absolute z-50">
-                <Image source={item.image} style={{ width: (width * 0.75) / .8, height: 280 }} />
+            <View className="absolute z-50 bottom-6">
+                <Image
+                    source={{
+                        uri:
+                            item.image && typeof item.image.image === "string"
+                                ? item.image.image
+                                : ItemImagePlaceholder,
+                    }}
+                    resizeMode="contain"
+                    style={{
+                        width: width * 1.02,
+                        height: 200,
+                        transform: [{ rotateY: "180deg" }, { rotateZ: "25deg" }],
+                    }}
+                />
             </View>
-            <View className="pl-8">
-                <View className="flex-row gap-3 pb-2">
+            <View className="pl-2">
+                <View className="flex-col gap-3 pb-2">
                     <Typography className="font-medium text-foreground text-[26px] leading-[26px]">
-                        {item.brandName}
+                        {item.brandName?.slice(0, 8)}
                     </Typography>
-                    <Typography className="font-medium text-foreground text-[26px] leading-[26px]">
-                        {item.itemName}
-                    </Typography>
+                    <View>
+                        <Typography className="font-medium text-[26px] leading-[26px] absolute z-[100] text-foreground/60">
+                            {item.itemName.length > 18
+                                ? item.itemName.slice(0, 16) + "..."
+                                : item.itemName}
+                        </Typography>
+                        <Typography className="font-medium text-foreground text-[26px] leading-[26px]">
+                            {item.itemName.length > 18
+                                ? item.itemName.slice(0, 16) + "..."
+                                : item.itemName}
+                        </Typography>
+                    </View>
                 </View>
                 <Typography className="font-medium text-primary text-[26px]  mt-1">
                     {item.price}
                 </Typography>
             </View>
-            <View>
-                <View className="absolute top-[103px] left-[16px]">
-                    <item.brandLogo height={80} width={180} className="" />
-                </View>
+            <View className="absolute bottom-[16px] left-[16px]">
+                <Image
+                    source={{
+                        uri:
+                            item.brandLogo && typeof item.brandLogo.image === "string"
+                                ? item.brandLogo.image
+                                : BrandLogoPlaceholder,
+                    }}
+                    style={{
+                        height: 50,
+                        width: 100,
+                    }}
+                />
             </View>
             <View className="absolute bottom-0 right-0 p-3  border border-primary rounded-2xl">
                 <Arrow />
@@ -57,25 +82,21 @@ function HomeCarauselSecond({ shoes }) {
     );
 
     return (
-        <View
-            id="carousel-component"
-            className="pl-1"
-        >
+        <View id="carousel-component" className="pl-1">
             <Carousel
                 onConfigurePanGesture={(panGesture) =>
-                    panGesture
-                        .activeOffsetX([-5, 5])
-                        .failOffsetY([-5, 5])}
+                    panGesture.activeOffsetX([-5, 5]).failOffsetY([-5, 5])
+                }
                 autoPlayInterval={2000}
                 data={shoes}
                 loop={true}
                 pagingEnabled={true}
                 snapEnabled={true}
                 width={width}
-                height={310}
+                height={HEIGHT}
                 style={{
                     width: width,
-                    borderColor: '#ffffff',
+                    borderColor: "#ffffff",
                 }}
                 mode="parallax"
                 modeConfig={{

@@ -16,11 +16,62 @@ import { useState } from "react";
 import { Layout } from "@/components/layout/layout";
 import { useDrawerHeader } from "@/components/common/drawer-header";
 import { OpenWebLink } from "@/lib/web-link";
+import { ContactUsBody } from "@/type/contact-us";
+import { useContactUs } from "@/lib/queries/contact-us";
+import { ApiError } from "@/lib/fetcher";
+import { useAuthStore } from "@/store/auth";
 
 export default function Screen() {
     const { isGerman } = useLanguageStore();
     const { width } = useWindowDimensions();
     const [scanner_height, setScannerHeight] = useState(0);
+    const [errors, setErrors] = useState<Record<string, string[]>>({});
+    const [form, setForm] = useState<ContactUsBody>({
+        email: "",
+        message: "",
+        name: "",
+        subject: "",
+    });
+
+    const { mutate, isPending } = useContactUs();
+    const { user } = useAuthStore();
+
+    function handleForm(key: keyof ContactUsBody, value: string) {
+        setErrors((prev) => {
+            const n = { ...prev };
+            delete n[key];
+            return n;
+        });
+        setForm((prev) => ({
+            ...prev,
+            [key]: value,
+        }));
+    }
+
+    function handleSubmit() {
+        mutate(
+            { ...form, email: user?.email ?? "" },
+            {
+                onSuccess() {
+                    setForm({
+                        email: "me@gmail.com",
+                        message: "",
+                        name: "",
+                        subject: "",
+                    });
+                },
+                onError(e) {
+                    if (e instanceof ApiError) {
+                        if (e.data) {
+                            setErrors(e.data);
+                        } else {
+                            setErrors({ non_field_errors: ["Failed to send your message"] });
+                        }
+                    }
+                },
+            },
+        );
+    }
 
     const { HeaderComponent, onScroll, height } = useDrawerHeader({
         threeshold: 100,
@@ -90,7 +141,7 @@ export default function Screen() {
                         </Typography>
 
                         <Button
-                        onPress={()=> OpenWebLink("https://feetf1rst.com/")}
+                            onPress={() => OpenWebLink("https://feetf1rst.com/")}
                             variant="ghost"
                             className="bg-primary/50 border-primary border-2 mb-4"
                             textClassName="text-white"
@@ -111,31 +162,51 @@ export default function Screen() {
                     </View>
                 </View>
 
-                <View className="p-3 gap-4">
+                <View className="p-3 gap-2 items-start">
                     <Typography variant="title" className="text-white">
                         {isGerman()
                             ? "Scanevents in Ihrer Stadt"
                             : "Scansiona gli eventi nella tua città"}
                     </Typography>
-                    <Input Icon={MAN} placeholder={isGerman() ? "Namen" : "nomi"} />
+                    <Input
+                        Icon={MAN}
+                        placeholder={isGerman() ? "Namen" : "nomi"}
+                        onChangeText={(t) => handleForm("name", t)}
+                        value={form.name}
+                    />
 
-                    <Input editable={false} defaultValue="info@feetf1rst.com" Icon={EMAIL} placeholder={isGerman() ? "E-Mail" : "Email"} />
+                    {errors.name && (
+                        <Typography variant="error">{errors.name[0]}</Typography>
+                    )}
+
+                    <Input
+                        editable={false}
+                        defaultValue="info@feetf1rst.com"
+                        Icon={EMAIL}
+                        placeholder={isGerman() ? "E-Mail" : "Email"}
+                    />
 
                     <Input
                         Icon={WORLD}
+                        value={form.subject}
                         placeholder={
                             isGerman() ? "Ihre gewünschte Stadt" : "La tua città desiderata"
                         }
+                        onChangeText={(t) => handleForm("subject", t)}
                     />
+
+                    {errors.subject && (
+                        <Typography variant="error">{errors.subject[0]}</Typography>
+                    )}
 
                     <View className="bg-muted-background rounded-lg overflow-hidden p-4 flex-row items-start gap-2">
                         <View className="pr-2 border-r-2 border-muted-foreground py-0">
                             <MESSAGE width={22} height={22} />
                         </View>
                         <TextInput
+                            value={form.message}
+                            onChangeText={(t) => handleForm("message", t)}
                             multiline
-                            // value={text}
-                            // onChangeText={setText}
                             className="text-foreground bg-muted-background flex-1 h-24 placeholder:text-muted-foreground"
                             style={{
                                 lineHeight: 22,
@@ -150,10 +221,22 @@ export default function Screen() {
                         />
                     </View>
 
+                    {errors.message && (
+                        <Typography variant="error">{errors.message[0]}</Typography>
+                    )}
+
+                    {errors.non_field_errors && (
+                        <Typography variant="error">
+                            {errors.non_field_errors[0]}
+                        </Typography>
+                    )}
+
                     <Button
                         variant="big"
+                        isLoading={isPending}
                         className="bg-primary/20 border-primary border-2 mb-4"
                         textClassName="text-primary"
+                        onPress={handleSubmit}
                     >
                         SEND
                     </Button>

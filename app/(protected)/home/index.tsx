@@ -2,123 +2,50 @@ import { Layout } from "@/components/layout/layout";
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
 import { useLanguageStore } from "@/store/language";
-import { Link, router, useNavigation } from "expo-router";
+import { Link, router } from "expo-router";
 import {
     Image,
-    TouchableOpacity,
     View,
     ImageBackground,
     Pressable,
     useWindowDimensions,
-    Platform,
 } from "react-native";
 import Herobg from "@/assets/svgs/hero_bg.svg";
 import Herofeet from "@/assets/images/hero_feet.png";
 import Herodot from "@/assets/svgs/hero_dot.svg";
-import HomeCarausel, { ShoeItem } from "@/components/ui/carousel-home";
-import HomeCarauselSecond, {
-    ShoeItemSecond,
-} from "@/components/ui/carousel-home-second";
-import Like from "@/assets/svgs/like_home.svg";
-import Entypo from "@expo/vector-icons/Entypo";
-import TouchButtonBefore from "@/assets/svgs/touch_button_before.svg";
-import TouchButtonAfter from "@/assets/svgs/touch_button_after.svg";
-import shoeImage from "@/assets/images/shoe_vibram_a6.png";
-import BrandLogoSvg from "@/assets/svgs/Vibram_logo.svg";
-import shoeImage2 from "@/assets/images/shoe_hoka_a54.png";
-import BrandLogoSvg2 from "@/assets/svgs/hoka_logo.svg";
-import { useState } from "react";
+import HomeCarausel from "@/components/ui/carousel-home";
+import HomeCarauselSecond from "@/components/ui/carousel-home-second";
 import HomeFlatList from "@/components/ui/flatlist-home";
 import { VersionInfo } from "@/components/common/version";
 import NewsFlatlist from "@/components/ui/flatlist-news";
 import { useDrawerHeader } from "@/components/common/drawer-header";
-import { CommonActions, TabActions } from "@react-navigation/native";
 import { TwoDAccordian } from "@/components/common/2d-accordian";
-
-const shoes: ShoeItem[] = [
-    {
-        itemName: "Item A5",
-        brandName: "VIBRAM",
-        brandLogo: BrandLogoSvg,
-        price: "$350.99",
-        image: shoeImage,
-    },
-    {
-        itemName: "Item A5",
-        brandName: "VIBRAM",
-        brandLogo: BrandLogoSvg,
-        price: "$289.49",
-        image: shoeImage,
-    },
-    {
-        itemName: "Item A5",
-        brandName: "VIBRAM",
-        brandLogo: BrandLogoSvg,
-        price: "$410.00",
-        image: shoeImage,
-    },
-    {
-        itemName: "Item A5",
-        brandName: "VIBRAM",
-        brandLogo: BrandLogoSvg,
-        price: "$199.75",
-        image: shoeImage,
-    },
-    {
-        itemName: "Item A5",
-        brandName: "VIBRAM",
-        brandLogo: BrandLogoSvg,
-        price: "$479.20",
-        image: shoeImage,
-    },
-];
-
-const shoesSecond: ShoeItemSecond[] = [
-    {
-        itemName: "Item A54",
-        brandName: "HOKA",
-        brandLogo: BrandLogoSvg2,
-        price: "$350.99",
-        image: shoeImage2,
-    },
-    {
-        itemName: "Item A55",
-        brandName: "HOKA",
-        brandLogo: BrandLogoSvg2,
-        price: "$289.49",
-        image: shoeImage2,
-    },
-    {
-        itemName: "Item A56",
-        brandName: "HOKA",
-        brandLogo: BrandLogoSvg2,
-        price: "$410.00",
-        image: shoeImage2,
-    },
-    {
-        itemName: "Item A57",
-        brandName: "HOKA",
-        brandLogo: BrandLogoSvg2,
-        price: "$199.75",
-        image: shoeImage2,
-    },
-    {
-        itemName: "Item A58",
-        brandName: "HOKA",
-        brandLogo: BrandLogoSvg2,
-        price: "$479.20",
-        image: shoeImage2,
-    },
-];
+import { useAuthStore } from "@/store/auth";
+import { useTopProducts } from "@/lib/queries/products";
+import { useEffect, useState } from "react";
+import { ShoeItem } from "@/type/product";
 
 export default function Screen() {
-    const navigation = useNavigation();
-
+    const { user } = useAuthStore();
     const { isGerman } = useLanguageStore();
-    const { width: dm_width } = useWindowDimensions()
+    const { width: dm_width } = useWindowDimensions();
     const { HeaderComponent, onScroll, height } = useDrawerHeader({
         threeshold: 100,
     });
+    const { data, isPending } = useTopProducts(10);
+    const [shoes, setShoes] = useState<ShoeItem[]>([]);
+    useEffect(() => {
+        if (isPending || !(data as any).results) return;
+        const shoes_tmp: ShoeItem[] = (data as any).results.map((item) => ({
+            itemName: item.name,
+            brandName: "Nike",
+            brandLogo: null,
+            price: `$${item.price}`,
+            image: item.image,
+        }));
+        setShoes(shoes_tmp);
+    }, [data, isPending]);
+
     return (
         <View className="flex-1">
             {HeaderComponent}
@@ -149,7 +76,7 @@ export default function Screen() {
                             variant="title"
                             className="font-medium text-foreground text-[30px]"
                         >
-                            Jhon!
+                            {user?.name.split(" ")[0] ?? ""}!
                         </Typography>
                     </View>
 
@@ -160,7 +87,7 @@ export default function Screen() {
                                 textClassName="text-white font-normal text-sm"
                                 className="border-white/15 rounded-full bg-white/10 flex-1 justify-center z-10"
                                 style={{
-                                    zIndex: 99
+                                    zIndex: 99,
                                 }}
                                 onPress={() => router.push("/home/mass-insoles")}
                             >
@@ -169,8 +96,9 @@ export default function Screen() {
                             <Button
                                 variant="outline"
                                 onPress={() => router.push("/home/foot-exercise")}
-                                textClassName="text-white font-normal text-sm" style={{
-                                    zIndex: 99
+                                textClassName="text-white font-normal text-sm"
+                                style={{
+                                    zIndex: 99,
                                 }}
                                 className="border-white/15 rounded-full bg-white/10 flex-1 justify-center"
                             >
@@ -179,6 +107,7 @@ export default function Screen() {
                         </View>
                         <View className="">
                             <Button
+                                onPress={() => router.push("/home/foot-exercise")}
                                 variant="outline"
                                 textClassName=" text-base"
                                 className="border-primary rounded-[12px] bg-primary/15 py-3"
@@ -189,9 +118,9 @@ export default function Screen() {
                     </View>
                     <View
                         style={{
-                            position: 'absolute',
+                            position: "absolute",
                             top: height - 10,
-                            left: dm_width > 400 ? 40 : 10
+                            left: dm_width > 400 ? 40 : 10,
                         }}
                         pointerEvents="none"
                     >
@@ -199,7 +128,6 @@ export default function Screen() {
                             <Herobg height={300} width={300} />
                         </View>
                         <View className="absolute left-[178px] -top-[10px]">
-
                             <Image source={Herofeet} style={{ height: 250, width: 200 }} />
                         </View>
                         <View className="absolute left-[265px] top-[45px]">
@@ -254,33 +182,32 @@ Provalo ora e verifica tu stesso.`}
                     </View>
                 </View>
 
-                {/* 1st Carousel  */}
-                <View className="mb-10">
-                    <View className="px-5 pb-7">
-                        <Typography className="text-[22px] font-medium text-foreground">
-                            {"Shoe Finder FeetF1rst"}
-                        </Typography>
+                {shoes.length > 0 && (
+                    <View className="mb-10">
+                        <View className="px-5 pb-7">
+                            <Typography className="text-[22px] font-medium text-foreground">
+                                {"Shoe Finder FeetF1rst"}
+                            </Typography>
+                        </View>
+                        <View>{<HomeCarausel shoes={shoes} />}</View>
+                        <View className="w-[60%] mt-5 ml-6">
+                            <Button
+                                onPress={() => {
+                                    router.push({
+                                        pathname: "/(protected)/shoe-recommendations",
+                                    });
+                                }}
+                                variant="outline"
+                                textClassName=" text-base font-medium"
+                                className="border-primary rounded-[12px] bg-primary/15 py-[6px] font-medium"
+                            >
+                                {isGerman()
+                                    ? "Alle Kategorien entdecken"
+                                    : "Scopri tutte le categorie"}
+                            </Button>
+                        </View>
                     </View>
-                    <View>
-                        <HomeCarausel shoes={shoes} />
-                    </View>
-                    <View className="w-[60%] mt-5 ml-6">
-                        <Button
-                            onPress={() => {
-                                router.push({
-                                    pathname: "/(protected)/shoe-recommendations",
-                                });
-                            }}
-                            variant="outline"
-                            textClassName=" text-base font-medium"
-                            className="border-primary rounded-[12px] bg-primary/15 py-[6px] font-medium"
-                        >
-                            {isGerman()
-                                ? "Alle Kategorien entdecken"
-                                : "Scopri tutte le categorie"}
-                        </Button>
-                    </View>
-                </View>
+                )}
 
                 {/* Text Info */}
                 <View className="w-[90%] mx-auto flex-col gap-3 mb-5">
@@ -306,44 +233,45 @@ Provalo ora e verifica tu stesso.`}
                 </View>
 
                 {/* Sole Details */}
-     
 
                 <TwoDAccordian />
 
                 {/* 2nd Carousel   */}
-                <View className="mb-10 -mt-[100px]">
-                    <View className="px-7 pb-3">
-                        <Typography className="text-[22px] font-medium text-foreground mb-5">
-                            {"Vorschläge Für Dich"}
-                        </Typography>
-                        <Typography className="text-base font-light leading-[18px] text-white">
-                            Passgenau für dich. Maximaler Komfort – basierend auf deinem
-                            3D-Scan und deinen Bedürfnissen.
-                        </Typography>
+                {shoes.length > 0 && (
+                    <View className="mb-10 -mt-[100px]">
+                        <View className="px-7 pb-3">
+                            <Typography className="text-[22px] font-medium text-foreground mb-5">
+                                {"Vorschläge Für Dich"}
+                            </Typography>
+                            <Typography className="text-base font-light leading-[18px] text-white">
+                                Passgenau für dich. Maximaler Komfort – basierend auf deinem
+                                3D-Scan und deinen Bedürfnissen.
+                            </Typography>
+                        </View>
+                        <View>
+                            <HomeCarauselSecond shoes={shoes} />
+                        </View>
+                        <View className="w-[40%] mt-4 ml-9">
+                            <Button
+                                onPress={() => {
+                                    router.push({
+                                        pathname: "/shoe-recommendations",
+                                        params: {
+                                            category: "sports",
+                                            redirect: "/shoe-recommendations/subcategory",
+                                            redirectId: Math.random().toString(),
+                                        },
+                                    });
+                                }}
+                                variant="outline"
+                                textClassName=" text-base font-medium"
+                                className="border-primary rounded-[12px] bg-primary/15 py-[10px]  font-medium"
+                            >
+                                {isGerman() ? "Zur Kategorie" : "Alla categoria"}
+                            </Button>
+                        </View>
                     </View>
-                    <View>
-                        <HomeCarauselSecond shoes={shoesSecond} />
-                    </View>
-                    <View className="w-[40%] mt-4 ml-9">
-                        <Button
-                            onPress={() => {
-                                router.push({
-                                    pathname: "/shoe-recommendations",
-                                    params: {
-                                        category: "sports",
-                                        redirect: "/shoe-recommendations/subcategory",
-                                        redirectId: Math.random().toString(),
-                                    },
-                                });
-                            }}
-                            variant="outline"
-                            textClassName=" text-base font-medium"
-                            className="border-primary rounded-[12px] bg-primary/15 py-[10px]  font-medium"
-                        >
-                            {isGerman() ? "Zur Kategorie" : "Alla categoria"}
-                        </Button>
-                    </View>
-                </View>
+                )}
 
                 {/* Last Carousel   */}
                 <View>

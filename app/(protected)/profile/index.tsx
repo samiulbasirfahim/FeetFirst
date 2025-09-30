@@ -36,6 +36,7 @@ export default function Screen() {
                 </View>
 
                 <AvatarImage
+                    upload_able={true}
                     uri={user?.image ?? "https://avatar.iran.liara.run/public/34"}
                 />
             </View>
