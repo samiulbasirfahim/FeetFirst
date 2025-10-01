@@ -112,7 +112,9 @@ export default function Screen() {
                                 textClassName=" text-base"
                                 className="border-primary rounded-[12px] bg-primary/15 py-3"
                             >
-                                {isGerman() ? "Dein perfekter Schuh" : "Esercizi per i piedi"}
+                                {isGerman()
+                                    ? "Dein perfekter Schuh"
+                                    : "Esercizi per i piedi"}
                             </Button>
                         </View>
                     </View>
@@ -134,24 +136,6 @@ export default function Screen() {
                             <Herodot height={135} />
                         </View>
                     </View>
-                    {/* <View
-                        className="absolute"
-                        style={{
-                            top: height - 10,
-                        }}
-                        pointerEvents="none"
-                    >
-                        <View className="absolute left-[211px] -top-[45px]">
-                            <Herobg height={300} width={300} />
-                        </View>
-                        <View className="absolute left-[178px] -top-[10px]">
-                            
-                            <Image source={Herofeet} style={{ height: 250, width: 200 }} />
-                        </View>
-                        <View className="absolute left-[265px] top-[45px]">
-                            <Herodot height={135} />
-                        </View>
-                    </View> */}
                 </View>
 
                 {/* Text Info  */}
@@ -175,8 +159,7 @@ export default function Screen() {
                             <Typography className="underline  text-white font-light text-[12px]">
                                 {isGerman()
                                     ? `Jetzt testen und selbst überzeugen.`
-                                    : `
-Provalo ora e verifica tu stesso.`}
+                                    : `Provalo ora e verifica tu stesso.`}
                             </Typography>
                         </Link>
                     </View>
@@ -186,7 +169,9 @@ Provalo ora e verifica tu stesso.`}
                     <View className="mb-10">
                         <View className="px-5 pb-7">
                             <Typography className="text-[22px] font-medium text-foreground">
-                                {"Shoe Finder FeetF1rst"}
+                                {isGerman()
+                                    ? "Schuhfinder FeetF1rst"
+                                    : "Shoe Finder FeetF1rst"}
                             </Typography>
                         </View>
                         <View>{<HomeCarausel shoes={shoes} />}</View>
@@ -233,7 +218,6 @@ Provalo ora e verifica tu stesso.`}
                 </View>
 
                 {/* Sole Details */}
-
                 <TwoDAccordian />
 
                 {/* 2nd Carousel   */}
@@ -241,11 +225,14 @@ Provalo ora e verifica tu stesso.`}
                     <View className="mb-10 -mt-[100px]">
                         <View className="px-7 pb-3">
                             <Typography className="text-[22px] font-medium text-foreground mb-5">
-                                {"Vorschläge Für Dich"}
+                                {isGerman()
+                                    ? "Vorschläge Für Dich"
+                                    : "Suggerimenti per te"}
                             </Typography>
                             <Typography className="text-base font-light leading-[18px] text-white">
-                                Passgenau für dich. Maximaler Komfort – basierend auf deinem
-                                3D-Scan und deinen Bedürfnissen.
+                                {isGerman()
+                                    ? "Passgenau für dich. Maximaler Komfort – basierend auf deinem 3D-Scan und deinen Bedürfnissen."
+                                    : "Su misura per te. Massimo comfort – basato sulla tua scansione 3D e le tue esigenze."}
                             </Typography>
                         </View>
                         <View>
@@ -282,7 +269,9 @@ Provalo ora e verifica tu stesso.`}
                 <View className="mt-20 mb-10 w-[90%] mx-auto">
                     <View className="mb-5">
                         <Typography className="text-lg font-medium  text-center">
-                            Gezieltes Training für deine Füße
+                            {isGerman()
+                                ? "Gezieltes Training für deine Füße"
+                                : "Allenamento mirato per i tuoi piedi"}
                         </Typography>
                     </View>
                     <View className="flex-col gap-4">
@@ -311,25 +300,30 @@ Provalo ora e verifica tu stesso.`}
                                 >
                                     <View className="flex-row justify-between ">
                                         <Typography className="text-base font-medium text-[#C3C3C3]">
-                                            Basic plan
+                                            {isGerman() ? "Basic Plan" : "Piano Base"}
                                         </Typography>
                                         <Typography className="text-base font-medium text-white">
-                                            Kostenlos
+                                            {isGerman() ? "Kostenlos" : "Gratis"}
                                         </Typography>
                                     </View>
                                     <View className="px-1">
                                         <Typography className="text-[12px] text-white">
                                             {" "}
-                                            {`\u2022`} Einfache Übungen für mehr Stabilität,
-                                            Flexibilität & mehr
+                                            {`\u2022`} {isGerman()
+                                                ? "Einfache Übungen für mehr Stabilität, Flexibilität & mehr"
+                                                : "Esercizi semplici per maggiore stabilità, flessibilità e altro"}
                                         </Typography>
                                         <Typography className="text-[12px] text-white">
                                             {" "}
-                                            {`\u2022`} Ideal zur Vorbeugung von Fussfehlstellungen
+                                            {`\u2022`} {isGerman()
+                                                ? "Ideal zur Vorbeugung von Fussfehlstellungen"
+                                                : "Ideale per prevenire deformazioni del piede"}
                                         </Typography>
                                         <Typography className="text-[12px] text-white">
                                             {" "}
-                                            {`\u2022`} Stärkung der Fuß- und Beinmuskulatur
+                                            {`\u2022`} {isGerman()
+                                                ? "Stärkung der Fuß- und Beinmuskulatur"
+                                                : "Rinforzo dei muscoli di piedi e gambe"}
                                         </Typography>
                                     </View>
                                 </Pressable>
@@ -357,25 +351,30 @@ Provalo ora e verifica tu stesso.`}
                                 <View className="px-4 py-5 flex-col gap-2">
                                     <View className="flex-row justify-between ">
                                         <Typography className="text-base font-medium text-[#C3C3C3]">
-                                            Pro Plan
+                                            {isGerman() ? "Pro Plan" : "Piano Pro"}
                                         </Typography>
                                         <Typography className="text-lg font-medium text-primary">
-                                            4,99€
+                                            {isGerman() ? "4,99€" : "4,99€"}
                                         </Typography>
                                     </View>
                                     <View className="px-1 ">
                                         <Typography className="text-[12px] text-white leading-6">
                                             {" "}
-                                            {`\u2022`} Gezielte Übungen basierend auf deinen Antworten
+                                            {`\u2022`} {isGerman()
+                                                ? "Gezielte Übungen basierend auf deinen Antworten"
+                                                : "Esercizi mirati basati sulle tue risposte"}
                                         </Typography>
                                         <Typography className="text-[12px] text-white leading-6">
                                             {" "}
-                                            {`\u2022`} Individuelle Trainingspläne für deine
-                                            Fußbedürfnisse
+                                            {`\u2022`} {isGerman()
+                                                ? "Individuelle Trainingspläne für deine Fußbedürfnisse"
+                                                : "Piani di allenamento personalizzati per le tue esigenze"}
                                         </Typography>
                                         <Typography className="text-[12px] text-white leading-6">
                                             {" "}
-                                            {`\u2022`} Fortschrittsanalyse und Anpassung der Übungen
+                                            {`\u2022`} {isGerman()
+                                                ? "Fortschrittsanalyse und Anpassung der Übungen"
+                                                : "Analisi dei progressi e adattamento degli esercizi"}
                                         </Typography>
                                     </View>
                                 </View>
@@ -383,10 +382,12 @@ Provalo ora e verifica tu stesso.`}
                         </Pressable>
                         <View className="flex-row justify-between items-center border border-primary/20 py-4 px-6 bg-background rounded-3xl">
                             <Typography className="w-1/2 text-base text-[#C3C3C3] leading-[18px]">
-                                Personalisiertes Lauftraining
+                                {isGerman()
+                                    ? "Personalisiertes Lauftraining"
+                                    : "Allenamento di corsa personalizzato"}
                             </Typography>
                             <Typography className="text-xl text-primary">
-                                Coming soon
+                                {isGerman() ? "Kommt bald" : "In arrivo"}
                             </Typography>
                         </View>
                     </View>

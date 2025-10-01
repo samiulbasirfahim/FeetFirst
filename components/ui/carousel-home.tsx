@@ -4,7 +4,6 @@ import Carousel from "react-native-reanimated-carousel";
 import { Typography } from "./typography";
 import { useSharedValue } from "react-native-reanimated";
 import Arrow from "@/assets/svgs/arrow-exercise.svg";
-import Svg, { Text as SvgText } from "react-native-svg";
 
 import { ShoeItem } from "@/type/product";
 import { BrandLogoPlaceholder, ItemImagePlaceholder } from "@/lib/placeholder";

@@ -11,3 +11,10 @@ export function useTopProducts(limit: number) {
             }),
     });
 }
+
+export function useProducts(page: number) {
+    return useQuery({
+        queryKey: ["products", page],
+        queryFn: () => fetcher(`/api/products/?scan_id=0&count=10&page=${page}`),
+    });
+}

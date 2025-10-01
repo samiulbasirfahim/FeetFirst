@@ -6,6 +6,7 @@ import { getString } from "@/store/mmkv";
 import { useAuthStore } from "@/store/auth";
 import { Typography } from "../ui/typography";
 import { useLanguageStore } from "@/store/language";
+import { AvatarPlaceholder } from "@/lib/placeholder";
 
 interface ImagePickerAsset {
     uri: string;
@@ -15,7 +16,7 @@ interface ImagePickerAsset {
 }
 
 export function AvatarImage({
-    uri = "https://avatar.iran.liara.run/public/34",
+    uri = AvatarPlaceholder,
     upload_able = false,
 }: {
     uri?: string;

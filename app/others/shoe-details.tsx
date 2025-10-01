@@ -4,17 +4,13 @@ import { Layout } from "@/components/layout/layout";
 import shoe1 from "@/assets/images/shoe1.png";
 import { Typography } from "@/components/ui/typography";
 import logo from "@/assets/images/feetfast-full-logo.png";
-import Arrow from "@/assets/svgs/arrow-down.svg";
 import { useLanguageStore } from "@/store/language";
-import goreTex from "@/assets/images/gore-tex.png";
 import ultralight from "@/assets/images/ultralight.png";
 import pronation from "@/assets/images/pronation.png";
 import Love from "@/assets/svgs/love.svg";
 import Collapsible from "react-native-collapsible";
 
-import HERO from "@/assets/svgs/shoes_header.svg";
 import { ProductCard } from "@/components/common/ProductCard";
-import { Button } from "@/components/ui/button";
 import { VersionInfo } from "@/components/common/version";
 import { AutoImage } from "@/components/ui/auto-image";
 import ShoeHeader from "@/components/common/category-header";

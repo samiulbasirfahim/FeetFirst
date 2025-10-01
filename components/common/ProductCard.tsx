@@ -47,7 +47,9 @@ FIT`}
                     ) : (
                         <View></View>
                     )}
-                    <TouchableOpacity onPress={onToggleLike} className="">
+                    <TouchableOpacity onPress={onToggleLike} style={{
+                        zIndex: 9999
+                    }}>
                         {liked ? (
                             <Love_filled width={24} height={24} />
                         ) : (
