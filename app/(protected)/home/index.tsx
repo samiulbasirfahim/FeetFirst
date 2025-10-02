@@ -21,9 +21,7 @@ import NewsFlatlist from "@/components/ui/flatlist-news";
 import { useDrawerHeader } from "@/components/common/drawer-header";
 import { TwoDAccordian } from "@/components/common/2d-accordian";
 import { useAuthStore } from "@/store/auth";
-import { useTopProducts } from "@/lib/queries/products";
-import { useEffect, useState } from "react";
-import { ShoeItem } from "@/type/product";
+import { useTopShoes } from "@/lib/queries/products";
 
 export default function Screen() {
     const { user } = useAuthStore();
@@ -32,20 +30,7 @@ export default function Screen() {
     const { HeaderComponent, onScroll, height } = useDrawerHeader({
         threeshold: 100,
     });
-    const { data, isPending } = useTopProducts(10);
-    const [shoes, setShoes] = useState<ShoeItem[]>([]);
-    useEffect(() => {
-        if (isPending || !(data as any).results) return;
-        const shoes_tmp: ShoeItem[] = (data as any).results.map((item) => ({
-            itemName: item.name,
-            brandName: "Nike",
-            brandLogo: null,
-            price: `$${item.price}`,
-            image: item.image,
-        }));
-        setShoes(shoes_tmp);
-    }, [data, isPending]);
-
+    const { shoeList, isPending, error } = useTopShoes(10);
     return (
         <View className="flex-1">
             {HeaderComponent}
@@ -112,9 +97,7 @@ export default function Screen() {
                                 textClassName=" text-base"
                                 className="border-primary rounded-[12px] bg-primary/15 py-3"
                             >
-                                {isGerman()
-                                    ? "Dein perfekter Schuh"
-                                    : "Esercizi per i piedi"}
+                                {isGerman() ? "Dein perfekter Schuh" : "Esercizi per i piedi"}
                             </Button>
                         </View>
                     </View>
@@ -165,16 +148,14 @@ export default function Screen() {
                     </View>
                 </View>
 
-                {shoes.length > 0 && (
+                {!error && !isPending && shoeList.length > 0 && (
                     <View className="mb-10">
                         <View className="px-5 pb-7">
                             <Typography className="text-[22px] font-medium text-foreground">
-                                {isGerman()
-                                    ? "Schuhfinder FeetF1rst"
-                                    : "Shoe Finder FeetF1rst"}
+                                {isGerman() ? "Schuhfinder FeetF1rst" : "Shoe Finder FeetF1rst"}
                             </Typography>
                         </View>
-                        <View>{<HomeCarausel shoes={shoes} />}</View>
+                        <View>{<HomeCarausel shoes={shoeList} />}</View>
                         <View className="w-[60%] mt-5 ml-6">
                             <Button
                                 onPress={() => {
@@ -221,13 +202,11 @@ export default function Screen() {
                 <TwoDAccordian />
 
                 {/* 2nd Carousel   */}
-                {shoes.length > 0 && (
+                {!error && !isPending && shoeList.length > 0 && (
                     <View className="mb-10 -mt-[100px]">
                         <View className="px-7 pb-3">
                             <Typography className="text-[22px] font-medium text-foreground mb-5">
-                                {isGerman()
-                                    ? "Vorschläge Für Dich"
-                                    : "Suggerimenti per te"}
+                                {isGerman() ? "Vorschläge Für Dich" : "Suggerimenti per te"}
                             </Typography>
                             <Typography className="text-base font-light leading-[18px] text-white">
                                 {isGerman()
@@ -236,7 +215,7 @@ export default function Screen() {
                             </Typography>
                         </View>
                         <View>
-                            <HomeCarauselSecond shoes={shoes} />
+                            <HomeCarauselSecond shoes={shoeList} />
                         </View>
                         <View className="w-[40%] mt-4 ml-9">
                             <Button
@@ -309,19 +288,22 @@ export default function Screen() {
                                     <View className="px-1">
                                         <Typography className="text-[12px] text-white">
                                             {" "}
-                                            {`\u2022`} {isGerman()
+                                            {`\u2022`}{" "}
+                                            {isGerman()
                                                 ? "Einfache Übungen für mehr Stabilität, Flexibilität & mehr"
                                                 : "Esercizi semplici per maggiore stabilità, flessibilità e altro"}
                                         </Typography>
                                         <Typography className="text-[12px] text-white">
                                             {" "}
-                                            {`\u2022`} {isGerman()
+                                            {`\u2022`}{" "}
+                                            {isGerman()
                                                 ? "Ideal zur Vorbeugung von Fussfehlstellungen"
                                                 : "Ideale per prevenire deformazioni del piede"}
                                         </Typography>
                                         <Typography className="text-[12px] text-white">
                                             {" "}
-                                            {`\u2022`} {isGerman()
+                                            {`\u2022`}{" "}
+                                            {isGerman()
                                                 ? "Stärkung der Fuß- und Beinmuskulatur"
                                                 : "Rinforzo dei muscoli di piedi e gambe"}
                                         </Typography>
@@ -360,19 +342,22 @@ export default function Screen() {
                                     <View className="px-1 ">
                                         <Typography className="text-[12px] text-white leading-6">
                                             {" "}
-                                            {`\u2022`} {isGerman()
+                                            {`\u2022`}{" "}
+                                            {isGerman()
                                                 ? "Gezielte Übungen basierend auf deinen Antworten"
                                                 : "Esercizi mirati basati sulle tue risposte"}
                                         </Typography>
                                         <Typography className="text-[12px] text-white leading-6">
                                             {" "}
-                                            {`\u2022`} {isGerman()
+                                            {`\u2022`}{" "}
+                                            {isGerman()
                                                 ? "Individuelle Trainingspläne für deine Fußbedürfnisse"
                                                 : "Piani di allenamento personalizzati per le tue esigenze"}
                                         </Typography>
                                         <Typography className="text-[12px] text-white leading-6">
                                             {" "}
-                                            {`\u2022`} {isGerman()
+                                            {`\u2022`}{" "}
+                                            {isGerman()
                                                 ? "Fortschrittsanalyse und Anpassung der Übungen"
                                                 : "Analisi dei progressi e adattamento degli esercizi"}
                                         </Typography>

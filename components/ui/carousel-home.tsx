@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Image, View, Dimensions } from "react-native";
+import { Image, View, Dimensions, Pressable, TouchableOpacity } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
 import { Typography } from "./typography";
 import { useSharedValue } from "react-native-reanimated";
@@ -7,6 +7,7 @@ import Arrow from "@/assets/svgs/arrow-exercise.svg";
 
 import { ShoeItem } from "@/type/product";
 import { BrandLogoPlaceholder, ItemImagePlaceholder } from "@/lib/placeholder";
+import { router } from "expo-router";
 
 const HEIGHT = 270;
 
@@ -75,9 +76,19 @@ function HomeCarausel({ shoes }) {
                     }}
                 />
             </View>
-            <View className="absolute bottom-0 right-0 p-3 border border-primary rounded-2xl z-[100]">
+            <TouchableOpacity
+                onPress={() => {
+                    router.push({
+                        pathname: "/others/shoe-details",
+                        params: {
+                            id: item.id,
+                        },
+                    });
+                }}
+                className="absolute bottom-0 right-0 p-3 border border-primary rounded-2xl z-[100]"
+            >
                 <Arrow />
-            </View>
+            </TouchableOpacity>
         </View>
     );
 

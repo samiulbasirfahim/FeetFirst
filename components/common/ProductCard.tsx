@@ -4,20 +4,21 @@ import Love from "@/assets/svgs/love.svg";
 import Love_filled from "@/assets/svgs/love-filled.svg";
 import { Typography } from "../ui/typography";
 import { router } from "expo-router";
+import { ShoeItem } from "@/type/product";
+import { BrandLogoPlaceholder, ItemImagePlaceholder } from "@/lib/placeholder";
 
-interface ProductCardProps {
-    image: any;
-    name: string;
-    price: string | number;
+type ProductCardProps = ShoeItem & {
     liked: boolean;
     onToggleLike: () => void;
     colors?: string[];
     fitValue?: number | null;
-}
+};
 
 export function ProductCard({
+    id,
     image,
-    name,
+    itemName,
+    brandLogo,
     price,
     liked,
     onToggleLike,
@@ -26,7 +27,14 @@ export function ProductCard({
 }: ProductCardProps) {
     return (
         <TouchableOpacity
-            onPress={() => router.push("/others/shoe-details")}
+            onPress={() =>
+                router.push({
+                    pathname: "/others/shoe-details",
+                    params: {
+                        id,
+                    },
+                })
+            }
             activeOpacity={0.8}
             className="py-3 mb-4 w-[48%] relative min-h-[260px] overflow-hidden"
         >
@@ -47,9 +55,12 @@ FIT`}
                     ) : (
                         <View></View>
                     )}
-                    <TouchableOpacity onPress={onToggleLike} style={{
-                        zIndex: 9999
-                    }}>
+                    <TouchableOpacity
+                        onPress={onToggleLike}
+                        style={{
+                            zIndex: 9999,
+                        }}
+                    >
                         {liked ? (
                             <Love_filled width={24} height={24} />
                         ) : (
@@ -59,18 +70,34 @@ FIT`}
                 </View>
 
                 <Image
-                    source={image}
+                    source={{
+                        uri:
+                            image && typeof image.image === "string"
+                                ? image.image
+                                : ItemImagePlaceholder,
+                    }}
                     className="w-full h-36 rounded-xl -mt-4"
                     resizeMode="contain"
                 />
 
                 <View className="absolute left-1/2 -translate-x-1/2 bottom-6">
-                    <BRANDLOGO height={50} width={100} />
+                    <Image
+                        source={{
+                            uri:
+                                brandLogo && typeof brandLogo.image === "string"
+                                    ? brandLogo.image
+                                    : BrandLogoPlaceholder,
+                        }}
+                        style={{
+                            height: 50,
+                            width: 50,
+                        }}
+                    />
                 </View>
             </View>
 
             <View className="flex-col relative px-1 flex-1">
-                <Typography numberOfLines={1}>{name}</Typography>
+                <Typography numberOfLines={1}>{itemName}</Typography>
                 <View className="flex-row justify-between">
                     <Typography>{price}</Typography>
                     <View className="flex-row">

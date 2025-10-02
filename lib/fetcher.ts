@@ -51,8 +51,6 @@ export async function fetcher<T>(
     } catch {
         data = null;
     }
-    // console.log("Final Header: ", finalHeaders);
-    console.log("DATA", data);
 
     if (!res.ok) {
         throw new ApiError(res.status, data);

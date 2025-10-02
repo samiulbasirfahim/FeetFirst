@@ -4,29 +4,11 @@ import { View, FlatList, TouchableOpacity } from "react-native";
 import { HeaderBackButton } from "../ui/header-back-button";
 import { Typography } from "../ui/typography";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLanguageStore } from "@/store/language";
 import { twMerge } from "tailwind-merge";
+import { NormalCategories, SportsCategories } from "@/lib/categories";
 
-const categories = [
-    { it: "SNEAKER", de: "Sneakers", slug: "casual-sneaker" },
-    { it: "SCRPE ELEGANTI", de: "ELEGANTE SCHUHE", slug: "elegant-shoes" },
-    { it: "SCARPE COMODE", de: "Bequeme Schuhe", slug: "comfortable-shoes" },
-    { it: "SANDALI", de: "WARTEN", slug: "sandals" },
-    { it: "SCARPE DA LAVORO", de: "ARBEITSSCHUHE", slug: "work-shoes" },
-    { it: "VARIE", de: "VERSCHIEDENES", slug: "miscellaneous" },
-    { it: "SCARPE DA RUNNING", de: "LAUFSCHUHE", slug: "running-shoes" },
-    { it: "SCARPE DA CICLISMO", de: "RADSCHUHE", slug: "cycling-shoes" },
-    { it: "SCARPE HOCKEY", de: "SCARPE HOCKEY", slug: "hockey-shoes" },
-    { it: "SCARPONI DA SCE", de: "SKISTIEFEL", slug: "ski-boots" },
-    { it: "SCARPE DA BASKET", de: "BASKETBALLSCHUHE", slug: "basketball-shoes" },
-    { it: "SCARPE DA GOLF", de: "GOLFSCHUHE", slug: "golf-shoes" },
-    { it: "SCARPE DA CALCIO", de: "FUSSBALLSCHUHE", slug: "football-shoes" },
-    { it: "SCARPE TENNIS", de: "TENNISSCHUHE", slug: "tennis-shoes" },
-    { it: "SCARPE DA ARRAMPICATA", de: "Kletterschuhe", slug: "climbing-shoes" },
-];
-
-// Category button component
 function CategoryButton({
     item,
     isSelected,
@@ -62,15 +44,66 @@ function CategoryButton({
     );
 }
 
-export function ShoeHeader() {
+export function ShoeHeader({
+    setSelected,
+    default_value,
+}: {
+    setSelected: (sel: string) => void;
+    default_value: string;
+}) {
+    const flatListRef = useRef<FlatList>(null);
     const { isGerman } = useLanguageStore();
     const { top } = useSafeAreaInsets();
     const [selectedIndex, setSelectedIndex] = useState(0);
+    const displayedCategories = [
+        ...NormalCategories.map((c) => ({
+            title: isGerman() ? c.name_de : c.name_it,
+            slug: c.slug,
+        })),
+        ...SportsCategories.map((c) => ({
+            title: isGerman() ? c.name_de : c.name_it,
+            slug: c.slug,
+        })),
+    ];
 
-    const displayedCategories = categories.map((c) => ({
-        title: isGerman() ? c.de : c.it,
-        slug: c.slug,
-    }));
+    useEffect(() => {
+        const defaultIndex = displayedCategories.findIndex(
+            (cat) => cat.slug === default_value,
+        );
+
+        if (defaultIndex !== -1) {
+            setSelected(displayedCategories[defaultIndex].slug);
+            setSelectedIndex(defaultIndex);
+
+            // Scroll to the selected index after a short delay to ensure the list is rendered
+            setTimeout(() => {
+                flatListRef.current?.scrollToIndex({
+                    index: defaultIndex,
+                    animated: true,
+                    viewPosition: 0.5, // Centers the item in the viewport
+                });
+            }, 100);
+        }
+    }, [default_value]);
+
+    // Handle scroll failure (in case the item is out of initial render area)
+    const handleScrollToIndexFailed = (info: {
+        index: number;
+        highestMeasuredFrameIndex: number;
+        averageItemLength: number;
+    }) => {
+        flatListRef.current?.scrollToOffset({
+            offset: info.averageItemLength * info.index,
+            animated: true,
+        });
+        setTimeout(() => {
+            flatListRef.current?.scrollToIndex({
+                index: info.index,
+                animated: true,
+                viewPosition: 0.5,
+            });
+        }, 100);
+    };
 
     return (
         <View
@@ -87,7 +120,6 @@ export function ShoeHeader() {
             <View className="absolute bottom-0 right-0">
                 <HEADER_BG />
             </View>
-
             <View className="flex-row justify-between items-center mb-4">
                 <View className="flex-row items-center gap-2">
                     <HeaderBackButton />
@@ -100,18 +132,22 @@ export function ShoeHeader() {
                 </View>
                 <MAGE_FILTER />
             </View>
-
             <FlatList
+                ref={flatListRef}
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 data={displayedCategories}
                 keyExtractor={(item) => item.slug}
                 contentContainerStyle={{ paddingRight: 16 }}
+                onScrollToIndexFailed={handleScrollToIndexFailed}
                 renderItem={({ item, index }) => (
                     <CategoryButton
                         item={item}
                         isSelected={selectedIndex === index}
-                        onPress={() => setSelectedIndex(index)}
+                        onPress={() => {
+                            setSelectedIndex(index);
+                            setSelected(item.slug);
+                        }}
                     />
                 )}
             />

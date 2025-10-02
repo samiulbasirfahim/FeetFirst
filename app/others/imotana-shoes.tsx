@@ -24,6 +24,7 @@ import ImotanaBlur from "@/components/ui/blur-imotana";
 import Point from "@/assets/svgs/point_imotana.svg";
 import Svg, { Defs, Polygon, Stop, LinearGradient } from "react-native-svg";
 import { ProductCard } from "@/components/common/ProductCard";
+import { useTopShoes } from "@/lib/queries/products";
 
 const products = [
     { name: "Product 1", price: "$123", image: shoe1 },
@@ -34,6 +35,8 @@ export default function ShoeShopScreen() {
     const { width: screen_width } = useWindowDimensions();
     const { isGerman } = useLanguageStore();
     const [likedItems, setLikedItems] = useState<boolean[]>(Array(4).fill(false));
+
+    const { shoeList, isPending, error } = useTopShoes(10);
 
     const { HeaderComponent, onScroll, height } = useDrawerHeader({
         threeshold: 100,
@@ -109,72 +112,25 @@ export default function ShoeShopScreen() {
                     </Text>
                 </View>
 
-                {/* Product Grid */}
-                <View className="flex-row flex-wrap justify-between mt-6 px-4">
-                    {products.map((product, i) => (
-                        <ProductCard
-                            key={i}
-                            image={product.image}
-                            name={product.name}
-                            price={product.price}
-                            liked={likedItems[i]}
-                            onToggleLike={() => toggleLike(i)}
-                        />
-                    ))}
-                </View>
-                {
-                    // <View className="flex-row flex-wrap justify-between mt-6 px-4">
-                    //           {Array(4)
-                    //             .fill(null)
-                    //             .map((_, i) => (
-                    //               <TouchableOpacity
-                    //                 key={i}
-                    //                 activeOpacity={0.8}
-                    //                 className="p-3 mb-4 w-[48%] relative"
-                    //               >
-                    //                 <View className="bg-background rounded-3xl py-6">
-                    //                   <TouchableOpacity
-                    //                     onPress={() => toggleLike(i)}
-                    //                     className="absolute top-3 left-3 z-10 p-1"
-                    //                   >
-                    //                     {likedItems[i] ? (
-                    //                       <Love_filled width={24} height={24} />
-                    //                     ) : (
-                    //                       <Love width={24} height={24} />
-                    //                     )}
-                    //                   </TouchableOpacity>
-                    //                   <Image
-                    //                     source={shoe}
-                    //                     className="w-full h-24 rounded-xl"
-                    //                     resizeMode="contain"
-                    //                   />
-                    //                 </View>
-                    //                 <Text className="text-white mt-2">Product Name</Text>
-                    //                 <View className="flex-row justify-between">
-                    //                   <Text className="text-primary">$123</Text>
-                    //                   <View className="flex-row relative">
-                    //                     <View className="mt-1 bg-green-600 size-4 rounded-full left-3 z-1" />
-                    //                     <View className="mt-1 bg-green-500 size-4 rounded-full left-2" />
-                    //                     <View className="mt-1 bg-green-300 size-4 rounded-full" />
-                    //                   </View>
-                    //                 </View>
-                    //               </TouchableOpacity>
-                    //             ))}
-                    //         </View>
-                }
-
-                {/* <View>
-          <Image
-            source={shoeDetail}
-            className="w-full h-[550px]"
-            resizeMode="cover"
-          />
-        </View> */}
-
+                {!error && !isPending && shoeList.length > 0 && (
+                    <View className="flex-row flex-wrap justify-between mt-6 px-4">
+                        {shoeList.map((product, i) => (
+                            <ProductCard
+                                key={i}
+                                id={product.id}
+                                image={product.image}
+                                itemName={product.itemName}
+                                price={product.price}
+                                liked={likedItems[i]}
+                                onToggleLike={() => toggleLike(i)}
+                            />
+                        ))}
+                    </View>
+                )}
                 <View className="mt-10">
                     <ImotanaBlur
-                        size={500} // total canvas size
-                        radius={300} // effective fade radius
+                        size={500}
+                        radius={300}
                         color="#5c5340"
                         style={{ left: screen_width - 300, top: -20 }}
                     />

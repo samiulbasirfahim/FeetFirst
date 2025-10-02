@@ -1,5 +1,12 @@
 import * as React from "react";
-import { Image, View, Dimensions, ImageSourcePropType } from "react-native";
+import {
+    Image,
+    View,
+    Dimensions,
+    ImageSourcePropType,
+    Pressable,
+    TouchableOpacity,
+} from "react-native";
 import Carousel from "react-native-reanimated-carousel";
 import { Typography } from "./typography";
 import { useSharedValue } from "react-native-reanimated";
@@ -7,8 +14,9 @@ import Arrow from "@/assets/svgs/arrow-exercise.svg";
 
 import { ShoeItem } from "@/type/product";
 import { BrandLogoPlaceholder, ItemImagePlaceholder } from "@/lib/placeholder";
+import { router } from "expo-router";
 
-const HEIGHT = 310;
+const HEIGHT = 350;
 
 function HomeCarauselSecond({ shoes }) {
     const { width } = Dimensions.get("window");
@@ -23,7 +31,7 @@ function HomeCarauselSecond({ shoes }) {
                 height: HEIGHT,
             }}
         >
-            <View className="absolute z-50 bottom-6">
+            <View className="absolute z-50 bottom-10">
                 <Image
                     source={{
                         uri:
@@ -33,9 +41,9 @@ function HomeCarauselSecond({ shoes }) {
                     }}
                     resizeMode="contain"
                     style={{
-                        width: width * 1.02,
-                        height: 200,
-                        transform: [{ rotateY: "180deg" }, { rotateZ: "25deg" }],
+                        width: width * 0.85,
+                        height: HEIGHT / 2,
+                        transform: [{ rotateZ: "-25deg" }],
                     }}
                 />
             </View>
@@ -75,9 +83,19 @@ function HomeCarauselSecond({ shoes }) {
                     }}
                 />
             </View>
-            <View className="absolute bottom-0 right-0 p-3  border border-primary rounded-2xl">
+            <TouchableOpacity
+                onPress={() => {
+                    router.push({
+                        pathname: "/others/shoe-details",
+                        params: {
+                            id: item.id,
+                        },
+                    });
+                }}
+                className="absolute bottom-0 right-0 p-3  border border-primary rounded-2xl"
+            >
                 <Arrow />
-            </View>
+            </TouchableOpacity>
         </View>
     );
 
