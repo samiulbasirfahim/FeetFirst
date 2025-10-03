@@ -11,6 +11,9 @@ export type ShoeItem = {
         id: number;
         image: string;
     } | null;
+
+    match_percentage: number | null;
+    favourite: boolean;
 };
 
 export type ShoeDetails = {
@@ -32,8 +35,8 @@ export type ShoeDetails = {
     sizes: string[];
     toe_box: string;
     further_information: string;
-    price: string; // comes as "1234.00"
-    discount: string; // comes as "330.00"
+    price: string;
+    discount: string;
     stock_quantity: number;
     partner: number;
     match_percentage: number | null;

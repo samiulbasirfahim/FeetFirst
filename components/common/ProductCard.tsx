@@ -1,17 +1,16 @@
 import { View, TouchableOpacity, Image, Text } from "react-native";
-import BRANDLOGO from "@/assets/svgs/hoka_logo.svg";
 import Love from "@/assets/svgs/love.svg";
 import Love_filled from "@/assets/svgs/love-filled.svg";
 import { Typography } from "../ui/typography";
 import { router } from "expo-router";
 import { ShoeItem } from "@/type/product";
 import { BrandLogoPlaceholder, ItemImagePlaceholder } from "@/lib/placeholder";
+import { useAddFavourite, useRemoveFavourite } from "@/lib/queries/favourite";
+import { useState } from "react";
 
 type ProductCardProps = ShoeItem & {
-    liked: boolean;
     onToggleLike: () => void;
     colors?: string[];
-    fitValue?: number | null;
 };
 
 export function ProductCard({
@@ -20,11 +19,46 @@ export function ProductCard({
     itemName,
     brandLogo,
     price,
-    liked,
+    favourite,
     onToggleLike,
     colors = ["#22c55e", "#16a34a", "#86efac"],
-    fitValue = null,
+    match_percentage = null,
 }: ProductCardProps) {
+    const [liked, setLiked] = useState(favourite);
+    const {
+        mutate: add_to_favourite,
+        isPending: pending_add,
+        error: error_add,
+    } = useAddFavourite();
+
+    const {
+        mutate: remove_from_favourite,
+        isPending: pending_remove,
+        error: error_remove,
+    } = useRemoveFavourite();
+
+    function handle_remove_fav() {
+        remove_from_favourite(id, {
+            onSuccess(res) {
+                setLiked(false);
+            },
+            onError(err) {
+                setLiked(true);
+            },
+        });
+    }
+
+    function handle_add_fav() {
+        add_to_favourite(id, {
+            onSuccess(res) {
+                setLiked(true);
+            },
+            onError(err) {
+                setLiked(false);
+            },
+        });
+    }
+
     return (
         <TouchableOpacity
             onPress={() =>
@@ -40,7 +74,7 @@ export function ProductCard({
         >
             <View className="bg-background rounded-3xl py-6 relative">
                 <View className="flex-row px-4 justify-between items-center">
-                    {fitValue ? (
+                    {match_percentage ? (
                         <View className="px-2 py-1 border border-primary bg-primary rounded-lg">
                             <Typography
                                 className="text-white text-sm"
@@ -48,7 +82,7 @@ export function ProductCard({
                                     lineHeight: 12,
                                 }}
                             >
-                                {`${fitValue}%
+                                {`${match_percentage}%
 FIT`}
                             </Typography>
                         </View>
@@ -56,7 +90,11 @@ FIT`}
                         <View></View>
                     )}
                     <TouchableOpacity
-                        onPress={onToggleLike}
+                        onPress={() => {
+                            setLiked((prev) => !prev);
+                            if (liked) handle_remove_fav();
+                            else handle_add_fav();
+                        }}
                         style={{
                             zIndex: 9999,
                         }}

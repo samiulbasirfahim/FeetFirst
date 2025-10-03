@@ -88,15 +88,17 @@ export default function Screen() {
                             <View className="flex-row flex-wrap justify-between mt-6 px-4">
                                 {shoeList.map((shoe, i) => (
                                     <ProductCard
-                                        id={shoe.id}
-                                        itemName={shoe.itemName}
-                                        brandLogo={shoe.brandLogo}
-                                        image={shoe.image}
-                                        brandName={shoe.brandName}
-                                        price={shoe.price}
+                                        {...shoe}
+                                        // match_percentage={shoe.match_percentage}
+                                        // favourite={shoe.favourite}
+                                        // id={shoe.id}
+                                        // itemName={shoe.itemName}
+                                        // brandLogo={shoe.brandLogo}
+                                        // image={shoe.image}
+                                        // brandName={shoe.brandName}
+                                        // price={shoe.price}
                                         key={shoe.id}
                                         liked={likedItems[i]}
-                                        fitValue={90}
                                         onToggleLike={() => toggleLike(i)}
                                     />
                                 ))}
