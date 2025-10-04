@@ -10,11 +10,10 @@ import { useAuthStore } from "@/store/auth";
 import { Layout } from "@/components/layout/layout";
 
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
-import { useSignIn } from "@/hooks/useGoogleSignIn";
 import { Typography } from "@/components/ui/typography";
 import { useEffect, useState } from "react";
 import { LoginForm } from "@/type/auth";
-import { useLogin } from "@/lib/queries/auth";
+import { useGoogleSignIn, useLogin } from "@/lib/queries/auth";
 import { useRouter } from "expo-router";
 import { setItem } from "@/store/mmkv";
 import { User } from "@/type/user";
@@ -29,20 +28,15 @@ GoogleSignin.configure({
 });
 
 export default function Page() {
-    const { signIn, name } = useSignIn();
     const router = useRouter();
+    const { mutate: google_sign_in, isPending: google_sign_in_pending } =
+        useGoogleSignIn();
 
     const { isGerman } = useLanguageStore();
     const { setUser } = useAuthStore();
 
     const [form, setForm] = useState<LoginForm>({ email: "", password: "" });
-    const {
-        data: userInfo,
-        isPending,
-        mutate: triggerLogin,
-        error,
-        isError,
-    } = useLogin();
+    const { isPending, mutate: triggerLogin, error, isError } = useLogin();
 
     const { mutate: fetch_onboarding_question, isPending: loading_onboarding } =
         useGetOnboardingQuestion();
@@ -210,34 +204,16 @@ export default function Page() {
                 />
             </View>
 
-            {name ? (
-                <>
-                    <Typography className="text-center">{name}</Typography>
-                    <TouchableOpacity
-                        className="bg-red-200 px-4 py-3 rounded-xl flex-row w-full items-center justify-center gap-4"
-                        onPress={() => signIn("signout")}
-                    >
-                        <GOOGLE />
-                        <Text className="text-whtie font-semibold text-xl text-center">
-                            SIGN OUT
-                        </Text>
-                    </TouchableOpacity>
-                </>
-            ) : (
-                <TouchableOpacity
-                    className="bg-white px-4 py-3 rounded-xl flex-row w-full items-center justify-center gap-4"
-                    onPress={() => {
-                        if (Platform.OS === "android") {
-                            signIn("signin");
-                        }
-                    }}
-                >
-                    <GOOGLE />
-                    <Text className="text-black font-semibold text-xl text-center">
-                        {isGerman() ? "Mit Google fortfahren" : "Continua con Google"}
-                    </Text>
-                </TouchableOpacity>
-            )}
+            <Button
+                className="bg-white px-4 py-3 rounded-xl flex-row w-full items-center justify-center gap-4"
+                onPress={() => google_sign_in()}
+                isLoading={google_sign_in_pending}
+            >
+                <GOOGLE />
+                <Text className="text-black font-semibold text-xl text-center">
+                    {isGerman() ? "Mit Google fortfahren" : "Continua con Google"}
+                </Text>
+            </Button>
         </Layout>
     );
 }
