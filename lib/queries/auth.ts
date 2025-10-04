@@ -14,7 +14,11 @@ import { useGetOnboardingQuestion } from "./onboarding-question";
 import { router } from "expo-router";
 import { useAutoLogin } from "../init";
 import { useAuthStore } from "@/store/auth";
-import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import {
+    GoogleSignin,
+    isSuccessResponse,
+} from "@react-native-google-signin/google-signin";
+import { Platform } from "react-native";
 
 export function useLogin() {
     return useMutation({
@@ -80,18 +84,19 @@ export function useGoogleSignIn() {
     const { setUser } = useAuthStore();
     return useMutation({
         mutationFn: async () => {
-            let token: string | null;
             try {
                 await GoogleSignin.hasPlayServices();
                 const response = await GoogleSignin.signIn();
-                let token_rsponse = await GoogleSignin.getTokens();
-                const token = token_rsponse.accessToken;
-                return fetcher("/api/users/google/callback/", {
-                    method: "POST",
-                    body: {
-                        access_token: token,
-                    },
-                });
+                if (isSuccessResponse(response)) {
+                    let token_rsponse = await GoogleSignin.getTokens();
+                    const token = token_rsponse.accessToken;
+                    return fetcher("/api/users/google/callback/", {
+                        method: "POST",
+                        body: {
+                            access_token: token,
+                        },
+                    });
+                }
             } catch (err) {
                 console.log(err);
             }

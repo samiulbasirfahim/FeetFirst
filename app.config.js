@@ -44,7 +44,7 @@ export default {
             [
                 "@react-native-google-signin/google-signin",
                 {
-                    iosUrlScheme: `com.googleusercontent.apps.${process.env.EXPO_PUBLIC_IOS_OAUTH_TOKEN}`,
+                    iosUrlScheme: process.env.EXPO_PUBLIC_IOS_URL_SCHEME,
                 },
             ],
             [

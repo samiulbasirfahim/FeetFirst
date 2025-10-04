@@ -22,8 +22,10 @@ import { ApiError } from "@/lib/fetcher";
 
 GoogleSignin.configure({
     scopes: [],
-    offlineAccess: false,
+    webClientId: process.env.EXPO_PUBLIC_WEB_OAUTH_TOKEN,
     iosClientId: process.env.EXPO_PUBLIC_IOS_OAUTH_TOKEN,
+    offlineAccess: false,
+
     forceCodeForRefreshToken: true,
 });
 
@@ -208,6 +210,7 @@ export default function Page() {
                 className="bg-white px-4 py-3 rounded-xl flex-row w-full items-center justify-center gap-4"
                 onPress={() => google_sign_in()}
                 isLoading={google_sign_in_pending}
+                noWrap
             >
                 <GOOGLE />
                 <Text className="text-black font-semibold text-xl text-center">

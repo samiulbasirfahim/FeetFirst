@@ -118,6 +118,7 @@ export default function Screen() {
                 className="bg-backgroundDark"
                 scrollable
                 noPadding
+                avoidTabbar
                 onScroll={onScroll}
                 style={{
                     marginTop: -height - 20,
