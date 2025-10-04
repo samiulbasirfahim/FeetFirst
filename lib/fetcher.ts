@@ -38,12 +38,21 @@ export async function fetcher<T>(
         }
     }
 
-    const res = await fetch(`${BASE_URL}${endpoint}`, {
-        method,
-        headers: finalHeaders,
-        body: body ? JSON.stringify(body) : undefined,
-        credentials: "include",
-    });
+    let res: any;
+
+    try {
+        console.log("API HIT-start")
+        res = await fetch(`${BASE_URL}${endpoint}`, {
+            method,
+            headers: finalHeaders,
+            body: body ? JSON.stringify(body) : undefined,
+            credentials: "include",
+        });
+        console.log("API HIT-end")
+    } catch (err) {
+        console.log("API HIT-got-error")
+        console.log("THIS IS THE ERR: ", err);
+    }
 
     let data: any;
     try {

@@ -5,9 +5,9 @@ import {
     TouchableOpacity,
     FlatList,
     Pressable,
-    ActivityIndicator,
 } from "react-native";
-import React, { useState } from "react";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import React, { useEffect, useState } from "react";
 import { Layout } from "@/components/layout/layout";
 import shoe1 from "@/assets/images/shoe1.png";
 import { Typography } from "@/components/ui/typography";
@@ -15,7 +15,6 @@ import logo from "@/assets/images/feetfast-full-logo.png";
 import { useLanguageStore } from "@/store/language";
 import ultralight from "@/assets/images/ultralight.png";
 import pronation from "@/assets/images/pronation.png";
-import Love from "@/assets/svgs/love.svg";
 import Collapsible from "react-native-collapsible";
 import GoreTexLogo from "@/assets/images/gore-tex.png";
 
@@ -29,6 +28,7 @@ import { useLocalSearchParams } from "expo-router";
 import { useGetProduct } from "@/lib/queries/products";
 import { ItemImagePlaceholder } from "@/lib/placeholder";
 import { LoadingSpinner } from "@/components/common/loading-spinner";
+import { useAddFavourite, useRemoveFavourite } from "@/lib/queries/favourite";
 
 const shoe = {
     image: shoe1,
@@ -55,18 +55,48 @@ export default function Screen() {
     const toggleAccordion = (section: string) => {
         setActiveAccordion(activeAccordion === section ? null : section);
     };
-
-    const [likedItems, setLikedItems] = useState<boolean[]>(
-        products.map(() => false),
-    );
-
-    const toggleLike = (index: number) => {
-        const newLiked = [...likedItems];
-        newLiked[index] = !newLiked[index];
-        setLikedItems(newLiked);
-    };
+    const [liked, setLiked] = useState(false);
 
     const [selectedImage, setSelectedImage] = useState<number>(0);
+
+    useEffect(() => {
+        setLiked(shoeDetails?.favourite ?? false);
+        console.log("Is fav : ", shoeDetails?.favourite);
+    }, [shoeDetails]);
+
+    const {
+        mutate: add_to_favourite,
+        isPending: pending_add,
+        error: error_add,
+    } = useAddFavourite();
+
+    const {
+        mutate: remove_from_favourite,
+        isPending: pending_remove,
+        error: error_remove,
+    } = useRemoveFavourite();
+
+    function handle_remove_fav() {
+        remove_from_favourite(shoeDetails?.id ?? 0, {
+            onSuccess(res) {
+                setLiked(false);
+            },
+            onError(err) {
+                setLiked(true);
+            },
+        });
+    }
+
+    function handle_add_fav() {
+        add_to_favourite(shoeDetails?.id ?? 0, {
+            onSuccess(res) {
+                setLiked(true);
+            },
+            onError(err) {
+                setLiked(false);
+            },
+        });
+    }
 
     return (
         <View className="flex-1">
@@ -185,9 +215,24 @@ export default function Screen() {
                                 </Typography>
                             </TouchableOpacity>
                             <TouchableOpacity className="flex items-center justify-center">
-                                <View className="border border-white p-4 rounded-2xl">
-                                    <Love width={24} height={24} />
-                                </View>
+                                <Pressable
+                                    onPress={() => {
+                                        if (liked) {
+                                            setLiked(false);
+                                            handle_remove_fav();
+                                        } else {
+                                            setLiked(true);
+                                            handle_add_fav();
+                                        }
+                                    }}
+                                    className="border border-white p-4 rounded-2xl"
+                                >
+                                    <AntDesign
+                                        name={liked ? "heart" : "hearto"}
+                                        size={24}
+                                        color="white"
+                                    />
+                                </Pressable>
                             </TouchableOpacity>
                         </View>
 

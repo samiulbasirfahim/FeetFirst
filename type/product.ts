@@ -40,4 +40,5 @@ export type ShoeDetails = {
     stock_quantity: number;
     partner: number;
     match_percentage: number | null;
+    favourite: boolean;
 };

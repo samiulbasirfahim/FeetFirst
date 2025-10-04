@@ -44,7 +44,8 @@ export default function Page() {
         isError,
     } = useLogin();
 
-    const { mutate: fetch_onboarding_question, isPending: loading_onboarding } = useGetOnboardingQuestion();
+    const { mutate: fetch_onboarding_question, isPending: loading_onboarding } =
+        useGetOnboardingQuestion();
 
     useEffect(() => {
         console.log(error);
@@ -72,6 +73,7 @@ export default function Page() {
         }
         triggerLogin(form, {
             onError: (err: any) => {
+                console.log("GOT ERROR");
                 if (err?.data) {
                     setFormErrors(err.data);
                 } else {
@@ -79,6 +81,7 @@ export default function Page() {
                 }
             },
             onSuccess: async (data: any) => {
+                console.log("GOT SUCCESS");
                 const access_token = data.access;
                 const refresh_token = data.access;
 
