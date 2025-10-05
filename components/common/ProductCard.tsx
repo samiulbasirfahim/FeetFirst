@@ -9,7 +9,6 @@ import { useAddFavourite, useRemoveFavourite } from "@/lib/queries/favourite";
 import { useState } from "react";
 
 type ProductCardProps = ShoeItem & {
-    onToggleLike: () => void;
     colors?: string[];
 };
 

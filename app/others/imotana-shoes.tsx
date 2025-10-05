@@ -1,10 +1,5 @@
 import React from "react";
-import {
-    View,
-    Text,
-    Image,
-    useWindowDimensions,
-} from "react-native";
+import { View, Text, Image, useWindowDimensions } from "react-native";
 import { LinearGradient as ExpoLinearGradient } from "expo-linear-gradient";
 import shoe from "@/assets/images/imotana-shoe-new.png";
 import { Layout } from "@/components/layout/layout";

@@ -16,8 +16,6 @@ import ultralight from "@/assets/images/ultralight.png";
 import pronation from "@/assets/images/pronation.png";
 import Collapsible from "react-native-collapsible";
 import GoreTexLogo from "@/assets/images/gore-tex.png";
-
-import { ProductCard } from "@/components/common/ProductCard";
 import { VersionInfo } from "@/components/common/version";
 import { AutoImage } from "@/components/ui/auto-image";
 import ShoeHeader from "@/components/common/category-header";
@@ -29,59 +27,70 @@ import { ItemImagePlaceholder } from "@/lib/placeholder";
 import { LoadingSpinner } from "@/components/common/loading-spinner";
 import { useAddFavourite, useRemoveFavourite } from "@/lib/queries/favourite";
 import { Button } from "@/components/ui/button";
+import { useCartStore } from "@/store/cart"; // ✅ Zustand cart store
+import { useTopShoes } from "@/lib/queries/products";
+import { ProductCard } from "@/components/common/ProductCard";
 
 export default function Screen() {
+    const { isPending: fetch_top, shoeList } = useTopShoes(6);
     const { isGerman } = useLanguageStore();
-    const [activeAccordion, setActiveAccordion] = useState<string | null>(null);
     const { id } = useLocalSearchParams<{ id: string }>();
 
     const { isPending, error, shoeDetails } = useGetProduct(Number(id.trim()));
 
-    const toggleAccordion = (section: string) => {
-        setActiveAccordion(activeAccordion === section ? null : section);
-    };
-    const [liked, setLiked] = useState(false);
+    const { cartIds, addItem, removeItem, isInCart } = useCartStore();
 
+    const [liked, setLiked] = useState(false);
+    const [activeAccordion, setActiveAccordion] = useState<string | null>(null);
     const [selectedImage, setSelectedImage] = useState<number>(0);
+
+    const inCart = shoeDetails?.id ? isInCart(shoeDetails.id) : false;
 
     useEffect(() => {
         setLiked(shoeDetails?.favourite ?? false);
-        console.log("Is fav : ", shoeDetails?.favourite);
     }, [shoeDetails]);
 
-    const {
-        mutate: add_to_favourite,
-        isPending: pending_add,
-        error: error_add,
-    } = useAddFavourite();
+    const { mutate: add_to_favourite, isPending: pending_add } =
+        useAddFavourite();
 
-    const {
-        mutate: remove_from_favourite,
-        isPending: pending_remove,
-        error: error_remove,
-    } = useRemoveFavourite();
+    const { mutate: remove_from_favourite, isPending: pending_remove } =
+        useRemoveFavourite();
 
-    function handle_remove_fav() {
+    const handle_remove_fav = () => {
         remove_from_favourite(shoeDetails?.id ?? 0, {
-            onSuccess(res) {
+            onSuccess() {
                 setLiked(false);
             },
-            onError(err) {
+            onError() {
                 setLiked(true);
             },
         });
-    }
+    };
 
-    function handle_add_fav() {
+    const handle_add_fav = () => {
         add_to_favourite(shoeDetails?.id ?? 0, {
-            onSuccess(res) {
+            onSuccess() {
                 setLiked(true);
             },
-            onError(err) {
+            onError() {
                 setLiked(false);
             },
         });
-    }
+    };
+
+    const handleCartPress = () => {
+        if (!shoeDetails?.id) return;
+
+        if (inCart) {
+            removeItem(shoeDetails.id);
+        } else {
+            addItem(shoeDetails.id);
+        }
+    };
+
+    const toggleAccordion = (section: string) => {
+        setActiveAccordion(activeAccordion === section ? null : section);
+    };
 
     return (
         <View className="flex-1">
@@ -96,6 +105,7 @@ export default function Screen() {
                     <LoadingSpinner />
                 ) : (
                     <>
+                        {/* Main Image */}
                         <View>
                             {(shoeDetails?.images.length ?? 0) > 0 && (
                                 <Image
@@ -112,6 +122,8 @@ export default function Screen() {
                                 />
                             )}
                         </View>
+
+                        {/* Info */}
                         <View className="flex gap-2">
                             <Typography className="text-2xl font-bold">
                                 {shoeDetails?.name}
@@ -124,13 +136,13 @@ export default function Screen() {
                             </Typography>
                         </View>
 
+                        {/* Thumbnails */}
                         {(shoeDetails?.images.length ?? 0) > 1 && (
                             <FlatList
                                 data={shoeDetails?.images}
-                                showsVerticalScrollIndicator={false}
+                                horizontal
                                 showsHorizontalScrollIndicator={false}
-                                ItemSeparatorComponent={() => <View className="w-3"></View>}
-                                horizontal={true}
+                                ItemSeparatorComponent={() => <View className="w-3" />}
                                 renderItem={(props) => (
                                     <Pressable
                                         onPress={() => setSelectedImage(props.index)}
@@ -155,56 +167,50 @@ export default function Screen() {
                                 )}
                             />
                         )}
+
+                        {/* Brand + Size */}
                         <View className="bg-muted-background p-4 rounded-2xl flex-row justify-between">
                             <AutoImage height={36} source={logo} />
                             <View className="h-9 justify-center">
-                                {
-                                    <ShoeSizePicker
-                                        list={[
-                                            {
-                                                label: "",
-                                                value: "",
-                                            },
-                                        ]}
-                                        // list={(shoeDetails?.sizes ?? []).map((size) => ({
-                                        //     label: String(size ?? 0),
-                                        //     value: String(size),
-                                        // }))}
-                                        onChange={(sel) => {
-                                            console.log(sel);
-                                        }}
-                                    />
-                                }
+                                <ShoeSizePicker
+                                    list={(shoeDetails?.sizes ?? []).map((size) => ({
+                                        label: String(size ?? 0),
+                                        value: String(size),
+                                    }))}
+                                    onChange={(sel) => console.log(sel)}
+                                />
                                 <Typography>90% FIT</Typography>
                             </View>
                         </View>
 
-                        {/* cart */}
+                        {/* Cart + Favourite */}
                         <View className="flex-row gap-6">
                             <Button
-                                onPress={() => {
-
-                                }}
+                                onPress={handleCartPress}
                                 variant="outline"
                                 noWrap
-                                className="border border-white p-4 rounded-2xl flex-1 items-center"
+                                className={`border p-4 rounded-2xl flex-1 items-center ${inCart ? "border-red-500 bg-red-500/10" : "border-white"
+                                    }`}
                             >
-                                <Typography className="text-white text-2xl">
-                                    {isGerman()
-                                        ? "In den warenkorb".toUpperCase()
-                                        : "Aggiungi al carrello".toUpperCase()}
+                                <Typography
+                                    className={`text-2xl ${inCart ? "text-red-500" : "text-white"
+                                        }`}
+                                >
+                                    {inCart
+                                        ? isGerman()
+                                            ? "AUS WARENKORB ENTFERNEN"
+                                            : "RIMUOVI DAL CARRELLO"
+                                        : isGerman()
+                                            ? "IN DEN WARENKORB"
+                                            : "AGGIUNGI AL CARRELLO"}
                                 </Typography>
                             </Button>
+
                             <TouchableOpacity className="flex items-center justify-center">
                                 <Pressable
                                     onPress={() => {
-                                        if (liked) {
-                                            setLiked(false);
-                                            handle_remove_fav();
-                                        } else {
-                                            setLiked(true);
-                                            handle_add_fav();
-                                        }
+                                        if (liked) handle_remove_fav();
+                                        else handle_add_fav();
                                     }}
                                     className="border border-white p-4 rounded-2xl"
                                 >
@@ -217,10 +223,12 @@ export default function Screen() {
                             </TouchableOpacity>
                         </View>
 
+                        {/* 2D Preview */}
                         <View className="mb-20 mt-4 -mx-3">
                             <TwoDPreview />
                         </View>
 
+                        {/* Return Policy */}
                         <View className="my-4 flex gap-4">
                             <Typography className="text-white text-2xl">
                                 {isGerman()
@@ -234,136 +242,100 @@ export default function Screen() {
                             </Typography>
                         </View>
 
-                        {/* material features */}
+                        {/* Material Features */}
                         <View className="flex-1 gap-4 my-4">
-                            <View className="flex-row gap-4">
-                                <View className="bg-white rounded-xl p-2">
-                                    <Image
-                                        resizeMode="contain"
-                                        source={GoreTexLogo}
-                                        className="w-[40px] h-[40px]"
-                                    />
-                                </View>
-                                <Typography className="flex-1">
-                                    <Text className="font-bold text-lg">Gore-Tex®</Text> –
-                                    {isGerman()
-                                        ? "Wasserdicht und atmungsaktiv durch eine spezielle Membran"
-                                        : "Impermeabile e traspirante grazie a una speciale membrana"}
-                                </Typography>
-                            </View>
-                            <View className="flex-row gap-4">
-                                <View className="bg-white rounded-xl p-2">
-                                    <Image source={ultralight} className="w-[40px] h-[40px]" />
-                                </View>
-                                <Typography className="flex-1">
-                                    <Text className="font-bold text-lg">Ultra Light</Text> –
-                                    {isGerman()
-                                        ? "Besonders leicht für maximalen Komfort"
-                                        : "Extra leggero per il massimo comfort"}
-                                </Typography>
-                            </View>
-                            <View className="flex-row gap-4">
-                                <View className="bg-white rounded-xl p-2">
-                                    <Image source={pronation} className="w-[40px] h-[40px]" />
-                                </View>
-                                <Typography className="flex-1">
-                                    <Text className="font-bold text-lg">Pronation</Text> –
-                                    {isGerman()
-                                        ? "Stabilisiert den Fuß bei Überpronation"
-                                        : "Supporto per la pronazione: stabilizza il piede in caso di iperpronazione"}
-                                </Typography>
-                            </View>
-                        </View>
-
-                        {/* product information */}
-                        <View className="flex gap-4 my-4">
-                            <TouchableOpacity onPress={() => toggleAccordion("description")}>
-                                <Typography className="text-white text-2xl border-b border-white pb-3">
-                                    {isGerman()
-                                        ? "Produktbeschreibung"
-                                        : "Descrizione del prodotto"}
-                                </Typography>
-                                <Collapsible collapsed={activeAccordion !== "description"}>
-                                    <Text className="text-gray-400 mb-3 mt-3">
-                                        Hier könnten Inhalte für stehen…
-                                    </Text>
-                                </Collapsible>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => toggleAccordion("technical")}>
-                                <Typography className="text-white text-2xl border-b border-white pb-3">
-                                    {isGerman() ? "Technische Daten" : "Dati tecnici"}
-                                </Typography>
-                                <Collapsible collapsed={activeAccordion !== "technical"}>
-                                    <Text className="text-gray-400 mb-3 mt-3">
-                                        Hier könnten Inhalte für stehen…
-                                    </Text>
-                                </Collapsible>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => toggleAccordion("info")}>
-                                <Typography className="text-white text-2xl border-b border-white pb-3">
-                                    {isGerman()
-                                        ? "Weitere Informationen"
-                                        : "Ulteriori informazioni"}
-                                </Typography>
-                                <Collapsible collapsed={activeAccordion !== "info"}>
-                                    <Text className="text-gray-400 mb-3 mt-3">
-                                        Hier könnten Inhalte für stehen…
-                                    </Text>
-                                </Collapsible>
-                            </TouchableOpacity>
-                        </View>
-
-                        <View className="my-4">
-                            <Typography className="text-white text-xl">
-                                {isGerman()
-                                    ? "Diese Modelle empfehlen wir dir auch:"
-                                    : "Consigliamo anche questi modelli:"}
-                            </Typography>
-                            <View className="flex-row flex-wrap justify-between mt-6 px-4">
-                                {/*products.map((product, i) => (
-                                        <ProductCard
-                                            key={i}
-                                            image={product.image}
-                                            itemName={product.}
-                                            price={product.price}
-                                            liked={likedItems[i]}
-                                            onToggleLike={() => toggleLike(i)}
+                            {[
+                                {
+                                    icon: GoreTexLogo,
+                                    title: "Gore-Tex®",
+                                    de: "Wasserdicht und atmungsaktiv durch eine spezielle Membran",
+                                    it: "Impermeabile e traspirante grazie a una speciale membrana",
+                                },
+                                {
+                                    icon: ultralight,
+                                    title: "Ultra Light",
+                                    de: "Besonders leicht für maximalen Komfort",
+                                    it: "Extra leggero per il massimo comfort",
+                                },
+                                {
+                                    icon: pronation,
+                                    title: "Pronation",
+                                    de: "Stabilisiert den Fuß bei Überpronation",
+                                    it: "Supporto per la pronazione: stabilizza il piede in caso di iperpronazione",
+                                },
+                            ].map((feat, i) => (
+                                <View className="flex-row gap-4" key={i}>
+                                    <View className="bg-white rounded-xl p-2">
+                                        <Image
+                                            resizeMode="contain"
+                                            source={feat.icon}
+                                            className="w-[40px] h-[40px]"
                                         />
-                                    ))*/}
-                            </View>
+                                    </View>
+                                    <Typography className="flex-1">
+                                        <Text className="font-bold text-lg">{feat.title}</Text> –{" "}
+                                        {isGerman() ? feat.de : feat.it}
+                                    </Typography>
+                                </View>
+                            ))}
                         </View>
 
-                        {
-                            // <View className="my-4">
-                            //     <Typography className="text-white text-2xl mb-2">
-                            //         Your Foot Measures
-                            //     </Typography>
-                            //
-                            //     <View className="bg-muted-background py-4 px-6 rounded-2xl">
-                            //         <Typography className="text-white text-lg border-b border-muted-foreground pb-2">
-                            //             Measure
-                            //         </Typography>
-                            //
-                            //         <View className="flex-row justify-between my-2">
-                            //             <Typography>Footlength</Typography>
-                            //             <Typography>25.7cm</Typography>
-                            //             <Typography>24.2cm</Typography>
-                            //         </View>
-                            //
-                            //         <View className="flex-row justify-between my-2">
-                            //             <Typography>Width</Typography>
-                            //             <Typography>25.7cm</Typography>
-                            //             <Typography>24.2cm</Typography>
-                            //         </View>
-                            //
-                            //         <View className="flex-row justify-between my-2">
-                            //             <Typography>Hight</Typography>
-                            //             <Typography>25.7cm</Typography>
-                            //             <Typography>24.2cm</Typography>
-                            //         </View>
-                            //     </View>
-                            // </View>
-                        }
+                        {/* Accordions */}
+                        <View className="flex gap-4 my-4">
+                            {[
+                                {
+                                    key: "description",
+                                    label: isGerman()
+                                        ? "Produktbeschreibung"
+                                        : "Descrizione del prodotto",
+
+                                    value: isGerman()
+                                        ? "Produktbeschreibung"
+                                        : "Descrizione del prodotto",
+                                },
+                                {
+                                    key: "technical",
+                                    label: isGerman() ? "Technische Daten" : "Dati tecnici",
+                                    value: isGerman() ? "Technische Daten" : "Dati tecnici",
+                                },
+                                {
+                                    key: "info",
+                                    label: isGerman()
+                                        ? "Weitere Informationen"
+                                        : "Ulteriori informazioni",
+
+                                    value: isGerman()
+                                        ? "Weitere Informationen"
+                                        : "Ulteriori informazioni",
+                                },
+                            ].map((section) => (
+                                <TouchableOpacity
+                                    key={section.key}
+                                    onPress={() => toggleAccordion(section.key)}
+                                >
+                                    <Typography className="text-white text-2xl border-b border-white pb-3">
+                                        {section.label}
+                                    </Typography>
+                                    <Collapsible collapsed={activeAccordion !== section.key}>
+                                        <Text className="text-gray-400 mb-3 mt-3">
+                                            {section.value}
+                                        </Text>
+                                    </Collapsible>
+                                </TouchableOpacity>
+                            ))}
+                        </View>
+
+                        {fetch_top ? (
+                            <LoadingSpinner />
+                        ) : (
+                            shoeList.length > 0 && (
+                                <View className="flex-row flex-wrap justify-between">
+                                    {shoeList.map((shoe, i) => (
+                                        <ProductCard {...shoe} key={i} />
+                                    ))}
+                                </View>
+                            )
+                        )}
 
                         <VersionInfo />
                     </>

@@ -12,7 +12,7 @@ export function TabBar({
 
   return (
     <View className="absolute bottom-3 items-center w-full justify-center">
-      <View className="bg-background rounded-full items-center justify-center flex-row gap-4 p-2 border-primary border-2 overflow-hidden">
+      <View className="bg-background rounded-3xl items-center justify-center flex-row gap-4 p-2 border-primary border-2 overflow-hidden">
         {state.routes.map((route, index) => {
           const { options } = descriptors[route.key];
           const label =

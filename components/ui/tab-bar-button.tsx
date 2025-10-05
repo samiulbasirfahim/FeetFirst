@@ -3,6 +3,7 @@ import { Pressable } from "react-native";
 import { Typography } from "../ui/typography";
 import Animated, { LinearTransition } from "react-native-reanimated";
 import HOME from "@/assets/svgs/home-tab.svg";
+import CART from "@/assets/svgs/cart.svg";
 import SHOE from "@/assets/svgs/shoe-tab.svg";
 import PROFILE from "@/assets/svgs/profile-tab.svg";
 
@@ -45,6 +46,15 @@ export function TabButton({
                         fill={isFocused ? "#ffffff" : "#00000000"}
                     />
                 );
+
+            case "cart":
+                return (
+                    <CART
+                        height={24}
+                        width={22}
+                    />
+                );
+
             case "profile":
                 return (
                     <PROFILE
@@ -67,7 +77,7 @@ export function TabButton({
                     testID={testID}
                     onPress={onPress}
                     onLongPress={onLongPress}
-                    className={`flex-row items-center gap-2 p-2 rounded-full justify-center ${isFocused ? "bg-primary" : "bg-muted-background/40"}`}
+                    className={`flex-row items-center gap-2 p-2 rounded-3xl justify-center ${isFocused ? "bg-primary" : "bg-muted-background/40"}`}
                 >
                     {renderIcon()}
                     {isFocused && <Typography className="text-white">{label}</Typography>}

@@ -1,5 +1,4 @@
 import { TabBar } from "@/components/layout/protected-tab-bar";
-import { useLanguageStore } from "@/store/language";
 import {
     createMaterialTopTabNavigator,
     MaterialTopTabNavigationEventMap,
@@ -26,7 +25,6 @@ export default function ProtectedLayout() {
                 screenOptions={{
                     swipeEnabled: false,
                     lazy: false,
-                
                 }}
                 tabBar={(options) => <TabBar {...options} />}
             >
@@ -36,13 +34,21 @@ export default function ProtectedLayout() {
                         tabBarLabel: "Home",
                     }}
                 />
+
                 <Tabs.Screen
                     name="shoe-recommendations"
                     options={{
                         tabBarLabel: "Shoes",
-                        
                     }}
                 />
+
+                <Tabs.Screen
+                    name="cart"
+                    options={{
+                        tabBarLabel: "Cart",
+                    }}
+                />
+
                 <Tabs.Screen
                     name="profile"
                     options={{
