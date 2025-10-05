@@ -5,6 +5,7 @@ import { Layout } from "@/components/layout/layout";
 import { Button } from "@/components/ui/button";
 import { LogoWrapperSub } from "@/components/ui/logo";
 import { Typography } from "@/components/ui/typography";
+import { useDeleteUser } from "@/lib/queries/auth";
 import { useAuthStore } from "@/store/auth";
 import { useLanguageStore } from "@/store/language";
 import { router } from "expo-router";
@@ -16,6 +17,7 @@ export default function Screen() {
     const { setUser } = useAuthStore();
     const [selected_option, set_selected_option] = useState<string>("");
     const [show_input, set_show_input] = useState<boolean>(false);
+    const { mutate: deleteUser, isPending: delete_pending } = useDeleteUser();
 
     const [show_modal, set_show_modal] = useState<boolean>(false);
     return (
@@ -105,14 +107,12 @@ export default function Screen() {
                 className={`items-center justify-center ${selected_option.length > 0 ? "bg-primary" : "bg-muted-background"}`}
                 textClassName="text-center"
             >
-                ELIMINA IL MIO ACCOUNT
+                {isGerman() ? "MEIN KONTO LÖSCHEN" : "ELIMINA IL MIO ACCOUNT"}
             </Button>
             <Modal
                 isOpen={show_modal}
                 onClickOutside={() => {
                     set_show_modal(false);
-                    // setUser(null);
-                    // router.replace("/(public)");
                 }}
             >
                 <View className="flex-col items-center justify-center py-10 px-4 gap-6">
@@ -132,13 +132,26 @@ export default function Screen() {
                             className="bg-transparent border-primary border-2  w-1/2"
                             textClassName="text-primary"
                             variant="big"
+                            isLoading={delete_pending}
+                            onPress={() =>
+                                deleteUser(undefined, {
+                                    onSuccess: () => {
+                                        set_show_modal(false);
+                                        router.dismissAll();
+                                        router.replace("/(public)");
+                                    },
+                                })
+                            }
                         >
-                            {isGerman() ? "Und" : "si"}
+                            {isGerman() ? "Ja" : "si"}
                         </Button>
                         <Button
                             className="bg-transparent border-primary border-2 w-1/2"
                             textClassName="text-primary"
                             variant="big"
+                            onPress={() => {
+                                set_show_modal(false);
+                            }}
                         >
                             {isGerman() ? "NEIN" : "NO"}
                         </Button>

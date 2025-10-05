@@ -60,7 +60,7 @@ export function RootLayout() {
                                 router.replace("/(protected)/home");
                                 break;
                             case "navigate_onboarding":
-                                router.push("/on-boarding");
+                                router.replace("/on-boarding");
                                 break;
                             case "navigate_otp":
                                 if (result.navigationParams) {

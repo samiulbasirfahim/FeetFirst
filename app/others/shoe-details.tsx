@@ -28,6 +28,7 @@ import { useGetProduct } from "@/lib/queries/products";
 import { ItemImagePlaceholder } from "@/lib/placeholder";
 import { LoadingSpinner } from "@/components/common/loading-spinner";
 import { useAddFavourite, useRemoveFavourite } from "@/lib/queries/favourite";
+import { Button } from "@/components/ui/button";
 
 export default function Screen() {
     const { isGerman } = useLanguageStore();
@@ -159,10 +160,16 @@ export default function Screen() {
                             <View className="h-9 justify-center">
                                 {
                                     <ShoeSizePicker
-                                        list={(shoeDetails?.sizes ?? []).map((size) => ({
-                                            label: String(size),
-                                            value: String(size),
-                                        }))}
+                                        list={[
+                                            {
+                                                label: "",
+                                                value: "",
+                                            },
+                                        ]}
+                                        // list={(shoeDetails?.sizes ?? []).map((size) => ({
+                                        //     label: String(size ?? 0),
+                                        //     value: String(size),
+                                        // }))}
                                         onChange={(sel) => {
                                             console.log(sel);
                                         }}
@@ -174,13 +181,20 @@ export default function Screen() {
 
                         {/* cart */}
                         <View className="flex-row gap-6">
-                            <TouchableOpacity className="border border-white p-4 rounded-2xl flex-1 items-center">
+                            <Button
+                                onPress={() => {
+
+                                }}
+                                variant="outline"
+                                noWrap
+                                className="border border-white p-4 rounded-2xl flex-1 items-center"
+                            >
                                 <Typography className="text-white text-2xl">
                                     {isGerman()
                                         ? "In den warenkorb".toUpperCase()
                                         : "Aggiungi al carrello".toUpperCase()}
                                 </Typography>
-                            </TouchableOpacity>
+                            </Button>
                             <TouchableOpacity className="flex items-center justify-center">
                                 <Pressable
                                     onPress={() => {

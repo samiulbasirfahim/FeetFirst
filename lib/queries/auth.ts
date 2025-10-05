@@ -8,17 +8,16 @@ import {
     ResetPassword,
     ChangePassword,
 } from "@/type/auth";
-import { setItem } from "@/store/mmkv";
+import { getString, setItem } from "@/store/mmkv";
 import { User } from "@/type/user";
 import { useGetOnboardingQuestion } from "./onboarding-question";
 import { router } from "expo-router";
-import { useAutoLogin } from "../init";
 import { useAuthStore } from "@/store/auth";
 import {
     GoogleSignin,
     isSuccessResponse,
 } from "@react-native-google-signin/google-signin";
-import { Platform } from "react-native";
+import { useUpdateUser } from "./user";
 
 export function useLogin() {
     return useMutation({
@@ -78,9 +77,29 @@ export function useChnagePassword() {
             }),
     });
 }
+export function useDeleteUser() {
+    const { logOut } = useAuthStore();
+    return useMutation({
+        mutationFn() {
+            return fetcher("/api/users/deletion-request/", {
+                auth: true,
+                method: "POST",
+            });
+        },
+        onSuccess(data) {
+            logOut(getString("refresh_token") ?? "", (sucecss) => {
+                if (sucecss) {
+                    router.dismissAll();
+                    router.replace("/(public)");
+                }
+            });
+        },
+    });
+}
 
 export function useGoogleSignIn() {
     const { mutate: fetch_onboarding_question } = useGetOnboardingQuestion();
+    const { mutate } = useUpdateUser();
     const { setUser } = useAuthStore();
     return useMutation({
         mutationFn: async () => {
@@ -114,6 +133,7 @@ export function useGoogleSignIn() {
                 image: data.user.image ?? "",
                 phone: data.user.phone,
             };
+
             setItem("access_token", access_token);
             setItem("refresh_token", refresh_token);
 
