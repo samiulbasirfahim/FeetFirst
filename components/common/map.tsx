@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import MapView, { Marker, PROVIDER_GOOGLE, Camera } from "react-native-maps";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import * as Location from "expo-location";
 import {
-    StyleSheet,
     Text,
     View,
     ScrollView,
@@ -62,7 +61,6 @@ export default function Map({ ...props }: Props) {
     const [location, setLocation] = useState<Location.LocationObject | null>(
         null,
     );
-    const [errorMsg, setErrorMsg] = useState<string | null>(null);
     const mapRef = useRef<MapView | null>(null);
     const { height } = useWindowDimensions();
 
@@ -71,7 +69,6 @@ export default function Map({ ...props }: Props) {
         const getCurrentLocation = async () => {
             const { status } = await Location.requestForegroundPermissionsAsync();
             if (status !== "granted") {
-                setErrorMsg("Permission to access location was denied");
                 return;
             }
 
@@ -82,10 +79,9 @@ export default function Map({ ...props }: Props) {
         getCurrentLocation();
     }, []);
 
-    // Center map on user location
     useEffect(() => {
         if (location && mapRef.current) {
-            const camera: Camera = {
+            const camera: any = {
                 center: {
                     latitude: location.coords.latitude,
                     longitude: location.coords.longitude,
@@ -96,7 +92,6 @@ export default function Map({ ...props }: Props) {
         }
     }, [location]);
 
-    // Handle marker press
     const handleMarkerPress = async (index: number) => {
         if (!partners[index] || !mapRef.current) return;
 

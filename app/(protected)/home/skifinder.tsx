@@ -3,7 +3,6 @@ import { Typography } from "@/components/ui/typography";
 import {
     FlatList,
     Image,
-    ImageSourcePropType,
     ScrollView,
     Text,
     TouchableOpacity,
@@ -15,19 +14,19 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useLanguageStore } from "@/store/language";
 import { Button } from "@/components/ui/button";
 import { Marquee } from "@animatereactnative/marquee";
-import { ShoeItem } from "@/components/ui/carousel-home";
-import shoeImage from "@/assets/images/ski-shoe.png";
-import BrandLogoSvg from "@/assets/svgs/Vibram_logo.svg";
 import Arrow from "@/assets/svgs/arrow-exercise.svg";
 import { VersionInfo } from "@/components/common/version";
 import { Map } from "@/components/common/mapview";
 import k2 from "@/assets/images/k2.png";
 import dalbello from "@/assets/images/dalbello.png";
 import head from "@/assets/images/head.png";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDrawerHeader } from "@/components/common/drawer-header";
 import { AutoImage } from "@/components/ui/auto-image";
-
+import { ShoeItem } from "@/type/product";
+import { ItemImagePlaceholder } from "@/lib/placeholder";
+import { useSuggestedShoes, useTopShoes } from "@/lib/queries/products";
+import { LoadingSpinner } from "@/components/common/loading-spinner";
 
 const partners = [
     {
@@ -92,48 +91,11 @@ const partners = [
     },
 ];
 
-
-const shoes: ShoeItem[] = [
-    {
-        itemName: "Find your snowboard boot – perfectly matched for you.",
-        brandName: "VIBRAM",
-        brandLogo: BrandLogoSvg,
-        price: "$350.99",
-        image: shoeImage,
-    },
-    {
-        itemName: "Item A5",
-        brandName: "VIBRAM",
-        brandLogo: BrandLogoSvg,
-        price: "$289.49",
-        image: shoeImage,
-    },
-    {
-        itemName: "Item A5",
-        brandName: "VIBRAM",
-        brandLogo: BrandLogoSvg,
-        price: "$410.00",
-        image: shoeImage,
-    },
-    {
-        itemName: "Item A5",
-        brandName: "VIBRAM",
-        brandLogo: BrandLogoSvg,
-        price: "$199.75",
-        image: shoeImage,
-    },
-    {
-        itemName: "Item A5",
-        brandName: "VIBRAM",
-        brandLogo: BrandLogoSvg,
-        price: "$479.20",
-        image: shoeImage,
-    },
-];
-
 export default function Screen() {
     const { isGerman } = useLanguageStore();
     const { height: heightOfWindow, width } = useWindowDimensions();
+
+    const { shoeList, isPending: isPending_skifinder, error } = useTopShoes(10);
 
     const [dimension, setDimension] = useState({
         width: 0,
@@ -143,8 +105,6 @@ export default function Screen() {
     const { onScroll, HeaderComponent, height } = useDrawerHeader({
         threeshold: 100,
     });
-
-    
 
     const renderItem = ({ item }: { item: ShoeItem }) => (
         <View
@@ -159,7 +119,6 @@ export default function Screen() {
                 });
             }}
         >
-            {/* Header Section */}
             <View className="mb-4">
                 <Typography variant="titleSecondary" className="font-medium text-right">
                     {item.itemName ||
@@ -174,16 +133,30 @@ export default function Screen() {
             </View>
 
             <Image
-                source={
-                    typeof item.image === "string" ? { uri: item.image } : item.image
-                }
+                source={{
+                    uri:
+                        item.image && typeof item.image.image === "string"
+                            ? item.image.image
+                            : ItemImagePlaceholder,
+                }}
                 style={{ width: width * 0.8, height: dimension.height * 0.8 }}
                 resizeMode="contain"
                 className="absolute bottom-0 -left-10 -rotate-[13deg]"
             />
 
             <View className="absolute left-1 bottom-10">
-                <item.brandLogo height={50} width={100} className="" />
+                <Image
+                    source={{
+                        uri:
+                            item.brandLogo && typeof item.brandLogo.image === "string"
+                                ? item.brandLogo.image
+                                : ItemImagePlaceholder,
+                    }}
+                    style={{
+                        height: 50,
+                        width: 100,
+                    }}
+                />
             </View>
             <View className="absolute bottom-0 right-0 p-3 border border-primary rounded-3xl">
                 <Arrow />
@@ -316,9 +289,11 @@ export default function Screen() {
                         }}
                     />
                     <View className="py-4 relative">
-                        {
+                        {error ? (
+                            <Typography>Couldn't find shoes</Typography>
+                        ) : isPending_skifinder ? (
                             <FlatList
-                                data={shoes}
+                                data={shoeList}
                                 ItemSeparatorComponent={() => <View style={{ width: 5 }} />}
                                 ListFooterComponent={() => <View style={{ width: 30 }} />}
                                 horizontal={true}
@@ -329,46 +304,48 @@ export default function Screen() {
                                 }}
                                 renderItem={renderItem}
                             />
-                        }
+                        ) : (
+                            <LoadingSpinner />
+                        )}
                     </View>
                 </View>
 
                 {/* map */}
                 <View className="-mt-4">
                     {true && (
-                                <View className=" bottom-0 left-0 right-0 bg-backgroundDark/90 backdrop-blur-md border-t border-primary/20">
-                                    <View className="p-4">
-                                        <Typography className="text-white font-semibold text-lg mb-3">
-                                            Partners
-                                        </Typography>
-                                        <ScrollView
-                                            horizontal
-                                            showsHorizontalScrollIndicator={false}
-                                            contentContainerStyle={{ paddingRight: 16 }}
+                        <View className=" bottom-0 left-0 right-0 bg-backgroundDark/90 backdrop-blur-md border-t border-primary/20">
+                            <View className="p-4">
+                                <Typography className="text-white font-semibold text-lg mb-3">
+                                    Partners
+                                </Typography>
+                                <ScrollView
+                                    horizontal
+                                    showsHorizontalScrollIndicator={false}
+                                    contentContainerStyle={{ paddingRight: 16 }}
+                                >
+                                    {partners.map((marker, index) => (
+                                        <TouchableOpacity
+                                            key={index}
+                                            onPress={() => { }}
+                                            className={`mr-3 p-3 rounded-lg border min-w-32 gap-1 bg-tab-background/50 border-primary/30`}
                                         >
-                                            {partners.map((marker, index) => (
-                                                <TouchableOpacity
-                                                    key={index}
-                                                    onPress={() => {}}
-                                                    className={`mr-3 p-3 rounded-lg border min-w-32 gap-1 bg-tab-background/50 border-primary/30`}
-                                                >
-                                                    <Text
-                                                        className={`text-base font-medium leading-tight text-white`}
-                                                    >
-                                                        {marker.title}
-                                                    </Text>
-                
-                                                    <Text
-                                                        className={`text-sm font-medium leading-tight text-white`}
-                                                    >
-                                                        {marker.address}
-                                                    </Text>
-                                                </TouchableOpacity>
-                                            ))}
-                                        </ScrollView>
-                                    </View>
-                                </View>
-                            )}
+                                            <Text
+                                                className={`text-base font-medium leading-tight text-white`}
+                                            >
+                                                {marker.title}
+                                            </Text>
+
+                                            <Text
+                                                className={`text-sm font-medium leading-tight text-white`}
+                                            >
+                                                {marker.address}
+                                            </Text>
+                                        </TouchableOpacity>
+                                    ))}
+                                </ScrollView>
+                            </View>
+                        </View>
+                    )}
                 </View>
                 <View
                     style={{
@@ -394,11 +371,9 @@ export default function Screen() {
                             zIndex: 99,
                         }}
                     />
-                    
+
                     <Map />
                 </View>
-
-                
 
                 <View>
                     <VersionInfo />

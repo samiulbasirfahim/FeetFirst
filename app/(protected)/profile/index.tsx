@@ -7,6 +7,7 @@ import { VersionInfo } from "@/components/common/version";
 import { Layout } from "@/components/layout/layout";
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
+import { OpenWebLink, openWebsite } from "@/lib/web-link";
 import { useAuthStore } from "@/store/auth";
 import { useLanguageStore } from "@/store/language";
 import { router } from "expo-router";
@@ -80,7 +81,7 @@ export default function Screen() {
                         {isGerman() ? "Acquisti" : "Einkäufe"}
                     </Typography>
                 </Button>
-                <Button noWrap variant={"profile_menu"} onPress={() => { }}>
+                <Button noWrap variant={"profile_menu"} onPress={openWebsite}>
                     <GLOBAL />
                     <Typography className="text-xl text-primary">
                         {isGerman() ? "Webseite" : "Website"}

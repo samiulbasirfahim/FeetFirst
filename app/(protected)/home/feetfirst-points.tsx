@@ -240,8 +240,8 @@ export default function Screen() {
                     >
                         SEND
                     </Button>
-                    <VersionInfo />
                 </View>
+                <VersionInfo />
             </Layout>
         </View>
     );
