@@ -9,7 +9,6 @@ import {
 import AntDesign from "@expo/vector-icons/AntDesign";
 import React, { useEffect, useState } from "react";
 import { Layout } from "@/components/layout/layout";
-import shoe1 from "@/assets/images/shoe1.png";
 import { Typography } from "@/components/ui/typography";
 import logo from "@/assets/images/feetfast-full-logo.png";
 import { useLanguageStore } from "@/store/language";
@@ -29,21 +28,6 @@ import { useGetProduct } from "@/lib/queries/products";
 import { ItemImagePlaceholder } from "@/lib/placeholder";
 import { LoadingSpinner } from "@/components/common/loading-spinner";
 import { useAddFavourite, useRemoveFavourite } from "@/lib/queries/favourite";
-
-const shoe = {
-    image: shoe1,
-    productName: "SAUCONY RIDE 15 TR",
-    category: "Scorpe da Running - Uomo",
-    price: "EUR 149,99",
-    colorsAvailable: ["yellow", "black", "green"],
-    discount: "90%",
-    sizeAvailable: ["L", "M"],
-};
-
-const products = [
-    { name: "Product 1", price: "$123", image: shoe1 },
-    { name: "Product 2", price: "$150", image: shoe1 },
-];
 
 export default function Screen() {
     const { isGerman } = useLanguageStore();
@@ -175,27 +159,10 @@ export default function Screen() {
                             <View className="h-9 justify-center">
                                 {
                                     <ShoeSizePicker
-                                        list={[
-                                            {
-                                                label: "31",
-                                                value: "31",
-                                            },
-
-                                            {
-                                                label: "32",
-                                                value: "32",
-                                            },
-
-                                            {
-                                                label: "33",
-                                                value: "33",
-                                            },
-
-                                            {
-                                                label: "34",
-                                                value: "34",
-                                            },
-                                        ]}
+                                        list={(shoeDetails?.sizes ?? []).map((size) => ({
+                                            label: String(size),
+                                            value: String(size),
+                                        }))}
                                         onChange={(sel) => {
                                             console.log(sel);
                                         }}

@@ -12,6 +12,8 @@ export type ShoeItem = {
         image: string;
     } | null;
 
+    colors: string[];
+
     match_percentage: number | null;
     favourite: boolean;
 };

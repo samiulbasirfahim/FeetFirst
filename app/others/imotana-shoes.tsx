@@ -1,10 +1,8 @@
-import shoe1 from "@/assets/images/shoe1.png";
-import React, { useState } from "react";
+import React from "react";
 import {
     View,
     Text,
     Image,
-    TouchableOpacity,
     useWindowDimensions,
 } from "react-native";
 import { LinearGradient as ExpoLinearGradient } from "expo-linear-gradient";
@@ -26,15 +24,9 @@ import Svg, { Defs, Polygon, Stop, LinearGradient } from "react-native-svg";
 import { ProductCard } from "@/components/common/ProductCard";
 import { useTopShoes } from "@/lib/queries/products";
 
-const products = [
-    { name: "Product 1", price: "$123", image: shoe1 },
-    { name: "Product 2", price: "$150", image: shoe1 },
-];
-
 export default function ShoeShopScreen() {
     const { width: screen_width } = useWindowDimensions();
     const { isGerman } = useLanguageStore();
-    const [likedItems, setLikedItems] = useState<boolean[]>(Array(4).fill(false));
 
     const { shoeList, isPending, error } = useTopShoes(10);
 
@@ -43,13 +35,6 @@ export default function ShoeShopScreen() {
         shouldGoBack: true,
     });
 
-    const toggleLike = (index: number) => {
-        setLikedItems((prev) => {
-            const newLiked = [...prev];
-            newLiked[index] = !newLiked[index];
-            return newLiked;
-        });
-    };
     return (
         <View className="flex-1">
             {HeaderComponent}
@@ -121,8 +106,10 @@ export default function ShoeShopScreen() {
                                 image={product.image}
                                 itemName={product.itemName}
                                 price={product.price}
-                                liked={likedItems[i]}
-                                onToggleLike={() => toggleLike(i)}
+                                favourite={product.favourite}
+                                colors={product.colors}
+                                match_percentage={product.match_percentage}
+                                brandLogo={product.brandLogo}
                             />
                         ))}
                     </View>

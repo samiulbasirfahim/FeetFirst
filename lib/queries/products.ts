@@ -25,6 +25,7 @@ export function useTopShoes(limit: number, by_scan?: boolean) {
                     price: `$${item.price}`,
                     image: item.image,
                     favourite: item.favourite,
+                    colors: item.colors,
                 }) as ShoeItem,
         );
     }, [data]);
@@ -86,6 +87,7 @@ export function useProducts(page: number, sub_category: string | null) {
                     price: `$${item.price}`,
                     image: item.image,
                     favourite: item.favourite,
+                    colors: item.colors,
                 }) as ShoeItem,
         );
     }, [data]);
@@ -123,6 +125,7 @@ export function useSuggestedShoes(limit: number, id: number) {
                     price: `$${item.price}`,
                     image: item.image,
                     favourite: item.favourite,
+                    colors: item.colors,
                 }) as ShoeItem,
         );
     }, [data]);

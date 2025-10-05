@@ -20,8 +20,7 @@ export function ProductCard({
     brandLogo,
     price,
     favourite,
-    onToggleLike,
-    colors = ["#22c55e", "#16a34a", "#86efac"],
+    colors = [],
     match_percentage = null,
 }: ProductCardProps) {
     const [liked, setLiked] = useState(favourite);
@@ -146,16 +145,13 @@ FIT`}
                                 style={{
                                     backgroundColor: color,
                                     zIndex: 3 - idx,
-                                    left: (2 - idx) * 12,
+                                    left: (colors.slice(0, 3).length - 1 - idx) * 12,
                                 }}
                             />
                         ))}
                         {colors.length - 3 > 0 && (
                             <Typography>+{colors.length - 3}</Typography>
                         )}
-                        <Typography variant="caption" className="ms-2">
-                            +4
-                        </Typography>
                     </View>
                 </View>
             </View>
