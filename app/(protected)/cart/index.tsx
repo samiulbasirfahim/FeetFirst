@@ -49,7 +49,7 @@ export default function CartScreen() {
                                 className="text-white text-sm"
                                 style={{ lineHeight: 12 }}
                             >
-                                {`${item.match_percentage}% FIT`}
+                                {`${item.match_percentage.scrore}% FIT`}
                             </Typography>
                         </View>
                     ) : (

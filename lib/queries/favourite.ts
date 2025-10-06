@@ -68,7 +68,8 @@ export function useGetFavourites() {
                     brandLogo: null,
                     price: `$${item.price}`,
                     image: item.image,
-                    match_percentage: null,
+                    match_percentage: item.match_percentage,
+                    colors: item.colors,
                     favourite: true,
                 }) as ShoeItem,
         );

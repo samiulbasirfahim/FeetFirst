@@ -179,7 +179,11 @@ export default function Screen() {
                                     }))}
                                     onChange={(sel) => console.log(sel)}
                                 />
-                                <Typography>{shoeDetails?.match_percentage ?? "0% FIT"}</Typography>
+                                <Typography>
+                                    {(shoeDetails?.match_percentage &&
+                                        shoeDetails?.match_percentage?.score) ??
+                                        "0% FIT"}
+                                </Typography>
                             </View>
                         </View>
 
@@ -280,8 +284,7 @@ export default function Screen() {
                             ))}
                         </View>
 
-                        {/* Accordions */}
-                        <View className="flex gap-4 my-4">
+                        <View className="flex gap-3 my-4">
                             {[
                                 {
                                     key: "description",
@@ -290,13 +293,15 @@ export default function Screen() {
                                         : "Descrizione del prodotto",
 
                                     value: isGerman()
-                                        ? "Produktbeschreibung"
-                                        : "Descrizione del prodotto",
+                                        ? shoeDetails?.description
+                                        : shoeDetails?.description,
                                 },
                                 {
                                     key: "technical",
                                     label: isGerman() ? "Technische Daten" : "Dati tecnici",
-                                    value: isGerman() ? "Technische Daten" : "Dati tecnici",
+                                    value: isGerman()
+                                        ? shoeDetails?.technical_data
+                                        : shoeDetails?.technical_data,
                                 },
                                 {
                                     key: "info",
@@ -305,24 +310,27 @@ export default function Screen() {
                                         : "Ulteriori informazioni",
 
                                     value: isGerman()
-                                        ? "Weitere Informationen"
-                                        : "Ulteriori informazioni",
+                                        ? shoeDetails?.further_information
+                                        : shoeDetails?.further_information,
                                 },
-                            ].map((section) => (
-                                <TouchableOpacity
-                                    key={section.key}
-                                    onPress={() => toggleAccordion(section.key)}
-                                >
-                                    <Typography className="text-white text-2xl border-b border-white pb-3">
-                                        {section.label}
-                                    </Typography>
-                                    <Collapsible collapsed={activeAccordion !== section.key}>
-                                        <Text className="text-gray-400 mb-3 mt-3">
-                                            {section.value}
-                                        </Text>
-                                    </Collapsible>
-                                </TouchableOpacity>
-                            ))}
+                            ].map(
+                                (section) =>
+                                    section.value && (
+                                        <TouchableOpacity
+                                            key={section.key}
+                                            onPress={() => toggleAccordion(section.key)}
+                                        >
+                                            <Typography className="text-white text-2xl border-b border-white pb-3">
+                                                {section.label}
+                                            </Typography>
+                                            <Collapsible collapsed={activeAccordion !== section.key}>
+                                                <Text className="text-gray-400 mb-3 mt-3">
+                                                    {section.value}
+                                                </Text>
+                                            </Collapsible>
+                                        </TouchableOpacity>
+                                    ),
+                            )}
                         </View>
 
                         {fetch_top ? (

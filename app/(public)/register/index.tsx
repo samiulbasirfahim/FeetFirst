@@ -25,7 +25,7 @@ import {
 
 export default function Page() {
     const { isGerman, language } = useLanguageStore();
-    const { mutate: triggerRegister, isPending, error, isError } = useRegister();
+    const { mutate: triggerRegister, isPending } = useRegister();
     const [formErrors, setFormErrors] = useState<{ [key: string]: string[] }>({});
 
     const [showModal, setShowModal] = useState(false);
@@ -252,7 +252,7 @@ export default function Page() {
                 variant="big"
                 className="w-full"
                 onPress={handleRegister}
-                disabled={isPending}
+                disabled={isPending || !checked}
                 isLoading={isPending}
             >
                 {isGerman() ? "Registrieren" : "Registrati"}

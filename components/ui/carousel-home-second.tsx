@@ -58,7 +58,7 @@ function HomeCarauselSecond({ shoes }) {
                         </Typography>
                     </View>
                 </View>
-                <Typography className="font-medium text-primary text-[26px]  mt-1">
+                <Typography className="font-medium text-primary text-[26px]  mt-1 z-[100]">
                     {item.price}
                 </Typography>
             </View>

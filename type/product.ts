@@ -1,3 +1,8 @@
+export type MatchPercentage = {
+    score: number;
+    recommended_size: any;
+};
+
 export type ShoeItem = {
     id: number;
     itemName: string;
@@ -13,7 +18,7 @@ export type ShoeItem = {
 
     colors: string[];
 
-    match_percentage: number | null;
+    match_percentage: MatchPercentage | null;
     favourite: boolean;
 };
 
@@ -40,6 +45,6 @@ export type ShoeDetails = {
     discount: string;
     stock_quantity: number;
     partner: number;
-    match_percentage: number | null;
+    match_percentage: MatchPercentage | null;
     favourite: boolean;
 };

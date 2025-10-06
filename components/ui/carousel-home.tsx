@@ -58,9 +58,15 @@ function HomeCarausel({ shoes }) {
                             : item.itemName}
                     </Typography>
                 </View>
-                <Typography className="font-medium text-primary text-[26px]  mt-1">
-                    {item.price}
-                </Typography>
+
+                <View>
+                    <Typography className="font-medium text-primary/40 text-[26px]  mt-1 z-[100] absolute">
+                        {item.price}
+                    </Typography>
+                    <Typography className="font-medium text-primary text-[26px]  mt-1">
+                        {item.price}
+                    </Typography>
+                </View>
             </View>
             <View className="absolute left-4 bottom-4">
                 <Image

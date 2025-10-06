@@ -20,7 +20,7 @@ export function ProductCard({
     price,
     favourite,
     colors = [],
-    match_percentage = null,
+    match_percentage,
 }: ProductCardProps) {
     const [liked, setLiked] = useState(favourite);
     console.log(colors);
@@ -81,7 +81,7 @@ export function ProductCard({
                                     lineHeight: 12,
                                 }}
                             >
-                                {`${match_percentage}%
+                                {`${match_percentage.score}%
 FIT`}
                             </Typography>
                         </View>

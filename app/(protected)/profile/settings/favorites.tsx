@@ -98,12 +98,14 @@ function ShoeCard({
                     {item.itemName ?? ""}
                 </Text>
                 <Text className="text-muted-foreground text-sm mb-3" numberOfLines={1}>
-                    {item.brandName}
+                    {item.brandLogo?.name}
                 </Text>
                 <View className="flex-row justify-between items-center">
                     <View className="bg-primary px-3 py-1 rounded-xl">
                         <Text className="text-white text-xs font-bold">
-                            {item.match_percentage ? `${item.match_percentage} FIT` : "N/A"}
+                            {item.match_percentage
+                                ? `${item.match_percentage.score} FIT`
+                                : "N/A"}
                         </Text>
                     </View>
                 </View>
