@@ -61,7 +61,7 @@ export default function Screen() {
                             variant="title"
                             className="font-medium text-foreground text-[30px]"
                         >
-                            {user?.name.split(" ")[0] ?? ""}!
+                            {(user?.name && user?.name.split(" ")[0]) ?? ""}!
                         </Typography>
                     </View>
 

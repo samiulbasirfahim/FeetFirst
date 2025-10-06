@@ -20,8 +20,7 @@ export function useTopShoes(limit: number, by_scan?: boolean) {
                 ({
                     id: item.id,
                     itemName: item.name,
-                    brandName: "Nike",
-                    brandLogo: null,
+                    brandLogo: item.brandLogo,
                     price: `$${item.price}`,
                     image: item.image,
                     favourite: item.favourite,
@@ -56,7 +55,7 @@ export function useGetProduct(id: number) {
 
     const shoeDetails: ShoeDetails | null = useMemo(() => {
         if (!data) return null;
-        return { ...data, brandName: "NIKE", brandLogo: null } as ShoeDetails;
+        return { ...data } as ShoeDetails;
     }, [data]);
 
     return { shoeDetails, isPending, error };
@@ -67,7 +66,7 @@ export function useProducts(page: number, sub_category: string | null) {
         queryKey: ["products", page, sub_category],
         queryFn: () =>
             fetcher(
-                `/api/products/?scan_id=0&limit=10&page=${page}${sub_category ? "&sub_category=" + sub_category : ""}`,
+                `/api/products/?scan_id=0&limit=10&page=${page}${sub_category && sub_category !== "all" ? "&sub_category=" + sub_category : ""}`,
                 {
                     method: "GET",
                     auth: true,
@@ -82,12 +81,12 @@ export function useProducts(page: number, sub_category: string | null) {
                 ({
                     id: item.id,
                     itemName: item.name,
-                    brandName: "Nike",
-                    brandLogo: null,
+                    brandLogo: item.brandLogo,
                     price: `$${item.price}`,
                     image: item.image,
                     favourite: item.favourite,
                     colors: item.colors,
+                    match_percentage: item.match_percentage,
                 }) as ShoeItem,
         );
     }, [data]);
@@ -120,12 +119,12 @@ export function useSuggestedShoes(limit: number, id: number) {
                 ({
                     id: item.id,
                     itemName: item.name,
-                    brandName: "Nike",
-                    brandLogo: null,
+                    brandLogo: item.brandLogo,
                     price: `$${item.price}`,
                     image: item.image,
                     favourite: item.favourite,
                     colors: item.colors,
+                    match_percentage: item.match_percentage,
                 }) as ShoeItem,
         );
     }, [data]);

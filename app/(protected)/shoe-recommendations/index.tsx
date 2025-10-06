@@ -53,11 +53,17 @@ export default function Screen() {
                     }}
                 >
                     <View className="mb-6">
-                        <Typography variant="title" className="text-white font-pathBold text-[18px]">
+                        <Typography
+                            variant="title"
+                            className="text-white font-pathBold text-[18px]"
+                        >
                             {isGerman() ? "Shoe Finder FeetF1rst" : "Trova scarpe FeetF1rst"}
                         </Typography>
 
-                        <Typography className="text-white font-pathRegular text-[12px]" variant="selected">
+                        <Typography
+                            className="text-white font-pathRegular text-[12px]"
+                            variant="selected"
+                        >
                             {isGerman()
                                 ? "Kategorie wählen wir zeigen dir deine besten Treffer"
                                 : "Scegli una categoria e ti mostreremo i risultati migliori."}
@@ -92,7 +98,7 @@ export default function Screen() {
                                 router.push({
                                     pathname: "/(protected)/shoe-recommendations/shoes",
                                     params: {
-                                        Category: "mountain",
+                                        category: "mountain-trekking-shoes",
                                     },
                                 });
                             }}

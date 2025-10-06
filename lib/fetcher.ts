@@ -38,6 +38,9 @@ export async function fetcher<T>(
         }
     }
 
+
+    console.log(body)
+
     let res: any;
 
     try {

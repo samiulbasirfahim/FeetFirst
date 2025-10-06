@@ -1,9 +1,8 @@
 export type ShoeItem = {
     id: number;
     itemName: string;
-    brandName?: string;
     brandLogo?: {
-        id: number;
+        name: string;
         image: string;
     } | null;
     price: string;
@@ -26,17 +25,17 @@ export type ShoeDetails = {
         id: number;
         image: string;
     }[];
-    technical_data: Record<string, unknown>;
-    brandName: string;
-    brandLogo: {
-        id: number;
+    further_information: string;
+    technical_data: string;
+    description: string;
+    brandLogo?: {
+        name: string;
         image: string;
     } | null;
     main_category: string;
     sub_category: string;
     sizes: string[];
     toe_box: string;
-    further_information: string;
     price: string;
     discount: string;
     stock_quantity: number;

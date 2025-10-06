@@ -1,7 +1,6 @@
 import { ShoeHeader } from "@/components/common/shoes-header";
 import { Layout } from "@/components/layout/layout";
 import HERO from "@/assets/svgs/shoes_header.svg";
-import shoe from "@/assets/images/imotana-shoe-new.png";
 import { useState } from "react";
 import { View } from "react-native";
 import { ProductCard } from "@/components/common/ProductCard";
@@ -11,28 +10,8 @@ import { useLocalSearchParams } from "expo-router";
 import { useProducts } from "@/lib/queries/products";
 import { LoadingSpinner } from "@/components/common/loading-spinner";
 
-const products = [
-    { name: "Product 1", price: "$123", image: shoe },
-    { name: "Product 2", price: "$150", image: shoe },
-    { name: "Product 3", price: "$200", image: shoe },
-    { name: "Product 4", price: "$99", image: shoe },
-    { name: "Product 1", price: "$123", image: shoe },
-    { name: "Product 2", price: "$150", image: shoe },
-    { name: "Product 3", price: "$200", image: shoe },
-    { name: "Product 4", price: "$99", image: shoe },
-];
-
 export default function Screen() {
     const { category } = useLocalSearchParams<{ category: string }>();
-    const [likedItems, setLikedItems] = useState<boolean[]>(
-        products.map(() => false),
-    );
-
-    const toggleLike = (index: number) => {
-        const newLiked = [...likedItems];
-        newLiked[index] = !newLiked[index];
-        setLikedItems(newLiked);
-    };
 
     const [hero_w, setHero_w] = useState(0);
     const [page, setPage] = useState<number>(1);
@@ -87,20 +66,7 @@ export default function Screen() {
                         <>
                             <View className="flex-row flex-wrap justify-between mt-6 px-4">
                                 {shoeList.map((shoe, i) => (
-                                    <ProductCard
-                                        {...shoe}
-                                        // match_percentage={shoe.match_percentage}
-                                        // favourite={shoe.favourite}
-                                        // id={shoe.id}
-                                        // itemName={shoe.itemName}
-                                        // brandLogo={shoe.brandLogo}
-                                        // image={shoe.image}
-                                        // brandName={shoe.brandName}
-                                        // price={shoe.price}
-                                        key={shoe.id}
-                                        liked={likedItems[i]}
-                                        onToggleLike={() => toggleLike(i)}
-                                    />
+                                    <ProductCard {...shoe} key={shoe.id} />
                                 ))}
                             </View>
                             <View className="flex-row items-center justify-center flex-1 gap-3">

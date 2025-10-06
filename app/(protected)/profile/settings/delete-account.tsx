@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { LogoWrapperSub } from "@/components/ui/logo";
 import { Typography } from "@/components/ui/typography";
 import { useDeleteUser } from "@/lib/queries/auth";
-import { useAuthStore } from "@/store/auth";
 import { useLanguageStore } from "@/store/language";
 import { router } from "expo-router";
 import { ReactNode, useState } from "react";
@@ -14,12 +13,12 @@ import { ScrollView, TextInput, View } from "react-native";
 
 export default function Screen() {
     const { isGerman } = useLanguageStore();
-    const { setUser } = useAuthStore();
     const [selected_option, set_selected_option] = useState<string>("");
     const [show_input, set_show_input] = useState<boolean>(false);
     const { mutate: deleteUser, isPending: delete_pending } = useDeleteUser();
 
     const [show_modal, set_show_modal] = useState<boolean>(false);
+
     return (
         <Layout className="bg-backgroundDark" avoidKeyboard avoidTabbar scrollable>
             <ScrollView
@@ -134,7 +133,7 @@ export default function Screen() {
                             variant="big"
                             isLoading={delete_pending}
                             onPress={() =>
-                                deleteUser(undefined, {
+                                deleteUser(selected_option ?? "", {
                                     onSuccess: () => {
                                         set_show_modal(false);
                                         router.dismissAll();

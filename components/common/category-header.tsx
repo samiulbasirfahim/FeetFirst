@@ -45,7 +45,6 @@ export default function ShoeHeader() {
         }
     };
 
-    // animated style (slide from top)
     const animatedSearchStyle = useAnimatedStyle(() => {
         return {
             opacity: searchProgress.value,
@@ -100,7 +99,6 @@ export default function ShoeHeader() {
                 </Button>
             </View>
 
-            {/* Animated Floating Search Bar */}
             {renderSearch && (
                 <Animated.View
                     className="absolute left-0 right-0 bottom-0 flex-row items-center gap-3 px-4 py-2 bg-backgroundDark"
@@ -119,6 +117,8 @@ export default function ShoeHeader() {
                         <Entypo name="cross" size={28} color="white" />
                     </Pressable>
                 </Animated.View>
+
+
             )}
         </View>
     );

@@ -1,12 +1,5 @@
 import * as React from "react";
-import {
-    Image,
-    View,
-    Dimensions,
-    ImageSourcePropType,
-    Pressable,
-    TouchableOpacity,
-} from "react-native";
+import { Image, View, Dimensions, TouchableOpacity } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
 import { Typography } from "./typography";
 import { useSharedValue } from "react-native-reanimated";
@@ -50,7 +43,7 @@ function HomeCarauselSecond({ shoes }) {
             <View className="pl-2">
                 <View className="flex-col gap-3 pb-2">
                     <Typography className="font-medium text-foreground text-[26px] leading-[26px]">
-                        {item.brandName?.slice(0, 8)}
+                        {item.brandLogo?.name && item.brandLogo?.name?.slice(0, 8)}
                     </Typography>
                     <View>
                         <Typography className="font-medium text-[26px] leading-[26px] absolute z-[100] text-foreground/60">

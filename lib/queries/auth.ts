@@ -80,13 +80,14 @@ export function useChnagePassword() {
 export function useDeleteUser() {
     const { logOut } = useAuthStore();
     return useMutation({
-        mutationFn() {
+        mutationFn(reason: string) {
             return fetcher("/api/users/deletion-request/", {
                 auth: true,
                 method: "POST",
+                body: { reason },
             });
         },
-        onSuccess(data) {
+        onSuccess() {
             logOut(getString("refresh_token") ?? "", (sucecss) => {
                 if (sucecss) {
                     router.dismissAll();
@@ -99,7 +100,6 @@ export function useDeleteUser() {
 
 export function useGoogleSignIn() {
     const { mutate: fetch_onboarding_question } = useGetOnboardingQuestion();
-    const { mutate } = useUpdateUser();
     const { setUser } = useAuthStore();
     return useMutation({
         mutationFn: async () => {
@@ -108,6 +108,8 @@ export function useGoogleSignIn() {
                 const response = await GoogleSignin.signIn();
                 if (isSuccessResponse(response)) {
                     let token_rsponse = await GoogleSignin.getTokens();
+
+                    console.log(token_rsponse);
                     const token = token_rsponse.accessToken;
                     return fetcher("/api/users/google/callback/", {
                         method: "POST",

@@ -171,7 +171,7 @@ export default function Screen() {
                         {/* Brand + Size */}
                         <View className="bg-muted-background p-4 rounded-2xl flex-row justify-between">
                             <AutoImage height={36} source={logo} />
-                            <View className="h-9 justify-center">
+                            <View className="h-9 justify-center min-w-16">
                                 <ShoeSizePicker
                                     list={(shoeDetails?.sizes ?? []).map((size) => ({
                                         label: String(size ?? 0),
@@ -179,7 +179,7 @@ export default function Screen() {
                                     }))}
                                     onChange={(sel) => console.log(sel)}
                                 />
-                                <Typography>90% FIT</Typography>
+                                <Typography>{shoeDetails?.match_percentage ?? "0% FIT"}</Typography>
                             </View>
                         </View>
 

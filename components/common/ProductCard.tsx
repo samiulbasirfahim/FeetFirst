@@ -23,6 +23,7 @@ export function ProductCard({
     match_percentage = null,
 }: ProductCardProps) {
     const [liked, setLiked] = useState(favourite);
+    console.log(colors);
     const {
         mutate: add_to_favourite,
         isPending: pending_add,
@@ -136,7 +137,7 @@ FIT`}
                 <Typography numberOfLines={1}>{itemName}</Typography>
                 <View className="flex-row justify-between">
                     <Typography>{price}</Typography>
-                    <View className="flex-row">
+                    <View className="flex-row gap-1">
                         {colors.slice(0, 3).map((color, idx) => (
                             <View
                                 key={idx}
@@ -144,10 +145,11 @@ FIT`}
                                 style={{
                                     backgroundColor: color,
                                     zIndex: 3 - idx,
-                                    left: (colors.slice(0, 3).length - 1 - idx) * 12,
+                                    left: (colors.slice(0, 3).length - 1 - idx) * 16,
                                 }}
                             />
                         ))}
+
                         {colors.length - 3 > 0 && (
                             <Typography>+{colors.length - 3}</Typography>
                         )}

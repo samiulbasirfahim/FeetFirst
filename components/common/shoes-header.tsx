@@ -56,6 +56,10 @@ export function ShoeHeader({
     const { top } = useSafeAreaInsets();
     const [selectedIndex, setSelectedIndex] = useState(0);
     const displayedCategories = [
+        {
+            title: "All",
+            slug: "all",
+        },
         ...NormalCategories.map((c) => ({
             title: isGerman() ? c.name_de : c.name_it,
             slug: c.slug,
@@ -64,6 +68,10 @@ export function ShoeHeader({
             title: isGerman() ? c.name_de : c.name_it,
             slug: c.slug,
         })),
+        {
+            title: isGerman() ? "Berg Trekkingschuhe" : "Berg Trekkingschuhe",
+            slug: "mountain-trekking-shoes",
+        },
     ];
 
     useEffect(() => {
