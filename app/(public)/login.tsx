@@ -21,7 +21,10 @@ import { useGetOnboardingQuestion } from "@/lib/queries/onboarding-question";
 import { ApiError } from "@/lib/fetcher";
 
 GoogleSignin.configure({
-    scopes: ["https://www.googleapis.com/auth/user.birthday.read"],
+    scopes: [
+        "https://www.googleapis.com/auth/user.birthday.read",
+        // "https://www.googleapis.com/auth/userinfo.profile"
+    ],
     webClientId: process.env.EXPO_PUBLIC_WEB_OAUTH_TOKEN,
     iosClientId: process.env.EXPO_PUBLIC_IOS_OAUTH_TOKEN,
     offlineAccess: false,

@@ -7,11 +7,11 @@ import { VersionInfo } from "@/components/common/version";
 import { Layout } from "@/components/layout/layout";
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
-import { OpenWebLink, openWebsite } from "@/lib/web-link";
+import { openWebsite } from "@/lib/web-link";
 import { useAuthStore } from "@/store/auth";
 import { useLanguageStore } from "@/store/language";
 import { router } from "expo-router";
-import { Image, ScrollView, useWindowDimensions, View } from "react-native";
+import { ScrollView, useWindowDimensions, View } from "react-native";
 
 export default function Screen() {
     const { isGerman } = useLanguageStore();

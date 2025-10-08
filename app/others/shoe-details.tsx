@@ -180,8 +180,8 @@ export default function Screen() {
                                     onChange={(sel) => console.log(sel)}
                                 />
                                 <Typography>
-                                    {(shoeDetails?.match_percentage &&
-                                        shoeDetails?.match_percentage?.score) ??
+                                    {(shoeDetails?.match_data &&
+                                        shoeDetails?.match_data?.score) ??
                                         "0% FIT"}
                                 </Typography>
                             </View>

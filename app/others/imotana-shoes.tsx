@@ -103,7 +103,7 @@ export default function ShoeShopScreen() {
                                 price={product.price}
                                 favourite={product.favourite}
                                 colors={product.colors}
-                                match_percentage={product.match_percentage}
+                                match_data={product.match_data}
                                 brandLogo={product.brandLogo}
                             />
                         ))}

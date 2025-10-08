@@ -43,13 +43,13 @@ export default function CartScreen() {
         >
             <View className="bg-background rounded-3xl py-6 relative">
                 <View className="flex-row px-4 justify-between items-center">
-                    {item.match_percentage ? (
+                    {item.match_data ? (
                         <View className="px-2 py-1 border border-primary bg-primary rounded-lg">
                             <Typography
                                 className="text-white text-sm"
                                 style={{ lineHeight: 12 }}
                             >
-                                {`${item.match_percentage.scrore}% FIT`}
+                                {`${item.match_data.scrore}% FIT`}
                             </Typography>
                         </View>
                     ) : (

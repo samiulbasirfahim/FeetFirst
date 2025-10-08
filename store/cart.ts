@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { MMKV } from "react-native-mmkv";
 import { fetcher } from "@/lib/fetcher";
-import { MatchPercentage } from "@/type/product";
+import { MatchData } from "@/type/product";
 
 const storage = new MMKV();
 const CART_KEY = "shoe_items";
@@ -20,7 +20,7 @@ export type ShoeItem = {
         image: string;
     } | null;
     colors: string[];
-    match_percentage: MatchPercentage | null;
+    match_data: MatchData | null;
     favourite: boolean;
 };
 
@@ -31,7 +31,7 @@ type APIShoeResponse = {
     price: string;
     colors: string[];
     images: Array<{ id: number; image: string }>;
-    match_percentage: MatchPercentage | null;
+    match_data: MatchData | null;
     favourite: boolean;
 };
 
@@ -43,7 +43,7 @@ const transformShoe = (apiShoe: APIShoeResponse): ShoeItem => ({
     price: apiShoe.price,
     image: apiShoe.images?.[0] || null,
     colors: apiShoe.colors,
-    match_percentage: apiShoe.match_percentage,
+    match_data: apiShoe.match_data,
     favourite: apiShoe.favourite,
 });
 

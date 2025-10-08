@@ -1,4 +1,4 @@
-export type MatchPercentage = {
+export type MatchData = {
     score: number;
     recommended_size: any;
 };
@@ -18,7 +18,7 @@ export type ShoeItem = {
 
     colors: string[];
 
-    match_percentage: MatchPercentage | null;
+    match_data: MatchData | null;
     favourite: boolean;
 };
 
@@ -45,6 +45,6 @@ export type ShoeDetails = {
     discount: string;
     stock_quantity: number;
     partner: number;
-    match_percentage: MatchPercentage | null;
+    match_data: MatchData | null;
     favourite: boolean;
 };

@@ -86,7 +86,7 @@ export function useProducts(page: number, sub_category: string | null) {
                     image: item.image,
                     favourite: item.favourite,
                     colors: item.colors,
-                    match_percentage: item.match_percentage,
+                    match_data: item.match_data,
                 }) as ShoeItem,
         );
     }, [data]);
@@ -124,7 +124,7 @@ export function useSuggestedShoes(limit: number, id: number) {
                     image: item.image,
                     favourite: item.favourite,
                     colors: item.colors,
-                    match_percentage: item.match_percentage,
+                    match_data: item.match_data,
                 }) as ShoeItem,
         );
     }, [data]);

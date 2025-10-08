@@ -3,6 +3,7 @@ import { useAutoLogin } from "@/lib/init"; // Import your new hook
 import { useAuthStore } from "@/store/auth";
 import { Stack, useRouter, useSegments } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import * as navigationBar from "expo-navigation-bar";
 import { useEffect, useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Host } from "react-native-portalize";
@@ -50,6 +51,7 @@ export function RootLayout() {
 
     useEffect(() => {
         const initializeAuth = async () => {
+            navigationBar.setStyle("dark");
             try {
                 const result = await autoLogin(setUser);
                 if (result.user) setUser(result.user);

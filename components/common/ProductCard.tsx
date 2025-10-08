@@ -20,7 +20,7 @@ export function ProductCard({
     price,
     favourite,
     colors = [],
-    match_percentage,
+    match_data,
 }: ProductCardProps) {
     const [liked, setLiked] = useState(favourite);
     console.log(colors);
@@ -73,7 +73,7 @@ export function ProductCard({
         >
             <View className="bg-background rounded-3xl py-6 relative">
                 <View className="flex-row px-4 justify-between items-center">
-                    {match_percentage ? (
+                    {match_data ? (
                         <View className="px-2 py-1 border border-primary bg-primary rounded-lg">
                             <Typography
                                 className="text-white text-sm"
@@ -81,7 +81,7 @@ export function ProductCard({
                                     lineHeight: 12,
                                 }}
                             >
-                                {`${match_percentage.score}%
+                                {`${match_data.score}%
 FIT`}
                             </Typography>
                         </View>

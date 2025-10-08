@@ -109,8 +109,8 @@ export function useGoogleSignIn() {
                 if (isSuccessResponse(response)) {
                     let token_rsponse = await GoogleSignin.getTokens();
 
-                    console.log(token_rsponse);
                     const token = token_rsponse.accessToken;
+                    console.log(token);
                     return fetcher("/api/users/google/callback/", {
                         method: "POST",
                         body: {

@@ -139,6 +139,9 @@ export default function Screen() {
                                         router.dismissAll();
                                         router.replace("/(public)");
                                     },
+                                    onError(err_) {
+                                        console.dir(err_.data);
+                                    },
                                 })
                             }
                         >
