@@ -131,3 +131,32 @@ export function useSuggestedShoes(limit: number, id: number) {
 
     return { shoeList, isPending, error };
 }
+
+export function useSearchProducts(query: string) {
+    const { data, isPending, error } = useQuery({
+        queryKey: ["searchProducts", query],
+        queryFn: () =>
+            fetcher(`/api/products/?limit=6&search=${encodeURIComponent(query)}`, {
+                method: "GET",
+                auth: true,
+            }),
+        enabled: query.trim().length > 0,
+    });
+    const shoeList: ShoeItem[] = useMemo(() => {
+        if (!(data as any)?.results) return [];
+        return (data as any).results.map(
+            (item: any) =>
+                ({
+                    id: item.id,
+                    itemName: item.name,
+                    brandLogo: item.brandLogo,
+                    price: `$${item.price}`,
+                    image: item.image,
+                    favourite: item.favourite,
+                    colors: item.colors,
+                }) as ShoeItem,
+        );
+    }, [data]);
+
+    return { shoeList, isPending, error };
+}

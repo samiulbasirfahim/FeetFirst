@@ -95,7 +95,7 @@ export function AvatarImage({
         >
             <Image
                 source={{ uri: image === null ? uri : image }}
-                className="w-full aspect-square rounded-full"
+                className="w-full aspect-square rounded-full bg-muted-foreground"
             />
             {upload_able && (
                 <Typography className="text-sm font-pathRegular">
