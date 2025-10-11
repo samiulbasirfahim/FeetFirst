@@ -7,7 +7,7 @@ export function useTopShoes(limit: number, by_scan?: boolean) {
     const { data, isPending, error } = useQuery({
         queryKey: ["topProducts", limit],
         queryFn: () =>
-            fetcher(`/api/products/?scan_id=0&limit=${limit}`, {
+            fetcher(`/api/products/?limit=${limit}`, {
                 method: "GET",
                 auth: true,
             }),
@@ -36,7 +36,7 @@ export function useTopProducts(limit: number) {
     return useQuery({
         queryKey: ["topProducts", limit],
         queryFn: () =>
-            fetcher(`/api/products/?scan_id=0&limit=${limit}`, {
+            fetcher(`/api/products/?limit=${limit}`, {
                 method: "GET",
                 auth: true,
             }),
@@ -66,7 +66,7 @@ export function useProducts(page: number, sub_category: string | null) {
         queryKey: ["products", page, sub_category],
         queryFn: () =>
             fetcher(
-                `/api/products/?scan_id=0&limit=10&page=${page}${sub_category && sub_category !== "all" ? "&sub_category=" + sub_category : ""}`,
+                `/api/products/?limit=10&page=${page}${sub_category && sub_category !== "all" ? "&sub_category=" + sub_category : ""}`,
                 {
                     method: "GET",
                     auth: true,
@@ -106,7 +106,7 @@ export function useSuggestedShoes(limit: number, id: number) {
     const { data, isPending, error } = useQuery({
         queryKey: ["topProducts", limit],
         queryFn: () =>
-            fetcher(`/api/products/?scan_id=0&limit=${limit}`, {
+            fetcher(`/api/products/?limit=${limit}`, {
                 method: "GET",
                 auth: true,
             }),

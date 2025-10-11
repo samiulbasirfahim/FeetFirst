@@ -43,11 +43,13 @@ const NewsFlatlist = () => {
 
     return (
         <>
-            <View className="w-[90%] mx-auto mb-3">
-                <Typography className="text-2xl font-semibold text-[#C3C3C3]">
-                    FeetF1rst News
-                </Typography>
-            </View>
+            {!news_pending && (data?.length ?? 0) > 0 && (
+                <View className="w-[90%] mx-auto mb-3">
+                    <Typography className="text-2xl font-semibold text-[#C3C3C3]">
+                        FeetF1rst News
+                    </Typography>
+                </View>
+            )}
             {!news_pending ? (
                 <FlatList
                     data={data}

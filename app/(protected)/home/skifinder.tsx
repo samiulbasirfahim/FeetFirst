@@ -20,82 +20,33 @@ import { Map } from "@/components/common/mapview";
 import k2 from "@/assets/images/k2.png";
 import dalbello from "@/assets/images/dalbello.png";
 import head from "@/assets/images/head.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDrawerHeader } from "@/components/common/drawer-header";
 import { AutoImage } from "@/components/ui/auto-image";
 import { ShoeItem } from "@/type/product";
 import { ItemImagePlaceholder } from "@/lib/placeholder";
 import { useSuggestedShoes, useTopShoes } from "@/lib/queries/products";
 import { LoadingSpinner } from "@/components/common/loading-spinner";
-
-const partners = [
-    {
-        title: "Brandenburger Tor",
-        address: "Pariser Platz, 10117 Berlin, Germany",
-        lat: 52.5163,
-        lng: 13.3777,
-    },
-    {
-        title: "Kölner Dom",
-        address: "Domkloster 4, 50667 Köln, Germany",
-        lat: 50.9413,
-        lng: 6.9583,
-    },
-    {
-        title: "Neuschwanstein Schloss",
-        address: "Neuschwansteinstraße 20, 87645 Schwangau, Germany",
-        lat: 47.5576,
-        lng: 10.7498,
-    },
-    {
-        title: "Frauenkirche Dresden",
-        address: "Neumarkt, 01067 Dresden, Germany",
-        lat: 51.0504,
-        lng: 13.7373,
-    },
-    {
-        title: "Heidelberger Schloss",
-        address: "Schlosshof 1, 69117 Heidelberg, Germany",
-        lat: 49.41,
-        lng: 8.715,
-    },
-    {
-        title: "Holstentor Lübeck",
-        address: "Holstentorplatz, 23552 Lübeck, Germany",
-        lat: 53.8689,
-        lng: 10.6866,
-    },
-    {
-        title: "Schloss Sanssouci",
-        address: "Maulbeerallee, 14469 Potsdam, Germany",
-        lat: 52.4036,
-        lng: 13.054,
-    },
-    {
-        title: "Olympiastadion Berlin",
-        address: "Olympischer Platz 3, 14053 Berlin, Germany",
-        lat: 52.5145,
-        lng: 13.2394,
-    },
-    {
-        title: "Rathaus Hamburg",
-        address: "Rathausmarkt 1, 20095 Hamburg, Germany",
-        lat: 53.5503,
-        lng: 10.005,
-    },
-    {
-        title: "Zugspitze",
-        address: "82491 Grainau, Germany",
-        lat: 47.421,
-        lng: 10.985,
-    },
-];
+import { useGetPartners } from "@/lib/queries/partner";
+import { Partner } from "@/type/partner";
 
 export default function Screen() {
     const { isGerman } = useLanguageStore();
     const { height: heightOfWindow, width } = useWindowDimensions();
+    const { data: partners, isPending } = useGetPartners() as {
+        data: Partner[] | undefined;
+        isPending: boolean;
+    };
 
     const { shoeList, isPending: isPending_skifinder, error } = useTopShoes(10);
+    useEffect(() => {
+        console.log("--------------------");
+        console.log("SKIFINDER");
+        console.log("SHOE LIST: ", shoeList);
+        console.log("ERROR: ", error);
+        console.log("IS PENDING: ", isPending_skifinder);
+        console.log("--------------------");
+    }, [shoeList, error, isPending_skifinder]);
 
     const [dimension, setDimension] = useState({
         width: 0,
@@ -120,16 +71,51 @@ export default function Screen() {
             }}
         >
             <View className="mb-4">
-                <Typography variant="titleSecondary" className="font-medium text-right">
-                    {item.itemName ||
-                        "Find your snowboard boot – perfectly matched for you."}
-                </Typography>
-                <Typography
-                    variant="titleSecondary"
-                    className="text-primary text-right mt-4"
-                >
-                    {item.price || "850.99"}
-                </Typography>
+                {
+                    // <Typography variant="titleSecondary" className="font-medium text-right">
+                    //                     {item.itemName ||
+                    //                         "Find your snowboard boot – perfectly matched for you."}
+                    //                 </Typography>
+                    //                 <Typography
+                    //                     variant="titleSecondary"
+                    //                     className="text-primary text-right mt-4"
+                    //                 >
+                    //                     {item.price || "850.99"}
+                    //                 </Typography>
+                }
+                <View>
+                    <Typography
+                        variant="titleSecondary"
+                        className="font-medium text-right absolute right-0 z-100 text-foreground/20"
+                    >
+                        {item.itemName.length > 12
+                            ? item.itemName.slice(0, 16) + "..."
+                            : item.itemName}
+                    </Typography>
+                    <Typography
+                        variant="titleSecondary"
+                        className="text-primary text-right absolute"
+                    >
+                        {item.itemName.length > 12
+                            ? item.itemName.slice(0, 16) + "..."
+                            : item.itemName}
+                    </Typography>
+                </View>
+
+                <View>
+                    <Typography
+                        variant="titleSecondary"
+                        className="text-foreground/20 text-right mt-4 absolute right-0 z-100"
+                    >
+                        {item.price}
+                    </Typography>
+                    <Typography
+                        variant="titleSecondary"
+                        className="text-primary text-right mt-4 absolute right-0"
+                    >
+                        {item.price}
+                    </Typography>
+                </View>
             </View>
 
             <Image
@@ -141,7 +127,7 @@ export default function Screen() {
                 }}
                 style={{ width: width * 0.8, height: dimension.height * 0.8 }}
                 resizeMode="contain"
-                className="absolute bottom-0 -left-10 -rotate-[13deg]"
+                className="absolute bottom-0 -rotate-[13deg]"
             />
 
             <View className="absolute left-1 bottom-10">
@@ -291,7 +277,7 @@ export default function Screen() {
                     <View className="py-4 relative">
                         {error ? (
                             <Typography>Couldn't find shoes</Typography>
-                        ) : isPending_skifinder ? (
+                        ) : !isPending_skifinder ? (
                             <FlatList
                                 data={shoeList}
                                 ItemSeparatorComponent={() => <View style={{ width: 5 }} />}
@@ -312,7 +298,7 @@ export default function Screen() {
 
                 {/* map */}
                 <View className="-mt-4">
-                    {true && (
+                    {partners && partners.length > 0 && (
                         <View className=" bottom-0 left-0 right-0 bg-backgroundDark/90 backdrop-blur-md border-t border-primary/20">
                             <View className="p-4">
                                 <Typography className="text-white font-semibold text-lg mb-3">
@@ -323,7 +309,7 @@ export default function Screen() {
                                     showsHorizontalScrollIndicator={false}
                                     contentContainerStyle={{ paddingRight: 16 }}
                                 >
-                                    {partners.map((marker, index) => (
+                                    {(partners as Partner[]).map((marker, index) => (
                                         <TouchableOpacity
                                             key={index}
                                             onPress={() => { }}

@@ -23,7 +23,6 @@ export function ProductCard({
     match_data,
 }: ProductCardProps) {
     const [liked, setLiked] = useState(favourite);
-    console.log(colors);
     const {
         mutate: add_to_favourite,
         isPending: pending_add,

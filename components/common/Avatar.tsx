@@ -53,7 +53,6 @@ export function AvatarImage({
                     response.status,
                 );
             }
-
             const result = await response.json();
 
             if (result.image) {
@@ -70,7 +69,7 @@ export function AvatarImage({
     const pickImage = async () => {
         if (!upload_able) return;
         let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ["images", "videos"],
+            mediaTypes: ["images"],
             allowsEditing: true,
             aspect: [1, 1],
             quality: 1,
@@ -83,6 +82,7 @@ export function AvatarImage({
         if (result.assets[0].type !== "image") return;
 
         setImage(result.assets[0].uri);
+        setUser({ ...user, image: result.assets[0].uri } as any);
 
         await uploadImage(result.assets[0]);
     };

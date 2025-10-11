@@ -5,6 +5,7 @@ import { AutoLoginBody } from "@/type/auth";
 import { User } from "@/type/user";
 import { useGetOnboardingQuestion } from "@/lib/queries/onboarding-question";
 import { useLanguageStore } from "@/store/language";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
 
 interface AutoLoginResult {
     success: boolean;
@@ -30,6 +31,7 @@ export function useAutoLogin() {
             console.log({ access, refresh });
 
             if (!access || !refresh) {
+                GoogleSignin.signOut();
                 console.log("No Access Token");
                 setIsLoading(false);
                 return { success: false, user: null };
@@ -120,6 +122,7 @@ export function useAutoLogin() {
                 });
             } catch (err) {
                 console.log("AutoLogin failed:", err);
+                GoogleSignin.signOut();
                 setError(err);
                 setIsLoading(false);
                 return { success: false, user: null };
