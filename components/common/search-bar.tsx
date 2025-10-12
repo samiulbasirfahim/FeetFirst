@@ -14,11 +14,9 @@ import { twMerge } from "tailwind-merge";
 import { Image, Platform, Pressable, TextInput, View } from "react-native";
 import { BlurView } from "expo-blur";
 import { Portal } from "react-native-portalize";
-import { dummyShoes } from "@/lib/dummy_shoes";
 import { ItemImagePlaceholder } from "@/lib/placeholder";
 import { Typography } from "../ui/typography";
 import { useSearchProducts } from "@/lib/queries/products";
-import { LoadingSpinner } from "./loading-spinner";
 
 type Props = {
     top: number;

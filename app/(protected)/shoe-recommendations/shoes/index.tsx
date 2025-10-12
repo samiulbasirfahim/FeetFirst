@@ -6,7 +6,7 @@ import { View } from "react-native";
 import { ProductCard } from "@/components/common/ProductCard";
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
-import { router, useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams, usePathname } from "expo-router";
 import { useProducts } from "@/lib/queries/products";
 import { LoadingSpinner } from "@/components/common/loading-spinner";
 import { questions } from "@/lib/category-questions";
@@ -16,6 +16,7 @@ import { CategorySlug } from "@/type/questions-answers";
 export default function Screen() {
     const { category } = useLocalSearchParams<{ category: string }>();
     const { answers, getCategoryAnswers } = useQuestionStore();
+    const pathname = usePathname();
 
     const { clearCategory } = useQuestionStore();
 
@@ -33,11 +34,14 @@ export default function Screen() {
     }, [category, selected]);
 
     useEffect(() => {
-        console.log(
-            "Answers changed: ",
-            getCategoryAnswers((selected ?? category) as CategorySlug),
-        );
-    }, [answers, router]);
+        if (pathname === "/shoe-recommendations/shoes") {
+            console.log({
+                sub_category: selected ?? category,
+                ...getCategoryAnswers((selected ?? category) as CategorySlug),
+            });
+            console.log("BACK INSIDE SHOES PAGE");
+        }
+    }, [answers, pathname]);
 
     return (
         <View className="flex-1 bg-backgroundDark">

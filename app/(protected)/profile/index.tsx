@@ -28,7 +28,7 @@ export default function Screen() {
                     }}
                 >
                     <Typography className="text-5xl text-primary font-bold">
-                        Hi, {user?.name.split(" ")[0]}
+                        Hi, {user?.name && user?.name.split(" ")[0]}
                     </Typography>
 
                     <Typography className="text-primary text-xl">
