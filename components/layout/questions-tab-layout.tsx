@@ -1,0 +1,121 @@
+// components/layout/questions-tab-layout.tsx
+import ProgressBar from "@/components/common/progress-bar";
+import { HeaderBackButton } from "@/components/ui/header-back-button";
+import { Typography } from "@/components/ui/typography";
+import { useLanguageStore } from "@/store/language";
+import { MaterialTopTabBarProps } from "@react-navigation/material-top-tabs";
+import { Image, View } from "react-native";
+import { OnBoardingLayout } from "./onboarding";
+import { Button } from "../ui/button";
+import { useQuestionStore } from "@/store/questions-answers";
+import { questions } from "@/lib/category-questions";
+import { CategorySlug } from "@/type/questions-answers";
+
+export function CustomTabBar({ state, descriptors }: MaterialTopTabBarProps) {
+    const total_pages = state.routes.length;
+    const current_page = state.index + 1;
+
+    return (
+        <View className="w-full bg-background gap-2 py-2">
+            <View className="w-full items-center justify-center">
+                <Image
+                    source={require("@/assets/images/logo-icon.png")}
+                    height={50}
+                    width={50}
+                    style={{
+                        height: 50,
+                        width: 50,
+                    }}
+                />
+            </View>
+            <View className="justify-center flex-row items-center relative px-4 py-2">
+                <View className="absolute left-4">
+                    <HeaderBackButton />
+                </View>
+                <Typography className="text-lg font-pathSemiBold text-white">
+                    SHOE FINDER FEETF1RST
+                </Typography>
+            </View>
+            <View className="px-6 h-14 justify-end items-center">
+                <ProgressBar totalPages={total_pages} currentPage={current_page} />
+                <Typography variant="subtitle" className="mt-2">
+                    {current_page}/{total_pages}
+                </Typography>
+            </View>
+        </View>
+    );
+}
+
+export function QuestionScreen({
+    category,
+    questionIndex,
+    navigation,
+}: {
+    category: CategorySlug;
+    questionIndex: number;
+    navigation: any;
+}) {
+    const { isGerman } = useLanguageStore();
+    const { updateAnswer, getCategoryAnswers } = useQuestionStore();
+    const question = questions[category][questionIndex];
+
+    const options = question.options.map((option) =>
+        isGerman() ? option.de : option.it,
+    );
+
+    const questionText = isGerman() ? question.question.de : question.question.it;
+
+    const handleSelectionChange = (selection: string[]) => {
+        updateAnswer(category, questionIndex, questionText, selection);
+        console.log(`${category} Q${questionIndex + 1} Selection:`, selection);
+    };
+
+    const isLastQuestion = questionIndex === questions[category].length - 1;
+
+    const handleNext = () => {
+        if (!isLastQuestion) {
+            navigation.navigate(`question${questionIndex + 2}` as never);
+        } else {
+            const allAnswers = getCategoryAnswers(category);
+            console.log(`🎯 ALL ${category.toUpperCase()} ANSWERS:`, allAnswers);
+        }
+    };
+
+    return (
+        <OnBoardingLayout
+            HeaderComponent={
+                <Typography
+                    variant="onboarding-header"
+                    className="text-white font-pathSemiBold text-[20px]"
+                >
+                    {questionText}
+                </Typography>
+            }
+            options={options}
+            multiple={true}
+            showOtherInput={false}
+            onSelectionChange={handleSelectionChange}
+            FooterComponent={
+                <>
+                    <Button
+                        variant="big"
+                        textClassName="text-white font-pathSemiBold text-[16px] py-1"
+                        onPress={handleNext}
+                    >
+                        {isGerman()
+                            ? isLastQuestion
+                                ? "Fertig"
+                                : "Nächste Frage"
+                            : isLastQuestion
+                                ? "Finito"
+                                : "Prossima domanda"}
+                    </Button>
+
+                    <Button variant="ghost" onPress={handleNext}>
+                        {isGerman() ? "Überspringen" : "Saltare"}
+                    </Button>
+                </>
+            }
+        />
+    );
+}
