@@ -1,16 +1,11 @@
-// layouts/all-categories.tsx
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { createStackNavigator } from "@react-navigation/stack";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
     CustomTabBar,
     QuestionScreen,
 } from "@/components/layout/questions-tab-layout";
-import { View } from "react-native";
-import { Typography } from "@/components/ui/typography";
 
 const Tabs = createMaterialTopTabNavigator();
-const Stack = createStackNavigator();
 
 // Helper function to create named components
 const createQuestionComponent = (category: any, questionIndex: number) => {
@@ -227,7 +222,6 @@ export function CyclingShoesLayout() {
     );
 }
 
-// Mountain Trekking Shoes (4 questions)
 export function MountainTrekkingShoesLayout() {
     return (
         <SafeAreaView className="flex-1 bg-background">
@@ -254,14 +248,5 @@ export function MountainTrekkingShoesLayout() {
                 />
             </Tabs.Navigator>
         </SafeAreaView>
-    );
-}
-
-export default function AllCategoriesStack() {
-    return <TennisShoesLayout />
-    return (
-        <View>
-            <Typography>HELLO</Typography>
-        </View>
     );
 }

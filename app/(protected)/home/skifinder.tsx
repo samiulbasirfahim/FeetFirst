@@ -3,6 +3,7 @@ import { Typography } from "@/components/ui/typography";
 import {
     FlatList,
     Image,
+    Pressable,
     ScrollView,
     Text,
     TouchableOpacity,
@@ -20,15 +21,17 @@ import { Map } from "@/components/common/mapview";
 import k2 from "@/assets/images/k2.png";
 import dalbello from "@/assets/images/dalbello.png";
 import head from "@/assets/images/head.png";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDrawerHeader } from "@/components/common/drawer-header";
 import { AutoImage } from "@/components/ui/auto-image";
 import { ShoeItem } from "@/type/product";
 import { ItemImagePlaceholder } from "@/lib/placeholder";
-import { useSuggestedShoes, useTopShoes } from "@/lib/queries/products";
+import { useTopShoes } from "@/lib/queries/products";
 import { LoadingSpinner } from "@/components/common/loading-spinner";
 import { useGetPartners } from "@/lib/queries/partner";
 import { Partner } from "@/type/partner";
+import { ComingSoonPopup } from "@/components/common/coming-soon-popup";
+import { router } from "expo-router";
 
 export default function Screen() {
     const { isGerman } = useLanguageStore();
@@ -38,15 +41,9 @@ export default function Screen() {
         isPending: boolean;
     };
 
+    const [showModal, setShowModal] = useState(false);
+
     const { shoeList, isPending: isPending_skifinder, error } = useTopShoes(10);
-    useEffect(() => {
-        console.log("--------------------");
-        console.log("SKIFINDER");
-        console.log("SHOE LIST: ", shoeList);
-        console.log("ERROR: ", error);
-        console.log("IS PENDING: ", isPending_skifinder);
-        console.log("--------------------");
-    }, [shoeList, error, isPending_skifinder]);
 
     const [dimension, setDimension] = useState({
         width: 0,
@@ -58,7 +55,15 @@ export default function Screen() {
     });
 
     const renderItem = ({ item }: { item: ShoeItem }) => (
-        <View
+        <Pressable
+            onPress={() => {
+                router.push({
+                    pathname: "/others/shoe-details",
+                    params: {
+                        id: item.id,
+                    },
+                });
+            }}
             className="flex-1 bg-background p-6 border-primary/30 border rounded-3xl relative ms-3"
             style={{
                 width: width * 0.86,
@@ -71,51 +76,20 @@ export default function Screen() {
             }}
         >
             <View className="mb-4">
-                {
-                    // <Typography variant="titleSecondary" className="font-medium text-right">
-                    //                     {item.itemName ||
-                    //                         "Find your snowboard boot – perfectly matched for you."}
-                    //                 </Typography>
-                    //                 <Typography
-                    //                     variant="titleSecondary"
-                    //                     className="text-primary text-right mt-4"
-                    //                 >
-                    //                     {item.price || "850.99"}
-                    //                 </Typography>
-                }
-                <View>
-                    <Typography
-                        variant="titleSecondary"
-                        className="font-medium text-right absolute right-0 z-100 text-foreground/20"
-                    >
-                        {item.itemName.length > 12
-                            ? item.itemName.slice(0, 16) + "..."
-                            : item.itemName}
-                    </Typography>
-                    <Typography
-                        variant="titleSecondary"
-                        className="text-primary text-right absolute"
-                    >
-                        {item.itemName.length > 12
-                            ? item.itemName.slice(0, 16) + "..."
-                            : item.itemName}
-                    </Typography>
-                </View>
-
-                <View>
-                    <Typography
-                        variant="titleSecondary"
-                        className="text-foreground/20 text-right mt-4 absolute right-0 z-100"
-                    >
-                        {item.price}
-                    </Typography>
-                    <Typography
-                        variant="titleSecondary"
-                        className="text-primary text-right mt-4 absolute right-0"
-                    >
-                        {item.price}
-                    </Typography>
-                </View>
+                <Typography
+                    variant="titleSecondary"
+                    className="text-foreground text-right z-100"
+                >
+                    {item.itemName.length > 12
+                        ? item.itemName.slice(0, 16) + "..."
+                        : item.itemName}
+                </Typography>
+                <Typography
+                    variant="titleSecondary"
+                    className="text-primary text-right mt-4 z-100"
+                >
+                    {item.price}
+                </Typography>
             </View>
 
             <Image
@@ -147,7 +121,7 @@ export default function Screen() {
             <View className="absolute bottom-0 right-0 p-3 border border-primary rounded-3xl">
                 <Arrow />
             </View>
-        </View>
+        </Pressable>
     );
 
     return (
@@ -208,6 +182,7 @@ export default function Screen() {
                     <Button
                         variant="outline"
                         className="px-6 py-4 bg-primary/15 rounded-2xl"
+                        onPress={() => setShowModal(true)}
                     >
                         {isGerman() ? "JETZT KONFIGURIEREN" : "CONFIGURA ORA"}
                     </Button>
@@ -248,6 +223,7 @@ export default function Screen() {
                     <Button
                         variant="outline"
                         className="px-6 py-4 bg-primary/15 rounded-2xl w-3/5 mt-6"
+                        onPress={() => setShowModal(true)}
                     >
                         {isGerman() ? "JETZT KONFIGURIEREN" : "CONFIGURA ORA"}
                     </Button>
@@ -365,6 +341,12 @@ export default function Screen() {
                     <VersionInfo />
                 </View>
             </Layout>
+            <ComingSoonPopup
+                visible={showModal}
+                onClose={() => {
+                    setShowModal(false);
+                }}
+            />
         </View>
     );
 }

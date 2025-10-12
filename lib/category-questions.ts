@@ -722,30 +722,6 @@ const cyclingShoes = [
     },
 ];
 
-export const questions = {
-    // Normal Categories
-    "casual-sneaker": casualShoes,
-    "elegant-shoes": undefined,
-    "comfortable-shoes": undefined,
-    sandals: undefined,
-    "work-shoes": undefined,
-    miscellaneous: undefined,
-
-    // Sports Categories
-    "running-shoes": mountainTrekkingShoes,
-    "cycling-shoes": cyclingShoes,
-    "hockey-shoes": basketballShoes,
-    "ski-boots": mountainTrekkingShoes,
-    "basketball-shoes": basketballShoes,
-    "golf-shoes": golfShoes,
-    "football-shoes": soccerShoes,
-    "tennis-shoes": tennisShoes,
-    "climbing-shoes": climbingShoes,
-
-    // mountain
-    "mountain-trekking-shoes": mountainTrekkingShoes,
-};
-
 export const runningShoes = {
     initialQuestion: {
         question: {
@@ -1328,4 +1304,20 @@ export const runningShoes = {
             ],
         },
     ],
+};
+
+export const questions = {
+    // Normal Categories
+    "casual-sneaker": casualShoes,
+    // Sports Categories
+    "running-shoes": runningShoes,
+    "cycling-shoes": cyclingShoes,
+    "basketball-shoes": basketballShoes,
+    "golf-shoes": golfShoes,
+    "football-shoes": soccerShoes,
+    "tennis-shoes": tennisShoes,
+    "climbing-shoes": climbingShoes,
+
+    // mountain
+    "mountain-trekking-shoes": mountainTrekkingShoes,
 };

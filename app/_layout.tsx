@@ -45,7 +45,7 @@ export function RootLayout() {
     useEffect(() => {
         if (fontsLoaded && isReady && !autoLoginLoading) {
             SplashScreen.hide();
-            router.replace("/shoe-questions");
+            // router.replace("/shoe-questions/running-shoes" as any);
         }
     }, [isReady, fontsLoaded, autoLoginLoading, isLoggedIn]);
 
@@ -104,9 +104,9 @@ export function RootLayout() {
                     <Stack screenOptions={{ headerShown: false }}>
                         <Stack.Protected guard={!isLoggedIn}>
                             <Stack.Screen name="(public)" />
-                            <Stack.Screen name="(shoe-questions)" />
                         </Stack.Protected>
                         <Stack.Protected guard={isLoggedIn}>
+                            <Stack.Screen name="/shoe-questions" />
                             <Stack.Screen name="(protected)" />
                             <Stack.Screen name="(exercise-questions)" />
                             <Stack.Screen name="(scan-upload)" />

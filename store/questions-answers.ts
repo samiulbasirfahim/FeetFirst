@@ -4,6 +4,9 @@ import { create } from "zustand";
 
 interface QuestionStore {
     answers: Partial<Record<CategorySlug, QuestionsAnswers>>;
+    question_depth: number;
+    increaseDepth: () => void;
+    resetDepth: () => void;
 
     setCategoryAnswers: (
         category: CategorySlug,
@@ -23,6 +26,10 @@ interface QuestionStore {
 
 export const useQuestionStore = create<QuestionStore>((set, get) => ({
     answers: {},
+    question_depth: 0,
+    increaseDepth: () =>
+        set((state) => ({ question_depth: state.question_depth + 1 })),
+    resetDepth: () => set({ question_depth: 0 }),
 
     setCategoryAnswers: (category, questionsAnswers) => {
         set((state) => ({

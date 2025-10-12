@@ -43,9 +43,11 @@ function HomeCarausel({ shoes }) {
                 />
             </View>
             <View className="absolute right-5 top-4 flex-col items-end">
-                <Typography className="font-medium text-foreground text-[26px] leading-[26px]">
-                    {item.brandLogo?.name && item.brandLogo?.name?.slice(0, 8)}
-                </Typography>
+                {item.brandLogo?.name && (
+                    <Typography className="font-medium text-foreground text-[27px] leading-[26px]">
+                        {item.brandLogo?.name && item.brandLogo?.name?.slice(0, 8)}
+                    </Typography>
+                )}
                 <View>
                     <Typography className="font-medium text-[26px] leading-[26px] absolute z-[100] text-foreground/60">
                         {item.itemName.length > 18

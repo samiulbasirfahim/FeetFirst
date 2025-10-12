@@ -10,8 +10,9 @@ import { Button } from "../ui/button";
 import { useQuestionStore } from "@/store/questions-answers";
 import { questions } from "@/lib/category-questions";
 import { CategorySlug } from "@/type/questions-answers";
+import { useState } from "react";
 
-export function CustomTabBar({ state, descriptors }: MaterialTopTabBarProps) {
+export function CustomTabBar({ state }: MaterialTopTabBarProps) {
     const total_pages = state.routes.length;
     const current_page = state.index + 1;
 
@@ -59,25 +60,64 @@ export function QuestionScreen({
     const { updateAnswer, getCategoryAnswers } = useQuestionStore();
     const question = questions[category][questionIndex];
 
-    const options = question.options.map((option) =>
+    const options = question.options.map((option: any) =>
         isGerman() ? option.de : option.it,
     );
 
+    const calculateScreensToPop = () => {
+        const screensToPop = questionIndex + 1;
+        console.log(`Need to pop ${screensToPop} screens to return to main screen`);
+        return screensToPop;
+    };
+
     const questionText = isGerman() ? question.question.de : question.question.it;
 
+    const [selected, setSelected] = useState<string[]>([]);
+
     const handleSelectionChange = (selection: string[]) => {
-        updateAnswer(category, questionIndex, questionText, selection);
-        console.log(`${category} Q${questionIndex + 1} Selection:`, selection);
+        setSelected(selection);
     };
 
     const isLastQuestion = questionIndex === questions[category].length - 1;
 
     const handleNext = () => {
+        const englishSelections = selected.map((selected) => {
+            const option = question.options.find(
+                (opt: any) => opt.de === selected || opt.it === selected,
+            );
+            return option ? option.eng : selected;
+        });
+
+        updateAnswer(
+            category,
+            questionIndex,
+            question.question.eng,
+            englishSelections,
+        );
+        console.log(
+            `${category} Q${questionIndex + 1} Selection:`,
+            englishSelections,
+        );
+
         if (!isLastQuestion) {
             navigation.navigate(`question${questionIndex + 2}` as never);
         } else {
             const allAnswers = getCategoryAnswers(category);
-            console.log(`🎯 ALL ${category.toUpperCase()} ANSWERS:`, allAnswers);
+            console.log(`ALL ${category.toUpperCase()} ANSWERS:`, allAnswers);
+            const screensToPop = calculateScreensToPop();
+            navigation.pop(screensToPop);
+        }
+    };
+
+    const handleSkip = () => {
+        if (!isLastQuestion) {
+            navigation.navigate(`question${questionIndex + 2}` as never);
+        } else {
+            const allAnswers = getCategoryAnswers(category);
+            // console.log(`ALL ${category.toUpperCase()} ANSWERS:`, allAnswers);
+
+            const screensToPop = calculateScreensToPop();
+            navigation.pop(screensToPop);
         }
     };
 
@@ -111,7 +151,7 @@ export function QuestionScreen({
                                 : "Prossima domanda"}
                     </Button>
 
-                    <Button variant="ghost" onPress={handleNext}>
+                    <Button variant="ghost" onPress={handleSkip}>
                         {isGerman() ? "Überspringen" : "Saltare"}
                     </Button>
                 </>

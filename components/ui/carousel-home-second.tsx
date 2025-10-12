@@ -42,9 +42,11 @@ function HomeCarauselSecond({ shoes }) {
             </View>
             <View className="pl-2">
                 <View className="flex-col gap-3 pb-2">
-                    <Typography className="font-medium text-foreground text-[26px] leading-[26px]">
-                        {item.brandLogo?.name && item.brandLogo?.name?.slice(0, 8)}
-                    </Typography>
+                    {item.brandLogo?.name && (
+                        <Typography className="font-medium text-foreground text-[26px] leading-[26px]">
+                            {item.brandLogo?.name && item.brandLogo?.name?.slice(0, 8)}
+                        </Typography>
+                    )}
                     <View>
                         <Typography className="font-medium text-[26px] leading-[26px] absolute z-[100] text-foreground/60">
                             {item.itemName.length > 18
