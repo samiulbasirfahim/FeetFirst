@@ -17,7 +17,6 @@ import { Button } from "@/components/ui/button";
 import { Marquee } from "@animatereactnative/marquee";
 import Arrow from "@/assets/svgs/arrow-exercise.svg";
 import { VersionInfo } from "@/components/common/version";
-import { Map } from "@/components/common/mapview";
 import k2 from "@/assets/images/k2.png";
 import dalbello from "@/assets/images/dalbello.png";
 import head from "@/assets/images/head.png";
@@ -36,10 +35,9 @@ import { router } from "expo-router";
 export default function Screen() {
     const { isGerman } = useLanguageStore();
     const { height: heightOfWindow, width } = useWindowDimensions();
-    const { data: partners, isPending } = useGetPartners() as {
-        data: Partner[] | undefined;
-        isPending: boolean;
-    };
+    const { partners, isPending } = useGetPartners();
+
+    console.log("Partners: ", partners);
 
     const [showModal, setShowModal] = useState(false);
 
@@ -272,7 +270,6 @@ export default function Screen() {
                     </View>
                 </View>
 
-                {/* map */}
                 <View className="-mt-4">
                     {partners && partners.length > 0 && (
                         <View className=" bottom-0 left-0 right-0 bg-backgroundDark/90 backdrop-blur-md border-t border-primary/20">
@@ -334,7 +331,7 @@ export default function Screen() {
                         }}
                     />
 
-                    <Map />
+                    <Map partners={partners && partners.length > 0 ? partners : []} />
                 </View>
 
                 <View>

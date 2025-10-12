@@ -59,8 +59,7 @@ export async function fetcher<T>(
     }
 
     if (!res.ok) {
-        console.log("API ERROR: ", endpoint, "-->", data);
-
+        console.log("API ERROR: ", endpoint, "-->", res);
         throw new ApiError(res.status, data);
     }
 

@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import MapView, { Callout, Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import * as Location from "expo-location";
 import {
     Text,
@@ -12,7 +12,9 @@ import { Typography } from "../ui/typography";
 import { useGetPartners } from "@/lib/queries/partner";
 import { Partner } from "@/type/partner";
 
-type Props = {};
+type Props = {
+    partners: Partner[];
+};
 
 const mapStyle = [
     { elementType: "geometry", stylers: [{ color: "#0D0D0D" }] },
@@ -51,10 +53,7 @@ const mapStyle = [
 ];
 
 export default function Map({ ...props }: Props) {
-    const { data: partners, isPending } = useGetPartners() as {
-        data: Partner[];
-        isPending: boolean;
-    };
+    const { partners, isPending } = useGetPartners();
 
     const [selectedMarkerIndex, setSelectedMarkerIndex] = useState(0);
     const [location, setLocation] = useState<Location.LocationObject | null>(
@@ -63,7 +62,6 @@ export default function Map({ ...props }: Props) {
     const mapRef = useRef<MapView | null>(null);
     const { height } = useWindowDimensions();
 
-    // Request user location
     useEffect(() => {
         const getCurrentLocation = async () => {
             const { status } = await Location.requestForegroundPermissionsAsync();
@@ -93,6 +91,7 @@ export default function Map({ ...props }: Props) {
 
     const handleMarkerPress = async (index: number) => {
         if (!partners[index] || !mapRef.current) return;
+        if (index === selectedMarkerIndex) return;
 
         setSelectedMarkerIndex(index);
 
@@ -135,6 +134,20 @@ export default function Map({ ...props }: Props) {
                 pitchEnabled={false}
                 rotateEnabled={false}
             >
+                {location && (
+                    <Marker
+                        coordinate={{
+                            latitude: location.coords.latitude,
+                            longitude: location.coords.longitude,
+                        }}
+                        anchor={{ x: 0.5, y: 0.5 }}
+                        title="You are here"
+                    >
+                        <View className="p-1 border-2 border-primary/40 rounded-full overflow-hidden">
+                            <View className="bg-primary w-5 h-5 rounded-full" />
+                        </View>
+                    </Marker>
+                )}
                 {!isPending &&
                     partners &&
                     partners.length > 0 &&
@@ -144,6 +157,8 @@ export default function Map({ ...props }: Props) {
                             coordinate={{ latitude: marker.lat, longitude: marker.lng }}
                             onPress={() => handleMarkerPress(index)}
                             anchor={{ x: 0.5, y: 0.5 }}
+                            title={marker.title}
+                            description={marker.address}
                         >
                             <View className="p-1 border-2 border-primary/40 rounded-full overflow-hidden">
                                 <View

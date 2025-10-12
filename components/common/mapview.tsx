@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import * as Location from "expo-location";
+import { Partner } from "@/type/partner";
 
 const mapStyle = [
     {
@@ -22,41 +23,14 @@ const mapStyle = [
         stylers: [{ visibility: "on" }, { color: "#1A1C1B" }, { weight: 2 }],
     },
     {
-        featureType: "administrative.country",
-        elementType: "geometry.stroke",
-        stylers: [{ visibility: "off" }],
-    },
-    {
-        featureType: "administrative.province",
-        elementType: "geometry.stroke",
-        stylers: [{ visibility: "off" }],
-    },
-    {
         featureType: "landscape.natural",
         elementType: "geometry",
         stylers: [{ color: "#1A1C1B" }],
     },
     {
-        featureType: "poi",
-        stylers: [{ visibility: "off" }],
-    },
-    {
-        featureType: "poi.park",
-        elementType: "geometry.fill",
-        stylers: [{ visibility: "on" }, { color: "#1A1C1B" }],
-    },
-    {
-        featureType: "road",
-        stylers: [{ visibility: "off" }],
-    },
-    {
         featureType: "road.highway",
         elementType: "geometry",
         stylers: [{ visibility: "on" }, { color: "#404241" }],
-    },
-    {
-        featureType: "transit",
-        stylers: [{ visibility: "off" }],
     },
     {
         featureType: "water",
@@ -65,54 +39,39 @@ const mapStyle = [
     },
 ];
 
-const partners = [
-    {
-        title: "Brandenburger Tor",
-        address: "Pariser Platz, 10117 Berlin, Germany",
-        lat: 52.5163,
-        lng: 13.3777,
-    },
-    {
-        title: "Kölner Dom",
-        address: "Domkloster 4, 50667 Köln, Germany",
-        lat: 50.9413,
-        lng: 6.9583,
-    },
-    {
-        title: "Neuschwanstein Schloss",
-        address: "Neuschwansteinstraße 20, 87645 Schwangau, Germany",
-        lat: 47.5576,
-        lng: 10.7498,
-    },
-];
-
-export function Map() {
-    const mapRef = useRef<any>(null);
+export function Map({ partners }: { partners: Partner[] }) {
+    const mapRef = useRef<MapView | null>(null);
     const [location, setLocation] = useState<Location.LocationObject | null>(
         null,
     );
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const [error, setError] = useState<string>("");
 
     useEffect(() => {
         async function getCurrentLocation() {
-            let { status } = await Location.requestForegroundPermissionsAsync();
-            if (status !== "granted") {
-                setError("Permission to access location was denied");
-                return;
-            }
+            try {
+                const { status } = await Location.requestForegroundPermissionsAsync();
+                if (status !== "granted") {
+                    setError("Permission to access location was denied");
+                    setIsLoading(false);
+                    return;
+                }
 
-            let location = await Location.getCurrentPositionAsync({});
-            setLocation(location);
-            setIsLoading(false);
+                const loc = await Location.getCurrentPositionAsync({});
+                setLocation(loc);
+            } catch {
+                setError("Failed to get current location");
+            } finally {
+                setIsLoading(false);
+            }
         }
 
         getCurrentLocation();
     }, []);
 
     useEffect(() => {
-        if (location) {
-            mapRef.current?.animateCamera(
+        if (location && mapRef.current) {
+            mapRef.current.animateCamera(
                 {
                     center: {
                         latitude: location.coords.latitude,
@@ -125,39 +84,51 @@ export function Map() {
         }
     }, [location]);
 
-    const origin = { latitude: 37.3318456, longitude: -122.0296002 };
-    const destination = { latitude: 37.771707, longitude: -122.4053769 };
+    // ✅ Safe defaults (use 0 when partners list is empty)
+    const defaultLat = partners.length > 0 ? partners[0].lat : 0;
+    const defaultLng = partners.length > 0 ? partners[0].lng : 0;
+
+    const centerLat = location?.coords.latitude ?? defaultLat;
+    const centerLng = location?.coords.longitude ?? defaultLng;
+
+    if (isLoading) return null;
+    if (error) return null;
 
     return (
-        <>
-            <MapView
-                style={{ width: "100%", height: "100%" }}
-                region={{
-                    latitude: location?.coords.latitude ?? partners[0].lat,
-                    longitude: location?.coords.longitude ?? partners[0].lng,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421,
-                }}
-                customMapStyle={mapStyle}
-                provider={PROVIDER_GOOGLE}
-                mapType="standard"
-            >
+        <MapView
+            ref={mapRef}
+            style={{ width: "100%", height: "100%" }}
+            region={{
+                latitude: centerLat,
+                longitude: centerLng,
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,
+            }}
+            customMapStyle={mapStyle}
+            provider={PROVIDER_GOOGLE}
+            mapType="standard"
+        >
+            {location && (
                 <Marker
                     coordinate={{
-                        latitude: location?.coords.latitude ?? partners[0].lat,
-                        longitude: location?.coords.longitude ?? partners[0].lng,
+                        latitude: location.coords.latitude,
+                        longitude: location.coords.longitude,
                     }}
+                    title="You are here"
                 />
-                {
-                    // <MapViewDirections
-                    //   apikey={process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY || ""}
-                    //   origin={origin}
-                    //   destination={destination}
-                    //   strokeWidth={10}
-                    //   strokeColor="#fff000"
-                    // ></MapViewDirections>
-                }
-            </MapView>
-        </>
+            )}
+
+            {partners.map((partner) => (
+                <Marker
+                    key={partner.id}
+                    coordinate={{
+                        latitude: partner.lat,
+                        longitude: partner.lng,
+                    }}
+                    title={partner.title}
+                    description={partner.address}
+                />
+            ))}
+        </MapView>
     );
 }

@@ -34,14 +34,17 @@ export default function Screen() {
     }, [category, selected]);
 
     useEffect(() => {
-        if (pathname === "/shoe-recommendations/shoes") {
-            console.log({
-                sub_category: selected ?? category,
-                ...getCategoryAnswers((selected ?? category) as CategorySlug),
-            });
-            console.log("BACK INSIDE SHOES PAGE");
+        if (pathname !== "/shoe-recomandation/shoes") {
+            return;
         }
-    }, [answers, pathname]);
+
+        console.log(
+            "Answers changed: ",
+            getCategoryAnswers((selected ?? category) as CategorySlug),
+        );
+
+        const answers = getCategoryAnswers((selected ?? category) as CategorySlug);
+    }, [answers, router, pathname]);
 
     return (
         <View className="flex-1 bg-backgroundDark">
