@@ -102,20 +102,22 @@ export default function Screen() {
                 className="absolute bottom-0 -rotate-[13deg]"
             />
 
-            <View className="absolute left-1 bottom-10">
-                <Image
-                    source={{
-                        uri:
-                            item.brandLogo && typeof item.brandLogo.image === "string"
-                                ? item.brandLogo.image
-                                : ItemImagePlaceholder,
-                    }}
-                    style={{
-                        height: 50,
-                        width: 100,
-                    }}
-                />
-            </View>
+            {item.brandLogo && (
+                <View className="absolute left-1 bottom-10">
+                    <Image
+                        source={{
+                            uri:
+                                item.brandLogo && typeof item.brandLogo.image === "string"
+                                    ? item.brandLogo.image
+                                    : ItemImagePlaceholder,
+                        }}
+                        style={{
+                            height: 50,
+                            width: 100,
+                        }}
+                    />
+                </View>
+            )}
             <View className="absolute bottom-0 right-0 p-3 border border-primary rounded-3xl">
                 <Arrow />
             </View>

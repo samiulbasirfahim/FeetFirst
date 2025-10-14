@@ -62,18 +62,20 @@ export default function CartScreen() {
                     resizeMode="contain"
                 />
 
-                <View className="absolute left-1/2 -translate-x-1/2 bottom-2">
-                    <Image
-                        resizeMode="contain"
-                        source={{
-                            uri:
-                                item.brandLogo && typeof item.brandLogo.image === "string"
-                                    ? item.brandLogo.image
-                                    : BrandLogoPlaceholder,
-                        }}
-                        style={{ height: 50, width: 100 }}
-                    />
-                </View>
+                {item.brandLogo && (
+                    <View className="absolute left-1/2 -translate-x-1/2 bottom-2">
+                        <Image
+                            resizeMode="contain"
+                            source={{
+                                uri:
+                                    item.brandLogo && typeof item.brandLogo.image === "string"
+                                        ? item.brandLogo.image
+                                        : BrandLogoPlaceholder,
+                            }}
+                            style={{ height: 50, width: 100 }}
+                        />
+                    </View>
+                )}
             </View>
 
             <View className="flex-col relative px-1 flex-1">

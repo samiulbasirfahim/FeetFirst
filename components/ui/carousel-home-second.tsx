@@ -64,7 +64,7 @@ function HomeCarauselSecond({ shoes }) {
                     {item.price}
                 </Typography>
             </View>
-            <View className="absolute bottom-[16px] left-[16px]">
+            {item.brandLogo && <View className="absolute bottom-[16px] left-[16px]">
                 <Image
                     source={{
                         uri:
@@ -77,7 +77,7 @@ function HomeCarauselSecond({ shoes }) {
                         width: 100,
                     }}
                 />
-            </View>
+            </View>}
             <TouchableOpacity
                 onPress={() => {
                     router.push({
