@@ -111,6 +111,7 @@ export default function Screen() {
                                     ? item.brandLogo.image
                                     : ItemImagePlaceholder,
                         }}
+                        resizeMode="contain"
                         style={{
                             height: 50,
                             width: 100,

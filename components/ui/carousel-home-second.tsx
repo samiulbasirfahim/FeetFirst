@@ -72,6 +72,7 @@ function HomeCarauselSecond({ shoes }) {
                                 ? item.brandLogo.image
                                 : BrandLogoPlaceholder,
                     }}
+                    resizeMode="contain"
                     style={{
                         height: 50,
                         width: 100,
