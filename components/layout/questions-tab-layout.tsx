@@ -141,6 +141,7 @@ export function QuestionScreen({
                         variant="big"
                         textClassName="text-white font-pathSemiBold text-[16px] py-1"
                         onPress={handleNext}
+                        disabled={selected.length === 0}
                     >
                         {isGerman()
                             ? isLastQuestion
