@@ -68,6 +68,7 @@ function LanguageButton({ title, Logo, language: ln }: Props) {
                 useBuiltInState={false}
                 isChecked={language === ln}
                 fillColor="#62A07B"
+                onPress={() => setLanguage(ln)}
                 iconStyle={{
                     position: "absolute",
                     top: 14,

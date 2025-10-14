@@ -30,11 +30,36 @@ import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/store/cart"; // ✅ Zustand cart store
 import { useTopShoes } from "@/lib/queries/products";
 import { ProductCard } from "@/components/common/ProductCard";
+import { NormalCategories, SportsCategories } from "@/lib/categories";
 
 export default function Screen() {
     const { isPending: fetch_top, shoeList } = useTopShoes(6);
     const { isGerman } = useLanguageStore();
     const { id } = useLocalSearchParams<{ id: string }>();
+
+    const displayedCategories = [
+        {
+            title: "All",
+            slug: "all",
+        },
+        ...NormalCategories.map((c) => ({
+            title: isGerman() ? c.name_de : c.name_it,
+            slug: c.slug,
+        })),
+        ...SportsCategories.map((c) => ({
+            title: isGerman() ? c.name_de : c.name_it,
+            slug: c.slug,
+        })),
+        {
+            title: isGerman() ? "Berg Trekkingschuhe" : "Berg Trekkingschuhe",
+            slug: "mountain-trekking-shoes",
+        },
+    ];
+
+    const fingCategoryBySlug = (slug: string) => {
+        console.log("Slug: ", slug);
+        return displayedCategories.find((c) => c.slug === slug);
+    };
 
     const { isPending, error, shoeDetails } = useGetProduct(Number(id.trim()));
 
@@ -129,7 +154,8 @@ export default function Screen() {
                                 {shoeDetails?.name}
                             </Typography>
                             <Typography className="text-xl">
-                                {shoeDetails?.sub_category}
+                                {fingCategoryBySlug(shoeDetails?.sub_category ?? "all")
+                                    ?.title ?? ""}
                             </Typography>
                             <Typography className="text-xl font-bold text-primary">
                                 {shoeDetails?.price}

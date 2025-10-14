@@ -97,10 +97,10 @@ export default function Map({ ...props }: Props) {
 
         const marker = partners[index];
 
-        await new Promise((resolve) => {
-            mapRef.current?.animateCamera({ zoom: 9 }, { duration: 200 });
-            setTimeout(resolve, 200);
-        });
+        // await new Promise((resolve) => {
+        //     mapRef.current?.animateCamera({ zoom: 9 }, { duration: 200 });
+        //     setTimeout(resolve, 200);
+        // });
 
         mapRef.current.animateCamera(
             { center: { latitude: marker.lat, longitude: marker.lng }, zoom: 10 },
@@ -143,7 +143,7 @@ export default function Map({ ...props }: Props) {
                         anchor={{ x: 0.5, y: 0.5 }}
                         title="You are here"
                     >
-                        <View className="p-1 border-2 border-primary/40 rounded-full overflow-hidden">
+                        <View className="p-1 border-2 border-[#D2042D]/40 rounded-full overflow-hidden">
                             <View className="bg-primary w-5 h-5 rounded-full" />
                         </View>
                     </Marker>
@@ -163,8 +163,8 @@ export default function Map({ ...props }: Props) {
                             <View className="p-1 border-2 border-primary/40 rounded-full overflow-hidden">
                                 <View
                                     className={`rounded-full ${index === selectedMarkerIndex
-                                            ? "bg-primary w-8 h-8"
-                                            : "bg-primary/80 w-5 h-5"
+                                            ? "bg-primary w-4 h-4"
+                                            : "bg-primary/80 w-3 h-3"
                                         }`}
                                 />
                             </View>
