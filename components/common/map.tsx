@@ -10,10 +10,9 @@ import {
 } from "react-native";
 import { Typography } from "../ui/typography";
 import { useGetPartners } from "@/lib/queries/partner";
-import { Partner } from "@/type/partner";
 
 type Props = {
-    partners: Partner[];
+    no_partners?: boolean;
 };
 
 const mapStyle = [
@@ -52,7 +51,7 @@ const mapStyle = [
     },
 ];
 
-export default function Map({ ...props }: Props) {
+export default function Map({ no_partners = false, ...props }: Props) {
     const { partners, isPending } = useGetPartners();
 
     const [selectedMarkerIndex, setSelectedMarkerIndex] = useState(0);
@@ -172,7 +171,7 @@ export default function Map({ ...props }: Props) {
                     ))}
             </MapView>
 
-            {!isPending && partners && partners.length > 0 && (
+            {!isPending && partners && partners.length > 0 && !no_partners && (
                 <View className="absolute bottom-0 left-0 right-0 bg-backgroundDark/90 backdrop-blur-md border-t border-primary/20">
                     <View className="p-4">
                         <Typography className="text-white font-semibold text-lg mb-3">

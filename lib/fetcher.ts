@@ -34,6 +34,7 @@ export async function fetcher<T>(
     if (auth) {
         const token = getString("access_token");
         if (token) {
+            finalHeaders["X-Authorization"] = `Bearer ${token}`;
             finalHeaders["Authorization"] = `Bearer ${token}`;
         }
     }

@@ -17,9 +17,10 @@ export function ShoeSizePicker({ list, onChange }: Props) {
         <Dropdown
             labelField="label"
             valueField="value"
-            placeholder={list.length > 0 ? list[0].label : "Select Size"}
+            placeholder={list.length > 0 ? list[0].label : "N/A"}
             renderRightIcon={() => <Arrow />}
             data={list}
+            disable={list.length === 0}
             itemContainerStyle={{
                 backgroundColor: "transparent",
                 padding: 0,

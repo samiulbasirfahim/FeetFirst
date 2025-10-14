@@ -31,6 +31,7 @@ import { useGetPartners } from "@/lib/queries/partner";
 import { Partner } from "@/type/partner";
 import { ComingSoonPopup } from "@/components/common/coming-soon-popup";
 import { router } from "expo-router";
+import Map from "@/components/common/map";
 
 export default function Screen() {
     const { isGerman } = useLanguageStore();
@@ -251,7 +252,7 @@ export default function Screen() {
                             zIndex: 99,
                         }}
                     />
-                    <View className="py-4 relative">
+                    <View className="pb-4 relative">
                         {error ? (
                             <Typography>Couldn't find shoes</Typography>
                         ) : !isPending_skifinder ? (
@@ -273,68 +274,13 @@ export default function Screen() {
                     </View>
                 </View>
 
-                <View className="-mt-4">
-                    {partners && partners.length > 0 && (
-                        <View className=" bottom-0 left-0 right-0 bg-backgroundDark/90 backdrop-blur-md border-t border-primary/20">
-                            <View className="p-4">
-                                <Typography className="text-white font-semibold text-lg mb-3">
-                                    Partners
-                                </Typography>
-                                <ScrollView
-                                    horizontal
-                                    showsHorizontalScrollIndicator={false}
-                                    contentContainerStyle={{ paddingRight: 16 }}
-                                >
-                                    {(partners as Partner[]).map((marker, index) => (
-                                        <TouchableOpacity
-                                            key={index}
-                                            onPress={() => { }}
-                                            className={`mr-3 p-3 rounded-lg border min-w-32 gap-1 bg-tab-background/50 border-primary/30`}
-                                        >
-                                            <Text
-                                                className={`text-base font-medium leading-tight text-white`}
-                                            >
-                                                {marker.title}
-                                            </Text>
-
-                                            <Text
-                                                className={`text-sm font-medium leading-tight text-white`}
-                                            >
-                                                {marker.address}
-                                            </Text>
-                                        </TouchableOpacity>
-                                    ))}
-                                </ScrollView>
-                            </View>
-                        </View>
-                    )}
-                </View>
                 <View
                     style={{
-                        height: heightOfWindow * 0.5,
+                        height: heightOfWindow * 0.4,
                     }}
-                    className=""
+                    className="overflow-hidden"
                 >
-                    <Text className="text-black absolute">
-                        {isGerman()
-                            ? "Ihre zuverlässigen Partner im Bereich Ski Finder…"
-                            : "Your reliable partners in the Ski Finder sector…"}
-                    </Text>
-                    <LinearGradient
-                        colors={["rgba(0,0,0,0)", "rgba(0,0,0,0.5)"]}
-                        pointerEvents="none"
-                        className="mt-10"
-                        style={{
-                            position: "absolute",
-                            left: 0,
-                            right: 0,
-                            top: 0,
-                            bottom: 0,
-                            zIndex: 99,
-                        }}
-                    />
-
-                    <Map partners={partners && partners.length > 0 ? partners : []} />
+                    <Map no_partners />
                 </View>
 
                 <View>
