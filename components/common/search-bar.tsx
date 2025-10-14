@@ -17,6 +17,7 @@ import { Portal } from "react-native-portalize";
 import { ItemImagePlaceholder } from "@/lib/placeholder";
 import { Typography } from "../ui/typography";
 import { useSearchProducts } from "@/lib/queries/products";
+import { Link } from "expo-router";
 
 type Props = {
     top: number;
@@ -148,7 +149,12 @@ export function SearchBar({ top, height }: Props) {
                                 keyboardDismissMode={"on-drag"}
                                 ItemSeparatorComponent={() => <View style={{ padding: 4 }} />}
                                 renderItem={({ item }) => (
-                                    <View className="bg-background min-h-10 rounded-lg flex-row gap-6 items-center p-2">
+                                    <Pressable
+                                        onPress={() => {
+                                            console.log("pressed");
+                                        }}
+                                        className="bg-background min-h-10 rounded-lg flex-row gap-6 items-center p-2"
+                                    >
                                         <View>
                                             <Image
                                                 source={{
@@ -181,7 +187,7 @@ export function SearchBar({ top, height }: Props) {
                                         <View>
                                             <AntDesign name="arrowright" size={24} color="#62A07B" />
                                         </View>
-                                    </View>
+                                    </Pressable>
                                 )}
                             />
                         }

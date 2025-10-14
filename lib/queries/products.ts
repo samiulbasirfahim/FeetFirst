@@ -160,3 +160,53 @@ export function useSearchProducts(query: string) {
 
     return { shoeList, isPending, error };
 }
+
+type Props = {
+    sub_category: string;
+    page: number;
+    questions: { question: string; answers: string[] }[];
+};
+
+export function useQNA(props: Props) {
+    const { data, isPending, error } = useQuery({
+        queryKey: ["qnaMatch", props.sub_category, props.questions],
+        queryFn: () =>
+            fetcher(`/api/products/qna-match/`, {
+                method: "POST",
+                auth: true,
+                body: {
+                    sub_category: props.sub_category,
+                    questions: props.questions,
+                },
+            }),
+        enabled: props.sub_category.trim().length > 0 && props.questions.length > 0,
+    });
+
+    const hasNext = useMemo(() => {
+        return Boolean((data as any)?.next);
+    }, [data]);
+
+    const hasPrev = useMemo(() => {
+        return Boolean((data as any)?.previous);
+    }, [data]);
+
+    const shoeList: ShoeItem[] = useMemo(() => {
+        if (!(data as any)?.results) return [];
+        return (data as any).results.map(
+            (item: any) =>
+                ({
+                    id: item.id,
+                    itemName: item.name,
+                    brandLogo: item.brandLogo,
+                    price: `$${item.price}`,
+                    image: item.image,
+                    favourite: item.favourite,
+                    colors: item.colors,
+                    match_data: item.match_data,
+                }) as ShoeItem,
+        );
+    }, [data]);
+
+    return { shoeList, isPending, error, hasNext, hasPrev };
+}
+// /api/products/qna-match/

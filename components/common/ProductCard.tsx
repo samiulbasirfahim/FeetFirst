@@ -112,24 +112,27 @@ FIT`}
                                 ? image.image
                                 : ItemImagePlaceholder,
                     }}
-                    className="w-full h-36 rounded-xl -mt-4"
+                    className="w-full h-36 rounded-xl -mt-4 z-10"
                     resizeMode="contain"
                 />
 
-                <View className="absolute left-1/2 -translate-x-1/2 bottom-6">
-                    <Image
-                        source={{
-                            uri:
-                                brandLogo && typeof brandLogo.image === "string"
-                                    ? brandLogo.image
-                                    : BrandLogoPlaceholder,
-                        }}
-                        style={{
-                            height: 50,
-                            width: 50,
-                        }}
-                    />
-                </View>
+                {brandLogo?.image && (
+                    <View className="absolute left-1/2 -translate-x-1/2 bottom-6 z-[0]">
+                        <Image
+                            source={{
+                                uri:
+                                    brandLogo && typeof brandLogo.image === "string"
+                                        ? brandLogo.image
+                                        : BrandLogoPlaceholder,
+                            }}
+                            resizeMode="contain"
+                            style={{
+                                height: 50,
+                                width: 50,
+                            }}
+                        />
+                    </View>
+                )}
             </View>
 
             <View className="flex-col relative px-1 flex-1">

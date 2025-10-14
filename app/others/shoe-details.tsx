@@ -171,18 +171,23 @@ export default function Screen() {
                         {/* Brand + Size */}
                         <View className="bg-muted-background p-4 rounded-2xl flex-row justify-between">
                             <AutoImage height={36} source={logo} />
+
                             <View className="h-9 justify-center min-w-16">
                                 <ShoeSizePicker
-                                    list={(shoeDetails?.sizes ?? []).map((size) => ({
-                                        label: String(size ?? 0),
-                                        value: String(size),
-                                    }))}
-                                    onChange={(sel) => console.log(sel)}
+                                    onChange={(selected) => { }}
+                                    list={
+                                        shoeDetails?.sizes.flatMap((s) => {
+                                            return s.size.map((size) => ({
+                                                label: size,
+                                                value: size,
+                                            }));
+                                        }) as []
+                                    }
                                 />
                                 <Typography>
                                     {(shoeDetails?.match_data &&
-                                        shoeDetails?.match_data?.score) ??
-                                        "0% FIT"}
+                                        shoeDetails?.match_data?.score + "% FIT") ??
+                                        "N/A FIT"}
                                 </Typography>
                             </View>
                         </View>

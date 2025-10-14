@@ -7,26 +7,46 @@ import { ProductCard } from "@/components/common/ProductCard";
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
 import { router, useLocalSearchParams, usePathname } from "expo-router";
-import { useProducts } from "@/lib/queries/products";
+import { useProducts, useQNA } from "@/lib/queries/products";
 import { LoadingSpinner } from "@/components/common/loading-spinner";
 import { questions } from "@/lib/category-questions";
 import { useQuestionStore } from "@/store/questions-answers";
 import { CategorySlug } from "@/type/questions-answers";
+import { ShoeItem } from "@/type/product";
 
 export default function Screen() {
     const { category } = useLocalSearchParams<{ category: string }>();
-    const { answers, getCategoryAnswers } = useQuestionStore();
+    const { answers, getCategoryAnswers, clearCategory } = useQuestionStore();
     const pathname = usePathname();
-
-    const { clearCategory } = useQuestionStore();
 
     const [hero_w, setHero_w] = useState(0);
     const [page, setPage] = useState<number>(1);
     const [selected, setSelected] = useState<string | null>(null);
-    const { shoeList, isPending, error, hasNext, hasPrev } = useProducts(
-        page,
-        selected,
-    );
+    const [shoeList, setShoeList] = useState<ShoeItem[]>([]);
+
+    const {
+        shoeList: shoeList_d,
+        isPending,
+        error,
+        hasNext,
+        hasPrev,
+    } = useProducts(page, selected);
+
+    const {
+        isPending: isPending_q,
+        shoeList: shoeList_q,
+        hasNext: hasNext_q,
+        hasPrev: hasPrev_q,
+    } = useQNA({
+        sub_category: selected ?? category ?? "",
+        page: page,
+        questions: getCategoryAnswers((selected ?? category) as CategorySlug),
+    });
+
+    useEffect(() => {
+        if (shoeList_d) return setShoeList(shoeList_d);
+        setShoeList([]);
+    }, [shoeList_d]);
 
     const exist_questions = useMemo(() => {
         if (questions[selected ?? category] === undefined) return false;
@@ -34,17 +54,20 @@ export default function Screen() {
     }, [category, selected]);
 
     useEffect(() => {
-        if (pathname !== "/shoe-recomandation/shoes") {
+        if (pathname !== "/shoe-recommendations/shoes") {
             return;
         }
 
-        console.log(
-            "Answers changed: ",
-            getCategoryAnswers((selected ?? category) as CategorySlug),
-        );
-
-        const answers = getCategoryAnswers((selected ?? category) as CategorySlug);
-    }, [answers, router, pathname]);
+        if (exist_questions) {
+            if (!isPending_q) {
+                setShoeList(shoeList_q);
+            }
+        } else {
+            if (!isPending) {
+                setShoeList(shoeList_d);
+            }
+        }
+    }, [questions, pathname, router]);
 
     return (
         <View className="flex-1 bg-backgroundDark">

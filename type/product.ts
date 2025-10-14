@@ -39,7 +39,10 @@ export type ShoeDetails = {
     } | null;
     main_category: string;
     sub_category: string;
-    sizes: string[];
+    sizes: {
+        size: string[];
+        quantity: number;
+    }[];
     toe_box: string;
     price: string;
     discount: string;

@@ -100,19 +100,10 @@ export function CustomDrawer(props: DrawerContentComponentProps) {
                         uri={user?.image ?? "https://avatar.iran.liara.run/public/34"}
                     />
                     <Typography variant="title" numberOfLines={1} className="text-white">
-                        John Due
+                        {user?.name && user.name.split(" ").length > 0
+                            ? user.name.split(" ")[0]
+                            : "User"}
                     </Typography>
-
-                    {/* <Button
-                        className="items-center justify-center flex-row gap-2 bg-white"
-                        variant="primary"
-                        noWrap
-                    >
-                        <DOCUMENTUPLOAD />
-                        <Typography className="text-lg text-background">
-                            Upload PDF
-                        </Typography>
-                    </Button> */}
                 </View>
 
                 {/* Menu */}
