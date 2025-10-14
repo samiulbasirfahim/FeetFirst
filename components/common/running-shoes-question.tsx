@@ -25,6 +25,7 @@ export function QuestionScreen({
     const { isGerman } = useLanguageStore();
     const { updateAnswer, getCategoryAnswers } = useQuestionStore();
 
+    const [selected, setSelected] = useState<string[]>([]);
     // FIX: Properly access running shoes subcategories
     const runningQuestions = questions["running-shoes"];
 
@@ -48,8 +49,6 @@ export function QuestionScreen({
     );
 
     const questionText = isGerman() ? question.question.de : question.question.it;
-
-    const [selected, setSelected] = useState<string[]>([]);
 
     const handleSelectionChange = (selection: string[]) => {
         setSelected(selection);
@@ -76,7 +75,7 @@ export function QuestionScreen({
         });
 
         updateAnswer(
-            category,
+            "running-shoes",
             questionIndex,
             question.question.eng,
             englishSelections,

@@ -16,18 +16,16 @@ import { ShoeItem } from "@/type/product";
 
 export default function Screen() {
     const { category } = useLocalSearchParams<{ category: string }>();
-    const { answers, getCategoryAnswers, clearCategory } = useQuestionStore();
+    const { getCategoryAnswers, answers, clearCategory } = useQuestionStore();
     const pathname = usePathname();
 
     const [hero_w, setHero_w] = useState(0);
     const [page, setPage] = useState<number>(1);
     const [selected, setSelected] = useState<string | null>(null);
-    const [shoeList, setShoeList] = useState<ShoeItem[]>([]);
 
     const {
         shoeList: shoeList_d,
         isPending,
-        error,
         hasNext,
         hasPrev,
     } = useProducts(page, selected);
@@ -41,33 +39,40 @@ export default function Screen() {
         sub_category: selected ?? category ?? "",
         page: page,
         questions: getCategoryAnswers((selected ?? category) as CategorySlug),
+        enabled: pathname === "/shoe-recommendations/shoes",
     });
 
-    useEffect(() => {
-        if (shoeList_d) return setShoeList(shoeList_d);
-        setShoeList([]);
-    }, [shoeList_d]);
-
     const exist_questions = useMemo(() => {
-        if (questions[selected ?? category] === undefined) return false;
-        else return true;
-    }, [category, selected]);
+        const answrs = getCategoryAnswers((selected ?? category) as any);
+        console.log(answrs);
+        return answrs.length > 0;
+    }, [selected, router, answers, category]);
+
+    const exist_question_entryh = useMemo(() => {
+        return questions[(selected ?? category) as any] !== undefined;
+    }, [selected, router, answers]);
 
     useEffect(() => {
         if (pathname !== "/shoe-recommendations/shoes") {
             return;
         }
+    }, [selected, router, answers, category]);
 
-        if (exist_questions) {
-            if (!isPending_q) {
-                setShoeList(shoeList_q);
-            }
-        } else {
-            if (!isPending) {
-                setShoeList(shoeList_d);
-            }
-        }
-    }, [questions, pathname, router]);
+    const isPending_active = exist_questions ? isPending_q : isPending;
+    const hasNext_active = exist_questions ? hasNext_q : hasNext;
+    const hasPrev_active = exist_questions ? hasPrev_q : hasPrev;
+    const shoeList = exist_questions ? shoeList_q : shoeList_d;
+
+    console.log({
+        isPending: isPending_active,
+        hasNext_active: hasNext_active,
+        hasPrev_active: hasPrev_active,
+        shoeList: shoeList,
+        exist_questions: exist_questions,
+        questions: getCategoryAnswers((selected ?? category) as CategorySlug),
+    });
+
+    console.log("FINAL", shoeList);
 
     return (
         <View className="flex-1 bg-backgroundDark">
@@ -76,7 +81,7 @@ export default function Screen() {
                 default_value={category ?? ""}
             />
             <Layout noPadding className="bg-backgroundDark" scrollable avoidTabbar>
-                {exist_questions && (
+                {exist_question_entryh && (
                     <View
                         className="relative my-6 justify-center px-4 items-center"
                         onLayout={(e) => {
@@ -115,7 +120,7 @@ export default function Screen() {
                         </View>
                     </View>
                 )}
-                {!(isPending || error) ? (
+                {!isPending_active ? (
                     (shoeList && shoeList.length) > 0 ? (
                         <>
                             <View className="flex-row flex-wrap justify-between mt-6 px-4">
@@ -124,12 +129,12 @@ export default function Screen() {
                                 ))}
                             </View>
                             <View className="flex-row items-center justify-center flex-1 gap-3">
-                                {hasPrev && (
+                                {hasPrev_active && (
                                     <Button onPress={() => setPage((prev) => prev - 1)}>
                                         PREV
                                     </Button>
                                 )}
-                                {hasNext && (
+                                {hasNext_active && (
                                     <Button onPress={() => setPage((prev) => prev + 1)}>
                                         NEXT
                                     </Button>

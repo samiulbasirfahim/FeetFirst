@@ -165,13 +165,14 @@ type Props = {
     sub_category: string;
     page: number;
     questions: { question: string; answers: string[] }[];
+    enabled: boolean;
 };
 
 export function useQNA(props: Props) {
     const { data, isPending, error } = useQuery({
         queryKey: ["qnaMatch", props.sub_category, props.questions],
         queryFn: () =>
-            fetcher(`/api/products/qna-match/`, {
+            fetcher(`/api/products/qna-match/?limit=10&page=${props.page}`, {
                 method: "POST",
                 auth: true,
                 body: {
@@ -179,16 +180,11 @@ export function useQNA(props: Props) {
                     questions: props.questions,
                 },
             }),
-        enabled: props.sub_category.trim().length > 0 && props.questions.length > 0,
+        enabled:
+            props.enabled &&
+            props.sub_category.trim().length > 0 &&
+            props.questions.length > 0,
     });
-
-    const hasNext = useMemo(() => {
-        return Boolean((data as any)?.next);
-    }, [data]);
-
-    const hasPrev = useMemo(() => {
-        return Boolean((data as any)?.previous);
-    }, [data]);
 
     const shoeList: ShoeItem[] = useMemo(() => {
         if (!(data as any)?.results) return [];
@@ -205,6 +201,14 @@ export function useQNA(props: Props) {
                     match_data: item.match_data,
                 }) as ShoeItem,
         );
+    }, [data]);
+
+    const hasNext = useMemo(() => {
+        return Boolean((data as any)?.next);
+    }, [data]);
+
+    const hasPrev = useMemo(() => {
+        return Boolean((data as any)?.previous);
     }, [data]);
 
     return { shoeList, isPending, error, hasNext, hasPrev };
