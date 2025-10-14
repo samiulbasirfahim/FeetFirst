@@ -44,17 +44,16 @@ export const useQuestionStore = create<QuestionStore>((set, get) => ({
         set((state) => {
             const categoryAnswers = state.answers[category] || [];
             const updatedAnswers = [...categoryAnswers];
+            updatedAnswers[questionIndex] = { question, answers };
 
-            if (updatedAnswers[questionIndex]) {
-                updatedAnswers[questionIndex] = { question, answers };
-            } else {
-                updatedAnswers[questionIndex] = { question, answers };
-            }
+            const compactedAnswers = updatedAnswers.filter(
+                (item) => item !== null && item !== undefined,
+            );
 
             return {
                 answers: {
                     ...state.answers,
-                    [category]: updatedAnswers,
+                    [category]: compactedAnswers,
                 },
             };
         });

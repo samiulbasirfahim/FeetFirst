@@ -29,6 +29,8 @@ export function ProductCard({
         error: error_add,
     } = useAddFavourite();
 
+    console.log("ITS MATCH DATA", match_data);
+
     const {
         mutate: remove_from_favourite,
         isPending: pending_remove,

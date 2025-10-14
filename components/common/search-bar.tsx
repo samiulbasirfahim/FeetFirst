@@ -17,7 +17,7 @@ import { Portal } from "react-native-portalize";
 import { ItemImagePlaceholder } from "@/lib/placeholder";
 import { Typography } from "../ui/typography";
 import { useSearchProducts } from "@/lib/queries/products";
-import { Link } from "expo-router";
+import { router } from "expo-router";
 
 type Props = {
     top: number;
@@ -151,7 +151,14 @@ export function SearchBar({ top, height }: Props) {
                                 renderItem={({ item }) => (
                                     <Pressable
                                         onPress={() => {
-                                            console.log("pressed");
+                                            router.push({
+                                                pathname: "/others/shoe-details",
+                                                params: {
+                                                    id: item.id.toString(),
+                                                },
+                                            });
+
+                                            toggleSearch(false);
                                         }}
                                         className="bg-background min-h-10 rounded-lg flex-row gap-6 items-center p-2"
                                     >

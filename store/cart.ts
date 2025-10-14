@@ -30,7 +30,7 @@ type APIShoeResponse = {
     brand: string;
     price: string;
     colors: string[];
-    images: Array<{ id: number; image: string }>;
+    images: { id: number; image: string }[];
     match_data: MatchData | null;
     favourite: boolean;
 };
@@ -160,7 +160,9 @@ export const useCartStore = create<CartState>((set, get) => ({
                     (r): r is PromiseFulfilledResult<APIShoeResponse> =>
                         r.status === "fulfilled",
                 )
-                .map((r) => transformShoe(r.value));
+                .map((r) => {
+                    return transformShoe(r.value);
+                });
 
             set({ items: validItems });
         } catch (error) {

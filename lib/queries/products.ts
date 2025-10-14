@@ -18,6 +18,7 @@ export function useTopShoes(limit: number, by_scan?: boolean) {
         return (data as any).results.map(
             (item: any) =>
                 ({
+                    ...item,
                     id: item.id,
                     itemName: item.name,
                     brandLogo: item.brandLogo,
@@ -25,6 +26,7 @@ export function useTopShoes(limit: number, by_scan?: boolean) {
                     image: item.image,
                     favourite: item.favourite,
                     colors: item.colors,
+                    match_data: item.match_data,
                 }) as ShoeItem,
         );
     }, [data]);
@@ -79,6 +81,7 @@ export function useProducts(page: number, sub_category: string | null) {
         return (data as any).results.map(
             (item: any) =>
                 ({
+                    ...item,
                     id: item.id,
                     itemName: item.name,
                     brandLogo: item.brandLogo,
@@ -117,6 +120,7 @@ export function useSuggestedShoes(limit: number, id: number) {
         return (data as any).results.map(
             (item: any) =>
                 ({
+                    ...item,
                     id: item.id,
                     itemName: item.name,
                     brandLogo: item.brandLogo,
@@ -147,6 +151,7 @@ export function useSearchProducts(query: string) {
         return (data as any).results.map(
             (item: any) =>
                 ({
+                    ...item,
                     id: item.id,
                     itemName: item.name,
                     brandLogo: item.brandLogo,
@@ -191,6 +196,7 @@ export function useQNA(props: Props) {
         return (data as any).results.map(
             (item: any) =>
                 ({
+                    ...item,
                     id: item.id,
                     itemName: item.name,
                     brandLogo: item.brandLogo,

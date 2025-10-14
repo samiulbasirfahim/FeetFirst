@@ -21,7 +21,6 @@ export default function CartScreen() {
         cartIds,
     } = useCartStore();
 
-    // ✅ Load items once and update when cartIds changes
     useEffect(() => {
         fetchAllCartItemsSettled();
     }, [cartIds.length]);
@@ -42,19 +41,7 @@ export default function CartScreen() {
             className="py-3 mb-4 w-[48%] relative min-h-[260px] overflow-hidden"
         >
             <View className="bg-background rounded-3xl py-6 relative">
-                <View className="flex-row px-4 justify-between items-center">
-                    {item.match_data ? (
-                        <View className="px-2 py-1 border border-primary bg-primary rounded-lg">
-                            <Typography
-                                className="text-white text-sm"
-                                style={{ lineHeight: 12 }}
-                            >
-                                {`${item.match_data.scrore}% FIT`}
-                            </Typography>
-                        </View>
-                    ) : (
-                        <View />
-                    )}
+                <View className="flex-row px-4 justify-end items-center">
                     <TouchableOpacity
                         onPress={() => handleRemoveFromCart(item.id)}
                         style={{ zIndex: 9999 }}
@@ -71,19 +58,20 @@ export default function CartScreen() {
                                 ? item.image.image
                                 : ItemImagePlaceholder,
                     }}
-                    className="w-full h-36 rounded-xl -mt-4"
+                    className="w-full h-36 rounded-xl -mt-4 z-[9999]"
                     resizeMode="contain"
                 />
 
-                <View className="absolute left-1/2 -translate-x-1/2 bottom-6">
+                <View className="absolute left-1/2 -translate-x-1/2 bottom-2">
                     <Image
+                        resizeMode="contain"
                         source={{
                             uri:
                                 item.brandLogo && typeof item.brandLogo.image === "string"
                                     ? item.brandLogo.image
                                     : BrandLogoPlaceholder,
                         }}
-                        style={{ height: 50, width: 50 }}
+                        style={{ height: 50, width: 100 }}
                     />
                 </View>
             </View>

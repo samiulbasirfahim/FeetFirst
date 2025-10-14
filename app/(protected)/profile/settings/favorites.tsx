@@ -103,9 +103,7 @@ function ShoeCard({
                 <View className="flex-row justify-between items-center">
                     <View className="bg-primary px-3 py-1 rounded-xl">
                         <Text className="text-white text-xs font-bold">
-                            {item.match_data
-                                ? `${item.match_data.score} FIT`
-                                : "N/A"}
+                            {item.match_data ? `${item.match_data.score ?? 0} FIT` : "N/A"}
                         </Text>
                     </View>
                 </View>
