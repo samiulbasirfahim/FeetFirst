@@ -107,9 +107,9 @@ export function useProducts(page: number, sub_category: string | null) {
 
 export function useSuggestedShoes(limit: number, id: number) {
     const { data, isPending, error } = useQuery({
-        queryKey: ["topProducts", limit],
+        queryKey: ["suggestedProducts", id, limit],
         queryFn: () =>
-            fetcher(`/api/products/?limit=${limit}`, {
+            fetcher(`/api/products/suggestions/${id}/?limit=${limit}`, {
                 method: "GET",
                 auth: true,
             }),

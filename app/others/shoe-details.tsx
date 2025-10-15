@@ -22,7 +22,7 @@ import ShoeHeader from "@/components/common/category-header";
 import TwoDPreview from "@/components/common/2d-preview-for-details";
 import { ShoeSizePicker } from "@/components/common/shoe-size-dropdown";
 import { useLocalSearchParams } from "expo-router";
-import { useGetProduct } from "@/lib/queries/products";
+import { useGetProduct, useSuggestedShoes } from "@/lib/queries/products";
 import { ItemImagePlaceholder } from "@/lib/placeholder";
 import { LoadingSpinner } from "@/components/common/loading-spinner";
 import { useAddFavourite, useRemoveFavourite } from "@/lib/queries/favourite";
@@ -31,11 +31,32 @@ import { useCartStore } from "@/store/cart"; // ✅ Zustand cart store
 import { useTopShoes } from "@/lib/queries/products";
 import { ProductCard } from "@/components/common/ProductCard";
 import { NormalCategories, SportsCategories } from "@/lib/categories";
+import { ShoeItem } from "@/type/product";
 
 export default function Screen() {
-    const { isPending: fetch_top, shoeList } = useTopShoes(6);
     const { isGerman } = useLanguageStore();
     const { id } = useLocalSearchParams<{ id: string }>();
+
+    const { isPending: fetch_top, shoeList } = useTopShoes(6);
+    const { isPending: fetch_all, shoeList: shoeList_s } = useSuggestedShoes(
+        6,
+        Number(id),
+    );
+
+    const [finalShoeList, setFinalShoeList] = useState<ShoeItem[]>([]);
+
+    useEffect(() => {
+        const remainingSlots = 6 - shoeList_s.length;
+
+        const combinedList = [...shoeList_s, ...shoeList.slice(0, remainingSlots)];
+
+        setFinalShoeList(combinedList);
+
+        console.log("----- Final Shoe List -----");
+        console.log("Shoe List S: ", shoeList_s);
+        console.log("Shoe List: ", shoeList);
+        console.log("Final Shoe List: ", combinedList);
+    }, [shoeList, shoeList_s]);
 
     const displayedCategories = [
         {
@@ -364,12 +385,12 @@ export default function Screen() {
                             )}
                         </View>
 
-                        {fetch_top ? (
+                        {fetch_top || fetch_all ? (
                             <LoadingSpinner />
                         ) : (
-                            shoeList.length > 0 && (
+                            finalShoeList.length > 0 && (
                                 <View className="flex-row flex-wrap justify-between">
-                                    {shoeList.map((shoe, i) => (
+                                    {finalShoeList.map((shoe, i) => (
                                         <ProductCard {...shoe} key={i} />
                                     ))}
                                 </View>

@@ -39,12 +39,19 @@ export default {
             output: "static",
             favicon: "./assets/images/favicon.png",
         },
+        extra: {
+            expoPublicGoogleMapsApiKey: process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY,
+            expoPublicIosOauthToken: process.env.EXPO_PUBLIC_IOS_OAUTH_TOKEN,
+            expoPublicAndroidOauthToken: process.env.EXPO_PUBLIC_ANDROID_OAUTH_TOKEN,
+            expoPublicWebOauthToken: process.env.EXPO_PUBLIC_WEB_OAUTH_TOKEN,
+        },
         plugins: [
             "expo-router",
             [
                 "@react-native-google-signin/google-signin",
                 {
-                    iosUrlScheme: process.env.EXPO_PUBLIC_IOS_URL_SCHEME,
+                    iosUrlScheme:
+                        "com.googleusercontent.apps.22272893219-bt31s28t9vee1gtg6onaemqqv7jes3vq",
                 },
             ],
             [
@@ -74,9 +81,10 @@ export default {
         experiments: {
             typedRoutes: true,
         },
+
         extra: {
             eas: {
-                projectId: "952f0178-820c-4208-b67e-4780c50ce38d",
+                projectId: "63b0c932-f478-4040-b1ea-105f483c4367",
             },
         },
     },
