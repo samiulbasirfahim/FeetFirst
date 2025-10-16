@@ -51,11 +51,6 @@ export default function Screen() {
         const combinedList = [...shoeList_s, ...shoeList.slice(0, remainingSlots)];
 
         setFinalShoeList(combinedList);
-
-        console.log("----- Final Shoe List -----");
-        console.log("Shoe List S: ", shoeList_s);
-        console.log("Shoe List: ", shoeList);
-        console.log("Final Shoe List: ", combinedList);
     }, [shoeList, shoeList_s]);
 
     const displayedCategories = [

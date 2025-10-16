@@ -12,7 +12,7 @@ export default {
         newArchEnabled: true,
         ios: {
             supportsTablet: true,
-            bundleIdentifier: "com.samiulbasirfahim.rxen.feetfirst",
+            bundleIdentifier: "com.feetf1rst.app.feetfirst",
             infoPlist: {
                 ITSAppUsesNonExemptEncryption: false,
             },
@@ -32,7 +32,7 @@ export default {
                 },
             },
             edgeToEdgeEnabled: true,
-            package: "com.samiulbasirfahim.rxen.feetfirst",
+            package: "com.feetf1rst.app.feetfirst",
         },
         web: {
             bundler: "metro",
@@ -51,7 +51,7 @@ export default {
                 "@react-native-google-signin/google-signin",
                 {
                     iosUrlScheme:
-                        "com.googleusercontent.apps.22272893219-bt31s28t9vee1gtg6onaemqqv7jes3vq",
+                        "com.googleusercontent.apps.1031228566711-mpuh3v54mc3aba6lfjahdov64l5gjlf1",
                 },
             ],
             [
@@ -84,7 +84,7 @@ export default {
 
         extra: {
             eas: {
-                projectId: "63b0c932-f478-4040-b1ea-105f483c4367",
+                projectId: "3d064754-5434-470d-9e09-a808996ace4b",
             },
         },
     },

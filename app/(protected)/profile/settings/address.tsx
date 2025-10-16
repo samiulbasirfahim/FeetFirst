@@ -162,7 +162,7 @@ export default function Screen() {
             });
         };
 
-        if (address) {
+        if (address.id) {
             trigger_update(
                 { ...payload },
                 {
@@ -281,6 +281,7 @@ export default function Screen() {
                     placeholder={t.phoneNumber}
                     value={form.phoneNumber}
                     keyboardType="phone-pad"
+                    maxLength={18}
                     onChangeText={(val) => handleChange("phoneNumber", val)}
                 />
                 {error.phoneNumber && (

@@ -1,6 +1,6 @@
 import { getString } from "@/store/mmkv";
 
-export const BASE_URL = "https://ape-in-eft.ngrok-free.app";
+export const BASE_URL = "https://admin.feetf1rst.com";
 
 export class ApiError extends Error {
     public status: number;
@@ -52,6 +52,8 @@ export async function fetcher<T>(
         console.log("THIS IS THE ERR: ", err);
     }
 
+    console.log("ENDPOINT: ", `${BASE_URL}${endpoint}`, "--->", res);
+    console.log("ENDPOINT: ", `${BASE_URL}${endpoint}--${method}`, "--->", res);
     let data: any;
     try {
         data = await res.json();
