@@ -12,6 +12,7 @@ import { Link, router } from "expo-router";
 import MassFlatList from "@/components/ui/flatlist-massinsole";
 import { useDrawerHeader } from "@/components/common/drawer-header";
 import { TwoDAccordian } from "@/components/common/2d-accordian";
+import { useParamStore } from "@/store/paramStore";
 
 export type ShoeItem = {
     title: string;
@@ -25,23 +26,24 @@ export const shoesData: ShoeItem[] = [
         title: "Sportschuhe",
         desc: "Einlagen für jede Sportart – maximale Leistung, optimale Balance.",
         img: require("@/assets/images/playing.jpg"),
-        slug: "sport"
+        slug: "sport",
     },
     {
         title: "Radschuhe",
         desc: "Patentierte Winsole – für maximale Effizienz und optimale Kraftübertragung.",
         img: require("@/assets/images/cycling.jpg"),
-        slug: "cycling"
+        slug: "cycling",
     },
     {
         title: "Alltagssneaker",
         desc: "Ganztägiger Komfort und gesunde Fußunterstützung.",
         img: require("@/assets/images/running.jpg"),
-        slug: "everyday"
+        slug: "everyday",
     },
 ];
 
 export default function Screen() {
+    const { setParam } = useParamStore();
     const { height, HeaderComponent, onScroll } = useDrawerHeader({
         threeshold: 100,
     });
@@ -206,9 +208,18 @@ export default function Screen() {
                                             {item.desc}
                                         </Typography>
                                         <Button
-                                            onPress={() =>
-                                                router.push("/(scan-upload)/while-scan-upload")
-                                            }
+                                            onPress={() => {
+                                                if (item.slug === "sport") {
+                                                    router.push("/winsole-questions/after-loading/third");
+                                                } else if (item.slug === "cycling") {
+                                                    router.push("/winsole-questions/while-loading");
+                                                } else if (item.slug === "everyday") {
+                                                    setParam("insole_type", "everyday");
+                                                    router.push({
+                                                        pathname: "/(scan-upload)/while-scan-upload",
+                                                    });
+                                                }
+                                            }}
                                             variant="outline"
                                             textClassName="text-base font-semibold"
                                             className="w-1/2 rounded-2xl py-2.5 bg-primary/20"

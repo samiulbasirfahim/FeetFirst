@@ -19,7 +19,7 @@ export default function SettingsLayout() {
                             className="bg-backgroundDark w-full flex-row relative"
                         >
                             <View className="flex-row items-center justify-start flex-1">
-                                <View className="ps-4">
+                                <View className="px-2">
                                     <HeaderBackButton />
                                 </View>
                                 <Typography className="absolute left-1/2 -translate-x-1/2 font-semibold text-lg text-white">

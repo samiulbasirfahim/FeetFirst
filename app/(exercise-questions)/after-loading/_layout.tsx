@@ -64,7 +64,7 @@ function CustomTabBar({ state, descriptors }: MaterialTopTabBarProps) {
         />
       </View>
       <View className="justify-center flex-row items-center relative px-4 py-2">
-        <View className="absolute left-4 bg-transparent">
+        <View className="px-2 bg-transparent">
           <HeaderBackButton />
         </View>
         <Typography className="text-lg text-white font-pathSemiBold">

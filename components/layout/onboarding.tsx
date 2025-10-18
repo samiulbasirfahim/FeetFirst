@@ -2,7 +2,7 @@ import { Layout } from "./layout";
 import CheckBox from "@/components/ui/checkbox";
 import { Typography } from "@/components/ui/typography";
 import { useLanguageStore } from "@/store/language";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Pressable, TextInput, View, Keyboard } from "react-native";
 
 type Props = {
@@ -14,6 +14,7 @@ type Props = {
     onSelectionChange: (selection: string[]) => void;
     otherPlaceholder?: string;
     otherButtonText?: string;
+    defaultValue?: string | null;
 };
 
 export function OnBoardingLayout({
@@ -22,16 +23,15 @@ export function OnBoardingLayout({
     options,
     showOtherInput = false,
     multiple = false,
+    defaultValue = null,
     onSelectionChange,
     otherPlaceholder,
-    otherButtonText,
 }: Props) {
     const { isGerman } = useLanguageStore();
     const [checkedValues, setCheckedValues] = useState<string[]>([]);
     const [selectedValue, setSelectedValue] = useState<string>("");
     const [otherValue, setOtherValue] = useState("");
 
-    // Get localized placeholder text
     const getPlaceholder = () => {
         if (otherPlaceholder) return otherPlaceholder;
         return isGerman() ? "Bitte angeben..." : "Specifica qui...";
@@ -53,6 +53,12 @@ export function OnBoardingLayout({
             );
         }
     };
+
+    useEffect(() => {
+        if (defaultValue) {
+            toggleCheck(defaultValue);
+        }
+    }, [defaultValue]);
 
     const handleOtherInputChange = (text: string) => {
         setOtherValue(text);

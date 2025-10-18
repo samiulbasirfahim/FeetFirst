@@ -1,4 +1,3 @@
-// layouts/running-shoes-layouts.tsx
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { CustomTabBar } from "@/components/layout/questions-tab-layout";
