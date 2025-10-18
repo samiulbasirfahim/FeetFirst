@@ -5,6 +5,7 @@ import { useGetNews } from "@/lib/queries/news";
 import { useLanguageStore } from "@/store/language";
 import { News } from "@/type/news";
 import { LoadingSpinner } from "../common/loading-spinner";
+import { NewsCard } from "../common/newsCard";
 
 const NewsFlatlist = () => {
     const { width } = useWindowDimensions();
@@ -12,33 +13,7 @@ const NewsFlatlist = () => {
     const { isGerman } = useLanguageStore();
 
     const renderItem = ({ item }: { item: News }) => {
-        const title = isGerman() ? item.title_de : item.title_it;
-        const description = isGerman() ? item.content_de : item.content_it;
-        return (
-            <View
-                className="mr-4 border border-primary/20 rounded-2xl bg-background"
-                style={{ width: width * 0.85 }}
-            >
-                <View className="flex-row p-3 gap-3 justify-between items-center">
-                    <Image
-                        source={{ uri: item.image }}
-                        style={{ width: 90, height: 90 }}
-                        className="border border-primary rounded-2xl"
-                    />
-                    <View className="flex-1">
-                        <Typography
-                            className="text-sm font-medium mb-1.5"
-                            numberOfLines={2}
-                        >
-                            {title}
-                        </Typography>
-                        <Typography className="text-[10px]" numberOfLines={3}>
-                            {description}
-                        </Typography>
-                    </View>
-                </View>
-            </View>
-        );
+        return <NewsCard item={item} />;
     };
 
     return (

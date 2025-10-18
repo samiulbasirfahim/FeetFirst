@@ -4,7 +4,7 @@ export const dummyShoes: ShoeItem[] = [
   {
     id: 1,
     itemName: "NikeNike Air Zoom Pegasus 39Nike Air Zoom Pegasus 39Nike Air Zoom Pegasus 39 Air Zoom Pegasus 39",
-    brandLogo: { name: "Nike", image: "https://example.com/nike-logo.png" },
+    brand: { name: "Nike", image: "https://example.com/nike-logo.png" },
     price: "$120",
     image: { id: 101, image: "https://example.com/nike-pegasus.png" },
     colors: ["Black", "White", "Blue"],
@@ -14,7 +14,7 @@ export const dummyShoes: ShoeItem[] = [
   {
     id: 2,
     itemName: "Adidas Ultraboost 22",
-    brandLogo: { name: "Adidas", image: "https://example.com/adidas-logo.png" },
+    brand: { name: "Adidas", image: "https://example.com/adidas-logo.png" },
     price: "$180",
     image: { id: 102, image: "https://example.com/ultraboost.png" },
     colors: ["White", "Grey"],
@@ -24,7 +24,7 @@ export const dummyShoes: ShoeItem[] = [
   {
     id: 3,
     itemName: "Puma RS-X3 Puzzle",
-    brandLogo: { name: "Puma", image: "https://example.com/puma-logo.png" },
+    brand: { name: "Puma", image: "https://example.com/puma-logo.png" },
     price: "$110",
     image: { id: 103, image: "https://example.com/puma-rsx3.png" },
     colors: ["Red", "Black", "Yellow"],
@@ -34,7 +34,7 @@ export const dummyShoes: ShoeItem[] = [
   {
     id: 4,
     itemName: "New Balance 574 Classic",
-    brandLogo: {
+    brand: {
       name: "New Balance",
       image: "https://example.com/nb-logo.png",
     },
@@ -47,7 +47,7 @@ export const dummyShoes: ShoeItem[] = [
   {
     id: 5,
     itemName: "Asics Gel-Nimbus 25",
-    brandLogo: { name: "Asics", image: "https://example.com/asics-logo.png" },
+    brand: { name: "Asics", image: "https://example.com/asics-logo.png" },
     price: "$160",
     image: { id: 105, image: "https://example.com/gel-nimbus.png" },
     colors: ["Blue", "White"],

@@ -65,7 +65,7 @@ export function useGetFavourites() {
                     id: item.id,
                     itemName: item.name,
                     brandName: "Nike",
-                    brandLogo: null,
+                    brand: null,
                     price: `$${item.price}`,
                     image: item.image,
                     match_data: item.match_data,

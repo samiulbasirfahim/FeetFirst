@@ -6,10 +6,8 @@ import Image5 from "@/assets/images/winsole-1.png";
 import { VersionInfo } from "@/components/common/version";
 import { Layout } from "@/components/layout/layout";
 import { Button } from "@/components/ui/button";
-import { HeaderBackButton } from "@/components/ui/header-back-button";
 import { Typography } from "@/components/ui/typography";
 import { useLanguageStore } from "@/store/language";
-import { BlurView } from "expo-blur";
 import Drawer from "expo-router/drawer";
 import {
     Image,
@@ -17,7 +15,6 @@ import {
     useWindowDimensions,
     View,
 } from "react-native";
-import { Portal } from "react-native-portalize";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { useDrawerHeader } from "@/components/common/drawer-header";
@@ -83,15 +80,14 @@ export default function Screen() {
 
     const texts = isGerman() ? pagesDE : pagesIT;
 
-
     const {
         HeaderComponent,
         onScroll,
-        height: h_heihgt
+        height: h_heihgt,
     } = useDrawerHeader({
         threeshold: 100,
-        shouldGoBack: true
-    })
+        shouldGoBack: true,
+    });
 
     return (
         <>
@@ -101,13 +97,18 @@ export default function Screen() {
                 }}
             />
             <View className="flex-1">
-
-
                 {HeaderComponent}
 
-                <Layout onScroll={onScroll} noPadding scrollable avoidTabbar className="bg-backgroundDark" style={{
-                    marginTop: - h_heihgt - 20,
-                }}>
+                <Layout
+                    onScroll={onScroll}
+                    noPadding
+                    scrollable
+                    avoidTabbar
+                    className="bg-backgroundDark"
+                    style={{
+                        marginTop: -h_heihgt - 20,
+                    }}
+                >
                     {/* <Portal>
                         <View
                             style={{
@@ -133,7 +134,10 @@ export default function Screen() {
                         }}
                     >
                         <View className="absolute inset-0 bg-backgroundDark/70 items-center justify-center">
-                            <Typography variant="title" className="text-foreground text-center">
+                            <Typography
+                                variant="title"
+                                className="text-foreground text-center"
+                            >
                                 {texts.tittle1}
                             </Typography>
                         </View>
@@ -179,7 +183,7 @@ export default function Screen() {
                                 className="p-0"
                                 textClassName="underline text-white underline-offset-4 text-xl"
                                 onPress={() => {
-                                    router.push("/winsole-questions/while-loading")
+                                    router.push("/winsole-questions/while-loading");
                                 }}
                             >
                                 {texts.button2}

@@ -92,7 +92,7 @@ export default function Screen() {
                         </View>
                         <View className="">
                             <Button
-                                onPress={() => router.push("/home/foot-exercise")}
+                                onPress={() => router.push("/(protected)/shoe-recommendations")}
                                 variant="outline"
                                 textClassName=" text-base"
                                 className="border-primary rounded-[12px] bg-primary/15 py-3"

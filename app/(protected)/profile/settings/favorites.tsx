@@ -98,7 +98,7 @@ function ShoeCard({
                     {item.itemName ?? ""}
                 </Text>
                 <Text className="text-muted-foreground text-sm mb-3" numberOfLines={1}>
-                    {item.brandLogo?.name}
+                    {item.brand?.name}
                 </Text>
                 <View className="flex-row justify-between items-center">
                     <View className="bg-primary px-3 py-1 rounded-xl">

@@ -10,7 +10,7 @@ export type ShoeItem = {
     id: number;
     itemName: string;
     brandName?: string;
-    brandLogo?: {
+    brand?: {
         id: number;
         image: string;
     } | null;
@@ -39,7 +39,7 @@ const transformShoe = (apiShoe: APIShoeResponse): ShoeItem => ({
     id: apiShoe.id,
     itemName: apiShoe.name,
     brandName: apiShoe.brand,
-    brandLogo: null,
+    brand: null,
     price: apiShoe.price,
     image: apiShoe.images?.[0] || null,
     colors: apiShoe.colors,

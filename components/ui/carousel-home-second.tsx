@@ -6,7 +6,7 @@ import { useSharedValue } from "react-native-reanimated";
 import Arrow from "@/assets/svgs/arrow-exercise.svg";
 
 import { ShoeItem } from "@/type/product";
-import { BrandLogoPlaceholder, ItemImagePlaceholder } from "@/lib/placeholder";
+import { brandPlaceholder, ItemImagePlaceholder } from "@/lib/placeholder";
 import { router } from "expo-router";
 
 const HEIGHT = 350;
@@ -42,9 +42,9 @@ function HomeCarauselSecond({ shoes }) {
             </View>
             <View className="pl-2">
                 <View className="flex-col gap-3 pb-2">
-                    {item.brandLogo?.name && (
+                    {item.brand?.name && (
                         <Typography className="font-medium text-foreground text-[26px] leading-[26px]">
-                            {item.brandLogo?.name && item.brandLogo?.name?.slice(0, 8)}
+                            {item.brand?.name && item.brand?.name?.slice(0, 8)}
                         </Typography>
                     )}
                     <View>
@@ -64,21 +64,25 @@ function HomeCarauselSecond({ shoes }) {
                     {item.price}
                 </Typography>
             </View>
-            {item.brandLogo && <View className="absolute bottom-[16px] left-[16px]">
-                <Image
-                    source={{
-                        uri:
-                            item.brandLogo && typeof item.brandLogo.image === "string"
-                                ? item.brandLogo.image
-                                : BrandLogoPlaceholder,
-                    }}
-                    resizeMode="contain"
-                    style={{
-                        height: 50,
-                        width: 100,
-                    }}
-                />
-            </View>}
+            {item.brand && (
+                <View className="absolute bottom-2 left-2">
+                    <Image
+                        source={{
+                            uri:
+                                item.brand && typeof item.brand.image === "string"
+                                    ? item.brand.image
+                                    : brandPlaceholder,
+                        }}
+                        resizeMode="contain"
+                        style={{
+                            height: 50,
+                            width: 100,
+                            borderRadius: 20,
+                            overflow: "hidden",
+                        }}
+                    />
+                </View>
+            )}
             <TouchableOpacity
                 onPress={() => {
                     router.push({

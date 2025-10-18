@@ -4,7 +4,7 @@ import Love_filled from "@/assets/svgs/love-filled.svg";
 import { Typography } from "../ui/typography";
 import { router } from "expo-router";
 import { ShoeItem } from "@/type/product";
-import { BrandLogoPlaceholder, ItemImagePlaceholder } from "@/lib/placeholder";
+import { brandPlaceholder, ItemImagePlaceholder } from "@/lib/placeholder";
 import { useAddFavourite, useRemoveFavourite } from "@/lib/queries/favourite";
 import { useState } from "react";
 
@@ -16,26 +16,18 @@ export function ProductCard({
     id,
     image,
     itemName,
-    brandLogo,
+    brand,
     price,
     favourite,
     colors = [],
     match_data,
 }: ProductCardProps) {
     const [liked, setLiked] = useState(favourite);
-    const {
-        mutate: add_to_favourite,
-        isPending: pending_add,
-        error: error_add,
-    } = useAddFavourite();
+    const { mutate: add_to_favourite } = useAddFavourite();
 
     console.log("ITS MATCH DATA", match_data);
 
-    const {
-        mutate: remove_from_favourite,
-        isPending: pending_remove,
-        error: error_remove,
-    } = useRemoveFavourite();
+    const { mutate: remove_from_favourite } = useRemoveFavourite();
 
     function handle_remove_fav() {
         remove_from_favourite(id, {
@@ -118,17 +110,19 @@ FIT`}
                     resizeMode="contain"
                 />
 
-                {brandLogo?.image && (
-                    <View className="absolute left-1/2 -translate-x-1/2 bottom-6 z-[0]">
+                {brand?.image && (
+                    <View className="absolute left-1 bottom-1 z-[0]">
                         <Image
                             source={{
                                 uri:
-                                    brandLogo && typeof brandLogo.image === "string"
-                                        ? brandLogo.image
-                                        : BrandLogoPlaceholder,
+                                    brand && typeof brand.image === "string"
+                                        ? brand.image
+                                        : brandPlaceholder,
                             }}
                             resizeMode="contain"
                             style={{
+                                borderRadius: 0,
+                                overflow: "hidden",
                                 height: 50,
                                 width: 50,
                             }}

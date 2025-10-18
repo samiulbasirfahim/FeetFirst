@@ -6,7 +6,7 @@ import { Typography } from "@/components/ui/typography";
 import { useCallback, useEffect } from "react";
 import { FlatList, View, TouchableOpacity, Image } from "react-native";
 import { router } from "expo-router";
-import { BrandLogoPlaceholder, ItemImagePlaceholder } from "@/lib/placeholder";
+import { brandPlaceholder, ItemImagePlaceholder } from "@/lib/placeholder";
 import { AntDesign } from "@expo/vector-icons";
 import { useLanguageStore } from "@/store/language";
 import { useCartStore } from "@/store/cart"; // ✅ import Zustand cart store
@@ -62,15 +62,15 @@ export default function CartScreen() {
                     resizeMode="contain"
                 />
 
-                {item.brandLogo && (
+                {item.brand && (
                     <View className="absolute left-1/2 -translate-x-1/2 bottom-2">
                         <Image
                             resizeMode="contain"
                             source={{
                                 uri:
-                                    item.brandLogo && typeof item.brandLogo.image === "string"
-                                        ? item.brandLogo.image
-                                        : BrandLogoPlaceholder,
+                                    item.brand && typeof item.brand.image === "string"
+                                        ? item.brand.image
+                                        : brandPlaceholder,
                             }}
                             style={{ height: 50, width: 100 }}
                         />

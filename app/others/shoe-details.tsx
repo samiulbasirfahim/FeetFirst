@@ -244,7 +244,7 @@ export default function Screen() {
                                     }`}
                             >
                                 <Typography
-                                    className={`text-2xl ${inCart ? "text-red-500" : "text-white"
+                                    className={`text-xl ${inCart ? "text-red-500" : "text-white"
                                         }`}
                                 >
                                     {inCart

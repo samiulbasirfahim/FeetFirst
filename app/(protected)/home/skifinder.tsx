@@ -103,13 +103,13 @@ export default function Screen() {
                 className="absolute bottom-0 -rotate-[13deg]"
             />
 
-            {item.brandLogo && (
+            {item.brand && (
                 <View className="absolute left-1 bottom-10">
                     <Image
                         source={{
                             uri:
-                                item.brandLogo && typeof item.brandLogo.image === "string"
-                                    ? item.brandLogo.image
+                                item.brand && typeof item.brand.image === "string"
+                                    ? item.brand.image
                                     : ItemImagePlaceholder,
                         }}
                         resizeMode="contain"

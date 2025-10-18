@@ -7,22 +7,16 @@ import { useLanguageStore } from "@/store/language";
 import { Button } from "@/components/ui/button";
 import Herobg from "@/assets/svgs/mass_insole_hero_bg.svg";
 import HeroIcon from "@/assets/svgs/mass_insole_hero_icon.svg";
-import k2 from "@/assets/images/k2.png";
-import dalbello from "@/assets/images/dalbello.png";
-import head from "@/assets/images/head.png";
 
 import { Link, router } from "expo-router";
-import { useState } from "react";
-import NewsFlatlist from "@/components/ui/flatlist-news";
 import MassFlatList from "@/components/ui/flatlist-massinsole";
 import { useDrawerHeader } from "@/components/common/drawer-header";
 import { TwoDAccordian } from "@/components/common/2d-accordian";
-import { Marquee } from "@animatereactnative/marquee";
-import { AutoImage } from "@/components/ui/auto-image";
 
 export type ShoeItem = {
     title: string;
     desc: string;
+    slug: string;
     img: number; // local image with require()
 };
 
@@ -31,16 +25,19 @@ export const shoesData: ShoeItem[] = [
         title: "Sportschuhe",
         desc: "Einlagen für jede Sportart – maximale Leistung, optimale Balance.",
         img: require("@/assets/images/playing.jpg"),
+        slug: "sport"
     },
     {
         title: "Radschuhe",
         desc: "Patentierte Winsole – für maximale Effizienz und optimale Kraftübertragung.",
         img: require("@/assets/images/cycling.jpg"),
+        slug: "cycling"
     },
     {
         title: "Alltagssneaker",
         desc: "Ganztägiger Komfort und gesunde Fußunterstützung.",
         img: require("@/assets/images/running.jpg"),
+        slug: "everyday"
     },
 ];
 

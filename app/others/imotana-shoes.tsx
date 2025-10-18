@@ -17,13 +17,13 @@ import ImotanaBlur from "@/components/ui/blur-imotana";
 import Point from "@/assets/svgs/point_imotana.svg";
 import Svg, { Defs, Polygon, Stop, LinearGradient } from "react-native-svg";
 import { ProductCard } from "@/components/common/ProductCard";
-import { useTopShoes } from "@/lib/queries/products";
+import { useGetImotanaProdcuct, useTopShoes } from "@/lib/queries/products";
 
 export default function ShoeShopScreen() {
     const { width: screen_width } = useWindowDimensions();
     const { isGerman } = useLanguageStore();
 
-    const { shoeList, isPending, error } = useTopShoes(10);
+    const { shoeList, isPending, error } = useGetImotanaProdcuct();
 
     const { HeaderComponent, onScroll, height } = useDrawerHeader({
         threeshold: 100,
@@ -104,7 +104,7 @@ export default function ShoeShopScreen() {
                                 favourite={product.favourite}
                                 colors={product.colors}
                                 match_data={product.match_data}
-                                brandLogo={product.brandLogo}
+                                brand={product.brand}
                             />
                         ))}
                     </View>

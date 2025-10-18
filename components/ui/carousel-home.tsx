@@ -6,7 +6,7 @@ import { useSharedValue } from "react-native-reanimated";
 import Arrow from "@/assets/svgs/arrow-exercise.svg";
 
 import { ShoeItem } from "@/type/product";
-import { BrandLogoPlaceholder, ItemImagePlaceholder } from "@/lib/placeholder";
+import { brandPlaceholder, ItemImagePlaceholder } from "@/lib/placeholder";
 import { router } from "expo-router";
 
 const HEIGHT = 270;
@@ -43,9 +43,9 @@ function HomeCarausel({ shoes }) {
                 />
             </View>
             <View className="absolute right-5 top-4 flex-col items-end">
-                {item.brandLogo?.name && (
+                {item.brand?.name && (
                     <Typography className="font-medium text-foreground text-[27px] leading-[26px]">
-                        {item.brandLogo?.name && item.brandLogo?.name?.slice(0, 8)}
+                        {item.brand?.name && item.brand?.name?.slice(0, 8)}
                     </Typography>
                 )}
                 <View>
@@ -74,9 +74,9 @@ function HomeCarausel({ shoes }) {
                 <Image
                     source={{
                         uri:
-                            typeof item.brandLogo === "string"
-                                ? item.brandLogo
-                                : BrandLogoPlaceholder,
+                            typeof item.brand === "string"
+                                ? item.brand
+                                : brandPlaceholder,
                     }}
                     style={{
                         height: 50,

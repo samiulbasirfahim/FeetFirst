@@ -21,7 +21,7 @@ export function useTopShoes(limit: number, by_scan?: boolean) {
                     ...item,
                     id: item.id,
                     itemName: item.name,
-                    brandLogo: item.brandLogo,
+                    brand: item.brand,
                     price: `$${item.price}`,
                     image: item.image,
                     favourite: item.favourite,
@@ -84,7 +84,7 @@ export function useProducts(page: number, sub_category: string | null) {
                     ...item,
                     id: item.id,
                     itemName: item.name,
-                    brandLogo: item.brandLogo,
+                    brand: item.brand,
                     price: `$${item.price}`,
                     image: item.image,
                     favourite: item.favourite,
@@ -123,7 +123,7 @@ export function useSuggestedShoes(limit: number, id: number) {
                     ...item,
                     id: item.id,
                     itemName: item.name,
-                    brandLogo: item.brandLogo,
+                    brand: item.brand,
                     price: `$${item.price}`,
                     image: item.image,
                     favourite: item.favourite,
@@ -154,7 +154,7 @@ export function useSearchProducts(query: string) {
                     ...item,
                     id: item.id,
                     itemName: item.name,
-                    brandLogo: item.brandLogo,
+                    brand: item.brand,
                     price: `$${item.price}`,
                     image: item.image,
                     favourite: item.favourite,
@@ -199,7 +199,7 @@ export function useQNA(props: Props) {
                     ...item,
                     id: item.id,
                     itemName: item.name,
-                    brandLogo: item.brandLogo,
+                    brand: item.brand,
                     price: `$${item.price}`,
                     image: item.image,
                     favourite: item.favourite,
@@ -219,4 +219,34 @@ export function useQNA(props: Props) {
 
     return { shoeList, isPending, error, hasNext, hasPrev };
 }
-// /api/products/qna-match/
+
+export function useGetImotanaProdcuct() {
+    const { isPending, data, error } = useQuery({
+        queryKey: ["imotanaProduct"],
+        queryFn: () =>
+            fetcher(`/api/products/?brandName=imotana`, {
+                method: "GET",
+                auth: true,
+            }),
+    });
+
+    const shoeList: ShoeItem[] = useMemo(() => {
+        if (!(data as any)?.results) return [];
+        return (data as any).results.map(
+            (item: any) =>
+                ({
+                    ...item,
+                    id: item.id,
+                    itemName: item.name,
+                    brand: item.brand,
+                    price: `$${item.price}`,
+                    image: item.image,
+                    favourite: item.favourite,
+                    colors: item.colors,
+                    match_data: item.match_data,
+                }) as ShoeItem,
+        );
+    }, [data]);
+
+    return { shoeList, isPending, error };
+}

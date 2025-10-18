@@ -6,7 +6,7 @@ export type MatchData = {
 export type ShoeItem = {
     id: number;
     itemName: string;
-    brandLogo?: {
+    brand?: {
         name: string;
         image: string;
     } | null;
@@ -33,7 +33,7 @@ export type ShoeDetails = {
     further_information: string;
     technical_data: string;
     description: string;
-    brandLogo?: {
+    brand?: {
         name: string;
         image: string;
     } | null;
