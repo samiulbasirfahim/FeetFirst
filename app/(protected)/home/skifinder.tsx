@@ -63,7 +63,7 @@ export default function Screen() {
                     },
                 });
             }}
-            className="flex-1 bg-background p-6 border-primary/30 border rounded-3xl relative ms-3"
+            className="flex-1 bg-background p-6 border-primary/30 border rounded-3xl relative ms-3 overflow-hidden"
             style={{
                 width: width * 0.86,
             }}
@@ -100,11 +100,11 @@ export default function Screen() {
                 }}
                 style={{ width: width * 0.8, height: dimension.height * 0.8 }}
                 resizeMode="contain"
-                className="absolute bottom-0 -rotate-[13deg]"
+                className="absolute bottom-0 -rotate-[13deg] z-[100]"
             />
 
             {item.brand && (
-                <View className="absolute left-1 bottom-10">
+                <View className="absolute left-1 bottom-1">
                     <Image
                         source={{
                             uri:
@@ -115,7 +115,8 @@ export default function Screen() {
                         resizeMode="contain"
                         style={{
                             height: 50,
-                            width: 100,
+                            width: 50,
+                            zIndex: 0,
                         }}
                     />
                 </View>

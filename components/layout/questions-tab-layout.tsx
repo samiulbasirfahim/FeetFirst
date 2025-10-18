@@ -29,11 +29,12 @@ export function CustomTabBar({ state }: MaterialTopTabBarProps) {
                     }}
                 />
             </View>
-            <View className="justify-center flex-row items-center relative px-4 py-2">
-                <View className="px-2">
-                    <HeaderBackButton />
-                </View>
-                <Typography className="text-lg font-pathSemiBold text-white">
+            <View className="justify-start flex-row items-center relative h-20 px-4">
+                <HeaderBackButton />
+                <Typography
+                    variant="subtitle"
+                    className="absolute left-1/2 -translate-x-1/2"
+                >
                     SHOE FINDER FEETF1RST
                 </Typography>
             </View>

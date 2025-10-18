@@ -65,14 +65,18 @@ function CustomTabBar({ state, descriptors }: MaterialTopTabBarProps) {
                     }}
                 />
             </View>
-            <View className="justify-center flex-wrap flex-row items-center relative px-4 py-2">
-                <View className="px-2 bg-transparent">
-                    <HeaderBackButton />
-                </View>
-                <Typography className="text-lg text-white font-pathSemiBold">
-                    {isGerman()
-                        ? "Orthopädische Maßeinlage"
-                        : "Soletta ortopedica personalizzata"}
+
+            <View className="justify-start flex-row items-center relative h-20 px-4">
+                <HeaderBackButton />
+                <Typography
+                    variant="subtitle"
+                    className="absolute left-1/2 -translate-x-1/2"
+                >
+                    <Typography className="text-lg text-white font-pathSemiBold">
+                        {isGerman()
+                            ? "Orthopädische Maßeinlage"
+                            : "Soletta ortopedica personalizzata"}
+                    </Typography>
                 </Typography>
             </View>
             <View className="px-6 h-14 justify-end items-center">
