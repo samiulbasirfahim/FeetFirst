@@ -219,7 +219,9 @@ export default function Screen() {
                                 </Typography>
                             </View>
                         </View>
-                        <VersionInfo />
+                        <View className="h-36">
+                            <VersionInfo />
+                        </View>
                     </View>
                 );
 

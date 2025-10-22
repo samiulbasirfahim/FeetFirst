@@ -9,7 +9,7 @@ type Data = {
 };
 type Props = {
     list: Data[];
-    onChange: (selected: Data) => void;
+    onChange: (selected: string) => void;
 };
 
 export function ShoeSizePicker({ list, onChange }: Props) {
@@ -34,7 +34,7 @@ export function ShoeSizePicker({ list, onChange }: Props) {
                 borderRadius: 12,
             }}
             onChange={(item) => {
-                onChange(item.value as Data);
+                onChange(item.value as string);
             }}
             renderItem={(item) => (
                 <View className="flex-row items-center rounded-none justify-between px-4 bg-backgroundDark py-2 border-b-hairline border-white w-[140px]">

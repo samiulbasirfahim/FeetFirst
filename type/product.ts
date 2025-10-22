@@ -48,6 +48,6 @@ export type ShoeDetails = {
     discount: string;
     stock_quantity: number;
     partner: number;
-    match_data: MatchData | null;
+    match_data: Record<string, string> | null;
     favourite: boolean;
 };

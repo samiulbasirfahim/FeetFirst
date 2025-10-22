@@ -44,6 +44,7 @@ export default function Screen() {
     );
 
     const [finalShoeList, setFinalShoeList] = useState<ShoeItem[]>([]);
+    const [sizePicked, setSizePicked] = useState<string | null>(null);
 
     useEffect(() => {
         const remainingSlots = 6 - shoeList_s.length;
@@ -78,6 +79,23 @@ export default function Screen() {
     };
 
     const { isPending, error, shoeDetails } = useGetProduct(Number(id.trim()));
+
+    const [sizeList, setSizeList] = useState<any>([]);
+
+    useEffect(() => {
+        if (shoeDetails?.sizes) {
+            const sizes = shoeDetails?.sizes.flatMap((s) => {
+                return s.size.map((size) => ({
+                    label: size,
+                    value: size,
+                }));
+            }) as [];
+            setSizeList(sizes);
+            if (sizes.length > 0) {
+                setSizePicked(sizes[0].value);
+            }
+        }
+    }, [shoeDetails]);
 
     const { cartIds, addItem, removeItem, isInCart } = useCartStore();
 
@@ -214,21 +232,19 @@ export default function Screen() {
                         <View className="bg-muted-background p-4 rounded-2xl flex-row justify-between">
                             <AutoImage height={36} source={logo} />
 
-                            <View className="h-9 justify-center min-w-16">
-                                <ShoeSizePicker
-                                    onChange={(selected) => { }}
-                                    list={
-                                        shoeDetails?.sizes.flatMap((s) => {
-                                            return s.size.map((size) => ({
-                                                label: size,
-                                                value: size,
-                                            }));
-                                        }) as []
-                                    }
-                                />
+                            <View className="h-9 justify-center min-w-20">
+                                <View className="w-full">
+                                    <ShoeSizePicker
+                                        onChange={(selected) => {
+                                            if (selected) setSizePicked(selected as string);
+                                        }}
+                                        list={sizeList}
+                                    />
+                                </View>
                                 <Typography>
                                     {(shoeDetails?.match_data &&
-                                        shoeDetails?.match_data?.score + "% FIT") ??
+                                        sizePicked &&
+                                        (shoeDetails?.match_data?.[sizePicked] ?? "0") + "% FIT") ??
                                         "N/A FIT"}
                                 </Typography>
                             </View>
