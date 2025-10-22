@@ -91,8 +91,24 @@ export default function Screen() {
                 }));
             }) as [];
             setSizeList(sizes);
+            const maxValue = shoeDetails.match_data
+                ? Object.entries(shoeDetails.match_data).reduce(
+                    (max, entry) => (entry[1] > max ? entry[1] : max),
+                    0,
+                )
+                : 0;
+            const sizes_with_max_fit = shoeDetails.match_data
+                ? Object.entries(shoeDetails.match_data).filter(
+                    (entry) => (entry as any)[1] === maxValue,
+                )
+                : [];
+
+            if (sizes_with_max_fit.length > 0) {
+                setSizePicked(sizes_with_max_fit[0][0]);
+                return;
+            }
             if (sizes.length > 0) {
-                setSizePicked(sizes[0].value);
+                setSizePicked(((sizes as any)[0] as any).value);
             }
         }
     }, [shoeDetails]);
@@ -238,6 +254,7 @@ export default function Screen() {
                                         onChange={(selected) => {
                                             if (selected) setSizePicked(selected as string);
                                         }}
+                                        value={sizePicked ?? undefined}
                                         list={sizeList}
                                     />
                                 </View>

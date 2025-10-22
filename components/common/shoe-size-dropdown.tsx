@@ -10,9 +10,10 @@ type Data = {
 type Props = {
     list: Data[];
     onChange: (selected: string) => void;
+    value?: string;
 };
 
-export function ShoeSizePicker({ list, onChange }: Props) {
+export function ShoeSizePicker({ list, onChange, value: defaultValue }: Props) {
     return (
         <Dropdown
             labelField="label"
@@ -20,6 +21,7 @@ export function ShoeSizePicker({ list, onChange }: Props) {
             placeholder={list.length > 0 ? list[0].label : "N/A"}
             renderRightIcon={() => <Arrow />}
             data={list}
+            value={defaultValue}
             disable={list.length === 0}
             itemContainerStyle={{
                 backgroundColor: "transparent",
@@ -28,16 +30,24 @@ export function ShoeSizePicker({ list, onChange }: Props) {
             }}
             containerStyle={{
                 backgroundColor: "#0D0D0D",
-                padding: 4,
                 gap: 4,
                 borderWidth: 0,
-                borderRadius: 12,
+                overflow: "hidden",
             }}
             onChange={(item) => {
                 onChange(item.value as string);
             }}
-            renderItem={(item) => (
-                <View className="flex-row items-center rounded-none justify-between px-4 bg-backgroundDark py-2 border-b-hairline border-white w-[140px]">
+            autoScroll={true}
+            showsVerticalScrollIndicator={false}
+            renderItem={(item, selected) => (
+                <View
+                    style={{
+                        borderBottomWidth: 1,
+                        borderBottomColor: "white",
+                        backgroundColor: selected ? "#303231" : "transparent",
+                    }}
+                    className="flex-row items-center rounded-none justify-between px-4 bg-backgroundDark py-2 w-[140px]"
+                >
                     <Typography>{item.label}</Typography>
                 </View>
             )}
