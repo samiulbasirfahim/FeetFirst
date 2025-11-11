@@ -9,5 +9,6 @@ export function useFaq() {
                 method: "GET",
                 auth: true,
             }),
+        retry: true,
     });
 }

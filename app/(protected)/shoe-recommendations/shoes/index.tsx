@@ -12,7 +12,6 @@ import { LoadingSpinner } from "@/components/common/loading-spinner";
 import { questions } from "@/lib/category-questions";
 import { useQuestionStore } from "@/store/questions-answers";
 import { CategorySlug } from "@/type/questions-answers";
-import { ShoeItem } from "@/type/product";
 
 export default function Screen() {
     const { category } = useLocalSearchParams<{ category: string }>();
@@ -110,6 +109,7 @@ export default function Screen() {
                                 }}
                                 className="bg-backgroundDark"
                                 onPress={() => {
+                                    setPage(1);
                                     clearCategory((selected ?? category) as CategorySlug);
                                     router.push(`/shoe-questions/${selected ?? category}` as any);
                                 }}

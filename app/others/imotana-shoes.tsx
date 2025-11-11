@@ -103,7 +103,10 @@ export default function ShoeShopScreen() {
                                 price={product.price}
                                 favourite={product.favourite}
                                 colors={product.colors}
-                                match_data={product.match_data}
+                                match_data={{
+                                    recommended_size: product.match_data?.recommended_size ?? "",
+                                    score: 100,
+                                }}
                                 brand={product.brand}
                             />
                         ))}

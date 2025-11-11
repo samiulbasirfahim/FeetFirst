@@ -78,13 +78,13 @@ export default function Screen() {
                 >
                     <EDIT />
                     <Typography className="text-xl text-primary">
-                        {isGerman() ? "Acquisti" : "Einkäufe"}
+                        {isGerman() ? "Einkäufe" : "Einkäufe"}
                     </Typography>
                 </Button>
                 <Button noWrap variant={"profile_menu"} onPress={openWebsite}>
                     <GLOBAL />
                     <Typography className="text-xl text-primary">
-                        {isGerman() ? "Webseite" : "Website"}
+                        {isGerman() ? "Website" : "Website"}
                     </Typography>
                 </Button>
 

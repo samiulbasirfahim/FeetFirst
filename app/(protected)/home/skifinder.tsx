@@ -25,7 +25,7 @@ import { useDrawerHeader } from "@/components/common/drawer-header";
 import { AutoImage } from "@/components/ui/auto-image";
 import { ShoeItem } from "@/type/product";
 import { ItemImagePlaceholder } from "@/lib/placeholder";
-import { useTopShoes } from "@/lib/queries/products";
+import { useProducts } from "@/lib/queries/products";
 import { LoadingSpinner } from "@/components/common/loading-spinner";
 import { useGetPartners } from "@/lib/queries/partner";
 import { Partner } from "@/type/partner";
@@ -42,7 +42,11 @@ export default function Screen() {
 
     const [showModal, setShowModal] = useState(false);
 
-    const { shoeList, isPending: isPending_skifinder, error } = useTopShoes(10);
+    const {
+        shoeList,
+        isPending: isPending_skifinder,
+        error,
+    } = useProducts(1, "ski-boots");
 
     const [dimension, setDimension] = useState({
         width: 0,

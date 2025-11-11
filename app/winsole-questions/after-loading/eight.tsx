@@ -42,8 +42,8 @@ export default function Screen() {
 
           <Typography variant="subtitle" className="text-white font-pathRegular text-[14px]">
             {isGerman()
-              ? "Stellen Sie Jetzt Sicher, Dass Sie Perfekt In Ihre Schuhe Passt, Indem Sie Ihr Modell Angeben Oder Mit Dem FeetFirst-System Nach Ihrem Schuh Suchen."
-              : "Assicurati subito che si adatti perfettamente alle tue scarpe specificando il tuo modello o cercando la tua scarpa tramite il sistema FeetFirst."}
+              ? "Stellen Sie Jetzt Sicher, Dass Sie Perfekt In Ihre Schuhe Passt, Indem Sie Ihr Modell Angeben Oder Mit Dem FeetF1rst-System Nach Ihrem Schuh Suchen."
+              : "Assicurati subito che si adatti perfettamente alle tue scarpe specificando il tuo modello o cercando la tua scarpa tramite il sistema FeetF1rst."}
           </Typography>
 
           <View className="mt-8 flex-row items-center gap-2">

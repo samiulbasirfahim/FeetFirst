@@ -22,8 +22,10 @@ import { useDrawerHeader } from "@/components/common/drawer-header";
 import { TwoDAccordian } from "@/components/common/2d-accordian";
 import { useAuthStore } from "@/store/auth";
 import { useTopShoes } from "@/lib/queries/products";
+import { useState } from "react";
 
 export default function Screen() {
+    const [currentIndex, setCurrentIndex] = useState(0);
     const { user } = useAuthStore();
     const { isGerman } = useLanguageStore();
     const { width: dm_width } = useWindowDimensions();
@@ -152,7 +154,7 @@ export default function Screen() {
                     <View className="mb-10">
                         <View className="px-5 pb-7">
                             <Typography className="text-[22px] font-medium text-foreground">
-                                {isGerman() ? "Schuhfinder FeetF1rst" : "Shoe Finder FeetF1rst"}
+                                {isGerman() ? "Shoe Finder FeetF1rst" : "Shoe Finder FeetF1rst"}
                             </Typography>
                         </View>
                         <View>{<HomeCarausel shoes={shoeList} />}</View>
@@ -215,7 +217,10 @@ export default function Screen() {
                             </Typography>
                         </View>
                         <View>
-                            <HomeCarauselSecond shoes={shoeList} />
+                            <HomeCarauselSecond
+                                setCurrentIndex={setCurrentIndex}
+                                shoes={shoeList}
+                            />
                         </View>
                         <View className="w-[40%] mt-4 ml-9">
                             <Button
@@ -223,8 +228,8 @@ export default function Screen() {
                                     router.push({
                                         pathname: "/shoe-recommendations",
                                         params: {
-                                            category: "sports",
-                                            redirect: "/shoe-recommendations/subcategory",
+                                            category: shoeList[currentIndex]?.category?.slug ?? "all",
+                                            redirect: "/shoe-recommendations/shoes",
                                             redirectId: Math.random().toString(),
                                         },
                                     });

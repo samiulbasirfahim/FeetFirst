@@ -312,20 +312,6 @@ export default function Screen() {
                             <TwoDPreview />
                         </View>
 
-                        {/* Return Policy */}
-                        <View className="my-4 flex gap-4">
-                            <Typography className="text-white text-2xl">
-                                {isGerman()
-                                    ? "Retouren ohne Probleme"
-                                    : "Restituisce senza problemi"}
-                            </Typography>
-                            <Typography className="text-white leading-8">
-                                {isGerman()
-                                    ? "FeetF1rst gewährleistet eine perfekte Passform und bietet daher ein 30-tägiges Rückgaberecht, bei dem wir die Rücksendekosten übernehmen."
-                                    : "FeetF1rst garantisce una vestibilità perfetta e pertanto offre una politica di reso di 30 giorni, durante la quale copriamo le spese di spedizione per il reso."}
-                            </Typography>
-                        </View>
-
                         {/* Material Features */}
                         <View className="flex-1 gap-4 my-4">
                             {[
@@ -411,6 +397,20 @@ export default function Screen() {
                                         </TouchableOpacity>
                                     ),
                             )}
+                        </View>
+
+                        {/* Return Policy */}
+                        <View className="my-4 flex gap-4">
+                            <Typography className="text-white text-2xl">
+                                {isGerman()
+                                    ? "Retouren ohne Probleme"
+                                    : "Restituisce senza problemi"}
+                            </Typography>
+                            <Typography className="text-white leading-8">
+                                {isGerman()
+                                    ? "FeetF1rst gewährleistet eine perfekte Passform und bietet daher ein 30-tägiges Rückgaberecht, bei dem wir die Rücksendekosten übernehmen."
+                                    : "FeetF1rst garantisce una vestibilità perfetta e pertanto offre una politica di reso di 30 giorni, durante la quale copriamo le spese di spedizione per il reso."}
+                            </Typography>
                         </View>
 
                         {fetch_top || fetch_all ? (

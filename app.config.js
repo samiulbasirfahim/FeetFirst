@@ -58,7 +58,7 @@ export default {
                 "expo-location",
                 {
                     locationAlwaysAndWhenInUsePermission:
-                        "Allow FEETFIRST to use your location.",
+                        "Allow FEETF1RST to use your location.",
                 },
             ],
             [

@@ -278,18 +278,17 @@ export default function Screen() {
                             resizeMode="cover"
                         />
                         <View className="absolute top-1/2 -translate-y-1/2 z-[99]">
-                            <OutlinedText
-                                width={width}
-                                strokeColor="#62A07B"
-                                strokeWidth={1}
-                                fillColor="#2E2E2E94"
-                                fontSize={32}
-                                text={
-                                    isGerman()
-                                        ? "Gezielt trainieren, effektiv vorbeugen"
-                                        : "Formazione mirata, prevenzione efficace"
-                                }
-                            />
+                            <Text
+                                style={{
+                                    fontSize: 32,
+                                    color: "white",
+                                    textAlign: "center",
+                                }}
+                            >
+                                {isGerman()
+                                    ? "Gezielt trainieren, effektiv vorbeugen"
+                                    : "Formazione mirata, prevenzione efficace"}
+                            </Text>
                         </View>
                     </View>
 

@@ -35,10 +35,10 @@ const pagesDE = {
         "Steigern Sie Ihre Leistung um bis zu 44W mit diesen patentierten Radeinlagen.",
     buttonText: "JETZT KONFIGURIEREN",
     imageText:
-        "FEETFIRST X WINSOLE FÜR EINE EINZIGARTIGE VERIUNDUNG ZWISCHEN FUSS UND SCHUH",
+        "FEETF1RST X WINSOLE FÜR EINE EINZIGARTIGE VERIUNDUNG ZWISCHEN FUSS UND SCHUH",
     tittle2: "Maximale Power auf dem Rad",
     subtittle2a:
-        "Jeder Fuß ist einzigartig - je besser der Radschuh mit dem Fuß verbunden ist, desto effizienter wird die Kraftübertragung auf die Pedale. Mit dem FeetFirst Shoe Finder und den individuell angepassten Winsole Einlagen bist du auf Profi-Niveau.",
+        "Jeder Fuß ist einzigartig - je besser der Radschuh mit dem Fuß verbunden ist, desto effizienter wird die Kraftübertragung auf die Pedale. Mit dem FeetF1rst Shoe Finder und den individuell angepassten Winsole Einlagen bist du auf Profi-Niveau.",
     button2: "Jetzt testen!",
 
     benefits: [
@@ -57,10 +57,10 @@ const pagesIT = {
     subtittle1b:
         "Aumenta la tua potenza fino a 44 W con questi inserti ruota brevettati.",
     buttonText: "CONFIGURA ORA",
-    imageText: "FEETFIRST X WINSOLE PER UNA CONNESSIONE UNICA TRA PIEDE E SCARPA",
+    imageText: "FEETF1RST X WINSOLE PER UNA CONNESSIONE UNICA TRA PIEDE E SCARPA",
     tittle2: "Massima potenza sulla bici",
     subtittle2a:
-        "Ogni piede è unico: più la scarpa da ciclismo si adatta al piede, più efficiente sarà il trasferimento di potenza ai pedali. Con il FeetFirst Shoe Finder e le solette Winsole personalizzate, raggiungerai un livello da professionista.",
+        "Ogni piede è unico: più la scarpa da ciclismo si adatta al piede, più efficiente sarà il trasferimento di potenza ai pedali. Con il FeetF1rst Shoe Finder e le solette Winsole personalizzate, raggiungerai un livello da professionista.",
     button2: "Provalo adesso!",
 
     benefits: [

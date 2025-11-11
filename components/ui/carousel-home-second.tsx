@@ -11,7 +11,7 @@ import { router } from "expo-router";
 
 const HEIGHT = 350;
 
-function HomeCarauselSecond({ shoes }) {
+function HomeCarauselSecond({ shoes, setCurrentIndex }: { shoes: ShoeItem[]; setCurrentIndex: (index: number) => void }) {
     const { width } = Dimensions.get("window");
     const progress = useSharedValue<number>(0);
 
@@ -107,6 +107,7 @@ function HomeCarauselSecond({ shoes }) {
                 }
                 autoPlayInterval={2000}
                 data={shoes}
+                onScrollEnd={setCurrentIndex}
                 loop={true}
                 pagingEnabled={true}
                 snapEnabled={true}

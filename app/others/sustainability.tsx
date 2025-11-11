@@ -12,15 +12,15 @@ import { BlurView } from "expo-blur";
 import { Portal } from "react-native-portalize";
 
 const topTextDE = [
-  "FeetFirst revolutioniert den Schuhkauf: Mit modernster 3D-Scan-Technologie und eigener Software erfassen wir die Form deiner Füße millimetergenau in wenigen Sekunden und liefern darauf basierend die fortschrittlichste KI-gestützte Passform-Empfehlung für Schuhe. So findest du genau die Modelle, die perfekt zu deinen Füßen passen für mehr Komfort, weniger Fußprobleme (über 50% aller Fußprobleme entstehen durch falsches Schuhwerk) und deutlich weniger Rücksendungen im Onlinehandel, der mit über 50% aktuell Spitzenreiter aller Retouren ist",
+  "FeetF1rst revolutioniert den Schuhkauf: Mit modernster 3D-Scan-Technologie und eigener Software erfassen wir die Form deiner Füße millimetergenau in wenigen Sekunden und liefern darauf basierend die fortschrittlichste KI-gestützte Passform-Empfehlung für Schuhe. So findest du genau die Modelle, die perfekt zu deinen Füßen passen für mehr Komfort, weniger Fußprobleme (über 50% aller Fußprobleme entstehen durch falsches Schuhwerk) und deutlich weniger Rücksendungen im Onlinehandel, der mit über 50% aktuell Spitzenreiter aller Retouren ist",
   "Unser Ziel: Diese Quote drastisch zu senken. Weniger Rücksendungen bedeuten weniger CO, Emissionen, weniger Ressourcenverschwendung und ein nachhaltigeres Einkaufserlebnis.Gleichzeitig profitieren unsere Kundinnen von mehr Komfort und einer spürbar höheren Zufriedenheit.",
-  "Auch im stationären Handel verbessern wir das Einkaufserlebnis durch interaktive Lösungen und eine Beratung auf höchstem Niveau etwas, das bei komplexen Produkteigenschaften und zunehmendem Fachkräftemangel nur noch selten zu finden ist. FeetFirst unterstützt bei der Auswahl der passenden Schuhe - intuitiv, effizient und nachhaltig.",
+  "Auch im stationären Handel verbessern wir das Einkaufserlebnis durch interaktive Lösungen und eine Beratung auf höchstem Niveau etwas, das bei komplexen Produkteigenschaften und zunehmendem Fachkräftemangel nur noch selten zu finden ist. FeetF1rst unterstützt bei der Auswahl der passenden Schuhe - intuitiv, effizient und nachhaltig.",
 ];
 
 const topTextIt = [
-  "FeetFirst sta rivoluzionando l'acquisto di scarpe: utilizzando una tecnologia di scansione 3D all'avanguardia e un software proprietario, catturiamo la forma dei tuoi piedi con precisione millimetrica in pochi secondi e, in base a ciò, forniamo la più avanzata raccomandazione di calzata basata sull'intelligenza artificiale. In questo modo, troverai la calzata perfetta per i tuoi piedi, con conseguente maggiore comfort, meno problemi ai piedi (oltre il 50% di tutti i problemi ai piedi è causato da calzature inadeguate) e una significativa riduzione dei resi nel commercio al dettaglio online, che attualmente è leader in termini di resi totali con oltre il 50%.",
+  "FeetF1rst sta rivoluzionando l'acquisto di scarpe: utilizzando una tecnologia di scansione 3D all'avanguardia e un software proprietario, catturiamo la forma dei tuoi piedi con precisione millimetrica in pochi secondi e, in base a ciò, forniamo la più avanzata raccomandazione di calzata basata sull'intelligenza artificiale. In questo modo, troverai la calzata perfetta per i tuoi piedi, con conseguente maggiore comfort, meno problemi ai piedi (oltre il 50% di tutti i problemi ai piedi è causato da calzature inadeguate) e una significativa riduzione dei resi nel commercio al dettaglio online, che attualmente è leader in termini di resi totali con oltre il 50%.",
   "Il nostro obiettivo: ridurre drasticamente questa percentuale. Meno resi significano meno emissioni di CO2, meno spreco di risorse e un'esperienza di acquisto più sostenibile. Allo stesso tempo, i nostri clienti beneficiano di un maggiore comfort e di livelli di soddisfazione notevolmente più elevati.",
-  "Miglioriamo inoltre l'esperienza di acquisto nei negozi fisici attraverso soluzioni interattive e consulenza di alta qualità, qualcosa di raro al giorno d'oggi, date le complesse caratteristiche dei prodotti e la crescente carenza di personale qualificato. FeetFirst supporta i clienti nella scelta delle scarpe giuste, in modo intuitivo, efficiente e sostenibile.",
+  "Miglioriamo inoltre l'esperienza di acquisto nei negozi fisici attraverso soluzioni interattive e consulenza di alta qualità, qualcosa di raro al giorno d'oggi, date le complesse caratteristiche dei prodotti e la crescente carenza di personale qualificato. FeetF1rst supporta i clienti nella scelta delle scarpe giuste, in modo intuitivo, efficiente e sostenibile.",
 ];
 
 const bottomTitleDe = [
@@ -136,8 +136,8 @@ export default function Screen() {
           <View className="absolute inset-0 bg-backgroundDark/70 items-center justify-center">
             <Typography variant="subtitle" className="text-foreground">
               {isGerman()
-                ? "FEETFIRST-NACHHALTIG EINKAUFEN."
-                : "FEETFIRST - ACQUISTI SOSTENIBILI."}
+                ? "FEETF1RST-NACHHALTIG EINKAUFEN."
+                : "FEETF1RST - ACQUISTI SOSTENIBILI."}
             </Typography>
           </View>
         </ImageBackground>

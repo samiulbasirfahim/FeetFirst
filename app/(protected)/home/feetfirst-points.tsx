@@ -93,13 +93,13 @@ export default function Screen() {
 
                 <View className="p-3 mt-12 gap-4">
                     <Typography variant="title" className="text-foreground">
-                        {isGerman() ? "FeetFirst-Scanstandorte" : "FeetFirst-Scanstandorte"}
+                        {isGerman() ? "FeetF1rst-Scanstandorte" : "FeetF1rst-Scanstandorte"}
                     </Typography>
 
                     <Typography className="text-foreground">
                         {isGerman()
-                            ? "Besuche unsere Partner, erlebe FeetFirst hautnah und lege die Grundlage für deine persönliche Erfahrung in der App"
-                            : "Visita i nostri partner, sperimenta FeetFirst in prima persona e getta le basi per la tua esperienza personale nell'app."}
+                            ? "Besuche unsere Partner, erlebe FeetF1rst hautnah und lege die Grundlage für deine persönliche Erfahrung in der App"
+                            : "Visita i nostri partner, sperimenta FeetF1rst in prima persona e getta le basi per la tua esperienza personale nell'app."}
                     </Typography>
                 </View>
 
@@ -125,8 +125,8 @@ export default function Screen() {
                 <View className="p-3 gap-4">
                     <Typography variant="title" className="text-white">
                         {isGerman()
-                            ? "FeetFirst Gruppenbuchung -Wir Kommen Zu Ihnen"
-                            : "Prenotazione di gruppo FeetFirst - Veniamo da te"}
+                            ? "FeetF1rst Gruppenbuchung -Wir Kommen Zu Ihnen"
+                            : "Prenotazione di gruppo FeetF1rst - Veniamo da te"}
                     </Typography>
                     <View
                         style={{
@@ -136,8 +136,8 @@ export default function Screen() {
                     >
                         <Typography variant="titleSecondary">
                             {isGerman()
-                                ? "FeetFirst Gruppenbuchung -Wir Kommen Zu Ihnen"
-                                : "Prenotazione di gruppo FeetFirst - Veniamo da te"}
+                                ? "ideal für größere Gruppen, Teams, Vereine oder Unternehmen"
+                                : "Ideale per gruppi più grandi, squadre, club o aziende."}
                         </Typography>
 
                         <Button

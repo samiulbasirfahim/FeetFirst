@@ -1,6 +1,61 @@
 const tennisShoes = [
     {
         question: {
+            eng: "How do you prefer your tennis shoes to fit?",
+            it: "Come preferisci che le tue scarpe da tennis si adattino?",
+            de: "Wie bevorzugen Sie Ihre Tennisschuhe zu tragen?",
+        },
+        options: [
+            {
+                eng: "The perfect tennis shoe fit based on my 3D scan",
+                it: "La vestibilità perfetta della scarpa da tennis basata sulla mia scansione 3D",
+                de: "Die perfekte Tennisschuh-passform basierend auf meinem 3D-Scan",
+            },
+            {
+                eng: "Rather tighter, as I like my shoes to fit snugly on my foot",
+                it: "Più strette poiché mi piace che le mie scarpe si adattino comodamente al piede",
+                de: "Eher enger da ich meine Schuhe gern fest am Fuß trage",
+            },
+            {
+                eng: "Rather roomier, as I prefer more freedom of movement",
+                it: "Più larghe poiché preferisco più libertà di movimento",
+                de: "Eher weiter da ich mehr Bewegungsfreiheit bevorzuge",
+            },
+        ],
+    },
+
+    {
+        question: {
+            eng: "On which surface do you mainly play?",
+            it: "Su quale superficie giochi principalmente?",
+            de: "Auf welchem Belag spielen Sie hauptsächlich?",
+        },
+        options: [
+            {
+                eng: "Clay court",
+                it: "Campo in terra rossa",
+                de: "Sandplatz",
+            },
+            {
+                eng: "Hard court",
+                it: "Campo in cemento",
+                de: "Hartplatz",
+            },
+            {
+                eng: "Grass court",
+                it: "Campo in erba",
+                de: "Rasenplatz",
+            },
+            {
+                eng: "All court",
+                it: "Tutti i campi",
+                de: "Allcourt",
+            },
+        ],
+    },
+
+    {
+        question: {
             eng: "Is performance or durability more important to you?",
             it: "Per te è più importante la performance o la durata?",
             de: "Ist dir Performance oder Langlebigkeit wichtiger?",
@@ -39,59 +94,6 @@ const tennisShoes = [
                 eng: "Both - A good mix of both",
                 it: "Entrambi - Un buon mix di entrambi",
                 de: "Beides - Ein Guter Mix Aus Beiden",
-            },
-        ],
-    },
-    {
-        question: {
-            eng: "How do you prefer to wear your shoes?",
-            it: "Come preferisci indossare le tue scarpe?",
-            de: "Wie bevorzugen Sie Ihre Schuhe zu tragen?",
-        },
-        options: [
-            {
-                eng: "The perfect tennis shoe fit based on my 3D scan",
-                it: "La vestibilità perfetta della scarpa da tennis basata sulla mia scansione 3D",
-                de: "Die perfekte Tennisschuh-passform basierend auf meinem 3D-Scan",
-            },
-            {
-                eng: "Rather tight as I like to wear my shoes firmly on my foot",
-                it: "Più strette poiché mi piace indossare le scarpe ben aderenti al piede",
-                de: "Eher enger da ich meine Schuhe gern fest am Fuß trage",
-            },
-            {
-                eng: "Rather wide as I prefer more freedom of movement",
-                it: "Più larghe poiché preferisco più libertà di movimento",
-                de: "Eher weiter da ich mehr Bewegungsfreiheit bevorzuge",
-            },
-        ],
-    },
-    {
-        question: {
-            eng: "On which surface do you mainly play?",
-            it: "Su quale superficie giochi principalmente?",
-            de: "Auf welchem Belag spielen Sie hauptsächlich?",
-        },
-        options: [
-            {
-                eng: "Clay court",
-                it: "Campo in terra rossa",
-                de: "Sandplatz",
-            },
-            {
-                eng: "Hard court",
-                it: "Campo in cemento",
-                de: "Hartplatz",
-            },
-            {
-                eng: "Grass court",
-                it: "Campo in erba",
-                de: "Rasenplatz",
-            },
-            {
-                eng: "All court",
-                it: "Tutti i campi",
-                de: "Allcourt",
             },
         ],
     },
@@ -247,26 +249,50 @@ const mountainTrekkingShoes = [
     },
     {
         question: {
-            eng: "How do you prefer to wear your mountain shoes?",
-            it: "Come preferisci indossare le tue scarpe da montagna?",
-            de: "Wie bevorzugen Sie Ihre Bergschuhe zu tragen?",
+            eng: "How do you prefer your hiking boots to fit?",
+            it: "Come preferisci che i tuoi scarponi da trekking si adattino?",
+            de: "Wie bevorzugen Sie Ihre Wanderschuhe zu tragen?",
         },
         options: [
             {
-                eng: "Normal fit - Ideal for everyday use and lighter tours",
-                it: "Vestibilità normale - Ideale per uso quotidiano e escursioni più leggere",
-                de: "Normale Passform - Ideal für Alltag und leichtere Touren",
+                eng: "Normal fit - Ideal for day and lighter tours",
+                it: "Vestibilità normale - Ideale per escursioni giornaliere e più leggere",
+                de: "Normale Passform - Ideal für Tages- und leichtere Touren",
             },
             {
-                eng: "A bit wider - for mountain tours in the mountains or if you consciously want more space, e.g., for thick socks",
-                it: "Un po' più larghe - per escursioni in montagna o se desideri consapevolmente più spazio, ad es. per calze spesse",
-                de: "Etwas weiter - für Bergtouren im Gebirge oder wenn du bewusst mehr Platz, z. B. für dicke Socken, wünschst",
+                eng: "A bit roomier - for mountain tours in the high mountains or if you consciously want more space, e.g., for thick socks",
+                it: "Un po' più spaziose - per escursioni in alta montagna o se desideri consapevolmente più spazio, ad es. per calze spesse",
+                de: "Etwas weiter - für Bergtouren im Hochgebirge oder wenn du bewusst mehr Platz, z. B. für dicke Socken, wünschst",
             },
         ],
     },
 ];
 
 const golfShoes = [
+    {
+        question: {
+            eng: "How do you prefer your golf shoes to fit?",
+            it: "Come preferisci che le tue scarpe da golf si adattino?",
+            de: "Wie bevorzugen Sie Ihre Golfschuhe zu tragen?",
+        },
+        options: [
+            {
+                eng: "The perfect recommended golf shoe fit based on my 3D scan",
+                it: "La calzata perfetta consigliata della scarpa da golf basata sulla mia scansione 3D",
+                de: "Die perfekt empfohlene Golfschuh-passform basierend auf meinem 3D-Scan",
+            },
+            {
+                eng: "Rather tighter, as I like my shoes to fit snugly on my foot",
+                it: "Più stretto, poiché mi piace indossare le scarpe ben salde sul piede",
+                de: "Eher enger, da ich meine Schuhe gern fest am Fuß trage",
+            },
+            {
+                eng: "Rather roomier, as I prefer more freedom of movement",
+                it: "Più largo, poiché preferisco più libertà di movimento",
+                de: "Eher weiter, da ich mehr Bewegungsfreiheit bevorzuge",
+            },
+        ],
+    },
     {
         question: {
             eng: "Spikes or Spikeless - Which type do you need?",
@@ -332,6 +358,31 @@ const golfShoes = [
 ];
 
 const basketballShoes = [
+    {
+        question: {
+            eng: "How do you prefer your basketball shoes to fit?",
+            it: "Come preferisci che le tue scarpe da basket si adattino?",
+            de: "Wie bevorzugen Sie Ihre Basketballschuhe zu tragen?",
+        },
+        options: [
+            {
+                eng: "The perfect basketball shoe fit based on my 3D scan",
+                it: "La calzata perfetta della scarpa da basket basata sulla mia scansione 3D",
+                de: "Die perfekte Basketballschuh-passform basierend auf meinem 3D-Scan",
+            },
+            {
+                eng: "Rather tighter, as I like my shoes to fit snugly on my foot",
+                it: "Più stretto, poiché mi piace che le mie scarpe si adattino comodamente al piede",
+                de: "Eher enger, da ich meine Schuhe gern fest am Fuß trage",
+            },
+            {
+                eng: "Rather roomier, as I prefer more freedom of movement",
+                it: "Più largo, poiché preferisco più libertà di movimento",
+                de: "Eher weiter, da ich mehr Bewegungsfreiheit bevorzuge",
+            },
+        ],
+    },
+
     {
         question: {
             eng: "Traction & Grip - What is the surface?",
@@ -721,6 +772,18 @@ const cyclingShoes = [
         ],
     },
 ];
+
+export const questions = {
+    "casual-sneaker": casualShoes,
+    "running-shoes": mountainTrekkingShoes,
+    "cycling-shoes": cyclingShoes,
+    "basketball-shoes": basketballShoes,
+    "golf-shoes": golfShoes,
+    "football-shoes": soccerShoes,
+    "tennis-shoes": tennisShoes,
+    "climbing-shoes": climbingShoes,
+    "mountain-trekking-shoes": mountainTrekkingShoes,
+};
 
 export const runningShoes = {
     initialQuestion: {
@@ -1304,20 +1367,4 @@ export const runningShoes = {
             ],
         },
     ],
-};
-
-export const questions = {
-    // Normal Categories
-    "casual-sneaker": casualShoes,
-    // Sports Categories
-    "running-shoes": runningShoes,
-    "cycling-shoes": cyclingShoes,
-    "basketball-shoes": basketballShoes,
-    "golf-shoes": golfShoes,
-    "football-shoes": soccerShoes,
-    "tennis-shoes": tennisShoes,
-    "climbing-shoes": climbingShoes,
-
-    // mountain
-    "mountain-trekking-shoes": mountainTrekkingShoes,
 };

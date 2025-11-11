@@ -10,7 +10,7 @@ export function VersionInfo() {
     const version: string = "10.12.0";
     return (
         <View className="flex-row items-center justify-between my-8 mx-6 flex-1">
-            <Typography variant="caption">FEETFIRST {version}</Typography>
+            <Typography variant="caption">FEETF1RST {version}</Typography>
 
             <View className="flex-row items-center gap-2">
                 <Button
