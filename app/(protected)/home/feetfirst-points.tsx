@@ -165,8 +165,8 @@ export default function Screen() {
                 <View className="p-3 gap-2 items-start">
                     <Typography variant="title" className="text-white">
                         {isGerman()
-                            ? "Scanevents in Ihrer Stadt"
-                            : "Scansiona gli eventi nella tua città"}
+                            ? "Jetzt Scan Event & Gruppenbuchung anfragen"
+                            : "Richiedi subito una scansione per un evento o una prenotazione di gruppo"}
                     </Typography>
                     <Input
                         Icon={MAN}

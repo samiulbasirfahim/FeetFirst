@@ -90,6 +90,7 @@ export function useProducts(page: number, sub_category: string | null) {
                     favourite: item.favourite,
                     colors: item.colors,
                     match_data: item.match_data,
+                    sub_category: item.sub_category,
                 }) as ShoeItem,
         );
     }, [data]);

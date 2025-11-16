@@ -18,6 +18,7 @@ import Point from "@/assets/svgs/point_imotana.svg";
 import Svg, { Defs, Polygon, Stop, LinearGradient } from "react-native-svg";
 import { ProductCard } from "@/components/common/ProductCard";
 import { useGetImotanaProdcuct, useTopShoes } from "@/lib/queries/products";
+import { AutoImage } from "@/components/ui/auto-image";
 
 export default function ShoeShopScreen() {
     const { width: screen_width } = useWindowDimensions();
@@ -372,10 +373,12 @@ export default function ShoeShopScreen() {
                         start={{ x: 0, y: 0 }}
                         end={{ x: 0, y: 1 }}
                     />
-                    <Image
+                    <AutoImage
+                        height={
+                            Image.resolveAssetSource(goalKepper).height *
+                            (screen_width / Image.resolveAssetSource(goalKepper).width)
+                        }
                         source={goalKepper}
-                        className="w-full h-[280px]"
-                        resizeMode="cover"
                     />
                 </View>
                 <VersionInfo />

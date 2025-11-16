@@ -282,7 +282,7 @@ export default function Screen() {
                                 style={{
                                     fontSize: 32,
                                     color: "white",
-                                    textAlign: "center",
+                                    width: "100%",
                                 }}
                             >
                                 {isGerman()

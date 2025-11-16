@@ -232,23 +232,7 @@ export default function Screen() {
                         ))}
                     </View>
                 </View>
-                <View className="flex-col justify-end p-5 bg-background">
-                    <Typography className="mb-2 text-sm font-medium text-boldText">
-                        Gebrauchsanweisung Einlagen
-                    </Typography>
-                    <Typography className="mb-2.5 text-white font-light text-[12px]">
-                        Schritt für Schritt zu richtigem Einsatz und Pflege – für maximalen
-                        Komfort und lange Lebensdauer.
-                    </Typography>
-                    <Button
-                        variant="outline"
-                        textClassName="text-base font-semibold"
-                        className="w-1/3 rounded-2xl py-3 bg-primary/20"
-                    >
-                        Download
-                    </Button>
-                </View>
-                <View className="mt-7 mb-5">
+                <View className="mb-5">
                     <View className="w-[90%] mx-auto mb-4">
                         <Typography className="text-2xl text-boldText font-bold mb-2">
                             So einfach funktioniert’s
@@ -283,8 +267,25 @@ export default function Screen() {
                         />
                     </View>
                 </View>
-                <View className="mb-[90px]">
+                <View className="mb-7 ">
                     <MassFlatList />
+                </View>
+
+                <View className="flex-col justify-end p-5 bg-background mb-[90px]">
+                    <Typography className="mb-2 text-sm font-medium text-boldText">
+                        Gebrauchsanweisung Einlagen
+                    </Typography>
+                    <Typography className="mb-2.5 text-white font-light text-[12px]">
+                        Schritt für Schritt zu richtigem Einsatz und Pflege – für maximalen
+                        Komfort und lange Lebensdauer.
+                    </Typography>
+                    <Button
+                        variant="outline"
+                        textClassName="text-base font-semibold"
+                        className="w-1/3 rounded-2xl py-3 bg-primary/20"
+                    >
+                        Download
+                    </Button>
                 </View>
             </Layout>
         </View>

@@ -5,6 +5,7 @@ export type MatchData = {
 
 export type ShoeItem = {
     id: number;
+    sub_category: string;
     itemName: string;
     brand?: {
         name: string;
@@ -17,7 +18,6 @@ export type ShoeItem = {
     } | null;
 
     colors: string[];
-
     match_data: MatchData | null;
     favourite: boolean;
 };

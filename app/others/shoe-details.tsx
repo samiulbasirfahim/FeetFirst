@@ -379,6 +379,24 @@ export default function Screen() {
                                         ? shoeDetails?.further_information
                                         : shoeDetails?.further_information,
                                 },
+                                {
+                                    key: "return",
+                                    label: isGerman()
+                                        ? "Retouren ohne Probleme"
+                                        : "Restituisce senza problemi",
+                                    value: isGerman()
+                                        ? "FeetF1rst gewährleistet eine perfekte Passform und bietet daher ein 30-tägiges Rückgaberecht, bei dem wir die Rücksendekosten übernehmen."
+                                        : "FeetF1rst garantisce una vestibilità perfetta e pertanto offre una politica di reso di 30 giorni, durante la quale copriamo le spese di spedizione per il reso.",
+                                },
+                                {
+                                    key: "perfect_fit",
+                                    label: isGerman()
+                                        ? "Perfekte Passform"
+                                        : "Vestibilità perfetta",
+                                    value: isGerman()
+                                        ? "Über 90 % weniger Retouren dank präzisem 3D-Scan – wenn etwas nicht passt, einfach kostenlos zurücksenden und den vollen Betrag zurückerhalten."
+                                        : "Oltre il 90% in meno di resi grazie alla precisa scansione 3D: se qualcosa non ti va bene, puoi semplicemente restituirlo gratuitamente e ricevere un rimborso completo.",
+                                },
                             ].map(
                                 (section) =>
                                     section.value && (
@@ -400,18 +418,20 @@ export default function Screen() {
                         </View>
 
                         {/* Return Policy */}
-                        <View className="my-4 flex gap-4">
-                            <Typography className="text-white text-2xl">
-                                {isGerman()
-                                    ? "Retouren ohne Probleme"
-                                    : "Restituisce senza problemi"}
-                            </Typography>
-                            <Typography className="text-white leading-8">
-                                {isGerman()
-                                    ? "FeetF1rst gewährleistet eine perfekte Passform und bietet daher ein 30-tägiges Rückgaberecht, bei dem wir die Rücksendekosten übernehmen."
-                                    : "FeetF1rst garantisce una vestibilità perfetta e pertanto offre una politica di reso di 30 giorni, durante la quale copriamo le spese di spedizione per il reso."}
-                            </Typography>
-                        </View>
+                        {
+                            // <View className="my-4 flex gap-4">
+                            // <Typography className="text-white text-2xl">
+                            //     {isGerman()
+                            //         ? "Retouren ohne Probleme"
+                            //         : "Restituisce senza problemi"}
+                            // </Typography>
+                            // <Typography className="text-white leading-8">
+                            //     {isGerman()
+                            //         ? "FeetF1rst gewährleistet eine perfekte Passform und bietet daher ein 30-tägiges Rückgaberecht, bei dem wir die Rücksendekosten übernehmen."
+                            //         : "FeetF1rst garantisce una vestibilità perfetta e pertanto offre una politica di reso di 30 giorni, durante la quale copriamo le spese di spedizione per il reso."}
+                            // </Typography>
+                            // </View>
+                        }
 
                         {fetch_top || fetch_all ? (
                             <LoadingSpinner />

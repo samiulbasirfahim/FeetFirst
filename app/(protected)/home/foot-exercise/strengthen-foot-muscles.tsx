@@ -1,96 +1,30 @@
 import { Layout } from "@/components/layout/layout";
 import { Typography } from "@/components/ui/typography";
 import { useLanguageStore } from "@/store/language";
-import {
-    Image,
-    Text,
-    TouchableOpacity,
-    TouchableWithoutFeedback,
-    useWindowDimensions,
-    View,
-} from "react-native";
+import { Image, Text, useWindowDimensions, View } from "react-native";
 import woman from "@/assets/images/woman-upside-down.png";
 import { Button } from "@/components/ui/button";
 import MyCarousel from "@/components/ui/MyCarousel";
 import { VersionInfo } from "@/components/common/version";
 import ManAboutTORun from "@/assets/images/man-about-to-run.png";
 import { LinearGradient } from "expo-linear-gradient";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDrawerHeader } from "@/components/common/drawer-header";
-import LineBg from "@/assets/svgs/flexible_bg.svg";
-import Leg from "@/assets/svgs/flexible_leg1.svg";
-import { BlurView } from "expo-blur";
-import Accordion from "react-native-collapsible/Accordion";
-import Animated, {
-    Layout as ReanimatedLayout,
-    FadeInDown,
-    FadeOutUp,
-} from "react-native-reanimated";
-import ArrowAnimatedDesign from "@/components/ui/animated-arrow";
-import { Link, router } from "expo-router";
-
-const CONTENT = [
-    {
-        title: "Waden- und Achillessehnen-Dehnung",
-        content:
-            "Aktiviere gezielt Zehen und Fußgelenke – für mehr Beweglichkeit, Kontrolle und ein stabiles Gangbild.",
-        place: "first",
-    },
-    {
-        title: "Dynamische Beweglichkeitsübungen",
-        content:
-            "Aktiviere gezielt Zehen und Fußgelenke – für mehr Beweglichkeit, Kontrolle und ein stabiles Gangbild.",
-        place: "second",
-    },
-    {
-        title: "Fußsohle & Fußgewölbe dehnen",
-        content:
-            "Aktiviere gezielt Zehen und Fußgelenke – für mehr Beweglichkeit, Kontrolle und ein stabiles Gangbild.",
-        place: "third",
-    },
-    {
-        title: "Zehen- und Fußgelenk-Mobilisation",
-        content:
-            "Aktiviere gezielt Zehen und Fußgelenke – für mehr Beweglichkeit, Kontrolle und ein stabiles Gangbild.",
-        place: "fourth",
-    },
-];
+import { router } from "expo-router";
+import { ExerciseAccordion } from "@/components/ui/exercise-accordian";
+import {
+    germanFootMuscleSections,
+    italianFootMuscleSections,
+} from "@/lib/exercise-accordian-data";
 
 export default function Screen() {
-    const [activeSections, setActiveSections] = React.useState<number[]>([]);
-
-    const [touch, setTouch] = useState({
-        first: false,
-        second: false,
-        third: false,
-        fourth: false,
-    });
-
-    const handleTouch = (position) => {
-        setTouch((prev) => {
-            const reset = {
-                first: false,
-                second: false,
-                third: false,
-                fourth: false,
-            };
-
-            return { ...reset, [position]: !prev[position] };
-        });
-    };
-
-    useEffect(() => {
-        const active: number[] = [];
-        if (touch.first) active.push(0);
-        if (touch.second) active.push(1);
-        if (touch.third) active.push(2);
-        if (touch.fourth) active.push(3);
-        setActiveSections(active);
-    }, [touch]);
-
     const { height: heightOfWindow } = useWindowDimensions();
     const { isGerman } = useLanguageStore();
     const [womanDiv, setWomanDiv] = useState(0);
+
+    const sections = isGerman()
+        ? germanFootMuscleSections
+        : italianFootMuscleSections;
 
     const { onScroll, HeaderComponent, height } = useDrawerHeader({
         threeshold: 100,
@@ -188,193 +122,8 @@ export default function Screen() {
 
                     <MyCarousel />
                 </View>
-                {/* Accordian */}
-                <View className="isolate">
-                    <LinearGradient
-                        pointerEvents="none"
-                        colors={["rgba(0,0,0,1)", "transparent"]}
-                        style={{
-                            position: "absolute",
-                            left: 0,
-                            right: -20,
-                            top: 0,
-                            height: 250,
-                            zIndex: 99,
-                        }}
-                        className="z-10"
-                    />
-                    <View className="-right-[90px] top-[20px]">
-                        <LineBg />
-                    </View>
-                    <View className="absolute  left-10">
-                        <Leg />
-                    </View>
+                <ExerciseAccordion sections={sections} />
 
-                    <View>
-                        <TouchableOpacity
-                            onPressOut={() => {
-                                handleTouch("first");
-                            }}
-                            className="z-10"
-                        >
-                            {touch.first === false ? (
-                                <BlurView
-                                    intensity={400}
-                                    experimentalBlurMethod="dimezisBlurView"
-                                >
-                                    <View className=" absolute bottom-[123px] left-[180px] border border-white/20 py-1 px-3 rounded-full z-10 bg-[#040705]/20">
-                                        <Typography className="font-bold text-base">1</Typography>
-                                    </View>
-                                </BlurView>
-                            ) : (
-                                <View className=" absolute bottom-[123px] left-[180px] border border-white py-1 px-3 rounded-full z-10 bg-[#ffffff]">
-                                    <Typography className="font-bold text-base text-primary">
-                                        1
-                                    </Typography>
-                                </View>
-                            )}
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                            onPressOut={() => {
-                                handleTouch("second");
-                            }}
-                            className="z-10"
-                        >
-                            {touch.second === false ? (
-                                <BlurView
-                                    intensity={400}
-                                    experimentalBlurMethod="dimezisBlurView"
-                                >
-                                    <View className=" absolute bottom-[58px] left-[160px] border border-white/20 py-1 px-3 rounded-full z-10 bg-[#040705]/20">
-                                        <Typography className="font-bold text-base">2</Typography>
-                                    </View>
-                                </BlurView>
-                            ) : (
-                                <View className=" absolute bottom-[58px] left-[160px] border border-white py-1 px-3 rounded-full z-10 bg-[#ffffff]">
-                                    <Typography className="font-bold text-base text-primary">
-                                        2
-                                    </Typography>
-                                </View>
-                            )}
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                            onPressOut={() => {
-                                handleTouch("third");
-                            }}
-                            className="z-10"
-                        >
-                            {touch.third === false ? (
-                                <BlurView
-                                    intensity={400}
-                                    experimentalBlurMethod="dimezisBlurView"
-                                >
-                                    <View className=" absolute bottom-[5px] left-[245px] border border-white/20 py-1 px-3 rounded-full z-10 bg-[#040705]/20">
-                                        <Typography className="font-bold text-base">3</Typography>
-                                    </View>
-                                </BlurView>
-                            ) : (
-                                <View className=" absolute bottom-[5px] left-[245px] border border-white py-1 px-3 rounded-full z-10 bg-[#ffffff]">
-                                    <Typography className="font-bold text-base text-primary">
-                                        3
-                                    </Typography>
-                                </View>
-                            )}
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                            onPressOut={() => {
-                                handleTouch("fourth");
-                            }}
-                            className="z-10   "
-                        >
-                            {touch.fourth === false ? (
-                                <BlurView
-                                    intensity={400}
-                                    experimentalBlurMethod="dimezisBlurView"
-                                >
-                                    <View className=" absolute -bottom-[13px] left-[67px] border border-white/20 py-1 px-3 rounded-full z-10 bg-[#040705]/20">
-                                        <Typography className="font-bold text-base">4</Typography>
-                                    </View>
-                                </BlurView>
-                            ) : (
-                                <View className=" absolute -bottom-[13px] left-[67px] border border-white py-1 px-3 rounded-full z-10 bg-[#ffffff]">
-                                    <Typography className="font-bold text-base text-primary">
-                                        4
-                                    </Typography>
-                                </View>
-                            )}
-                        </TouchableOpacity>
-                    </View>
-                </View>
-
-                <View className="mt-10 w-[90%] mx-auto isolate">
-                    <Accordion
-                        activeSections={activeSections}
-                        sections={CONTENT}
-                        touchableComponent={TouchableWithoutFeedback}
-                        renderHeader={(section, index, isActive) => (
-                            <View>
-                                <View
-                                    className={`mt-3 bg-background flex-row items-center justify-between p-4  ${isActive ? "rounded-t-3xl" : "rounded-3xl"} transition-all `}
-                                >
-                                    <View className="flex-row items-center gap-4">
-                                        <View className="px-2 py-[2px] rounded-lg border border-primary bg-primary/15">
-                                            <Typography> {index + 1} </Typography>
-                                        </View>
-                                        <Typography
-                                            className={`text-sm text-boldText ${isActive ? "font-bold" : "font-normal"} transition-all`}
-                                        >
-                                            {section.title}
-                                        </Typography>
-                                    </View>
-                                    <ArrowAnimatedDesign isActive={isActive} />
-                                </View>
-                                {isActive && (
-                                    <View className="h-[0.7px] bg-white/30 w-[90%] mx-auto" />
-                                )}
-                            </View>
-                        )}
-                        renderContent={(section, _, isActive) => (
-                            <Animated.View
-                                layout={ReanimatedLayout.duration(400)}
-                                entering={FadeInDown.duration(220)}
-                                exiting={FadeOutUp.duration(200)}
-                                className={`p-5 bg-background overflow-hidden flex-col gap-3 ${isActive ? "rounded-b-3xl" : "rounded-3xl"}`}
-                            >
-                                <Typography className="text-white text-sm font-normal ">
-                                    {section.content}
-                                </Typography>
-                                <Typography className="text-sm font-medium text-primary">
-                                    Zehenwellen: Fördert Zehenbeweglichkeit
-                                </Typography>
-                                <Typography className="text-sm font-medium text-primary">
-                                    Kreisende Fußbewegungen: Mobilisiert Sprunggelenk
-                                </Typography>
-                                <Typography className="text-sm font-medium text-primary">
-                                    Zehenstrecken & -spreizen: Dehnt und aktiviert Zehenmuskeln
-                                </Typography>
-                                <Typography className="text-sm font-medium text-primary">
-                                    Übung vier lorem ipsum dolor sit
-                                </Typography>
-                            </Animated.View>
-                        )}
-                        duration={400}
-                        onChange={(sections) => {
-                            setActiveSections(sections);
-
-                            // 🔑 sync accordion state back into `touch`
-                            setTouch({
-                                first: sections.includes(0),
-                                second: sections.includes(1),
-                                third: sections.includes(2),
-                                fourth: sections.includes(3),
-                            });
-                        }}
-                        renderAsFlatList={false}
-                    />
-                </View>
                 <View className="pt-8 px-3">
                     <Typography className="text-3xl font-bold w-1/2">
                         {isGerman()
@@ -391,9 +140,7 @@ export default function Screen() {
                         <Button
                             variant="outline"
                             className="bg-primary/10 py-4 rounded-2xl"
-                            onPress={() =>
-                                    router.push("/(exercise-questions)/while-loading")
-                                }
+                            onPress={() => router.push("/(exercise-questions)/while-loading")}
                         >
                             {isGerman() ? "Jetzt erstellen!" : "Crea ora!"}
                         </Button>

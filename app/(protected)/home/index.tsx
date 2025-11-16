@@ -228,7 +228,7 @@ export default function Screen() {
                                     router.push({
                                         pathname: "/shoe-recommendations",
                                         params: {
-                                            category: shoeList[currentIndex]?.category?.slug ?? "all",
+                                            category: shoeList[currentIndex]?.sub_category ?? "all",
                                             redirect: "/shoe-recommendations/shoes",
                                             redirectId: Math.random().toString(),
                                         },
