@@ -18,7 +18,10 @@ import React, { useState } from "react";
 import { useDrawerHeader } from "@/components/common/drawer-header";
 import { router } from "expo-router";
 import { ExerciseAccordion } from "@/components/ui/exercise-accordian";
-import { germanOverallFootSections, italianOverallFootSections } from "@/lib/exercise-accordian-data";
+import {
+    germanOverallFootSections,
+    italianOverallFootSections,
+} from "@/lib/exercise-accordian-data";
 
 export default function Screen() {
     const { height: heightOfWindow } = useWindowDimensions();
@@ -31,9 +34,8 @@ export default function Screen() {
     });
 
     const sections = isGerman()
-        ? germanOverallFootSections,
+        ? germanOverallFootSections
         : italianOverallFootSections;
-
 
     return (
         <View className="flex-1">

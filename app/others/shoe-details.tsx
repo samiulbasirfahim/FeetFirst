@@ -83,10 +83,13 @@ export default function Screen() {
     const [sizeList, setSizeList] = useState<any>([]);
 
     useEffect(() => {
+        console.log("FEATURES: ", shoeDetails?.features);
+
         if (shoeDetails?.sizes) {
             const sizes = shoeDetails?.sizes.flatMap((s) => {
                 return s.size.map((size) => ({
                     label: size,
+                    score: shoeDetails.match_data ? shoeDetails.match_data[size] || 0 : 0,
                     value: size,
                 }));
             }) as [];
@@ -248,7 +251,7 @@ export default function Screen() {
                         <View className="bg-muted-background p-4 rounded-2xl flex-row justify-between">
                             <AutoImage height={36} source={logo} />
 
-                            <View className="h-9 justify-center min-w-20">
+                            <View className="h-9 justify-center flex-1 ml-6">
                                 <View className="w-full">
                                     <ShoeSizePicker
                                         onChange={(selected) => {
@@ -258,7 +261,11 @@ export default function Screen() {
                                         list={sizeList}
                                     />
                                 </View>
-                                <Typography>
+                                <Typography
+                                    style={{
+                                        textAlign: "right",
+                                    }}
+                                >
                                     {(shoeDetails?.match_data &&
                                         sizePicked &&
                                         (shoeDetails?.match_data?.[sizePicked] ?? "0") + "% FIT") ??
@@ -312,43 +319,30 @@ export default function Screen() {
                             <TwoDPreview />
                         </View>
 
-                        {/* Material Features */}
-                        <View className="flex-1 gap-4 my-4">
-                            {[
-                                {
-                                    icon: GoreTexLogo,
-                                    title: "Gore-Tex®",
-                                    de: "Wasserdicht und atmungsaktiv durch eine spezielle Membran",
-                                    it: "Impermeabile e traspirante grazie a una speciale membrana",
-                                },
-                                {
-                                    icon: ultralight,
-                                    title: "Ultra Light",
-                                    de: "Besonders leicht für maximalen Komfort",
-                                    it: "Extra leggero per il massimo comfort",
-                                },
-                                {
-                                    icon: pronation,
-                                    title: "Pronation",
-                                    de: "Stabilisiert den Fuß bei Überpronation",
-                                    it: "Supporto per la pronazione: stabilizza il piede in caso di iperpronazione",
-                                },
-                            ].map((feat, i) => (
-                                <View className="flex-row gap-4" key={i}>
-                                    <View className="bg-white rounded-xl p-2">
-                                        <Image
-                                            resizeMode="contain"
-                                            source={feat.icon}
-                                            className="w-[40px] h-[40px]"
-                                        />
+                        {shoeDetails && shoeDetails.features && (
+                            <View className="flex-1 gap-4 my-4">
+                                {shoeDetails?.features.map((feat, i) => (
+                                    <View className="flex-row gap-4" key={i}>
+                                        <View className="bg-white rounded-xl p-2">
+                                            <Image
+                                                resizeMode="contain"
+                                                source={{
+                                                    uri: feat.image,
+                                                }}
+                                                className="w-[40px] h-[40px]"
+                                            />
+                                        </View>
+                                        <Typography className="flex-1">
+                                            <Text className="font-bold text-lg">{feat.title}</Text> –{" "}
+                                            {
+                                                // isGerman() ? feat.de : feat.it
+                                                feat.details
+                                            }
+                                        </Typography>
                                     </View>
-                                    <Typography className="flex-1">
-                                        <Text className="font-bold text-lg">{feat.title}</Text> –{" "}
-                                        {isGerman() ? feat.de : feat.it}
-                                    </Typography>
-                                </View>
-                            ))}
-                        </View>
+                                ))}
+                            </View>
+                        )}
 
                         <View className="flex gap-3 my-4">
                             {[

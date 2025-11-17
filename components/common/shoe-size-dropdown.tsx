@@ -5,6 +5,7 @@ import { Typography } from "../ui/typography";
 
 type Data = {
     label: string;
+    score: number;
     value: string;
 };
 type Props = {
@@ -24,7 +25,7 @@ export function ShoeSizePicker({ list, onChange, value: defaultValue }: Props) {
             value={defaultValue}
             disable={list.length === 0}
             itemContainerStyle={{
-                backgroundColor: "transparent",
+                backgroundColor: "#0D0D0D",
                 padding: 0,
                 borderRadius: 12,
             }}
@@ -46,13 +47,38 @@ export function ShoeSizePicker({ list, onChange, value: defaultValue }: Props) {
                         borderBottomColor: "white",
                         backgroundColor: selected ? "#303231" : "transparent",
                     }}
-                    className="flex-row items-center rounded-none justify-between px-4 bg-backgroundDark py-2 w-[140px]"
+                    className="flex-row items-center rounded-none justify-start px-4 bg-backgroundDark py-2 w-[140px] gap-4"
                 >
-                    <Typography>{item.label}</Typography>
+                    <Typography
+                        style={{
+                            fontWeight: selected ? "700" : "500",
+                            fontSize: 20,
+                        }}
+                    >
+                        {item.label}
+                    </Typography>
+                    <Typography
+                        style={{
+                            fontStyle: "italic",
+                            fontSize: 12,
+                        }}
+                    >
+                        -{item.score}
+                    </Typography>
                 </View>
             )}
-            placeholderStyle={{ fontSize: 18, fontWeight: "bold", color: "white" }}
-            selectedTextStyle={{ fontSize: 18, color: "white", fontWeight: "bold" }}
+            placeholderStyle={{
+                fontSize: 18,
+                fontWeight: "bold",
+                color: "white",
+                textAlign: "right",
+            }}
+            selectedTextStyle={{
+                fontSize: 18,
+                color: "white",
+                fontWeight: "bold",
+                textAlign: "right",
+            }}
         />
     );
 }

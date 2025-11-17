@@ -22,6 +22,7 @@ import { Typography } from "./typography";
 import ArrowAnimatedDesign from "./animated-arrow";
 import { LinearGradient } from "expo-linear-gradient";
 import { BlurView } from "expo-blur";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 // ----------- Types -----------
 export interface ExerciseLink {
@@ -58,6 +59,22 @@ const ZoomableImageModal: React.FC<ZoomableImageModalProps> = ({
     const startX = useSharedValue(0);
     const startY = useSharedValue(0);
 
+    const { bottom } = useSafeAreaInsets();
+
+    const doubleTap = Gesture.Tap()
+        .numberOfTaps(2)
+        .onStart(() => {
+            if (scale.value > 1) {
+                // Zoom OUT on double tap
+                scale.value = withSpring(1);
+                offsetX.value = withSpring(0);
+                offsetY.value = withSpring(0);
+            } else {
+                // Zoom IN on double tap (centered)
+                scale.value = withSpring(2); // Adjust zoom level if needed
+            }
+        });
+
     const pinch = Gesture.Pinch()
         .onStart(() => {
             baseScale.value = scale.value;
@@ -91,7 +108,7 @@ const ZoomableImageModal: React.FC<ZoomableImageModalProps> = ({
             }
         });
 
-    const combined = Gesture.Simultaneous(pinch, pan);
+    const combined = Gesture.Simultaneous(pinch, pan, doubleTap);
 
     const animatedStyle = useAnimatedStyle(() => ({
         transform: [
@@ -108,7 +125,7 @@ const ZoomableImageModal: React.FC<ZoomableImageModalProps> = ({
             <Animated.View
                 entering={FadeInDown.duration(300)}
                 exiting={FadeOutUp.duration(300)}
-                className="absolute inset-0 bg-black/80 flex items-center justify-center z-50"
+                className="absolute inset-0 flex items-center justify-center z-50 bg-black/80"
             >
                 <TouchableWithoutFeedback onPress={onClose}>
                     <View className="absolute inset-0" />
@@ -139,10 +156,18 @@ const ZoomableImageModal: React.FC<ZoomableImageModalProps> = ({
                     </Animated.View>
                 </GestureDetector>
 
-                <TouchableWithoutFeedback onPress={onClose}>
-                    <View className="absolute bottom-10 px-6 py-3 rounded-full bg-background/20">
-                        <Typography className="text-white text-sm font-semibold">
-                            Tap outside to close
+                <TouchableWithoutFeedback onPress={onClose} style={{}}>
+                    <View
+                        className="absolute px-6 py-3 rounded-full bg-primary/50 bottom-0"
+                        style={{
+                            marginBottom: bottom + 20,
+                            zIndex: 0,
+                        }}
+                    >
+                        <Typography
+                            className="text-white font-semibold text-xl"
+                        >
+                            Tap here to close
                         </Typography>
                     </View>
                 </TouchableWithoutFeedback>

@@ -50,4 +50,9 @@ export type ShoeDetails = {
     partner: number;
     match_data: Record<string, string> | null;
     favourite: boolean;
+    features: {
+        image: string;
+        title: string;
+        details: string;
+    }[];
 };

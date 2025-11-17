@@ -135,7 +135,7 @@ const italianFlexibilitySections = [
             },
             {
                 text: "Massaggio con palla (es. palla riccio): Rilascia la pianta del piede e favorisce la circolazione",
-                imageUrl: require("@/assets/images/exercises/Ballmassage (z. B. Igelball)_ Löst Spannungen.png"),
+                imageUrl: require("@/assets/images/exercises/Ballmassage (z. B. Igelball)_ Löst Spannungen.png"),
             },
         ],
     },
@@ -348,6 +348,7 @@ const italianFootMuscleSections = [
     },
 ];
 
+/// done untill here.
 const germanOverallFootSections: ExerciseSection[] = [
     {
         title: "Wadenmuskulatur stärken",
@@ -356,11 +357,11 @@ const germanOverallFootSections: ExerciseSection[] = [
         links: [
             {
                 text: "Kniebeuge barfuß (langsam) – aktiviert Fuß- und Beinmuskeln gemeinsam",
-                imageUrl: require("@/assets/images/exercises/Kniebeuge_barfuss.png"),
+                imageUrl: require("@/assets/images/exercises/Fersenheben auf einem Bein_ Kräftigt Fußmuskulatur und Gleichgewicht.png"),
             },
             {
                 text: "Rückwärts auf instabilem Untergrund – aktiviert Füße, Rumpf und Nervensystem",
-                imageUrl: require("@/assets/images/exercises/Rueckwaerts_instabil.png"),
+                imageUrl: require("@/assets/images/exercises/Kleiner Zehenlift_-1.png"),
             },
         ],
     },
@@ -371,11 +372,11 @@ const germanOverallFootSections: ExerciseSection[] = [
         links: [
             {
                 text: "Zehenlaufen im Sand – kräftigt Zehen, Koordination und Fußgewölbe",
-                imageUrl: require("@/assets/images/exercises/Zehenlaufen_sand.png"),
+                imageUrl: require("@/assets/images/exercises/Zehenlaufen.png"),
             },
             {
                 text: "Balance auf instabilem Untergrund (z. B. Kissen) – verbessert Propriozeption und Kraft",
-                imageUrl: require("@/assets/images/exercises/Balance_instabil.png"),
+                imageUrl: require("@/assets/images/exercises/Theraband-Übung_ Stärkt das Fußgewölbe.png"),
             },
         ],
     },
@@ -386,7 +387,8 @@ const germanOverallFootSections: ExerciseSection[] = [
         links: [
             {
                 text: "Barfußlaufen auf Naturboden – stimuliert Sensorik, kräftigt den ganzen Fuß",
-                imageUrl: require("@/assets/images/exercises/Barfusslaufen_natur.png"),
+                // imageUrl: require("@/assets/images/exercises/Einbeinstand_ Trainiert Balance und tiefe Fußmuskeln.png"),
+                imageUrl: require("@/assets/images/exercises/Einbeinstand_ Trainiert Balance und tiefe Fußmuskeln.png"),
             },
         ],
     },
@@ -397,11 +399,11 @@ const germanOverallFootSections: ExerciseSection[] = [
         links: [
             {
                 text: "Achterkreisen mit dem großen Zeh – fördert Mobilität & feine Fußmotorik",
-                imageUrl: require("@/assets/images/exercises/Achterkreisen_zeh.png"),
+                imageUrl: require("@/assets/images/exercises/Stabilisation mit der Balanceplatte_-1.png"),
             },
             {
                 text: "Zehen blättern Seiten um – fördert Koordination und feine Fußmuskulatur",
-                imageUrl: require("@/assets/images/exercises/Zehen_blaettern.png"),
+                imageUrl: require("@/assets/images/exercises/Zehen blättern Seiten um.png"),
             },
         ],
     },
@@ -411,56 +413,56 @@ const italianOverallFootSections: ExerciseSection[] = [
     {
         title: "Rafforzare i muscoli del polpaccio",
         content:
-            "Promuove la forza, la stabilità e la resistenza dei polpacci per una spinta potente e maggiore stabilità.",
+            "Favorisce forza, stabilità e resistenza dei polpacci, migliorando la spinta e la stabilità generale.",
         links: [
             {
-                text: "Squat a piedi nudi (lentamente) – attiva i muscoli dei piedi e delle gambe insieme",
-                imageUrl: require("@/assets/images/exercises/Squat_piedi_nudi.png"),
+                text: "Squat a piedi nudi (lenti) – attiva insieme i muscoli del piede e della gamba",
+                imageUrl: require("@/assets/images/exercises/Fersenheben auf einem Bein_ Kräftigt Fußmuskulatur und Gleichgewicht.png"),
             },
             {
-                text: "Indietro su terreno instabile – attiva piedi, tronco e sistema nervoso",
-                imageUrl: require("@/assets/images/exercises/Indietro_terreno_instabile.png"),
+                text: "All’indietro su superficie instabile – attiva piedi, tronco e sistema nervoso",
+                imageUrl: require("@/assets/images/exercises/Kleiner Zehenlift_-1.png"),
             },
         ],
     },
     {
-        title: "Rafforzare la pianta e l'arco del piede",
+        title: "Rafforzare la pianta e l’arco del piede",
         content:
-            "Migliora la stabilità, l'ammortizzazione e la trasmissione della forza, supporta un arco plantare sano.",
+            "Migliora stabilità, ammortizzazione e trasmissione della forza, sostenendo un arco plantare sano.",
         links: [
             {
-                text: "Correre in punta sulla sabbia – rafforza le dita, il coordinamento e l'arco plantare",
-                imageUrl: require("@/assets/images/exercises/Corsa_punta_sabbia.png"),
+                text: "Camminare sulle punte nella sabbia – rafforza le dita, la coordinazione e l’arco plantare",
+                imageUrl: require("@/assets/images/exercises/Zehenlaufen.png"),
             },
             {
-                text: "Equilibrio su terreno instabile (ad es. cuscino) – migliora la propriocezione e la forza",
-                imageUrl: require("@/assets/images/exercises/Equilibrio_terreno_instabile.png"),
+                text: "Equilibrio su superficie instabile (es. cuscino) – migliora propriocezione e forza",
+                imageUrl: require("@/assets/images/exercises/Theraband-Übung_ Stärkt das Fußgewölbe.png"),
             },
         ],
     },
     {
         title: "Mobilizzare e stabilizzare la caviglia",
         content:
-            "Aumenta la mobilità, la reattività e protegge da infortuni grazie a una maggiore stabilità articolare.",
+            "Aumenta mobilità, reattività e protegge da infortuni grazie a una maggiore stabilità articolare.",
         links: [
             {
-                text: "Camminare a piedi nudi su terreno naturale – stimola la sensibilità, rafforza l'intero piede",
-                imageUrl: require("@/assets/images/exercises/Camminata_piedi_nudi_natura.png"),
+                text: "Camminare a piedi nudi su terreno naturale – stimola la sensibilità e rafforza tutto il piede",
+                imageUrl: require("@/assets/images/exercises/Einbeinstand_ Trainiert Balance und tiefe Fußmuskeln.png"),
             },
         ],
     },
     {
         title: "Mobilizzare e coordinare i muscoli delle dita",
         content:
-            "Promuove la mobilità, il coordinamento e la forza delle dita per un migliore controllo e equilibrio.",
+            "Migliora mobilità, coordinazione e forza delle dita, favorendo controllo ed equilibrio.",
         links: [
             {
-                text: "Movimenti circolari a forma di otto con l'alluce – promuove la mobilità e la motricità fine del piede",
-                imageUrl: require("@/assets/images/exercises/Movimenti_otto_alluce.png"),
+                text: "Disegnare un otto con l’alluce – migliora mobilità e motricità fine del piede",
+                imageUrl: require("@/assets/images/exercises/Stabilisation mit der Balanceplatte_-1.png"),
             },
             {
-                text: "Le dita sfogliano le pagine – promuove il coordinamento e la muscolatura fine del piede",
-                imageUrl: require("@/assets/images/exercises/"),
+                text: "Le dita sfogliano le pagine – migliora coordinazione e muscolatura fine del piede",
+                imageUrl: require("@/assets/images/exercises/Zehen blättern Seiten um.png"),
             },
         ],
     },

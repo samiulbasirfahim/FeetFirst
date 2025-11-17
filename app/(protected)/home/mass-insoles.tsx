@@ -13,6 +13,7 @@ import MassFlatList from "@/components/ui/flatlist-massinsole";
 import { useDrawerHeader } from "@/components/common/drawer-header";
 import { TwoDAccordian } from "@/components/common/2d-accordian";
 import { useParamStore } from "@/store/paramStore";
+import { OpenWebLink } from "@/lib/web-link";
 
 export type ShoeItem = {
     title: string;
@@ -283,6 +284,11 @@ export default function Screen() {
                         variant="outline"
                         textClassName="text-base font-semibold"
                         className="w-1/3 rounded-2xl py-3 bg-primary/20"
+                        onPress={() => {
+                            OpenWebLink(
+                                "https://admin.feetf1rst.com/static/pdf/feetf1rst.pdf",
+                            );
+                        }}
                     >
                         Download
                     </Button>
