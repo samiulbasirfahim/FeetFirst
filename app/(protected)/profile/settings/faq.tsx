@@ -1,6 +1,7 @@
 import { VersionInfo } from "@/components/common/version";
 import { Layout } from "@/components/layout/layout";
 import { Typography } from "@/components/ui/typography";
+import { fetcher } from "@/lib/fetcher";
 import { useFaq } from "@/lib/queries/faq";
 import { useLanguageStore } from "@/store/language";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
@@ -69,20 +70,25 @@ const FAQ_DATA = [
 export default function Screen() {
     const { isGerman, language } = useLanguageStore();
 
-    const { data = [], isPending } = useFaq();
     const [supportAreas, setSupportAreas] = useState<string[]>([]);
     const [lines, setLines] = useState<string[]>([]);
 
     useEffect(() => {
-        setSupportAreas([]);
-        setLines([]);
-        (data as []).forEach((each: any) => {
-            const new_area = isGerman() ? each.question_de : each.question_it;
-            const new_line = isGerman() ? each.answer_de : each.answer_it;
-            setSupportAreas((prev) => [...prev, new_area]);
-            setLines((prev) => [...prev, new_line]);
+        fetcher("/api/faq/", {
+            method: "GET",
+            auth: true,
+        }).then((data) => {
+            setSupportAreas([]);
+            setLines([]);
+            (data as []).forEach((each: any) => {
+                const new_area = isGerman() ? each.question_de : each.question_it;
+                const new_line = isGerman() ? each.answer_de : each.answer_it;
+                setSupportAreas((prev) => [...prev, new_area]);
+                setLines((prev) => [...prev, new_line]);
+            });
         });
-    }, [data, isPending, language]);
+    }, [language]);
+
     const [activeSection, setActiveSection] = useState<string | null>(null);
 
     const FAQItem = ({
