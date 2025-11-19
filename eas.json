@@ -6,13 +6,31 @@
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal"
+      "distribution": "internal",
+      "ios": {
+        "resourceClass": "m1-medium"
+      },
+      "env": {
+        "COCOAPODS_NO_REPO_UPDATE": "true"
+      }
     },
     "preview": {
-      "distribution": "internal"
+      "distribution": "internal",
+      "ios": {
+        "resourceClass": "m1-medium"
+      },
+      "env": {
+        "COCOAPODS_NO_REPO_UPDATE": "true"
+      }
     },
     "production": {
-      "autoIncrement": true
+      "autoIncrement": true,
+      "ios": {
+        "resourceClass": "m1-medium"
+      },
+      "env": {
+        "COCOAPODS_NO_REPO_UPDATE": "true"
+      }
     }
   },
   "submit": {
