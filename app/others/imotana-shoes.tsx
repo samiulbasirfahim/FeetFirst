@@ -102,6 +102,7 @@ export default function ShoeShopScreen() {
                                 image={product.image}
                                 itemName={product.itemName}
                                 price={product.price}
+                                sub_category={product.sub_category}
                                 favourite={product.favourite}
                                 colors={product.colors}
                                 match_data={{

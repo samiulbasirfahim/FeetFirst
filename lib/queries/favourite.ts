@@ -64,9 +64,10 @@ export function useGetFavourites() {
                 ({
                     id: item.id,
                     itemName: item.name,
+                    sub_category: item.sub_category,
                     brandName: "Nike",
                     brand: null,
-                    price: `$${item.price}`,
+                    price: `€${item.price}`,
                     image: item.image,
                     match_data: item.match_data,
                     colors: item.colors,
