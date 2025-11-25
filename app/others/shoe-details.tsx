@@ -239,7 +239,7 @@ export default function Screen() {
                                     ?.title ?? ""}
                             </Typography>
                             <Typography className="text-xl font-bold text-primary">
-                                {shoeDetails?.price}
+                                € {shoeDetails?.price}
                             </Typography>
                         </View>
 

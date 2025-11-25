@@ -81,7 +81,7 @@ export default function CartScreen() {
             <View className="flex-col relative px-1 flex-1">
                 <Typography numberOfLines={1}>{item.itemName}</Typography>
                 <View className="flex-row justify-between">
-                    <Typography>{item.price}</Typography>
+                    <Typography>€ {item.price}</Typography>
                     <View className="flex-row gap-2">
                         {item.colors.slice(0, 3).map((color, idx) => (
                             <View
