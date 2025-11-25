@@ -277,11 +277,12 @@ export default function Screen() {
                             className="w-full h-full"
                             resizeMode="cover"
                         />
-                        <View className="absolute top-1/2 -translate-y-1/2 z-[99]">
+                        <View className="absolute top-1/2 -translate-y-1/2 z-[99] left-1/2 -translate-x-1/2 items-center">
                             <Text
                                 style={{
-                                    fontSize: 32,
+                                    fontSize: 18,
                                     color: "white",
+                                    fontWeight: "semibold",
                                     width: "100%",
                                 }}
                             >

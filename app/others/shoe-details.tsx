@@ -12,10 +12,7 @@ import { Layout } from "@/components/layout/layout";
 import { Typography } from "@/components/ui/typography";
 import logo from "@/assets/images/feetfast-full-logo.png";
 import { useLanguageStore } from "@/store/language";
-import ultralight from "@/assets/images/ultralight.png";
-import pronation from "@/assets/images/pronation.png";
 import Collapsible from "react-native-collapsible";
-import GoreTexLogo from "@/assets/images/gore-tex.png";
 import { VersionInfo } from "@/components/common/version";
 import { AutoImage } from "@/components/ui/auto-image";
 import ShoeHeader from "@/components/common/category-header";
@@ -86,33 +83,64 @@ export default function Screen() {
         console.log("FEATURES: ", shoeDetails?.features);
 
         if (shoeDetails?.sizes) {
+            const isImotana = shoeDetails?.brand?.name.toLowerCase() === "imotana";
+
             const sizes = shoeDetails?.sizes.flatMap((s) => {
                 return s.size.map((size) => ({
                     label: size,
-                    score: shoeDetails.match_data ? shoeDetails.match_data[size] || 0 : 0,
+                    score: isImotana
+                        ? 100
+                        : shoeDetails.match_data
+                            ? shoeDetails.match_data[size] || 0
+                            : 0,
                     value: size,
                 }));
             }) as [];
             setSizeList(sizes);
-            const maxValue = shoeDetails.match_data
-                ? Object.entries(shoeDetails.match_data).reduce(
-                    (max, entry) => (entry[1] > max ? entry[1] : max),
-                    0,
-                )
-                : 0;
-            const sizes_with_max_fit = shoeDetails.match_data
-                ? Object.entries(shoeDetails.match_data).filter(
-                    (entry) => (entry as any)[1] === maxValue,
-                )
-                : [];
 
-            if (sizes_with_max_fit.length > 0) {
-                setSizePicked(sizes_with_max_fit[0][0]);
-                return;
+            console.log(shoeDetails.match_data);
+            console.log(shoeDetails.sizes);
+
+            type SizeGroup = {
+                size: string[];
+                quantity: number;
+            };
+
+            // 1. flatten all sizes
+            const allSizes = (sizes as SizeGroup[]).flatMap((item) => item.size);
+
+            // 2. entries from match_data
+            const entries = Object.entries(shoeDetails.match_data ?? {});
+
+            const numericEntries = Object.entries(shoeDetails.match_data ?? {}).map(
+                ([size, val]) => [String(size), Number(val)] as [string, number],
+            );
+
+            const maxValue =
+                numericEntries.length > 0
+                    ? Math.max(...numericEntries.map(([, v]) => v))
+                    : 0;
+
+            // 5. best matching size
+            const bestSize = numericEntries.find(([, v]) => v === maxValue)?.[0];
+
+            // 6. set size
+            if (bestSize) {
+                setSizePicked(bestSize);
+            } else if (allSizes.length > 0) {
+                setSizePicked(allSizes[0]);
             }
-            if (sizes.length > 0) {
-                setSizePicked(((sizes as any)[0] as any).value);
-            }
+
+            //
+            // const entries = Object.entries(shoeDetails.match_data ?? {});
+            //
+            // const numericEntries = entries.map(([size, val]) => [size, Number(val)]);
+            //
+            // const maxValue = Math.max(...numericEntries.map(([, v]) => v));
+            //
+            // const bestSize = numericEntries.find(([, v]) => v === maxValue)?.[0];
+            //
+            // setSizePicked(bestSize ?? sizes[0]?.value);
         }
     }, [shoeDetails]);
 
@@ -266,10 +294,14 @@ export default function Screen() {
                                         textAlign: "right",
                                     }}
                                 >
-                                    {(shoeDetails?.match_data &&
-                                        sizePicked &&
-                                        (shoeDetails?.match_data?.[sizePicked] ?? "0") + "% FIT") ??
-                                        "N/A FIT"}
+                                    {shoeDetails?.brand?.name.toLowerCase() === "imotana"
+                                        ? 100 + "% FIT"
+                                        : ((shoeDetails?.match_data &&
+                                            sizePicked &&
+                                            (shoeDetails?.match_data?.[sizePicked] ?? "0") +
+                                            "% FIT") ??
+                                            "N/A FIT")}
+                                    {}
                                 </Typography>
                             </View>
                         </View>

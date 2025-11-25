@@ -58,12 +58,12 @@ export function ShoeSizePicker({ list, onChange, value: defaultValue }: Props) {
                         {item.label}
                     </Typography>
                     <Typography
+                        className="text-primary"
                         style={{
-                            fontStyle: "italic",
                             fontSize: 12,
                         }}
                     >
-                        -{item.score}
+                        {item.score}
                     </Typography>
                 </View>
             )}

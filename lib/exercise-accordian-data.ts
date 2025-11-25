@@ -2,7 +2,7 @@ import { ExerciseSection } from "@/components/ui/exercise-accordian";
 
 const germanFlexibilitySections: ExerciseSection[] = [
     {
-        title: "Lockere gezielt Wadenmuskulatur und Achillessehnen",
+        title: "Waden & Achillessehne lockern",
         content:
             "Für mehr Beweglichkeit, weniger Zugspannung und ein leichteres Ganggefühl.",
         links: [
@@ -21,7 +21,7 @@ const germanFlexibilitySections: ExerciseSection[] = [
         ],
     },
     {
-        title: "Aktiviere deinen gesamten Fuß- und Unterschenkelbereich",
+        title: "Fuß- & Unterschenkelmuskeln aktivieren",
         content:
             "Dynamische Mobilisation für bessere Kontrolle, flüssigere Bewegungen und mehr Stabilität beim Gehen und Sport.",
         links: [
