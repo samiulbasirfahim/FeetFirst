@@ -1,9 +1,175 @@
-const tennisShoes = [
+import { QuestionCategory, QuestionsMap } from "@/type/category-question";
+
+const cyclingShoes = [
+    {
+        question: {
+            eng: "Which fit do you prefer?",
+            it: "Quale vestibilità preferisci?",
+            de: "Welche Passform bevorzugst du?",
+        },
+        why_important: {
+            it: "Perché è importante? La calzata influisce su stabilità, controllo, comfort e prestazioni. Una calzata più aderente offre maggiore precisione e trasmissione di forza, una calzata equilibrata combina comfort e performance, mentre una calzata più ampia offre spazio e comfort per percorsi lunghi.",
+            de: "Warum ist die Passform wichtig? Sie beeinflusst Stabilität, Kontrolle, Komfort und Leistung. Eine engere Passform ermöglicht höhere Präzision und bessere Kraftübertragung, eine ausgewogene Passform vereint Komfort und Leistung, während eine lockerere Passform Platz und Komfort für lange Läufe bietet.",
+        },
+        options: [
+            {
+                eng: "Tight, sporty fit (maximum power transmission)",
+                it: "Calzata aderente e sportiva (massima trasmissione della forza)",
+                de: "Enge, sportliche Passform (maximale Kraftübertragung)",
+            },
+            {
+                eng: "Balanced fit (combination of performance and comfort)",
+                it: "Calzata equilibrata (combinazione di performance e comfort)",
+                de: "Ausgewogene Passform (Kombination aus Performance und Komfort)",
+            },
+            {
+                eng: "Comfortable fit (more space and comfort for long rides)",
+                it: "Calzata comoda (più spazio e comfort per distanze lunghe)",
+                de: "Bequeme Passform (mehr Platz und Komfort für Lange Fahrten)",
+            },
+        ],
+    },
+    {
+        question: {
+            eng: "Which type of cycling do you do?",
+            it: "Che tipo di ciclismo pratichi?",
+            de: "Welche Art von Radsport betreibst du?",
+        },
+        why_important: {
+            de: `Warum wichtig?
+Je nach Art des Radsports benötigt man unterschiedliche Radschuhe.
+Rennradfahrer brauchen steife,          leichte Schuhe mit glatter Sohle für maximale Kraftübertragung.
+Mountainbiker setzen auf griffige, robuste Schuhe mit Profilsohle für besseren Halt auf unebenem Gelände
+Gravel-Fahrer benötigen eine Mischung aus beidem – steife Sohlen für Effizienz, aber mit genug Grip für verschiedene Untergründe.`,
+            it: `Perché è importante? Il tipo di ciclismo determina quali scarpe sono più adatte: i ciclisti da strada richiedono scarpe rigide e leggere per una trasmissione di potenza ottimale, i mountain biker hanno bisogno di scarpe robuste con suola scolpita per maggiore aderenza sul terreno irregolare, mentre chi pratica gravel necessita di una combinazione di entrambi – suole rigide per l’efficienza e grip sufficiente per superfici variabili.`,
+        },
+        options: [
+            {
+                eng: "Road bike",
+                it: "Strada",
+                de: "Rennrad",
+            },
+            {
+                eng: "Mountain bike",
+                it: "Mountain bike",
+                de: "Mountainbike",
+            },
+            {
+                eng: "Gravel",
+                it: "Gravel",
+                de: "Gravel",
+            },
+        ],
+    },
+    {
+        question: {
+            eng: "Which type of pedals do you use?",
+            it: "Che tipo di pedali utilizzi?",
+            de: "Welche Art von Pedalen benutzt du?",
+        },
+        why_important: {
+            de: `
+Warum wichtig?
+Je nach Pedaltyp benötigt man unterschiedliche Radschuhe.
+Klickpedale erfordern spezielle Schuhe mit Cleats für eine feste Verbindung und effiziente Kraftübertragung.
+Plattformpedale passen zu Schuhen mit griffiger, flexibler Sohle für mehr Bewegungsfreiheit.
+Hybridpedale kombinieren beide Optionen und erfordern Schuhe, die sowohl mit Cleats als auch mit normalen Sohlen komfortabel sind.
+            `,
+            it: `Il tipo di pedale determina quali scarpe sono necessarie: i pedali a sgancio rapido richiedono scarpe con tacchette per un trasferimento di potenza efficiente; i pedali flat si abbinano a scarpe con suole più flessibili per maggiore libertà di movimento; i pedali ibridi permettono l’uso sia con tacchette sia con suole normali.`,
+        },
+        options: [
+            {
+                eng: "Clipless pedals",
+                it: "Pedali a sgancio rapido (Klickpedale)",
+                de: "Klickpedale",
+            },
+            {
+                eng: "Platform pedals",
+                it: "Pedali flat (Plattformpedale)",
+                de: "Plattformpedale",
+            },
+            {
+                eng: "Hybrid pedals",
+                it: "Pedali ibridi",
+                de: "Hybridpedale",
+            },
+        ],
+    },
+    {
+        question: {
+            eng: "Which stiffness level suits you?",
+            it: "Quale indice di rigidità si adatta a te?",
+            de: "Welcher Steifigkeitsindex passt zu dir?",
+        },
+        why_important: {
+            it: `La rigidità della suola determina quanta potenza trasferisci al pedale e quanto comfort hai sulle lunghe distanze. Valori più bassi (5–7) sono più morbidi e confortevoli; valori alti (11–15) offrono massima efficienza ma meno comfort; un valore medio (8–10) offre un buon equilibrio tra prestazioni e comodità.`,
+            de: `
+Warum wichtig?
+Die Steifigkeit der Sohle bestimmt, wie effizient du Kraft aufs Pedal überträgst und wie bequem der Schuh auf langen Strecken ist. 
+Lange Fahrten (Index 5–7):Weiche Sohlen sind bequemer, vermeiden Druckstellen und eignen sich gut, wenn du auch mal zu Fuß unterwegs bist. 
+Wettkampf & Training (Index 11–15):Steife Sohlen übertragen mehr Kraft, sind ideal für Sprints und hohe Geschwindigkeiten, aber weniger komfortabel auf langen Strecken. 
+Balance (Index 8–10):Ein mittlerer Wert bietet guten Komfort und trotzdem starke Leistung – perfekt für Touren und Training. 
+💡 Was ist dir wichtiger: Komfort, Effizienz oder ein guter Mix?
+            `,
+        },
+        options: [
+            {
+                eng: "5-7 - More flexibility and comfort, ideal for long tours & walking",
+                it: "5–7 – Maggiore flessibilità e comfort, ideale per lunghe uscite e camminate.",
+                de: "5–7 – Mehr Flexibilität und Komfort, ideal für lange Touren & Gehen.",
+            },
+            {
+                eng: "8-10 - Perfect balance between comfort & efficiency for training & racing",
+                it: "8–10 – Perfetto equilibrio tra comfort ed efficienza per allenamento e gare.",
+                de: "8–10 – Perfekte Balance zwischen Komfort & Effizienz für Training & Rennen.",
+            },
+            {
+                eng: "11-15 - Maximum power transmission for competitions & explosive sprints",
+                it: "11–15 – Massimo trasferimento di potenza per sprint e prestazioni esplosive.",
+                de: "11–15 – Maximale Kraftübertragung für Wettkämpfe & explosive Sprints.",
+            },
+        ],
+    },
+    {
+        question: {
+            eng: "Do you want to take your performance to the next level with a custom insole?",
+            it: "Vuoi migliorare le tue prestazioni con una soletta personalizzata?",
+            de: "Möchtest du mit einer individuell angepassten Winsole deine Performance auf das nächste Level heben?",
+        },
+
+        why_important: {
+            it: `Una soletta personalizzata ottimizza il trasferimento di potenza, aumenta la stabilità e riduce l’affaticamento — ideale per ottenere il massimo dal tuo stile di guida.`,
+            de: `Eine individuell angepasste Winsole verbessert die Kraftübertragung, stabilisiert den Fuß und reduziert Ermüdung. Dadurch kannst du effizienter fahren, bessere Kontrolle behalten und langfristig deine Leistung steigern.`,
+        },
+
+        options: [
+            {
+                eng: "Yes, for optimal power transmission and best performance",
+                it: "Sì, per una trasmissione di potenza ottimale e migliori prestazioni",
+                de: "Ja, für optimale Kraftübertragung und Bestleistung",
+            },
+            {
+                eng: "No",
+                it: "No",
+                de: "Nein",
+            },
+        ],
+    },
+];
+
+// ABOVE - FIXED QUESTIONS
+
+const tennisShoes: QuestionCategory = [
     {
         question: {
             eng: "How do you prefer your tennis shoes to fit?",
             it: "Come preferisci che le tue scarpe da tennis si adattino?",
             de: "Wie bevorzugen Sie Ihre Tennisschuhe zu tragen?",
+        },
+        why_important: {
+            eng: "The fit of your tennis shoes is crucial for comfort and performance on the court. A proper fit ensures stability during lateral movements and quick direction changes, reducing the risk of injuries.",
+            it: "La vestibilità delle tue scarpe da tennis è cruciale per il comfort e le prestazioni in campo. Una vestibilità adeguata garantisce stabilità durante i movimenti laterali e i rapidi cambi di direzione, riducendo il rischio di infortuni.",
+            de: "Die Passform Ihrer Tennisschuhe ist entscheidend für Komfort und Leistung auf dem Platz. Eine gute Passform sorgt für Stabilität bei seitlichen Bewegungen und schnellen Richtungswechseln und verringert das Verletzungsrisiko.",
         },
         options: [
             {
@@ -655,125 +821,7 @@ const soccerShoes = [
     },
 ];
 
-const cyclingShoes = [
-    {
-        question: {
-            eng: "Which fit do you prefer?",
-            it: "Quale vestibilità preferisci?",
-            de: "Welche Passform bevorzugst du?",
-        },
-        options: [
-            {
-                eng: "Tight, sporty fit (maximum power transmission)",
-                it: "Vestibilità stretta e sportiva (massima trasmissione della potenza)",
-                de: "Enge, sportliche Passform (maximale Kraftübertragung)",
-            },
-            {
-                eng: "Balanced fit (combination of performance and comfort)",
-                it: "Vestibilità bilanciata (combinazione di performance e comfort)",
-                de: "Ausgewogene Passform (Kombination aus Performance und Komfort)",
-            },
-            {
-                eng: "Comfortable fit (more space and comfort for long rides)",
-                it: "Vestibilità comoda (più spazio e comfort per viaggi lunghi)",
-                de: "Bequeme Passform (mehr Platz und Komfort für Lange Fahrten)",
-            },
-        ],
-    },
-    {
-        question: {
-            eng: "Which type of cycling do you do?",
-            it: "Che tipo di ciclismo pratichi?",
-            de: "Welche Art von Radsport betreibst du?",
-        },
-        options: [
-            {
-                eng: "Road bike",
-                it: "Bici da corsa",
-                de: "Rennrad",
-            },
-            {
-                eng: "Mountain bike",
-                it: "Mountain bike",
-                de: "Mountainbike",
-            },
-            {
-                eng: "Gravel",
-                it: "Gravel",
-                de: "Gravel",
-            },
-        ],
-    },
-    {
-        question: {
-            eng: "Which type of pedals do you use?",
-            it: "Che tipo di pedali usi?",
-            de: "Welche Art von Pedalen benutzt du?",
-        },
-        options: [
-            {
-                eng: "Clipless pedals",
-                it: "Pedali a sgancio rapido",
-                de: "Clickpedale",
-            },
-            {
-                eng: "Platform pedals",
-                it: "Pedali a piattaforma",
-                de: "Plattformpedale",
-            },
-            {
-                eng: "Hybrid pedals",
-                it: "Pedali ibridi",
-                de: "Hybridpedale",
-            },
-        ],
-    },
-    {
-        question: {
-            eng: "Which stiffness level suits you?",
-            it: "Quale livello di rigidità fa per te?",
-            de: "Welcher Steifigkeitsindex passt zu dir?",
-        },
-        options: [
-            {
-                eng: "5-7 - More flexibility and comfort, ideal for long tours & walking",
-                it: "5-7 - Più flessibilità e comfort, ideale per tour lunghi e camminate",
-                de: "5-7 - Mehr Flexibilität und Komfort, ideal für lange Touren & Gehen",
-            },
-            {
-                eng: "8-10 - Perfect balance between comfort & efficiency for training & racing",
-                it: "8-10 - Equilibrio perfetto tra comfort ed efficienza per allenamenti e gare",
-                de: "8-10 - Perfekte Balance zwischen Komfort & Effizienz für Training & Rennen",
-            },
-            {
-                eng: "11-15 - Maximum power transmission for competitions & explosive sprints",
-                it: "11-15 - Massima trasmissione della potenza per competizioni e sprint esplosivi",
-                de: "11-15 - Maximale Kraftübertragung für Wettkämpfe & Explosive Sprints",
-            },
-        ],
-    },
-    {
-        question: {
-            eng: "Do you want to take your performance to the next level with a custom insole?",
-            it: "Vuoi portare le tue prestazioni al livello successivo con una soletta personalizzata?",
-            de: "Möchtest du mit einer individuell angepassten Einlage deine Performance auf das nächste Level heben?",
-        },
-        options: [
-            {
-                eng: "Yes, for optimal power transmission and best performance",
-                it: "Sì, per una trasmissione ottimale della potenza e le migliori prestazioni",
-                de: "Ja, für optimale Kraftübertragung und Bestleistung",
-            },
-            {
-                eng: "No",
-                it: "No",
-                de: "Nein",
-            },
-        ],
-    },
-];
-
-export const questions = {
+export const questions: QuestionsMap = {
     "casual-sneaker": casualShoes,
     "running-shoes": mountainTrekkingShoes,
     "cycling-shoes": cyclingShoes,
@@ -832,7 +880,6 @@ export const runningShoes = {
         ],
     },
 
-    // Subcategory questions
     allrounder: [
         {
             question: {
@@ -1104,7 +1151,6 @@ export const runningShoes = {
                 },
             ],
         },
-        // This is the missing question
         {
             question: {
                 eng: "Do you know your foot type or pronation?",
