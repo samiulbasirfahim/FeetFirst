@@ -45,7 +45,6 @@ export function RootLayout() {
     useEffect(() => {
         if (fontsLoaded && isReady && !autoLoginLoading) {
             SplashScreen.hide();
-            // router.replace("/shoe-questions/running-shoes" as any);
         }
     }, [isReady, fontsLoaded, autoLoginLoading, isLoggedIn]);
 

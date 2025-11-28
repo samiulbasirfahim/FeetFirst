@@ -9,6 +9,7 @@ import { OnBoardingLayout } from "../layout/onboarding";
 import { Typography } from "../ui/typography";
 import { Button } from "../ui/button";
 import { useState } from "react";
+import InfoModal from "./info-modal";
 
 const Tabs = createMaterialTopTabNavigator();
 
@@ -48,6 +49,12 @@ export function QuestionScreen({
     );
 
     const questionText = isGerman() ? question.question.de : question.question.it;
+
+    const why_important = question.why_important
+        ? isGerman()
+            ? question.why_important.de
+            : question.why_important.it
+        : null;
 
     const handleSelectionChange = (selection: string[]) => {
         setSelected(selection);
@@ -117,6 +124,8 @@ export function QuestionScreen({
                     className="text-white font-pathSemiBold text-[20px]"
                 >
                     {questionText}
+                    {"  "}
+                    {why_important && <InfoModal info={why_important} />}
                 </Typography>
             }
             options={options}

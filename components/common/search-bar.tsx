@@ -29,7 +29,7 @@ export function SearchBar({ top, height }: Props) {
     const [height_w, setHeight] = useState<number>(0);
     const searchProgress = useSharedValue(0);
     const [searchText, setSearchText] = useState("");
-    const { isPending, error, shoeList } = useSearchProducts(searchText);
+    const { shoeList } = useSearchProducts(searchText);
 
     const animatedSearchStyle = useAnimatedStyle(() => {
         return {
