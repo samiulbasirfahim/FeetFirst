@@ -93,6 +93,11 @@ export function BasketballShoesLayout() {
                     name="question2"
                     component={createQuestionComponent("basketball-shoes", 1)}
                 />
+
+                <Tabs.Screen
+                    name="question3"
+                    component={createQuestionComponent("basketball-shoes", 2)}
+                />
             </Tabs.Navigator>
         </SafeAreaView>
     );
@@ -118,6 +123,11 @@ export function GolfShoesLayout() {
                 <Tabs.Screen
                     name="question3"
                     component={createQuestionComponent("golf-shoes", 2)}
+                />
+
+                <Tabs.Screen
+                    name="question4"
+                    component={createQuestionComponent("golf-shoes", 3)}
                 />
             </Tabs.Navigator>
         </SafeAreaView>
@@ -182,6 +192,51 @@ export function ClimbingShoesLayout() {
                 <Tabs.Screen
                     name="question5"
                     component={createQuestionComponent("climbing-shoes", 4)}
+                />
+            </Tabs.Navigator>
+        </SafeAreaView>
+    );
+}
+
+export function SkiBootsLayout() {
+    return (
+        <SafeAreaView className="flex-1 bg-background">
+            <Tabs.Navigator
+                tabBar={(props) => <CustomTabBar {...props} />}
+                backBehavior="history"
+                screenOptions={{ swipeEnabled: false, lazy: true }}
+            >
+                <Tabs.Screen
+                    name="question1"
+                    component={createQuestionComponent("ski-boots", 0)}
+                />
+                <Tabs.Screen
+                    name="question2"
+                    component={createQuestionComponent("ski-boots", 1)}
+                />
+                <Tabs.Screen
+                    name="question3"
+                    component={createQuestionComponent("ski-boots", 2)}
+                />
+                <Tabs.Screen
+                    name="question4"
+                    component={createQuestionComponent("ski-boots", 3)}
+                />
+                <Tabs.Screen
+                    name="question5"
+                    component={createQuestionComponent("ski-boots", 4)}
+                />
+                <Tabs.Screen
+                    name="question6"
+                    component={createQuestionComponent("ski-boots", 5)}
+                />
+                <Tabs.Screen
+                    name="question7"
+                    component={createQuestionComponent("ski-boots", 6)}
+                />
+                <Tabs.Screen
+                    name="question8"
+                    component={createQuestionComponent("ski-boots", 7)}
                 />
             </Tabs.Navigator>
         </SafeAreaView>
