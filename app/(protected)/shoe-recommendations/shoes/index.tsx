@@ -2,7 +2,7 @@ import { ShoeHeader } from "@/components/common/shoes-header";
 import { Layout } from "@/components/layout/layout";
 import HERO from "@/assets/svgs/shoes_header.svg";
 import { useEffect, useMemo, useState } from "react";
-import { View } from "react-native";
+import { Alert, View } from "react-native";
 import { ProductCard } from "@/components/common/ProductCard";
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
@@ -15,19 +15,42 @@ import { CategorySlug } from "@/type/questions-answers";
 
 export default function Screen() {
     const { category } = useLocalSearchParams<{ category: string }>();
-    const { getCategoryAnswers, answers, clearCategory } = useQuestionStore();
+    const {
+        getCategoryAnswers,
+        answers,
+        clearCategory,
+        should_reset,
+        setShouldReset,
+    } = useQuestionStore();
     const pathname = usePathname();
 
     const [hero_w, setHero_w] = useState(0);
     const [page, setPage] = useState<number>(1);
     const [selected, setSelected] = useState<string | null>(null);
 
+    useEffect(() => {
+        if (pathname !== "/shoe-recommendations/shoes") {
+            return;
+        }
+
+        if (should_reset) {
+            Alert.alert("Reseting SHOULD RESET", should_reset ? "true" : "false");
+            clearCategory((selected ?? category) as CategorySlug);
+            setShouldReset(false);
+        }
+    }, [pathname]);
+
+    useEffect(() => {
+        Alert.alert("Reseting CATEGORY", category);
+        clearCategory((selected ?? category) as CategorySlug);
+    }, [selected, category]);
+
     const {
         shoeList: shoeList_d,
         isPending,
         hasNext,
         hasPrev,
-    } = useProducts(page, selected);
+    } = useProducts(page, selected, pathname === "/shoe-recommendations/shoes");
 
     const {
         isPending: isPending_q,
@@ -61,17 +84,6 @@ export default function Screen() {
     const hasNext_active = exist_questions ? hasNext_q : hasNext;
     const hasPrev_active = exist_questions ? hasPrev_q : hasPrev;
     const shoeList = exist_questions ? shoeList_q : shoeList_d;
-
-    console.log({
-        isPending: isPending_active,
-        hasNext_active: hasNext_active,
-        hasPrev_active: hasPrev_active,
-        shoeList: shoeList,
-        exist_questions: exist_questions,
-        questions: getCategoryAnswers((selected ?? category) as CategorySlug),
-    });
-
-    console.log("FINAL", shoeList);
 
     return (
         <View className="flex-1 bg-backgroundDark">

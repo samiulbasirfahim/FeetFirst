@@ -59,7 +59,8 @@ export function QuestionScreen({
     navigation: any;
 }) {
     const { isGerman } = useLanguageStore();
-    const { updateAnswer, getCategoryAnswers } = useQuestionStore();
+    const { updateAnswer, getCategoryAnswers, setShouldReset } =
+        useQuestionStore();
     const question = questions[category][questionIndex];
 
     const options = question.options.map((option: any) =>
@@ -82,6 +83,7 @@ export function QuestionScreen({
     const [selected, setSelected] = useState<string[]>([]);
 
     const handleSelectionChange = (selection: string[]) => {
+        setShouldReset(true);
         setSelected(selection);
     };
 
@@ -92,13 +94,13 @@ export function QuestionScreen({
             const option = question.options.find(
                 (opt: any) => opt.de === selected || opt.it === selected,
             );
-            return option ? option.eng : selected;
+            return option ? (option.eng ?? "") : selected;
         });
 
         updateAnswer(
             category,
             questionIndex,
-            question.question.eng,
+            question.question.eng ?? "",
             englishSelections,
         );
         console.log(
@@ -109,6 +111,8 @@ export function QuestionScreen({
         if (!isLastQuestion) {
             navigation.navigate(`question${questionIndex + 2}` as never);
         } else {
+            setShouldReset(false);
+
             const allAnswers = getCategoryAnswers(category);
             console.log(`ALL ${category.toUpperCase()} ANSWERS:`, allAnswers);
             const screensToPop = calculateScreensToPop();
@@ -121,7 +125,6 @@ export function QuestionScreen({
             navigation.navigate(`question${questionIndex + 2}` as never);
         } else {
             const allAnswers = getCategoryAnswers(category);
-            // console.log(`ALL ${category.toUpperCase()} ANSWERS:`, allAnswers);
 
             const screensToPop = calculateScreensToPop();
             navigation.pop(screensToPop);

@@ -63,9 +63,10 @@ export function useGetProduct(id: number) {
     return { shoeDetails, isPending, error };
 }
 
-export function useProducts(page: number, sub_category: string | null) {
+export function useProducts(page: number, sub_category: string | null, enabled: boolean = true) {
     const { data, isPending, error } = useQuery({
         queryKey: ["products", page, sub_category],
+        enabled: enabled,
         queryFn: () =>
             fetcher(
                 `/api/products/?limit=10&page=${page}${sub_category && sub_category !== "all" ? "&sub_category=" + sub_category : ""}`,

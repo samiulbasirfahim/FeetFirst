@@ -4,7 +4,7 @@ import { CustomTabBar } from "@/components/layout/questions-tab-layout";
 import { CategorySlug } from "@/type/questions-answers";
 import { useLanguageStore } from "@/store/language";
 import { useQuestionStore } from "@/store/questions-answers";
-import { questions } from "@/lib/category-questions";
+import { runningShoes } from "@/lib/category-questions";
 import { OnBoardingLayout } from "../layout/onboarding";
 import { Typography } from "../ui/typography";
 import { Button } from "../ui/button";
@@ -23,18 +23,16 @@ export function QuestionScreen({
     navigation: any;
 }) {
     const { isGerman } = useLanguageStore();
-    const { updateAnswer, getCategoryAnswers } = useQuestionStore();
+    const { updateAnswer, getCategoryAnswers, setShouldReset } =
+        useQuestionStore();
 
     const [selected, setSelected] = useState<string[]>([]);
     // FIX: Properly access running shoes subcategories
-    const runningQuestions = questions["running-shoes"];
 
     // For running shoes, we need to handle the nested structure
     // The category here should be the subcategory (allrounder, trailrunning, etc.)
     const question =
-        runningQuestions[category as keyof typeof runningQuestions]?.[
-        questionIndex
-        ];
+        runningShoes[category as keyof typeof runningShoes]?.[questionIndex];
 
     // Handle case where question is not found
     if (!question) {
@@ -57,6 +55,9 @@ export function QuestionScreen({
         : null;
 
     const handleSelectionChange = (selection: string[]) => {
+        console.log("Setting reset to true on selection change");
+
+        setShouldReset(true);
         setSelected(selection);
     };
 
@@ -66,10 +67,9 @@ export function QuestionScreen({
         return screensToPop;
     };
 
-    // FIX: Get the correct question count for each subcategory
     const questionCount =
-        (runningQuestions[category as keyof typeof runningQuestions] as any)
-            ?.length || 0;
+        (runningShoes[category as keyof typeof runningShoes] as any)?.length || 0;
+
     const isLastQuestion = questionIndex === questionCount - 1;
 
     const handleNext = () => {
@@ -96,6 +96,9 @@ export function QuestionScreen({
         } else {
             const allAnswers = getCategoryAnswers(category);
             console.log(`ALL ${category.toUpperCase()} ANSWERS:`, allAnswers);
+
+            setShouldReset(false);
+
             // You might want to navigate to results or next screen here
 
             const screensToPop = calculateScreensToPop();

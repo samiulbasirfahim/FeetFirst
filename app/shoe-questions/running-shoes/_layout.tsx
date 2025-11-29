@@ -34,12 +34,6 @@ function TypeSelectionScreen({ }: { navigation: any }) {
     const handleSelectionChange = (selection: string[]) => {
         if (selection.length > 0) {
             setSelectedOption(selection[0]);
-
-            // if (selectedOption?.nextQuestions) {
-            //     router.push(
-            //         `/shoe-questions/running-shoes/${selectedOption.nextQuestions}` as any,
-            //     );
-            // }
         }
     };
 

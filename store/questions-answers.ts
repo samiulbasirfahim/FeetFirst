@@ -4,6 +4,10 @@ import { create } from "zustand";
 
 interface QuestionStore {
     answers: Partial<Record<CategorySlug, QuestionsAnswers>>;
+
+    should_reset: boolean;
+    setShouldReset: (value: boolean) => void;
+
     question_depth: number;
     increaseDepth: () => void;
     resetDepth: () => void;
@@ -26,6 +30,10 @@ interface QuestionStore {
 
 export const useQuestionStore = create<QuestionStore>((set, get) => ({
     answers: {},
+
+    should_reset: false,
+    setShouldReset: (value: boolean) => set({ should_reset: value }),
+
     question_depth: 0,
     increaseDepth: () =>
         set((state) => ({ question_depth: state.question_depth + 1 })),
