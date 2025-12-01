@@ -34,14 +34,14 @@ export default function Screen() {
         }
 
         if (should_reset) {
-            Alert.alert("Reseting SHOULD RESET", should_reset ? "true" : "false");
+            // Alert.alert("Reseting SHOULD RESET", should_reset ? "true" : "false");
             clearCategory((selected ?? category) as CategorySlug);
             setShouldReset(false);
         }
     }, [pathname]);
 
     useEffect(() => {
-        Alert.alert("Reseting CATEGORY", category);
+        // Alert.alert("Reseting CATEGORY", category);
         clearCategory((selected ?? category) as CategorySlug);
     }, [selected, category]);
 

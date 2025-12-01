@@ -69,7 +69,7 @@ export function ShoeHeader({
             slug: c.slug,
         })),
         {
-            title: isGerman() ? "Berg Trekkingschuhe" : "Berg Trekkingschuhe",
+            title: isGerman() ? "Berg Trekkingschuhe" : "Montagna & Trekking",
             slug: "mountain-trekking-shoes",
         },
     ];

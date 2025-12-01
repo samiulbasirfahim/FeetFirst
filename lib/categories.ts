@@ -82,7 +82,7 @@ export const SportsCategories: Category[] = [
     },
     {
         slug: "ski-boots",
-        name_it: "Scarponi da sce",
+        name_it: "Scarponi da ski",
         name_de: "Skischuhe",
         image: sports4,
     },

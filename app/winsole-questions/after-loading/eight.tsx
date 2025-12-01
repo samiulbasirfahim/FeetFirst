@@ -94,7 +94,14 @@ import { useLanguageStore } from "@/store/language";
 import { useParamStore } from "@/store/paramStore";
 import { router } from "expo-router";
 import { useState } from "react";
-import { View, TextInput, Image, Pressable, Platform } from "react-native";
+import {
+    View,
+    TextInput,
+    Image,
+    Pressable,
+    Platform,
+    Keyboard,
+} from "react-native";
 import { useSearchProducts } from "@/lib/queries/products";
 import { BlurView } from "expo-blur";
 import { Portal } from "react-native-portalize";
@@ -110,10 +117,14 @@ import { Entypo } from "@expo/vector-icons";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { twMerge } from "tailwind-merge";
 import { ItemImagePlaceholder } from "@/lib/placeholder";
+import CheckBox from "@/components/ui/checkbox";
 
 export default function Screen() {
     const { isGerman } = useLanguageStore();
     const { getParam } = useParamStore();
+
+    const [otherShoeModel, setOtherShoeModel] = useState("");
+
     const [showSearch, setShowSearch] = useState(false);
     const [searchText, setSearchText] = useState("");
     const [selectedShoe, setSelectedShoe] = useState<any>(null);
@@ -199,21 +210,74 @@ export default function Screen() {
                         </Typography>
 
                         {/* Search Input Field - Toggle Only */}
-                        <Pressable onPress={openSearch} className="mt-8">
-                            <View className="flex-row items-center gap-2">
-                                <Typography className="text-foreground" variant="subtitle">
-                                    {isGerman() ? "Modell angeben" : "Specificare il modello"}
-                                </Typography>
-                                <View className="flex-1 border-foreground border-solid border-b-2 py-2">
-                                    <Typography className="text-muted-foreground">
-                                        {isGerman() ? "Suchen..." : "Cerca..."}
+                        {
+                            // <Pressable onPress={openSearch} className="mt-8">
+                            //     <View className="flex-row items-center gap-2">
+                            //         <Typography className="text-foreground" variant="subtitle">
+                            //             {isGerman() ? "Modell angeben" : "Specificare il modello"}
+                            //         </Typography>
+                            //         <View className="flex-1 border-foreground border-solid border-b-2 py-2">
+                            //             <Typography className="text-muted-foreground">
+                            //                 {isGerman() ? "Suchen..." : "Cerca..."}
+                            //             </Typography>
+                            //         </View>
+                            //     </View>
+                            // </Pressable>
+                        }
+
+                        {otherShoeModel.length <= 0 && (
+                            <Pressable
+                                onPress={openSearch}
+                                style={{
+                                    backgroundColor: "#2C2C2D",
+                                    paddingVertical: 14,
+                                    paddingHorizontal: 16,
+                                    borderRadius: 8,
+                                    marginTop: 20,
+                                }}
+                            >
+                                <View
+                                    style={{
+                                        flexDirection: "row",
+                                        justifyContent: "space-between",
+                                        alignItems: "center",
+                                        gap: 4,
+                                    }}
+                                >
+                                    <Typography
+                                        className="flex-1 text-lg text-foreground font-pathMedium text-[16px]"
+                                        variant="selected"
+                                    >
+                                        {isGerman() ? "Produkt suchen" : "Schuhname eingeben"}
                                     </Typography>
                                 </View>
-                            </View>
-                        </Pressable>
+                            </Pressable>
+                        )}
+
+                        <TextInput
+                            placeholder={
+                                isGerman()
+                                    ? "Schuhname eingeben…"
+                                    : "Inserisci il nome della scarpa…"
+                            }
+                            placeholderTextColor="#999"
+                            className="placeholder:font-semibold"
+                            style={{
+                                backgroundColor: "#2C2C2D",
+                                paddingVertical: 16,
+                                paddingHorizontal: 16,
+                                borderRadius: 8,
+                                fontSize: 16,
+                                color: "#FFFFFF",
+                                marginTop: 12,
+                            }}
+                            value={otherShoeModel}
+                            onChangeText={setOtherShoeModel}
+                            onSubmitEditing={Keyboard.dismiss}
+                        />
 
                         {/* Selected Shoe Display */}
-                        {selectedShoe && (
+                        {selectedShoe && otherShoeModel.length <= 0 && (
                             <View className="mt-4 bg-boldText/20 rounded-lg p-3 flex-row items-center gap-3">
                                 <Image
                                     source={{

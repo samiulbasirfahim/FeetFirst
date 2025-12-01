@@ -5,12 +5,11 @@ import WALKING from "@/assets/svgs/walking-icon.svg";
 import SCAN from "@/assets/svgs/scan.svg";
 import RUNNINGSHOE from "@/assets/svgs/running-shoe.svg";
 import SUPPORT from "@/assets/svgs/support.svg";
-import DOCUMENTUPLOAD from "@/assets/svgs/document-upload.svg";
 import {
     DrawerContentComponentProps,
     useDrawerProgress,
 } from "@react-navigation/drawer";
-import { Image, View, ScrollView, Pressable, Dimensions } from "react-native";
+import { View, ScrollView, Pressable, Dimensions } from "react-native";
 import { Typography } from "../ui/typography";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Button } from "../ui/button";
@@ -135,7 +134,7 @@ export function CustomDrawer(props: DrawerContentComponentProps) {
                     >
                         <RUNNINGSHOE />
                         <Typography className="text-xl text-white">
-                            {isGerman() ? "Schuhemfpehlungen" : "Raccomandazioni di scarpe"}
+                            {isGerman() ? "Schuhempfehlungen" : "Raccomandazioni di scarpe"}
                         </Typography>
                     </Button>
                     <DrawerButton
@@ -152,7 +151,7 @@ export function CustomDrawer(props: DrawerContentComponentProps) {
                     />
                     <DrawerButton
                         href="/(protected)/home/skifinder"
-                        title={"SKIFINDER"}
+                        title={"Skifinder"}
                         icon={SKIFINDER}
                         selected={props.state.index === 4}
                     />

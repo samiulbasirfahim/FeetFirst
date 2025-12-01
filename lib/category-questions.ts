@@ -111,7 +111,6 @@ Balance (Index 8–10):Ein mittlerer Wert bietet guten Komfort und trotzdem star
             `,
         },
         options: [
-
             {
                 eng: "5–7_–_mehr_flexibilität_und_komfort,_ideal_für_lange_touren_&_gehen.",
                 it: "5–7 – Maggiore flessibilità e comfort, ideale per lunghe uscite e camminate.",
@@ -525,11 +524,12 @@ const basketballShoes: QuestionCategory = [
 Der Untergrund beeinflusst die Traktion und Haltbarkeit deiner Basketballschuhe.
 Indoor-Schuhe sind für Hallenböden optimiert, bieten maximale Haftung und vermeiden übermäßigen Abrieb.
 Outdoor-Schuhe haben eine robustere Sohle, die besser auf rauen Oberflächen wie Asphalt oder Beton hält und länger widerstandsfähig bleibt.
-Die Wahl der richtigen Sohle verbessert deine Beweglichkeit, Kontrolle und reduziert das Verletzungsrisiko.`  ,
+Die Wahl der richtigen Sohle verbessert deine Beweglichkeit, Kontrolle und reduziert das Verletzungsrisiko.`,
             it: `La superficie influisce sulla trazione e sulla durata delle scarpe da basket.
 Le scarpe indoor sono ottimizzate per i campi al chiuso, offrono la massima aderenza e riducono l’abrasione eccessiva.
 Le scarpe outdoor hanno una suola più robusta, ideale per superfici come asfalto o cemento, e resistono più a lungo.
-La scelta della suola corretta migliora mobilità, controllo e riduce il rischio di infortuni.` },
+La scelta della suola corretta migliora mobilità, controllo e riduce il rischio di infortuni.`,
+        },
         options: [
             {
                 eng: "indoor-halle",
@@ -699,7 +699,6 @@ const skiBoots: QuestionCategory = [
             de: "Sind Sie Anfänger, Fortgeschrittener oder Experte?",
             it: "Sei principiante, intermedio o esperto?",
             eng: "ski-boots_sind_sie_anfänger_fortgeschrittener_oder_experte",
-
         },
         options: [
             {
@@ -724,7 +723,6 @@ const skiBoots: QuestionCategory = [
             de: "Möchten Sie ein Modell aus einer bestimmten Preisklasse?",
             it: "Vorrebbe un modello in una fascia di prezzo specifica?",
             eng: "ski-boots_möchten_sie_ein_modell_aus_einer_bestimmten_preisklasse",
-
         },
         options: [
             {
@@ -749,7 +747,6 @@ const skiBoots: QuestionCategory = [
             de: "Was suchen Sie?",
             it: "Cosa sta cercando?",
             eng: "ski-boots_was_suchen_sie",
-
         },
         options: [
             {
@@ -774,7 +771,6 @@ const skiBoots: QuestionCategory = [
             de: "Wie eng soll der Skischuh sitzen?",
             it: "Quanto deve essere aderente lo scarpone da sci?",
             eng: "ski-boots_wie_eng_soll_der_skischuh_sitzen",
-
         },
         options: [
             {
@@ -799,7 +795,6 @@ const skiBoots: QuestionCategory = [
             de: "Welchen Flex bevorzugen Sie?",
             it: "Quale livello di flex preferisci?",
             eng: "ski-boots_welchen_flex_bevorzugen_sie",
-
         },
         options: [
             {
@@ -824,29 +819,43 @@ const skiBoots: QuestionCategory = [
             de: "Welche Körpergröße haben Sie?",
             it: "Qual è la sua altezza?",
             eng: "ski-boots_welche_körpergröße_haben_sie",
-
         },
         options: [
             {
-                eng: "unter_160_cm",
-                it: "Sotto i 160 cm",
-                de: "Unter 160 cm",
+                eng: "under_150_cm",
+                it: "Sotto i 150 cm",
+                de: "Unter 150 cm",
             },
             {
-                eng: "160-175_cm",
-                it: "160-175 cm",
-                de: "160-175 cm",
+                eng: "150_160_cm",
+                it: "150–160 cm",
+                de: "150–160 cm",
             },
             {
-                eng: "176-190_cm",
-                it: "176-190 cm",
-                de: "176-190 cm",
+                eng: "160_170_cm",
+                it: "160–170 cm",
+                de: "160–170 cm",
             },
             {
-                eng: "über_190_cm",
-                it: "Oltre 190 cm",
-                de: "Über 190 cm",
-            }
+                eng: "170_180_cm",
+                it: "170–180 cm",
+                de: "170–180 cm",
+            },
+            {
+                eng: "180_190_cm",
+                it: "180–190 cm",
+                de: "180–190 cm",
+            },
+            {
+                eng: "190_200_cm",
+                it: "190–200 cm",
+                de: "190–200 cm",
+            },
+            {
+                eng: "over_200_cm",
+                it: "Oltre 200 cm",
+                de: "Über 200 cm",
+            },
         ],
     },
     {
@@ -854,29 +863,48 @@ const skiBoots: QuestionCategory = [
             de: "Wie viel wiegen Sie?",
             it: "Quanto pesa??",
             eng: "ski-boots_wie_viel_wiegen_sie",
-
         },
         options: [
             {
-                eng: "unter_60_kg",
-                it: "Sotto i 60 kg",
-                de: "Unter 60 kg",
+                eng: "under_50_kg",
+                it: "Sotto i 50 kg",
+                de: "Unter 50 kg",
             },
             {
-                eng: "60-75_kg",
-                it: "60-75 kg",
-                de: "60-75 kg",
+                eng: "50_60_kg",
+                it: "50–60 kg",
+                de: "50–60 kg",
             },
             {
-                eng: "76-90_kg",
-                it: "76-90 kg",
-                de: "76-90 kg",
+                eng: "60_70_kg",
+                it: "60–70 kg",
+                de: "60–70 kg",
             },
             {
-                eng: "über_90_kg",
-                it: "Oltre 90 kg",
-                de: "Über 90 kg",
-            }
+                eng: "70_80_kg",
+                it: "70–80 kg",
+                de: "70–80 kg",
+            },
+            {
+                eng: "80_90_kg",
+                it: "80–90 kg",
+                de: "80–90 kg",
+            },
+            {
+                eng: "90_100_kg",
+                it: "90–100 kg",
+                de: "90–100 kg",
+            },
+            {
+                eng: "100_110_kg",
+                it: "100–110 kg",
+                de: "100–110 kg",
+            },
+            {
+                eng: "over_110_kg",
+                it: "Oltre 110 kg",
+                de: "Über 110 kg",
+            },
         ],
     },
     {
@@ -884,7 +912,6 @@ const skiBoots: QuestionCategory = [
             de: "Wie lang sollten Ihre Ski sein?",
             it: "Quanto dovrebbero essere lunghi i suoi sci?",
             eng: "ski-boots_wie_lang_sollten_ihre_ski_sein",
-
         },
         options: [
             {
@@ -903,8 +930,7 @@ const skiBoots: QuestionCategory = [
                 de: "Lange Ski – Mehr Stabilität bei hoher Geschwindigkeit, für erfahrene Skifahrer",
             },
         ],
-    }
-
+    },
 ];
 
 export const runningShoes = {
@@ -999,7 +1025,7 @@ Fußtyp und Pronation bestimmen, wie dein Fuß aufsetzt – und welche Unterstü
 Ein Neutralfuß läuft am besten in flexiblen Schuhen. 
 Bei Überpronation helfen Stabilitätsmodelle, das Einknicken nach innen zu kontrollieren. 
 Unsere präzise Analyse – basierend auf deinen 3D-Scan – hilft dir, den passenden Schuh zu finden, der deine natürliche Bewegung unterstützt und Verletzungen vorbeugt.
-`
+`,
             },
             options: [
                 {
@@ -1034,7 +1060,7 @@ Schienbeinschmerzen (Shin Splints) erfordern Schuhe, die den Druck auf das Schie
 Fersenschmerzen (Plantarfasziitis) wiederum können durch verstärkte Dämpfung und Fußunterstützung gelindert werden.
 💡 Die richtige Wahl des Schuhwerks trägt nicht nur dazu bei, Beschwerden zu lindern, sondern beugt auch neuen Problemen vor und sorgt für ein angenehmes Laufgefühl.
 `,
-                it: `Perché importante? La domanda su eventuali disturbi passati è fondamentale per trovare le scarpe migliori: la giusta combinazione di ammortizzazione, stabilità e struttura della suola aiuta a ridurre il carico e migliorare il comfort; per dolori al ginocchio servono ammortizzazione e stabilità, i problemi ai polpacci beneficiano di un tallone più alto, gli shin splints richiedono scarpe che riducano la pressione sulla tibia, mentre la fascite plantare può essere alleviata con maggiore ammortizzazione e supporto dell’arco; la scelta corretta delle scarpe aiuta non solo a ridurre i dolori esistenti ma anche a prevenire nuovi problemi e garantire una corsa piacevole.`
+                it: `Perché importante? La domanda su eventuali disturbi passati è fondamentale per trovare le scarpe migliori: la giusta combinazione di ammortizzazione, stabilità e struttura della suola aiuta a ridurre il carico e migliorare il comfort; per dolori al ginocchio servono ammortizzazione e stabilità, i problemi ai polpacci beneficiano di un tallone più alto, gli shin splints richiedono scarpe che riducano la pressione sulla tibia, mentre la fascite plantare può essere alleviata con maggiore ammortizzazione e supporto dell’arco; la scelta corretta delle scarpe aiuta non solo a ridurre i dolori esistenti ma anche a prevenire nuovi problemi e garantire una corsa piacevole.`,
             },
             options: [
                 {
@@ -1076,7 +1102,7 @@ Die Balance zwischen Dämpfung und Stabilität beeinflusst Laufgefühl, Effizien
 Maximale Dämpfung: Schont die Gelenke, kann aber die Eigenstabilität verringern.
 Mehr Stabilität: Unterstützt die Fußführung, ist oft etwas schwerer und weniger flexibel.
 Ausgewogen: Kombiniert Komfort und Kontrolle – ideal für die meisten Läufer.`,
-                it: "Perché importante? L’equilibrio tra ammortizzazione e stabilità influenza la sensazione di corsa, l’efficienza e il rischio di infortuni: molta ammortizzazione protegge le articolazioni ma riduce la stabilità; maggiore stabilità sostiene la guida del piede ma rende la scarpa meno flessibile; una soluzione equilibrata combina comfort e controllo ed è ideale per la maggior parte dei runner."
+                it: "Perché importante? L’equilibrio tra ammortizzazione e stabilità influenza la sensazione di corsa, l’efficienza e il rischio di infortuni: molta ammortizzazione protegge le articolazioni ma riduce la stabilità; maggiore stabilità sostiene la guida del piede ma rende la scarpa meno flessibile; una soluzione equilibrata combina comfort e controllo ed è ideale per la maggior parte dei runner.",
             },
             options: [
                 {
@@ -1167,7 +1193,7 @@ Der Untergrund beeinflusst, welchen Grip und welche Dämpfung du beim Laufen bra
 Nur auf Trails & im Gelände: Hier brauchst du Schuhe mit robustem Aufbau und starkem Profil, das für maximalen Halt auf rutschigem, steinigem oder unebenem Terrain sorgt.
 Mischung aus Trail & Straße (Hybrid-Nutzung): Ein flexibler Allrounder mit moderatem Profil bietet guten Grip im Gelände und ausreichend Komfort für kurze Asphaltpassagen.
 💡 Wer häufig zwischen Untergründen wechselt, sollte auf ausgewogene Dämpfung und Profil achten – so bleibst du überall sicher unterwegs.`,
-                it: "Il tipo di terreno influisce sul grip e sull’ammortizzazione di cui hai bisogno durante la corsa, e quindi anche sulla scelta della scarpa. Solo trail e terreni naturali richiedono un modello robusto con suola aggressiva per massima stabilità. L’uso misto trail & strada richiede una scarpa versatile con buon grip e comfort per brevi tratti asfaltati."
+                it: "Il tipo di terreno influisce sul grip e sull’ammortizzazione di cui hai bisogno durante la corsa, e quindi anche sulla scelta della scarpa. Solo trail e terreni naturali richiedono un modello robusto con suola aggressiva per massima stabilità. L’uso misto trail & strada richiede una scarpa versatile con buon grip e comfort per brevi tratti asfaltati.",
             },
             options: [
                 {
@@ -1194,7 +1220,7 @@ Mischung aus Trail & Straße (Hybrid-Nutzung): Ein flexibler Allrounder mit mode
 Die Schafthöhe beeinflusst Halt, Stabilität und Schutz beim Trailrunning – besonders auf anspruchsvollem Gelände.
 Niedrig (unter dem Knöchel) – Bietet maximale Bewegungsfreiheit und ein natürliches Laufgefühl, ideal für schnelle Läufe auf festen Trails. Allerdings weniger Schutz und Stabilität auf unebenem Untergrund.
 Mittel/Hoch (knöchelhoch oder darüber) – Zusätzlicher Halt und Stabilität auf technischen Trails mit losen Steinen, unebenem Boden oder steilen Passagen. Reduziert das Risiko des Umknickens und schützt den Knöchel besser vor äußeren Einwirkungen wie Steinen, Wurzeln oder Gestrüpp.`,
-                it: `L’altezza del collarino influisce su stabilità, protezione e libertà di movimento, soprattutto sui terreni tecnici. Un modello basso offre maggiore mobilità e una sensazione di corsa più naturale, ma meno protezione su superfici irregolari. Un modello medio/alto offre più supporto e riduce il rischio di distorsioni, proteggendo meglio la caviglia da urti esterni.`
+                it: `L’altezza del collarino influisce su stabilità, protezione e libertà di movimento, soprattutto sui terreni tecnici. Un modello basso offre maggiore mobilità e una sensazione di corsa più naturale, ma meno protezione su superfici irregolari. Un modello medio/alto offre più supporto e riduce il rischio di distorsioni, proteggendo meglio la caviglia da urti esterni.`,
             },
 
             options: [
@@ -1222,7 +1248,7 @@ Mittel/Hoch (knöchelhoch oder darüber) – Zusätzlicher Halt und Stabilität 
 
             why_important: {
                 it: `Scarpe con massima ammortizzazione, comfort ed efficienza energetica per correre molti chilometri mantenendo un ritmo costante.`,
-                de: `Speziell für unwegsames Terrain entwickelt. Bietet verstärkten Grip, Stabilität und Schutz vor Steinen, Wurzeln und Matsch. Ideal für Wald-, Berg- und Offroad-Strecken.`
+                de: `Speziell für unwegsames Terrain entwickelt. Bietet verstärkten Grip, Stabilität und Schutz vor Steinen, Wurzeln und Matsch. Ideal für Wald-, Berg- und Offroad-Strecken.`,
             },
 
             options: [
@@ -1276,7 +1302,7 @@ Wadenprobleme profitieren von einem höheren Absatz, der die Muskulatur schont.
 Schienbeinschmerzen (Shin Splints) erfordern Schuhe, die den Druck auf das Schienbein verringern.    
 Fersenschmerzen (Plantarfasziitis) wiederum können durch verstärkte Dämpfung und Fußunterstützung gelindert werden.    
 💡 Die richtige Wahl des Schuhwerks trägt nicht nur dazu bei, Beschwerden zu lindern, sondern beugt auch neuen Problemen vor und sorgt für ein angenehmes Laufgefühl.`,
-                it: `Perché importante? La domanda sui disturbi passati è fondamentale per trovare le scarpe migliori: la giusta combinazione di ammortizzazione, stabilità e costruzione della suola aiuta a ridurre il carico e migliorare il comfort. Per dolori alle ginocchia servono ammortizzazione e stabilità; i problemi ai polpacci beneficiano di un tallone più alto; gli shin splints richiedono scarpe che riducano la pressione sulla tibia; la fascite plantare può essere alleviata con maggiore ammortizzazione e supporto dell’arco. La scelta corretta delle scarpe aiuta non solo a ridurre i dolori esistenti, ma anche a prevenire nuovi problemi e garantire una corsa più piacevole.`
+                it: `Perché importante? La domanda sui disturbi passati è fondamentale per trovare le scarpe migliori: la giusta combinazione di ammortizzazione, stabilità e costruzione della suola aiuta a ridurre il carico e migliorare il comfort. Per dolori alle ginocchia servono ammortizzazione e stabilità; i problemi ai polpacci beneficiano di un tallone più alto; gli shin splints richiedono scarpe che riducano la pressione sulla tibia; la fascite plantare può essere alleviata con maggiore ammortizzazione e supporto dell’arco. La scelta corretta delle scarpe aiuta non solo a ridurre i dolori esistenti, ma anche a prevenire nuovi problemi e garantire una corsa più piacevole.`,
             },
             options: [
                 {
@@ -1318,7 +1344,7 @@ Fußtyp und Pronation bestimmen, wie dein Fuß aufsetzt – und welche Unterstü
 Ein Neutralfuß läuft am besten in flexiblen Schuhen. 
 Bei Überpronation helfen Stabilitätsmodelle, das Einknicken nach innen zu kontrollieren. 
 Unsere präzise Analyse – basierend auf deinen 3D-Scan – hilft dir, den passenden Schuh zu finden, der deine natürliche Bewegung unterstützt und Verletzungen vorbeugt.`,
-                it: `Perché importante? Il tipo di piede e la pronazione determinano come il piede appoggia e quale supporto serve: un piede neutro funziona meglio con scarpe flessibili; in caso di iperpronazione aiutano modelli stabili che controllano l’eccessiva rotazione verso l’interno; la nostra analisi precisa basata sulla scansione 3D aiuta a trovare la scarpa che sostiene il movimento naturale e previene infortuni.`
+                it: `Perché importante? Il tipo di piede e la pronazione determinano come il piede appoggia e quale supporto serve: un piede neutro funziona meglio con scarpe flessibili; in caso di iperpronazione aiutano modelli stabili che controllano l’eccessiva rotazione verso l’interno; la nostra analisi precisa basata sulla scansione 3D aiuta a trovare la scarpa che sostiene il movimento naturale e previene infortuni.`,
             },
             options: [
                 {
@@ -1350,7 +1376,7 @@ Die Balance zwischen Dämpfung und Stabilität beeinflusst Laufgefühl, Effizien
 Maximale Dämpfung: Schont die Gelenke, kann aber die Eigenstabilität verringern.
 Mehr Stabilität: Unterstützt die Fußführung, ist oft etwas schwerer und weniger flexibel.
 Ausgewogen: Kombiniert Komfort und Kontrolle – ideal für die meisten Läufer.`,
-                it: `Perché importante? L’equilibrio tra ammortizzazione e stabilità influenza la sensazione di corsa, l’efficienza e il rischio di infortuni: molta ammortizzazione protegge le articolazioni ma riduce la stabilità; più stabilità sostiene la guida del piede ma rende la scarpa meno flessibile; una soluzione equilibrata combina comfort e controllo ed è ideale per la maggior parte dei runner.`
+                it: `Perché importante? L’equilibrio tra ammortizzazione e stabilità influenza la sensazione di corsa, l’efficienza e il rischio di infortuni: molta ammortizzazione protegge le articolazioni ma riduce la stabilità; più stabilità sostiene la guida del piede ma rende la scarpa meno flessibile; una soluzione equilibrata combina comfort e controllo ed è ideale per la maggior parte dei runner.`,
             },
             options: [
                 {
@@ -1372,7 +1398,6 @@ Ausgewogen: Kombiniert Komfort und Kontrolle – ideal für die meisten Läufer.
         },
     ],
 
-
     competition: [
         {
             question: {
@@ -1382,7 +1407,7 @@ Ausgewogen: Kombiniert Komfort und Kontrolle – ideal für die meisten Läufer.
             },
             why_important: {
                 de: `Ultraleichte, reaktive Schuhe mit Carbon- oder Nylonplatte, speziell für den Renntag. Sie bieten maximale Energie-Rückgabe und Effizienz auf langen Distanzen und katapultieren dich mit jedem Schritt nach vorne.`,
-                it: `Scarpe ultraleggere e reattive con piastra in carbonio o nylon, pensate per il giorno della gara. Offrono massimo ritorno di energia ed efficienza sulle lunghe distanze.`
+                it: `Scarpe ultraleggere e reattive con piastra in carbonio o nylon, pensate per il giorno della gara. Offrono massimo ritorno di energia ed efficienza sulle lunghe distanze.`,
             },
             options: [
                 {
@@ -1415,7 +1440,7 @@ Die Wahl zwischen Wettkampfschuhen mit oder ohne Carbon beeinflusst nicht nur de
 Mit Carbon: Bieten maximale Energierückgabe und Vortrieb – ideal für Bestzeiten. Sie fördern eine aggressive Laufmechanik, können jedoch bei häufiger Nutzung oder längeren Strecken die Gelenke und Muskulatur stärker belasten.
 Ohne Carbon: Etwas gelenkschonender, oft stabiler und vielseitiger – gut geeignet für längere Wettkämpfe, Trainingsläufe oder alle, die mehr Kontrolle bevorzugen.
 💡 Wer effizient und zugleich nachhaltig trainieren will, sollte je nach Ziel und Belastung bewusst wählen.`,
-                it: `Perché è importante? La scelta tra scarpe da gara con o senza carbonio influisce non solo sulle prestazioni ma anche sul carico per le articolazioni. Le scarpe con carbonio offrono il massimo ritorno di energia e spinta – ideali per i personal best, ma possono affaticare maggiormente articolazioni e muscoli sulle distanze più lunghe. Le scarpe senza carbonio sono più stabili, versatili e spesso più delicate sulle articolazioni – perfette per gare più lunghe, allenamenti o per chi preferisce maggiore controllo. Chi vuole allenarsi in modo efficiente e sostenibile dovrebbe scegliere consapevolmente in base a obiettivo e carico.`
+                it: `Perché è importante? La scelta tra scarpe da gara con o senza carbonio influisce non solo sulle prestazioni ma anche sul carico per le articolazioni. Le scarpe con carbonio offrono il massimo ritorno di energia e spinta – ideali per i personal best, ma possono affaticare maggiormente articolazioni e muscoli sulle distanze più lunghe. Le scarpe senza carbonio sono più stabili, versatili e spesso più delicate sulle articolazioni – perfette per gare più lunghe, allenamenti o per chi preferisce maggiore controllo. Chi vuole allenarsi in modo efficiente e sostenibile dovrebbe scegliere consapevolmente in base a obiettivo e carico.`,
             },
 
             options: [
@@ -1443,7 +1468,7 @@ Die Wahl der richtigen Wettkampf-Schuhe hängt stark von der Distanz ab.
 Für kurze Strecken (5–10 km) sind leichte, reaktionsfreudige Modelle ideal, um Tempo und Effizienz zu maximieren.
 Beim Halbmarathon braucht es eine ausgewogene Mischung aus Dämpfung und Energierückgabe, um Schnelligkeit und Komfort zu vereinen.
 Für Marathon & Ultramarathon sind gut gedämpfte Schuhe essenziell, um Ermüdung zu minimieren und die Muskulatur langfristig zu entlasten.`,
-                it: `Perché è importante? La scelta delle scarpe da gara dipende fortemente dalla distanza. Per distanze brevi (5–10 km) sono ideali modelli leggeri e reattivi per massimizzare velocità ed efficienza. Per la mezza maratona serve un equilibrio tra ammortizzazione e ritorno di energia per unire comfort e performance. Per maratona e ultramaratona sono fondamentali scarpe ben ammortizzate per ridurre l’affaticamento e proteggere la muscolatura a lungo termine.`
+                it: `Perché è importante? La scelta delle scarpe da gara dipende fortemente dalla distanza. Per distanze brevi (5–10 km) sono ideali modelli leggeri e reattivi per massimizzare velocità ed efficienza. Per la mezza maratona serve un equilibrio tra ammortizzazione e ritorno di energia per unire comfort e performance. Per maratona e ultramaratona sono fondamentali scarpe ben ammortizzate per ridurre l’affaticamento e proteggere la muscolatura a lungo termine.`,
             },
             options: [
                 {
@@ -1477,8 +1502,7 @@ Die Sprengung beeinflusst deine Laufdynamik und die Belastung von Muskeln und Ge
 6–10 mm – Die bewährte Wahl für viele Läufer. Unterstützt das natürliche Abrollen und entlastet Waden und Achillessehne – ideal für längere Läufe oder Fersenläufer.
 ≤ 5 mm – Sorgt für einen direkteren Bodenkontakt und fördert eine effiziente Lauftechnik. Erfordert eine gut trainierte Muskulatur, da Waden und Achillessehne stärker beansprucht werden.`,
 
-                it: `Perché è importante? Il drop influisce sulla dinamica di corsa e sul carico su muscoli e articolazioni. Un drop più alto facilita la rullata, mentre un drop più basso favorisce una tecnica di corsa più attiva. 6–10 mm – La scelta più collaudata per molti runner. Supporta una rullata naturale e riduce lo stress su polpacci e tendine d’Achille – ideale per corse più lunghe o per chi atterra sul tallone. ≤ 5 mm – Garantisce un contatto più diretto con il terreno e favorisce una tecnica di corsa più efficiente. Richiede una muscolatura ben allenata, poiché polpacci e tendine d’Achille vengono maggiormente sollecitati.`
-
+                it: `Perché è importante? Il drop influisce sulla dinamica di corsa e sul carico su muscoli e articolazioni. Un drop più alto facilita la rullata, mentre un drop più basso favorisce una tecnica di corsa più attiva. 6–10 mm – La scelta più collaudata per molti runner. Supporta una rullata naturale e riduce lo stress su polpacci e tendine d’Achille – ideale per corse più lunghe o per chi atterra sul tallone. ≤ 5 mm – Garantisce un contatto più diretto con il terreno e favorisce una tecnica di corsa più efficiente. Richiede una muscolatura ben allenata, poiché polpacci e tendine d’Achille vengono maggiormente sollecitati.`,
             },
             options: [
                 {
@@ -1505,7 +1529,7 @@ Die Sprengung beeinflusst deine Laufdynamik und die Belastung von Muskeln und Ge
 
             why_important: {
                 de: `Dynamische, leichte Schuhe mit direkter Bodenrückmeldung für schnelle Sprints und Tempoläufe auf der Bahn oder Straße.`,
-                it: `Scarpe leggere e dinamiche con risposta diretta dal terreno, ideali per sprint e allenamenti veloci su pista o strada.`
+                it: `Scarpe leggere e dinamiche con risposta diretta dal terreno, ideali per sprint e allenamenti veloci su pista o strada.`,
             },
 
             options: [
@@ -1530,7 +1554,7 @@ Die Sprengung beeinflusst deine Laufdynamik und die Belastung von Muskeln und Ge
 
             why_important: {
                 de: `Warum wichtig? Der Untergrund beeinflusst die Wahl deiner Wettkampf- und Intervallschuhe. Auf der Laufbahn bieten Spikes maximalen Grip und Effizienz, während auf Asphalt gut gedämpfte und reaktionsfreudige Schuhe die Belastung auf Muskeln und Gelenke reduzieren.`,
-                it: `Perché importante? Il terreno influisce sulla scelta delle scarpe da gara e da intervalli: in pista le spikes offrono massimo grip ed efficienza, mentre su asfalto scarpe ben ammortizzate e reattive riducono il carico su muscoli e articolazioni.`
+                it: `Perché importante? Il terreno influisce sulla scelta delle scarpe da gara e da intervalli: in pista le spikes offrono massimo grip ed efficienza, mentre su asfalto scarpe ben ammortizzate e reattive riducono il carico su muscoli e articolazioni.`,
             },
 
             options: [
@@ -1558,7 +1582,7 @@ Die Sprengung beeinflusst deine Laufdynamik und die Belastung von Muskeln und Ge
 Die Distanz beeinflusst die Anforderungen an deine Schuhe. 
 Für Kurzstrecken sind leichte, reaktionsfreudige Schuhe mit guter Traktion ideal, um schnelle Sprints und Beschleunigungen zu unterstützen. 
 Mittel- & Langstrecken erfordern hingegen eine Kombination aus Dämpfung, Stabilität und Energierückgabe, um ein konstantes Tempo effizient zu halten.
-`
+`,
             },
             options: [
                 {
@@ -1619,7 +1643,7 @@ Für gemischtes Terrain bieten Schuhe mit mehr Grip besseren Halt und Komfort au
 `,
                 it: `Perché importante? Il terreno influisce sull’ammortizzazione, sulla stabilità e sul profilo della suola. Su superfici dure sono importanti scarpe ben ammortizzate per alleggerire le articolazioni.
 Per terreni misti, le scarpe con più grip offrono una migliore tenuta e maggiore comfort su superfici irregolari.
-`
+`,
             },
 
             options: [
@@ -1647,7 +1671,7 @@ Per terreni misti, le scarpe con più grip offrono una migliore tenuta e maggior
 Die Sohle bestimmt, wie sich der Schuh anfühlt. 
 Eine höhere Sohle bietet mehr Dämpfung und fühlt sich weicher an, was angenehm für längere Strecken oder mehr Komfort ist. 
 Eine normale bis mittlere Sohle gibt ein direkteres Gefühl zum Boden und sorgt für ein natürlicheres Abrollen.`,
-                it: `Perché importante? L’altezza della suola determina la sensazione della scarpa: una suola più alta offre più ammortizzazione e comfort sulle lunghe distanze, mentre una suola normale o media garantisce un contatto più diretto con il terreno e una rullata più naturale.`
+                it: `Perché importante? L’altezza della suola determina la sensazione della scarpa: una suola più alta offre più ammortizzazione e comfort sulle lunghe distanze, mentre una suola normale o media garantisce un contatto più diretto con il terreno e una rullata più naturale.`,
             },
 
             options: [
@@ -1700,7 +1724,7 @@ Boulderschuhe bieten maximale Präzision und Grip für kurze, kraftvolle Bewegun
 Beim Sportklettern sind eine gute Balance aus Komfort, Sensibilität und Aggressivität entscheidend.
 Rissklettern erfordert robuste, flache Schuhe, die den Fuß schützen und sicheren Halt in Spalten bieten. 
 Die richtige Wahl verbessert Performance, Komfort und Sicherheit.`,
-            it: `La scelta delle scarpe da arrampicata dipende molto dal tipo di scalata: per vie lunghe e alpinismo servono modelli comodi con buon supporto, per il boulder massima precisione e grip, nell’arrampicata sportiva è importante un equilibrio tra sensibilità e aggressività, mentre per le fessure servono scarpe robuste e piatte che proteggano il piede e offrano stabilità.`
+            it: `La scelta delle scarpe da arrampicata dipende molto dal tipo di scalata: per vie lunghe e alpinismo servono modelli comodi con buon supporto, per il boulder massima precisione e grip, nell’arrampicata sportiva è importante un equilibrio tra sensibilità e aggressività, mentre per le fessure servono scarpe robuste e piatte che proteggano il piede e offrano stabilità.`,
         },
         options: [
             {
@@ -1735,7 +1759,7 @@ Die richtige Wahl verbessert Performance, Komfort und Sicherheit.`,
             de: `Warum wichtig?
 Die Fußform beeinflusst die Passform und den Komfort des Kletterschuhs. 
 Bestimmte Modelle eignen sich besser für bestimmte Fußformen, um Druckstellen zu vermeiden und die Leistung zu optimieren.`,
-            it: `La forma del piede influisce sulla calzata e sul comfort delle scarpe da arrampicata; alcuni modelli si adattano meglio a specifiche forme per evitare punti di pressione e migliorare la performance.`
+            it: `La forma del piede influisce sulla calzata e sul comfort delle scarpe da arrampicata; alcuni modelli si adattano meglio a specifiche forme per evitare punti di pressione e migliorare la performance.`,
         },
         options: [
             {
@@ -1774,7 +1798,7 @@ Unterstützung & Komfort hilft dir bei langen Routen, weil der Fuß weniger arbe
  Langlebigkeit & Robustheit sorgt dafür, dass sich die Schuhe nicht zu schnell abnutzen, besonders wenn du oft in der Halle trainierst oder viel Reibungsklettern machst.                                                                 
 Eine Balance aus Haltbarkeit & Performance ist ideal, wenn du einen vielseitigen Schuh suchst, der sowohl Grip als auch lange Lebensdauer bietet. 
 Die Wahl der richtigen Sohle macht den Unterschied zwischen Kontrolle, Komfort und Haltbarkeit!`,
-            it: `La suola influisce su come ti posizioni sulla parete e sulla durata della scarpa; precisione, supporto, durata o un equilibrio tra questi elementi determinano controllo, comfort e prestazioni.`
+            it: `La suola influisce su come ti posizioni sulla parete e sulla durata della scarpa; precisione, supporto, durata o un equilibrio tra questi elementi determinano controllo, comfort e prestazioni.`,
         },
         options: [
             {
@@ -1810,7 +1834,7 @@ Die Wahl der richtigen Sohle macht den Unterschied zwischen Kontrolle, Komfort u
 Die Form des Kletterschuhs beeinflusst, wie der Fuß den Fels oder die Kletterwand berührt.                       
 - Neutrale Schuhe bieten eine entspannte Passform und sind ideal für lange Touren oder Einsteiger, da sie den Fuß weniger belasten.                                                            - Moderate Krümmung sorgt für eine bessere Kraftübertragung auf kleine Tritte, bleibt aber komfortabel genug für längere Klettereinheiten.                                                   - Aggressive Schuhe mit starker Krümmung bündeln die Kraft in den Zehen, was besonders in steilen und überhängenden Routen wichtig ist, da sie besseren Halt auf kleinen Griffen ermöglichen – allerdings auf Kosten des Komforts.  
 Die Wahl der richtigen Form entscheidet über Präzision, Komfort und Performance.`,
-            it: `La forma della scarpa determina come il piede si posiziona sulla roccia; modelli neutri offrono comfort per lunghe vie, una curvatura moderata migliora la trasmissione della forza e le scarpe aggressive concentrano la potenza sulle dita garantendo massima precisione nelle pareti ripide.`
+            it: `La forma della scarpa determina come il piede si posiziona sulla roccia; modelli neutri offrono comfort per lunghe vie, una curvatura moderata migliora la trasmissione della forza e le scarpe aggressive concentrano la potenza sulle dita garantendo massima precisione nelle pareti ripide.`,
         },
         options: [
             {
@@ -1952,7 +1976,6 @@ Premium-Modelle bieten die fortschrittlichsten Features und Materialien, die von
 ];
 
 // ABOVE - FIXED QUESTIONS
-
 
 export const questions: QuestionsMap = {
     "casual-sneaker": casualShoes,

@@ -102,7 +102,7 @@ export default function Screen() {
                                     },
                                 });
                             }}
-                            title={isGerman() ? "Berg Trekkingschuhe" : "Berg Trekkingschuhe"}
+                            title={isGerman() ? "Berg Trekkingschuhe" : "Montagna & Trekking"}
                             height={(height * 0.6) / (categories.length + 1)}
                             last
                         />

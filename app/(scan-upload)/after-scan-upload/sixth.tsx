@@ -6,7 +6,7 @@ const optionsDE: string[] = [
   "81-90 kg",
   "91-100 kg",
   "101-110kg",
-  "Über 10kg",
+  "Über 110kg",
 ];
 
 const optionsIT: string[] = [
@@ -17,7 +17,7 @@ const optionsIT: string[] = [
   "81-90 kg",
   "91-100 kg",
   "101-110 kg",
-  "Oltre 10 kg",
+  "Oltre 110 kg",
 ];
 
 import { OnBoardingLayout } from "@/components/layout/onboarding";
