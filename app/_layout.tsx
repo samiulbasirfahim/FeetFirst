@@ -1,4 +1,5 @@
 import { queryClient } from "@/lib/queryClient";
+import { StripeProvider } from "@stripe/stripe-react-native";
 import { useAutoLogin } from "@/lib/init"; // Import your new hook
 import { useAuthStore } from "@/store/auth";
 import { Stack, useRouter } from "expo-router";
@@ -122,8 +123,12 @@ export function RootLayout() {
 
 export default function RootLayoutWrapper() {
     return (
-        <QueryClientProvider client={queryClient}>
-            <RootLayout />
-        </QueryClientProvider>
+        <StripeProvider
+            publishableKey={process.env.EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY}
+        >
+            <QueryClientProvider client={queryClient}>
+                <RootLayout />
+            </QueryClientProvider>
+        </StripeProvider>
     );
 }

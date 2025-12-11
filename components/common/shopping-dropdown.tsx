@@ -1,4 +1,3 @@
-import { useLanguageStore } from "@/store/language";
 import { Dropdown } from "react-native-element-dropdown";
 import { Typography } from "../ui/typography";
 import { View } from "react-native";
@@ -9,18 +8,20 @@ type Data = {
 };
 
 type Props = {
-    placeHolder: string;
+    placeHolder?: string;
     list: Data[];
+    value?: string;
     onChange: (selected: Data) => void;
 };
 
-export function ShoppingDropDown({ list, onChange, placeHolder }: Props) {
+export function ShoppingDropDown({ list, onChange, value: selectedValue }: Props) {
     return (
         <Dropdown
             labelField="label"
             valueField="value"
-            placeholder={placeHolder}
             data={list}
+            selectedTextProps={{ numberOfLines: 1 }}
+            value={selectedValue}
             itemContainerStyle={{
                 backgroundColor: "transparent",
                 padding: 0,
@@ -33,14 +34,20 @@ export function ShoppingDropDown({ list, onChange, placeHolder }: Props) {
                 borderWidth: 0,
                 borderRadius: 12,
             }}
-            onChange={(item) => {
-                onChange(item.value as Data);
+            onChange={(item: Data) => {
+                onChange(item);
             }}
             style={{
                 backgroundColor: "#0D0D0D",
             }}
-            renderItem={(item) => (
-                <View className="flex-row items-center rounded-none justify-between px-4 bg-backgroundDark py-2 border-b-hairline border-white">
+            renderItem={(item: Data, index) => (
+                <View
+                    className="flex-row items-center rounded-none justify-between px-4 bg-backgroundDark py-2 border-white"
+                    style={{
+                        borderBottomWidth: 1,
+                        marginBottom: 2,
+                    }}
+                >
                     <Typography>{item.label}</Typography>
                 </View>
             )}

@@ -75,6 +75,8 @@ export function ShoeHeader({
     ];
 
     useEffect(() => {
+        console.log(displayedCategories);
+
         const defaultIndex = displayedCategories.findIndex(
             (cat) => cat.slug === default_value,
         );

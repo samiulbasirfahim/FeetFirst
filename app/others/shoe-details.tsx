@@ -355,7 +355,7 @@ export default function Screen() {
                             <View className="flex-1 gap-4 my-4">
                                 {shoeDetails?.features.map((feat, i) => (
                                     <View className="flex-row gap-4" key={i}>
-                                        <View className="bg-white rounded-xl p-2">
+                                        <View className="rounded-xl p-2">
                                             <Image
                                                 resizeMode="contain"
                                                 source={{
