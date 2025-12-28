@@ -6,6 +6,14 @@ import { MatchData } from "@/type/product";
 const storage = new MMKV();
 const CART_KEY = "shoe_items";
 
+export type CartItem = {
+    productId: number;
+    sizeId: number | null;
+    size: string | null;
+    color: string | null;
+    quantity: number;
+};
+
 export type ShoeItem = {
     id: number;
     itemName: string;
@@ -47,25 +55,11 @@ const transformShoe = (apiShoe: APIShoeResponse): ShoeItem => ({
     favourite: apiShoe.favourite,
 });
 
-type CartState = {
-    cartIds: number[];
-    items: ShoeItem[];
-    loading: boolean;
-    addItem: (itemId: number) => void;
-    removeItem: (itemId: number) => void;
-    clearCart: () => void;
-    isInCart: (itemId: number) => boolean;
-    fetchAllCartItems: () => Promise<void>;
-    fetchAllCartItemsSettled: () => Promise<void>;
-    getCartCount: () => number;
-};
-
-// Helper to persist
-const saveCartToStorage = (cart: number[]) => {
+const saveCartToStorage = (cart: CartItem[]) => {
     storage.set(CART_KEY, JSON.stringify(cart));
 };
 
-const loadCartFromStorage = (): number[] => {
+const loadCartFromStorage = (): CartItem[] => {
     try {
         const data = storage.getString(CART_KEY);
         return data ? JSON.parse(data) : [];
@@ -75,56 +69,126 @@ const loadCartFromStorage = (): number[] => {
     }
 };
 
+type CartState = {
+    cartItems: CartItem[];
+    items: ShoeItem[];
+    loading: boolean;
+
+    addItem: (item: CartItem) => void;
+    removeItem: (item: CartItem) => void;
+    updateQuantity: (item: CartItem, quantity: number) => void;
+
+    clearCart: () => void;
+    isInCart: (item: number) => boolean;
+    getCartCount: () => number;
+
+    fetchAllCartItems: () => Promise<void>;
+    fetchAllCartItemsSettled: () => Promise<void>;
+};
+
 export const useCartStore = create<CartState>((set, get) => ({
-    cartIds: loadCartFromStorage(),
+    cartItems: loadCartFromStorage(),
     items: [],
     loading: false,
 
-    addItem: (itemId) => {
-        const currentCart = get().cartIds;
-        if (!currentCart.includes(itemId)) {
-            const updated = [...currentCart, itemId];
-            saveCartToStorage(updated);
-            set({ cartIds: updated });
+    addItem: (item) => {
+        const current = get().cartItems;
+
+        const existingIndex = current.findIndex(
+            (i) =>
+                i.productId === item.productId &&
+                i.sizeId === item.sizeId &&
+                i.color === item.color,
+        );
+
+        let updated: CartItem[];
+
+        if (existingIndex !== -1) {
+            updated = [...current];
+            updated[existingIndex] = {
+                ...updated[existingIndex],
+                quantity: updated[existingIndex].quantity + item.quantity,
+            };
+        } else {
+            updated = [...current, item];
         }
-    },
 
-    removeItem: (itemId) => {
-        const updated = get().cartIds.filter((id) => id !== itemId);
         saveCartToStorage(updated);
-        set({ cartIds: updated });
+        set({ cartItems: updated });
+    },
+    removeItem: (item) => {
+        const updated = get().cartItems.filter(
+            (i) =>
+                !(
+                    i.productId === item.productId &&
+                    i.sizeId === item.sizeId &&
+                    i.color === item.color
+                ),
+        );
+
+        saveCartToStorage(updated);
+        set({ cartItems: updated });
     },
 
+    updateQuantity: (item, quantity) => {
+        const updated = get().cartItems.map((i) =>
+            i.productId === item.productId &&
+                i.sizeId === item.sizeId &&
+                i.color === item.color
+                ? { ...i, quantity }
+                : i,
+        );
+
+        saveCartToStorage(updated);
+        set({ cartItems: updated });
+    },
+
+    /* -----------------------------
+                               CLEAR
+                            -------------------------------- */
     clearCart: () => {
         storage.delete(CART_KEY);
-        set({ cartIds: [], items: [] });
+        set({ cartItems: [], items: [] });
     },
 
-    isInCart: (itemId) => {
-        return get().cartIds.includes(itemId);
+    /* -----------------------------
+                               CHECK
+                            -------------------------------- */
+    isInCart: (item: number) => {
+        return get().cartItems.some((i) => i.productId === item);
     },
 
     getCartCount: () => {
-        return get().cartIds.length;
+        return get().cartItems.reduce((sum, i) => {
+            const qty =
+                typeof i.quantity === "number" && !Number.isNaN(i.quantity)
+                    ? i.quantity
+                    : 0;
+
+            return sum + qty;
+        }, 0);
     },
 
     fetchAllCartItems: async () => {
-        const { cartIds } = get();
-        if (cartIds.length === 0) {
+        const { cartItems } = get();
+        if (cartItems.length === 0) {
             set({ items: [] });
             return;
         }
 
         set({ loading: true });
         try {
-            const fetchPromises = cartIds.map((id) =>
-                fetcher(`/api/products/${id}/`, {
-                    method: "GET",
-                    auth: true,
-                }).catch(() => null),
+            const uniqueProductIds = [...new Set(cartItems.map((i) => i.productId))];
+
+            const results = await Promise.all(
+                uniqueProductIds.map((id) =>
+                    fetcher(`/api/products/${id}/`, {
+                        method: "GET",
+                        auth: true,
+                    }).catch(() => null),
+                ),
             );
 
-            const results = await Promise.all(fetchPromises);
             const validItems = results
                 .filter((r): r is APIShoeResponse => r !== null)
                 .map(transformShoe);
@@ -138,16 +202,18 @@ export const useCartStore = create<CartState>((set, get) => ({
     },
 
     fetchAllCartItemsSettled: async () => {
-        const { cartIds } = get();
-        if (cartIds.length === 0) {
+        const { cartItems } = get();
+        if (cartItems.length === 0) {
             set({ items: [] });
             return;
         }
 
         set({ loading: true });
         try {
+            const uniqueProductIds = [...new Set(cartItems.map((i) => i.productId))];
+
             const results = await Promise.allSettled(
-                cartIds.map((id) =>
+                uniqueProductIds.map((id) =>
                     fetcher(`/api/products/${id}/`, {
                         method: "GET",
                         auth: true,
@@ -160,9 +226,7 @@ export const useCartStore = create<CartState>((set, get) => ({
                     (r): r is PromiseFulfilledResult<APIShoeResponse> =>
                         r.status === "fulfilled",
                 )
-                .map((r) => {
-                    return transformShoe(r.value);
-                });
+                .map((r) => transformShoe(r.value));
 
             set({ items: validItems });
         } catch (error) {

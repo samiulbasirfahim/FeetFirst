@@ -9,99 +9,120 @@ import { router } from "expo-router";
 import { brandPlaceholder, ItemImagePlaceholder } from "@/lib/placeholder";
 import { AntDesign } from "@expo/vector-icons";
 import { useLanguageStore } from "@/store/language";
-import { useCartStore } from "@/store/cart"; // ✅ import Zustand cart store
+import { useCartStore } from "@/store/cart";
 
 export default function CartScreen() {
     const { isGerman } = useLanguageStore();
     const {
-        items: cartItems,
+        cartItems,
+        items: products,
         fetchAllCartItemsSettled,
         removeItem,
         loading,
-        cartIds,
+        getCartCount,
     } = useCartStore();
 
     useEffect(() => {
         fetchAllCartItemsSettled();
-    }, [cartIds.length]);
+    }, [cartItems.length]);
 
-    const handleRemoveFromCart = (itemId: number) => {
-        removeItem(itemId);
+    const handleRemoveFromCart = (cartItem: any) => {
+        removeItem(cartItem);
     };
 
-    const renderItem = ({ item }: any) => (
-        <TouchableOpacity
-            onPress={() =>
-                router.push({
-                    pathname: "/others/shoe-details",
-                    params: { id: item.id },
-                })
-            }
-            activeOpacity={0.8}
-            className="py-3 mb-4 w-[48%] relative min-h-[260px] overflow-hidden"
-        >
-            <View className="bg-background rounded-3xl py-6 relative">
-                <View className="flex-row px-4 justify-end items-center">
-                    <TouchableOpacity
-                        onPress={() => handleRemoveFromCart(item.id)}
-                        style={{ zIndex: 9999 }}
-                        className="bg-backgroundDark rounded-full"
-                    >
-                        <Entypo name="cross" size={24} color="white" />
-                    </TouchableOpacity>
-                </View>
+    console.log("It's the cart Item", cartItems);
 
-                <Image
-                    source={{
-                        uri:
-                            item.image && typeof item.image.image === "string"
-                                ? item.image.image
-                                : ItemImagePlaceholder,
-                    }}
-                    className="w-full h-36 rounded-xl -mt-4 z-[9999]"
-                    resizeMode="contain"
-                />
+    const renderItem = ({ item: cartItem }: any) => {
+        const product = products.find((p) => p.id === cartItem.productId);
 
-                {item.brand && (
-                    <View className="absolute left-1/2 -translate-x-1/2 bottom-2">
-                        <Image
-                            resizeMode="contain"
-                            source={{
-                                uri:
-                                    item.brand && typeof item.brand.image === "string"
-                                        ? item.brand.image
-                                        : brandPlaceholder,
-                            }}
-                            style={{ height: 50, width: 100 }}
-                        />
-                    </View>
-                )}
-            </View>
+        if (!product) return null;
 
-            <View className="flex-col relative px-1 flex-1">
-                <Typography numberOfLines={1}>{item.itemName}</Typography>
-                <View className="flex-row justify-between">
-                    <Typography>€ {item.price}</Typography>
-                    <View className="flex-row gap-2">
-                        {item.colors.slice(0, 3).map((color, idx) => (
-                            <View
-                                key={idx}
-                                className="mt-1 size-6 rounded-full z-1"
-                                style={{
-                                    backgroundColor: color,
-                                    zIndex: 3 - idx,
-                                    left: (item.colors.slice(0, 3).length - 1 - idx) * 12,
+        return (
+            <TouchableOpacity
+                activeOpacity={0.85}
+                onPress={() =>
+                    router.push({
+                        pathname: "/others/shoe-details",
+                        params: { id: product.id },
+                    })
+                }
+                className="mb-6 w-[48%]"
+            >
+                <View className="bg-background rounded-3xl overflow-hidden shadow-lg">
+                    <View className="relative bg-muted-background">
+                        <TouchableOpacity
+                            onPress={() => handleRemoveFromCart(cartItem)}
+                            className="absolute right-3 top-3 z-10 bg-background/70 rounded-full p-2"
+                        >
+                            <Entypo name="cross" size={18} color="white" />
+                        </TouchableOpacity>
+
+                        <View>
+                            <Image
+                                source={{
+                                    uri:
+                                        product.image && typeof product.image.image === "string"
+                                            ? product.image.image
+                                            : ItemImagePlaceholder,
                                 }}
+                                className="w-full h-44"
+                                resizeMode="contain"
                             />
-                        ))}
-                        {item.colors.length - 3 > 0 && (
-                            <Typography>+{item.colors.length - 3}</Typography>
+                        </View>
+
+                        {/* Brand badge */}
+                        {product.brand && (
+                            <View className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-background px-3 py-1 rounded-full">
+                                <Image
+                                    resizeMode="contain"
+                                    source={{
+                                        uri: product.brand.image ?? brandPlaceholder,
+                                    }}
+                                    style={{ height: 24, width: 64 }}
+                                />
+                            </View>
                         )}
                     </View>
+
+                    <View className="p-4 gap-2">
+                        <Typography
+                            numberOfLines={1}
+                            className="text-white text-base font-semibold"
+                        >
+                            {product.itemName}
+                        </Typography>
+
+                        <View className="flex-row items-center justify-between">
+                            <Typography className="text-primary text-lg font-bold">
+                                € {product.price}
+                            </Typography>
+
+                            <View className="flex-row items-center gap-2">
+                                <View
+                                    className="w-4 h-4 rounded-full border border-white/30"
+                                    style={{ backgroundColor: cartItem.color }}
+                                />
+                            </View>
+                        </View>
+
+                        <View className="flex-row gap-2 justify-between">
+                            <View className="px-3 py-1 rounded-lg bg-muted-background">
+                                <Typography className="text-xs text-white">
+                                    {isGerman() ? "Größe" : "Taglia"}: {cartItem.size}
+                                </Typography>
+                            </View>
+
+                            <View className="px-3 py-1 rounded-lg bg-muted-background">
+                                <Typography className="text-xs text-white">
+                                    {isGerman() ? "Menge" : "Qty"}: {cartItem.quantity}
+                                </Typography>
+                            </View>
+                        </View>
+                    </View>
                 </View>
-            </View>
-        </TouchableOpacity>
-    );
+            </TouchableOpacity>
+        );
+    };
 
     const { HeaderComponent } = useDrawerHeader({
         threeshold: 100,
@@ -137,17 +158,19 @@ export default function CartScreen() {
                     <View>
                         <Typography className="text-white text-2xl mb-4">
                             {isGerman()
-                                ? `Warenkorb-Artikel: ${cartItems.length}`
-                                : `Articoli del carrello: ${cartItems.length}`}
+                                ? `Warenkorb (${getCartCount()})`
+                                : `Carrello (${getCartCount()})`}
                         </Typography>
 
-                        {cartItems.length === 0 ? (
+                        {getCartCount() === 0 ? (
                             renderEmptyState()
                         ) : (
                             <FlatList
-                                data={cartItems}
+                                data={cartItems.filter((x) => x.productId && x.sizeId)}
                                 renderItem={renderItem}
-                                keyExtractor={(item) => item.id.toString()}
+                                keyExtractor={(item, idx) =>
+                                    `${item.productId}-${item.sizeId}-${item.color}-${idx}`
+                                }
                                 numColumns={2}
                                 columnWrapperStyle={{
                                     justifyContent: "space-between",

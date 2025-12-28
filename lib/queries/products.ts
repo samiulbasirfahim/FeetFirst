@@ -63,7 +63,11 @@ export function useGetProduct(id: number) {
     return { shoeDetails, isPending, error };
 }
 
-export function useProducts(page: number, sub_category: string | null, enabled: boolean = true) {
+export function useProducts(
+    page: number,
+    sub_category: string | null,
+    enabled: boolean = true,
+) {
     const { data, isPending, error } = useQuery({
         queryKey: ["products", page, sub_category],
         enabled: enabled,

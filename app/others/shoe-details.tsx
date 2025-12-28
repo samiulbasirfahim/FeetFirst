@@ -6,8 +6,7 @@ import {
     FlatList,
     Pressable,
 } from "react-native";
-import AntDesign from "@expo/vector-icons/AntDesign";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Layout } from "@/components/layout/layout";
 import { Typography } from "@/components/ui/typography";
 import logo from "@/assets/images/feetfast-full-logo.png";
@@ -22,13 +21,12 @@ import { useLocalSearchParams } from "expo-router";
 import { useGetProduct, useSuggestedShoes } from "@/lib/queries/products";
 import { ItemImagePlaceholder } from "@/lib/placeholder";
 import { LoadingSpinner } from "@/components/common/loading-spinner";
-import { useAddFavourite, useRemoveFavourite } from "@/lib/queries/favourite";
-import { Button } from "@/components/ui/button";
-import { useCartStore } from "@/store/cart"; // ✅ Zustand cart store
 import { useTopShoes } from "@/lib/queries/products";
 import { ProductCard } from "@/components/common/ProductCard";
 import { NormalCategories, SportsCategories } from "@/lib/categories";
 import { ShoeItem } from "@/type/product";
+import { AddToCartModal } from "@/components/common/add-to-cart-modal";
+import { AddToCart } from "@/components/common/add-to-cart";
 
 export default function Screen() {
     const { isGerman } = useLanguageStore();
@@ -106,11 +104,7 @@ export default function Screen() {
                 quantity: number;
             };
 
-            // 1. flatten all sizes
             const allSizes = (sizes as SizeGroup[]).flatMap((item) => item.size);
-
-            // 2. entries from match_data
-            const entries = Object.entries(shoeDetails.match_data ?? {});
 
             const numericEntries = Object.entries(shoeDetails.match_data ?? {}).map(
                 ([size, val]) => [String(size), Number(val)] as [string, number],
@@ -144,55 +138,28 @@ export default function Screen() {
         }
     }, [shoeDetails]);
 
-    const { cartIds, addItem, removeItem, isInCart } = useCartStore();
+    const [shoeAddCartModal, setShoeAddCartModal] = useState(false);
 
-    const [liked, setLiked] = useState(false);
     const [activeAccordion, setActiveAccordion] = useState<string | null>(null);
     const [selectedImage, setSelectedImage] = useState<number>(0);
 
-    const inCart = shoeDetails?.id ? isInCart(shoeDetails.id) : false;
+    const selectedSizeObject = useMemo(() => {
+        if (!shoeDetails || !sizePicked) return null;
 
-    useEffect(() => {
-        setLiked(shoeDetails?.favourite ?? false);
-    }, [shoeDetails]);
+        const sizeGroup = shoeDetails.sizes?.find((s) =>
+            s.size.includes(sizePicked),
+        );
 
-    const { mutate: add_to_favourite, isPending: pending_add } =
-        useAddFavourite();
+        if (!sizeGroup) return null;
 
-    const { mutate: remove_from_favourite, isPending: pending_remove } =
-        useRemoveFavourite();
+        return {
+            id: sizeGroup.size_id ?? 0,
+            size: sizePicked,
+            quantity: sizeGroup.quantity,
+        };
+    }, [shoeDetails, sizePicked]);
 
-    const handle_remove_fav = () => {
-        remove_from_favourite(shoeDetails?.id ?? 0, {
-            onSuccess() {
-                setLiked(false);
-            },
-            onError() {
-                setLiked(true);
-            },
-        });
-    };
-
-    const handle_add_fav = () => {
-        add_to_favourite(shoeDetails?.id ?? 0, {
-            onSuccess() {
-                setLiked(true);
-            },
-            onError() {
-                setLiked(false);
-            },
-        });
-    };
-
-    const handleCartPress = () => {
-        if (!shoeDetails?.id) return;
-
-        if (inCart) {
-            removeItem(shoeDetails.id);
-        } else {
-            addItem(shoeDetails.id);
-        }
-    };
+    const availableQuantity = selectedSizeObject?.quantity ?? 0;
 
     const toggleAccordion = (section: string) => {
         setActiveAccordion(activeAccordion === section ? null : section);
@@ -200,6 +167,13 @@ export default function Screen() {
 
     return (
         <View className="flex-1">
+            {shoeDetails && (
+                <AddToCartModal
+                    isOpen={shoeAddCartModal}
+                    onClose={() => setShoeAddCartModal(false)}
+                    productDetails={shoeDetails}
+                />
+            )}
             <ShoeHeader />
             <Layout
                 scrollable
@@ -229,7 +203,6 @@ export default function Screen() {
                             )}
                         </View>
 
-                        {/* Info */}
                         <View className="flex gap-2">
                             <Typography className="text-2xl font-bold">
                                 {shoeDetails?.name}
@@ -243,7 +216,6 @@ export default function Screen() {
                             </Typography>
                         </View>
 
-                        {/* Thumbnails */}
                         {(shoeDetails?.images.length ?? 0) > 1 && (
                             <FlatList
                                 data={shoeDetails?.images}
@@ -306,47 +278,18 @@ export default function Screen() {
                             </View>
                         </View>
 
-                        {/* Cart + Favourite */}
-                        <View className="flex-row gap-6">
-                            <Button
-                                onPress={handleCartPress}
-                                variant="outline"
-                                noWrap
-                                className={`border p-4 rounded-2xl flex-1 items-center ${inCart ? "border-red-500 bg-red-500/10" : "border-white"
-                                    }`}
-                            >
-                                <Typography
-                                    className={`text-xl ${inCart ? "text-red-500" : "text-white"
-                                        }`}
-                                >
-                                    {inCart
-                                        ? isGerman()
-                                            ? "AUS WARENKORB ENTFERNEN"
-                                            : "RIMUOVI DAL CARRELLO"
-                                        : isGerman()
-                                            ? "IN DEN WARENKORB"
-                                            : "AGGIUNGI AL CARRELLO"}
-                                </Typography>
-                            </Button>
+                        {shoeDetails && selectedSizeObject && (
+                            <AddToCart
+                                productId={shoeDetails.id}
+                                selectedSize={{
+                                    id: selectedSizeObject.id,
+                                    size: selectedSizeObject.size,
+                                }}
+                                availableQuantity={availableQuantity}
+                                colors={shoeDetails.colors}
+                            />
+                        )}
 
-                            <TouchableOpacity className="flex items-center justify-center">
-                                <Pressable
-                                    onPress={() => {
-                                        if (liked) handle_remove_fav();
-                                        else handle_add_fav();
-                                    }}
-                                    className="border border-white p-4 rounded-2xl"
-                                >
-                                    <AntDesign
-                                        name={liked ? "heart" : "hearto"}
-                                        size={24}
-                                        color="white"
-                                    />
-                                </Pressable>
-                            </TouchableOpacity>
-                        </View>
-
-                        {/* 2D Preview */}
                         <View className="mb-20 mt-4 -mx-3">
                             <TwoDPreview />
                         </View>

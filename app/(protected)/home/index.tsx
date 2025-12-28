@@ -2,7 +2,7 @@ import { Layout } from "@/components/layout/layout";
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
 import { useLanguageStore } from "@/store/language";
-import { Link, router } from "expo-router";
+import { Link, Redirect, router } from "expo-router";
 import {
     Image,
     View,
@@ -33,6 +33,7 @@ export default function Screen() {
         threeshold: 100,
     });
     const { shoeList, isPending, error } = useTopShoes(10);
+
     return (
         <View className="flex-1">
             {HeaderComponent}

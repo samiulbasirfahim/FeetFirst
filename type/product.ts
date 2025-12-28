@@ -41,6 +41,7 @@ export type ShoeDetails = {
     sub_category: string;
     sizes: {
         size: string[];
+        size_id: number;
         quantity: number;
     }[];
     toe_box: string;
