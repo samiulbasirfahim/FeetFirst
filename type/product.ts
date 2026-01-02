@@ -25,35 +25,46 @@ export type ShoeItem = {
 export type ShoeDetails = {
     id: number;
     name: string;
-    colors: string[];
+
     images: {
         id: number;
         image: string;
+        color_hex: string;
     }[];
-    further_information: string;
+
     technical_data: string;
     description: string;
-    brand?: {
+    further_information: string;
+
+    brand: {
         name: string;
         image: string;
     } | null;
-    main_category: string;
+
     sub_category: string;
-    sizes: {
-        size: string[];
-        size_id: number;
-        quantity: number;
-    }[];
-    toe_box: string;
-    price: string;
-    discount: string;
-    stock_quantity: number;
-    partner: number;
-    match_data: Record<string, string> | null;
-    favourite: boolean;
+
     features: {
         image: string;
         title: string;
         details: string;
     }[];
+
+    price: string;
+    discount: string | null;
+
+    match_data: Record<string, string>;
+    favourite: boolean;
+
+    gender: "male" | "female" | "unisex";
+
+    sizes: {
+        size_id: number;
+        size: string;
+        quantity: number;
+    }[];
+
+    quantity: number;
+
+    qna: unknown[];
 };
+ 

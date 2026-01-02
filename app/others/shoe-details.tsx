@@ -25,7 +25,6 @@ import { useTopShoes } from "@/lib/queries/products";
 import { ProductCard } from "@/components/common/ProductCard";
 import { NormalCategories, SportsCategories } from "@/lib/categories";
 import { ShoeItem } from "@/type/product";
-import { AddToCartModal } from "@/components/common/add-to-cart-modal";
 import { AddToCart } from "@/components/common/add-to-cart";
 
 export default function Screen() {
@@ -78,67 +77,27 @@ export default function Screen() {
     const [sizeList, setSizeList] = useState<any>([]);
 
     useEffect(() => {
-        console.log("FEATURES: ", shoeDetails?.features);
+        if (!shoeDetails?.sizes?.length) return;
 
-        if (shoeDetails?.sizes) {
-            const isImotana = shoeDetails?.brand?.name.toLowerCase() === "imotana";
+        const isImotana = shoeDetails.brand?.name.toLowerCase() === "imotana";
+        const matchData = shoeDetails.match_data ?? {};
 
-            const sizes = shoeDetails?.sizes.flatMap((s) => {
-                return s.size.map((size) => ({
-                    label: size,
-                    score: isImotana
-                        ? 100
-                        : shoeDetails.match_data
-                            ? shoeDetails.match_data[size] || 0
-                            : 0,
-                    value: size,
-                }));
-            }) as [];
-            setSizeList(sizes);
+        const sizes = shoeDetails.sizes.map((s) => ({
+            label: s.size,
+            score: isImotana ? 100 : (matchData[s.size] || 0),
+            value: s.size,
+        }));
 
-            console.log(shoeDetails.match_data);
-            console.log(shoeDetails.sizes);
+        setSizeList(sizes);
 
-            type SizeGroup = {
-                size: string[];
-                quantity: number;
-            };
+        // Find best size from available sizes based on match_data score
+        const bestSize = sizes.reduce(
+            (best, current) => (current.score > best.score ? current : best),
+            sizes[0]
+        );
 
-            const allSizes = (sizes as SizeGroup[]).flatMap((item) => item.size);
-
-            const numericEntries = Object.entries(shoeDetails.match_data ?? {}).map(
-                ([size, val]) => [String(size), Number(val)] as [string, number],
-            );
-
-            const maxValue =
-                numericEntries.length > 0
-                    ? Math.max(...numericEntries.map(([, v]) => v))
-                    : 0;
-
-            // 5. best matching size
-            const bestSize = numericEntries.find(([, v]) => v === maxValue)?.[0];
-
-            // 6. set size
-            if (bestSize) {
-                setSizePicked(bestSize);
-            } else if (allSizes.length > 0) {
-                setSizePicked(allSizes[0]);
-            }
-
-            //
-            // const entries = Object.entries(shoeDetails.match_data ?? {});
-            //
-            // const numericEntries = entries.map(([size, val]) => [size, Number(val)]);
-            //
-            // const maxValue = Math.max(...numericEntries.map(([, v]) => v));
-            //
-            // const bestSize = numericEntries.find(([, v]) => v === maxValue)?.[0];
-            //
-            // setSizePicked(bestSize ?? sizes[0]?.value);
-        }
+        setSizePicked(bestSize.value);
     }, [shoeDetails]);
-
-    const [shoeAddCartModal, setShoeAddCartModal] = useState(false);
 
     const [activeAccordion, setActiveAccordion] = useState<string | null>(null);
     const [selectedImage, setSelectedImage] = useState<number>(0);
@@ -167,13 +126,6 @@ export default function Screen() {
 
     return (
         <View className="flex-1">
-            {shoeDetails && (
-                <AddToCartModal
-                    isOpen={shoeAddCartModal}
-                    onClose={() => setShoeAddCartModal(false)}
-                    productDetails={shoeDetails}
-                />
-            )}
             <ShoeHeader />
             <Layout
                 scrollable
@@ -286,7 +238,7 @@ export default function Screen() {
                                     size: selectedSizeObject.size,
                                 }}
                                 availableQuantity={availableQuantity}
-                                colors={shoeDetails.colors}
+                                colors={shoeDetails.images.map((i) => i.color_hex)}
                             />
                         )}
 
