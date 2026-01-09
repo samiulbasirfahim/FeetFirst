@@ -4,6 +4,7 @@ import { Typography } from "../ui/typography";
 import { Button } from "../ui/button";
 import { useCartStore } from "@/store/cart";
 import { useAddFavourite, useRemoveFavourite } from "@/lib/queries/favourite";
+import { useAddToCart } from "@/lib/queries/cart";
 import { AntDesign } from "@expo/vector-icons";
 import { useLanguageStore } from "@/store/language";
 
@@ -18,6 +19,8 @@ type AddToCartProps = {
     availableQuantity: number;
     colors: string[];
     isFavourite?: boolean;
+    selectedColor: string | null;
+    onColorChange: (color: string) => void;
 };
 
 export function AddToCart({
@@ -26,19 +29,19 @@ export function AddToCart({
     availableQuantity,
     colors,
     isFavourite,
+    selectedColor,
+    onColorChange,
 }: AddToCartProps) {
     const { isGerman } = useLanguageStore();
-    const { addItem, isInCart } = useCartStore();
-
-    const [selectedColor, setSelectedColor] = useState<string | null>(
-        colors.length > 0 ? colors[0] : null,
-    );
+    const { isInCart } = useCartStore();
+    const addToCartMutation = useAddToCart();
     const [quantity, setQuantity] = useState(1);
     const [liked, setLiked] = useState(false);
 
-    const inCart = isInCart(productId);
+    const inCart = selectedSize ? isInCart(productId, selectedSize.id) : false;
 
-    /* ---------------- favourite ---------------- */
+    const [isCardAddLoading, setIsCardAddLoading] = useState(false);
+
     const { mutate: addFav, isPending: pendingAdd } = useAddFavourite();
     const { mutate: removeFav, isPending: pendingRemove } = useRemoveFavourite();
 
@@ -56,33 +59,41 @@ export function AddToCart({
 
     const handleAddToCart = () => {
         if (!canAdd) return;
+        setIsCardAddLoading(true);
 
-        addItem({
-            productId,
-            sizeId: selectedSize.id,
-            size: selectedSize.size,
-            color: selectedColor,
-            quantity,
-        });
+        addToCartMutation.mutate(
+            {
+                product: productId,
+                size_id: selectedSize.id,
+                color: selectedColor,
+                quantity,
+            },
+            {
+                onSettled() {
+                    setIsCardAddLoading(false);
+                },
+            },
+        );
     };
 
     return (
         <View className="gap-5">
-            {/* COLOR PICKER */}
             <View className="bg-muted-background p-4 rounded-2xl flex-row gap-4 flex-wrap">
                 {colors.map((color) => (
                     <Pressable
                         key={color}
-                        onPress={() => setSelectedColor(color)}
+                        onPress={() => {
+                            onColorChange(color);
+                        }}
                         style={{
                             borderWidth: 2,
-                            borderColor: selectedColor === color ? "white" : "transparent",
+                            borderColor: selectedColor === color ? "#62A07B" : "#ffffff22",
                             borderRadius: 9999,
                             padding: 2,
                         }}
                     >
                         <View
-                            className="w-6 h-6 rounded-full"
+                            className="w-8 h-8 rounded-full"
                             style={{ backgroundColor: color }}
                         />
                     </Pressable>
@@ -149,6 +160,7 @@ export function AddToCart({
                         <View className="flex gap-2">
                             <Button
                                 onPress={handleAddToCart}
+                                isLoading={isCardAddLoading}
                                 variant="outline"
                                 noWrap
                                 className="border p-4 rounded-2xl items-center border-white"

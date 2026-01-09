@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { User } from "@/type/user";
 import { create } from "zustand";
 import { removeItem } from "./mmkv";
@@ -21,6 +22,10 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
         set({ isLoggedIn: true });
     },
     async logOut(refresh: string, callback: (status: boolean) => void) {
+        const queryClient = useQueryClient();
+
+        queryClient.clear();
+
         set({ isLoggedIn: false });
         set({ user: null });
         removeItem("access_token");

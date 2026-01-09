@@ -6,7 +6,7 @@ import {
     FlatList,
     Pressable,
 } from "react-native";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Layout } from "@/components/layout/layout";
 import { Typography } from "@/components/ui/typography";
 import logo from "@/assets/images/feetfast-full-logo.png";
@@ -84,23 +84,49 @@ export default function Screen() {
 
         const sizes = shoeDetails.sizes.map((s) => ({
             label: s.size,
-            score: isImotana ? 100 : (matchData[s.size] || 0),
+            score: isImotana ? 100 : matchData[s.size] || 0,
             value: s.size,
         }));
 
         setSizeList(sizes);
 
-        // Find best size from available sizes based on match_data score
         const bestSize = sizes.reduce(
             (best, current) => (current.score > best.score ? current : best),
-            sizes[0]
+            sizes[0],
         );
 
         setSizePicked(bestSize.value);
     }, [shoeDetails]);
 
+    const colors = shoeDetails
+        ? shoeDetails.images
+            .map((i) => i.color_hex)
+            .filter((v, i, a) => a.indexOf(v) === i)
+        : [];
+
+    const [selectedColor, setSelectedColor] = useState<string | null>(
+        colors.length > 0 ? colors[0] : null,
+    );
+
+    useEffect(() => {
+        if (colors.length > 0) {
+            setSelectedColor(colors[0]);
+        }
+    }, [colors]);
+
     const [activeAccordion, setActiveAccordion] = useState<string | null>(null);
     const [selectedImage, setSelectedImage] = useState<number>(0);
+    const flatListRef = useRef<FlatList>(null);
+
+    useEffect(() => {
+        if (flatListRef.current && selectedImage !== null) {
+            flatListRef.current.scrollToIndex({
+                index: selectedImage,
+                animated: true,
+                viewPosition: 0.5,
+            });
+        }
+    }, [selectedImage]);
 
     const selectedSizeObject = useMemo(() => {
         if (!shoeDetails || !sizePicked) return null;
@@ -137,7 +163,6 @@ export default function Screen() {
                     <LoadingSpinner />
                 ) : (
                     <>
-                        {/* Main Image */}
                         <View>
                             {(shoeDetails?.images.length ?? 0) > 0 && (
                                 <Image
@@ -170,13 +195,30 @@ export default function Screen() {
 
                         {(shoeDetails?.images.length ?? 0) > 1 && (
                             <FlatList
-                                data={shoeDetails?.images}
+                                ref={flatListRef}
+                                data={shoeDetails?.images.sort((a, b) =>
+                                    a.color_hex.localeCompare(b.color_hex),
+                                )}
                                 horizontal
                                 showsHorizontalScrollIndicator={false}
                                 ItemSeparatorComponent={() => <View className="w-3" />}
+                                onScrollToIndexFailed={(info) => {
+                                    const wait = new Promise((resolve) =>
+                                        setTimeout(resolve, 500),
+                                    );
+                                    wait.then(() => {
+                                        flatListRef.current?.scrollToIndex({
+                                            index: info.index,
+                                            animated: true,
+                                        });
+                                    });
+                                }}
                                 renderItem={(props) => (
                                     <Pressable
-                                        onPress={() => setSelectedImage(props.index)}
+                                        onPress={() => {
+                                            setSelectedImage(props.index);
+                                            setSelectedColor(props.item.color_hex);
+                                        }}
                                         className="p-2 bg-muted-background rounded-2xl flex-1"
                                         style={{
                                             opacity: selectedImage === props.index ? 1 : 0.5,
@@ -237,8 +279,19 @@ export default function Screen() {
                                     id: selectedSizeObject.id,
                                     size: selectedSizeObject.size,
                                 }}
+                                selectedColor={selectedColor}
+                                onColorChange={(color) => {
+                                    const firstImageIndex = shoeDetails.images.findIndex(
+                                        (img) => img.color_hex === color,
+                                    );
+                                    if (firstImageIndex !== -1) {
+                                        setSelectedImage(firstImageIndex);
+                                    }
+                                    setSelectedColor(color);
+                                }}
                                 availableQuantity={availableQuantity}
-                                colors={shoeDetails.images.map((i) => i.color_hex)}
+                                colors={colors}
+                                isFavourite={shoeDetails.favourite}
                             />
                         )}
 

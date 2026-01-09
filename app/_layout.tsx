@@ -1,5 +1,6 @@
 import { queryClient } from "@/lib/queryClient";
 import { StripeProvider } from "@stripe/stripe-react-native";
+import { Toaster } from "sonner-native";
 import { useAutoLogin } from "@/lib/init"; // Import your new hook
 import { useAuthStore } from "@/store/auth";
 import { Stack, useRouter } from "expo-router";
@@ -13,6 +14,7 @@ import { KeyboardProvider } from "react-native-keyboard-controller";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { QueryClientProvider } from "@tanstack/react-query";
+import { LogBox } from "react-native";
 
 SplashScreen.setOptions({
     duration: 0,
@@ -116,15 +118,34 @@ export function RootLayout() {
                         </Stack.Protected>
                     </Stack>
                 </Host>
+                <Toaster
+                    theme="dark"
+                    icons={{
+                        success: null,
+                        error: null,
+                        loading: null,
+                        info: null,
+                    }}
+                    toastOptions={{
+                        style: {
+                            backgroundColor: "#1A1C1B",
+                            borderRadius: 4,
+                        },
+                    }}
+                />
             </GestureHandlerRootView>
         </KeyboardProvider>
     );
 }
 
 export default function RootLayoutWrapper() {
+    LogBox.ignoreLogs([
+        "VirtualizedLists should never be nested", // Ignore log notification by message
+    ]);
+
     return (
         <StripeProvider
-            publishableKey={process.env.EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY}
+            publishableKey={process.env.EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ""}
         >
             <QueryClientProvider client={queryClient}>
                 <RootLayout />

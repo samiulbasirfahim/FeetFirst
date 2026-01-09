@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { fetcher } from "@/lib/fetcher";
 import type { CreateAddress } from "@/type/user";
+import { queryClient } from "../queryClient";
 
 export function useCreateAddress() {
     return useMutation({
@@ -10,6 +11,10 @@ export function useCreateAddress() {
                 body: data,
                 auth: true,
             }),
+
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["user-address"] });
+        },
     });
 }
 
@@ -21,12 +26,15 @@ export function useUpdateAddress() {
                 body: data,
                 auth: true,
             }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["user-address"] });
+        },
     });
 }
 
 export function useGetAddress() {
     return useQuery({
-        initialData: [],
+        initialData: {},
         queryKey: ["user-address"],
         queryFn: () =>
             fetcher("/api/users/addresses/me/", {

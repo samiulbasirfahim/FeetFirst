@@ -21,14 +21,18 @@ import { TextInput } from "react-native-gesture-handler";
 
 export default function Screen() {
     const { isGerman, setLanguage } = useLanguageStore();
+
     const { setUser, user } = useAuthStore();
+
     const { mutate: trigger_address, isPending: isPending_address } =
         useCreateAddress();
+
     const { mutate: trigger_update, isPending: isPending_update } =
         useUpdateAddress();
+
     const { mutate: trigger_user, isPending: isPending_user } = useUpdateUser();
 
-    const { data: address, isPending } = useGetAddress();
+    const { data: address, isPending, refetch } = useGetAddress();
 
     const [error, setError] = useState<Record<string, string>>({});
 
@@ -45,6 +49,12 @@ export default function Screen() {
     });
 
     useEffect(() => {
+        refetch();
+    }, []);
+
+    useEffect(() => {
+        console.log("Address data:", address);
+        if (isPending) return;
         if (address) {
             setForm({
                 name: (address as any).first_name ?? "",
@@ -162,7 +172,7 @@ export default function Screen() {
             });
         };
 
-        if (address.id) {
+        if ((address as any).id) {
             trigger_update(
                 { ...payload },
                 {

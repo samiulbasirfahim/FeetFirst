@@ -1,32 +1,15 @@
 import { Layout } from "@/components/layout/layout";
 import { Typography } from "@/components/ui/typography";
 import { useLanguageStore } from "@/store/language";
-import {
-    Image,
-    Text,
-    TouchableOpacity,
-    TouchableWithoutFeedback,
-    useWindowDimensions,
-    View,
-} from "react-native";
+import { Image, Text, useWindowDimensions, View } from "react-native";
 import woman from "@/assets/images/woman-upside-down.png";
 import { Button } from "@/components/ui/button";
 import MyCarousel from "@/components/ui/MyCarousel";
 import { VersionInfo } from "@/components/common/version";
 import ManAboutTORun from "@/assets/images/man-about-to-run.png";
 import { LinearGradient } from "expo-linear-gradient";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDrawerHeader } from "@/components/common/drawer-header";
-import LineBg from "@/assets/svgs/flexible_bg.svg";
-import Leg from "@/assets/svgs/flexible_leg1.svg";
-import { BlurView } from "expo-blur";
-import Accordion from "react-native-collapsible/Accordion";
-import Animated, {
-    Layout as ReanimatedLayout,
-    FadeInDown,
-    FadeOutUp,
-} from "react-native-reanimated";
-import ArrowAnimatedDesign from "@/components/ui/animated-arrow";
 import { router } from "expo-router";
 import {
     germanFlexibilitySections,
