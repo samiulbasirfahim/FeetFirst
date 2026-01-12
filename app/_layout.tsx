@@ -1,5 +1,5 @@
 import { queryClient } from "@/lib/queryClient";
-import { StripeProvider } from "@stripe/stripe-react-native";
+import { StripeProvider, useStripe } from "@stripe/stripe-react-native";
 import { Toaster } from "sonner-native";
 import { useAutoLogin } from "@/lib/init"; // Import your new hook
 import { useAuthStore } from "@/store/auth";
@@ -14,7 +14,7 @@ import { KeyboardProvider } from "react-native-keyboard-controller";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { LogBox } from "react-native";
+import { Linking, LogBox } from "react-native";
 
 SplashScreen.setOptions({
     duration: 0,
@@ -26,6 +26,38 @@ export function RootLayout() {
     const { isLoggedIn, setUser } = useAuthStore();
     const router = useRouter();
     const [isReady, setIsReady] = useState<boolean>(false);
+
+    const { handleURLCallback } = useStripe();
+
+    useEffect(() => {
+        const handleDeepLink = async (url: string | null) => {
+            if (url) {
+                const stripeHandled = await handleURLCallback(url);
+                if (stripeHandled) {
+                    console.log("Stripe handled the URL");
+                } else {
+                    console.log("Not a Stripe URL");
+                }
+            }
+        };
+
+        // Handle initial URL (app opened from closed state)
+        const getInitialURL = async () => {
+            const initialUrl = await Linking.getInitialURL();
+            handleDeepLink(initialUrl);
+        };
+
+        getInitialURL();
+
+        // Handle URLs when app is already open
+        const subscription = Linking.addEventListener("url", (event) => {
+            handleDeepLink(event.url);
+        });
+
+        return () => {
+            subscription.remove();
+        };
+    }, [handleURLCallback]);
 
     const {
         autoLogin,
@@ -139,9 +171,7 @@ export function RootLayout() {
 }
 
 export default function RootLayoutWrapper() {
-    LogBox.ignoreLogs([
-        "VirtualizedLists should never be nested", // Ignore log notification by message
-    ]);
+    LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
 
     return (
         <StripeProvider

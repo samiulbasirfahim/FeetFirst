@@ -7,7 +7,7 @@ export default {
         version: "1.0.0",
         orientation: "portrait",
         icon: "./assets/images/logo.png",
-        scheme: "feetfirst",
+        scheme: "feetf1rst",
         userInterfaceStyle: "automatic",
         newArchEnabled: true,
         ios: {

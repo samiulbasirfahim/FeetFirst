@@ -25,8 +25,6 @@ export function ProductCard({
     const [liked, setLiked] = useState(favourite);
     const { mutate: add_to_favourite } = useAddFavourite();
 
-    console.log("ITS MATCH DATA", match_data);
-
     const { mutate: remove_from_favourite } = useRemoveFavourite();
 
     function handle_remove_fav() {
@@ -42,10 +40,10 @@ export function ProductCard({
 
     function handle_add_fav() {
         add_to_favourite(id, {
-            onSuccess(res) {
+            onSuccess() {
                 setLiked(true);
             },
-            onError(err) {
+            onError() {
                 setLiked(false);
             },
         });

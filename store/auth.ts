@@ -1,16 +1,17 @@
-import { useQueryClient } from "@tanstack/react-query";
+import { QueryClient, useQueryClient } from "@tanstack/react-query";
 import { User } from "@/type/user";
 import { create } from "zustand";
 import { removeItem } from "./mmkv";
 import { fetcher } from "@/lib/fetcher";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import { router } from "expo-router";
 
 type AuthStore = {
     user: User | null;
     isLoggedIn: boolean;
     onboarding_complete: boolean;
     setUser: (user: User) => void;
-    logOut: (refresh: string, callback: (status: boolean) => void) => void;
+    logOut: (refresh: string, queryClient: QueryClient) => void;
 };
 
 export const useAuthStore = create<AuthStore>((set, get) => ({
@@ -21,8 +22,8 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
         set({ user });
         set({ isLoggedIn: true });
     },
-    async logOut(refresh: string, callback: (status: boolean) => void) {
-        const queryClient = useQueryClient();
+    async logOut(refresh: string, queryClient: QueryClient) {
+        console.log("Logging out...");
 
         queryClient.clear();
 
@@ -30,17 +31,26 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
         set({ user: null });
         removeItem("access_token");
         removeItem("refresh_token");
-        await fetcher("/api/users/logout/", {
-            method: "POST",
-            body: {
-                refresh: refresh,
-            },
-        });
+
         try {
             GoogleSignin.signOut();
         } catch (er) {
             console.log(er);
         }
-        callback(true);
+
+        console.log("Tokens removed.");
+
+        try {
+            await fetcher("/auth/logout", {
+                method: "POST",
+                body: { refresh_token: refresh },
+            });
+            console.log("Logged out from server.");
+        } catch (error) {
+            console.log("Error logging out from server:", error);
+        }
+
+        router.dismissAll();
+        router.replace("/login");
     },
 }));

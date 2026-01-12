@@ -6,7 +6,7 @@ import {
 } from "@/lib/queries/favourite";
 import { useLanguageStore } from "@/store/language";
 import { AntDesign } from "@expo/vector-icons";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback } from "react";
 import {
     FlatList,
     Image,
@@ -64,6 +64,8 @@ function ShoeCard({
             });
         }
     };
+
+    console.log("Rendering ShoeCard for item:", item);
 
     return (
         <TouchableOpacity

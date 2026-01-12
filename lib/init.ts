@@ -6,6 +6,7 @@ import { User } from "@/type/user";
 import { useGetOnboardingQuestion } from "@/lib/queries/onboarding-question";
 import { useLanguageStore } from "@/store/language";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import { AvatarPlaceholder } from "./placeholder";
 
 interface AutoLoginResult {
     success: boolean;
@@ -55,7 +56,7 @@ export function useAutoLogin() {
                     name: data.user.name ?? "",
                     email: data.user.email,
                     date_of_birth: data.user.date_of_birth ?? "",
-                    image: data.user.image,
+                    image: data.user.image ?? AvatarPlaceholder,
                     phone: data.user.phone,
                 };
 

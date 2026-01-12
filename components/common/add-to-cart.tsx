@@ -7,6 +7,7 @@ import { useAddFavourite, useRemoveFavourite } from "@/lib/queries/favourite";
 import { useAddToCart } from "@/lib/queries/cart";
 import { AntDesign } from "@expo/vector-icons";
 import { useLanguageStore } from "@/store/language";
+import { notify } from "@/lib/notify";
 
 type SizeOption = {
     id: number;
@@ -40,8 +41,6 @@ export function AddToCart({
 
     const inCart = selectedSize ? isInCart(productId, selectedSize.id) : false;
 
-    const [isCardAddLoading, setIsCardAddLoading] = useState(false);
-
     const { mutate: addFav, isPending: pendingAdd } = useAddFavourite();
     const { mutate: removeFav, isPending: pendingRemove } = useRemoveFavourite();
 
@@ -57,9 +56,19 @@ export function AddToCart({
 
     const canAdd = selectedSize && selectedColor;
 
-    const handleAddToCart = () => {
-        if (!canAdd) return;
-        setIsCardAddLoading(true);
+    const handleAddToCart = async () => {
+        if (!canAdd) {
+            notify({
+                type: "error",
+                title: isGerman()
+                    ? "Größe und Farbe auswählen"
+                    : "Seleziona taglia e colore",
+                message: isGerman()
+                    ? "Bitte wählen Sie eine Größe und Farbe aus, bevor Sie zum Warenkorb hinzufügen."
+                    : "Si prega di selezionare una taglia e un colore prima di aggiungere al carrello.",
+            });
+            return;
+        }
 
         addToCartMutation.mutate(
             {
@@ -69,8 +78,44 @@ export function AddToCart({
                 quantity,
             },
             {
-                onSettled() {
-                    setIsCardAddLoading(false);
+                onSuccess: () => {
+                    notify({
+                        type: "success",
+                        title: isGerman()
+                            ? "Artikel zum Warenkorb hinzugefügt"
+                            : "Articolo aggiunto al carrello",
+                        message: isGerman()
+                            ? `${quantity} x ${selectedSize.size} wurde Ihrem Warenkorb hinzugefügt.`
+                            : `${quantity} x ${selectedSize.size} è stato aggiunto al tuo carrello.`,
+                    });
+                },
+                onError: (err) => {
+                    console.error("Add to cart error:", err);
+
+                    if (
+                        ((err as any).data.message as string).includes("Insufficient stock")
+                    ) {
+                        notify({
+                            type: "error",
+                            title: isGerman()
+                                ? "Fehler beim Hinzufügen zum Warenkorb"
+                                : "Errore durante l'aggiunta al carrello",
+                            message: isGerman()
+                                ? "Nicht genügend Lagerbestand für die gewünschte Menge."
+                                : "Non c'è abbastanza stock per la quantità desiderata.",
+                        });
+                        return;
+                    }
+
+                    notify({
+                        type: "error",
+                        title: isGerman()
+                            ? "Fehler beim Hinzufügen zum Warenkorb"
+                            : "Errore durante l'aggiunta al carrello",
+                        message: isGerman()
+                            ? "Etwas ist schief gelaufen. Bitte versuchen Sie es erneut."
+                            : "Qualcosa è andato storto. Per favore riprova.",
+                    });
                 },
             },
         );
@@ -151,6 +196,7 @@ export function AddToCart({
                             variant="outline"
                             noWrap
                             className="border p-4 rounded-2xl items-center border-white"
+                            isLoading={addToCartMutation.isPending}
                         >
                             <Typography className="text-xl text-white">
                                 {isGerman() ? "IN DEN WARENKORB" : "AGGIUNGI AL CARRELLO"}
@@ -160,7 +206,7 @@ export function AddToCart({
                         <View className="flex gap-2">
                             <Button
                                 onPress={handleAddToCart}
-                                isLoading={isCardAddLoading}
+                                isLoading={addToCartMutation.isPending}
                                 variant="outline"
                                 noWrap
                                 className="border p-4 rounded-2xl items-center border-white"
@@ -179,8 +225,10 @@ export function AddToCart({
                         onPress={() => {
                             if (liked) {
                                 removeFav(productId);
+                                setLiked(false);
                             } else {
                                 addFav(productId);
+                                setLiked(true);
                             }
                         }}
                         className="border border-white p-4 rounded-2xl"

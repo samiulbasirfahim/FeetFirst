@@ -2,7 +2,7 @@ import { ShoeHeader } from "@/components/common/shoes-header";
 import { Layout } from "@/components/layout/layout";
 import HERO from "@/assets/svgs/shoes_header.svg";
 import { useEffect, useMemo, useState } from "react";
-import { Alert, View } from "react-native";
+import { View } from "react-native";
 import { ProductCard } from "@/components/common/ProductCard";
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
@@ -34,14 +34,12 @@ export default function Screen() {
         }
 
         if (should_reset) {
-            // Alert.alert("Reseting SHOULD RESET", should_reset ? "true" : "false");
             clearCategory((selected ?? category) as CategorySlug);
             setShouldReset(false);
         }
     }, [pathname]);
 
     useEffect(() => {
-        // Alert.alert("Reseting CATEGORY", category);
         clearCategory((selected ?? category) as CategorySlug);
     }, [selected, category]);
 

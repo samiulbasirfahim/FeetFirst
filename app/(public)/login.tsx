@@ -19,6 +19,7 @@ import { setItem } from "@/store/mmkv";
 import { User } from "@/type/user";
 import { useGetOnboardingQuestion } from "@/lib/queries/onboarding-question";
 import { ApiError } from "@/lib/fetcher";
+import { AvatarPlaceholder } from "@/lib/placeholder";
 
 GoogleSignin.configure({
     scopes: [
@@ -89,7 +90,7 @@ export default function Page() {
                     name: data.user.name,
                     email: data.user.email,
                     date_of_birth: data.user.date_of_birth,
-                    image: data.user.image ?? "",
+                    image: data.user.image ?? AvatarPlaceholder,
                     phone: data.user.phone,
                 };
 

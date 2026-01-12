@@ -3,7 +3,7 @@ import { useDrawerHeader } from "@/components/common/drawer-header";
 import { LoadingSpinner } from "@/components/common/loading-spinner";
 import { Layout } from "@/components/layout/layout";
 import { Typography } from "@/components/ui/typography";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FlatList, View, TouchableOpacity, Image } from "react-native";
 import { router } from "expo-router";
 import { ItemImagePlaceholder } from "@/lib/placeholder";
@@ -20,15 +20,13 @@ export default function CartScreen() {
     const { setCart, getCartCount } = useCartStore();
     const removeMutation = useRemoveFromCart();
 
+    const [ordering, setOrdering] = useState(false);
+
     useEffect(() => {
         if (cart) {
             setCart(cart);
         }
     }, [cart]);
-
-    useEffect(() => {
-        initializePaymentSheet(isGerman());
-    }, []);
 
     const handleRemoveFromCart = (itemId: number) => {
         removeMutation.mutate(itemId);
@@ -146,7 +144,16 @@ export default function CartScreen() {
                                 <Button
                                     variant="outline"
                                     className="border border-white/30 px-4 py-2 rounded-2xl"
-                                    onPress={() => openPaymentSheet(isGerman())}
+                                    isLoading={ordering}
+                                    onPress={async () => {
+                                        try {
+                                            setOrdering(true);
+                                            await initializePaymentSheet(isGerman());
+                                            await openPaymentSheet(isGerman());
+                                        } finally {
+                                            setOrdering(false);
+                                        }
+                                    }}
                                 >
                                     <Typography className="text-white">
                                         {isGerman() ? "Zur Kasse" : "Vai al checkout"}

@@ -17,7 +17,6 @@ import {
     GoogleSignin,
     isSuccessResponse,
 } from "@react-native-google-signin/google-signin";
-import { useUpdateUser } from "./user";
 
 export function useLogin() {
     return useMutation({

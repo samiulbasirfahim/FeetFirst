@@ -84,6 +84,7 @@ const initializePaymentSheet = async (isGerman: boolean) => {
         customerSessionClientSecret: customerSessionClientSecret,
         paymentIntentClientSecret: paymentIntent,
         allowsDelayedPaymentMethods: false,
+        returnURL: "feetf1rst://stripe-redirect",
         appearance: {
             colors: {
                 background: "#121212",
@@ -105,11 +106,13 @@ const initializePaymentSheet = async (isGerman: boolean) => {
         throw new Error(error.message);
     }
 
-    return { success: true };
+    return { success: true, returnUrl: "feetf1rst://stripe-redirect" };
 };
 
 const openPaymentSheet = async (isGerman: boolean) => {
-    const { error } = await presentPaymentSheet();
+    const { error } = await presentPaymentSheet({
+        timeout: 10 * 1000 * 60,
+    });
     console.log("Payment Sheet Result:", error);
     if (error) {
         notify({
@@ -129,7 +132,10 @@ const openPaymentSheet = async (isGerman: boolean) => {
             type: "success",
         });
 
-        queryClient.invalidateQueries({ queryKey: ["cart"] });
+        setTimeout(() => {
+            queryClient.invalidateQueries({ queryKey: ["cart"] });
+            queryClient.invalidateQueries({ queryKey: ["order-list"] });
+        }, 2000);
     }
 };
 

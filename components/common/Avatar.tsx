@@ -1,4 +1,4 @@
-import { ActivityIndicator, Image, TouchableOpacity, View } from "react-native";
+import { Image, TouchableOpacity, View } from "react-native";
 import { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import { ApiError, BASE_URL } from "@/lib/fetcher";

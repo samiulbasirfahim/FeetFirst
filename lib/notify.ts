@@ -12,7 +12,7 @@ export function notify({ title, message, type }: Props) {
             toast.success(message, {
                 description: title,
                 style: {
-                    backgroundColor: "#e6ffed",
+                    backgroundColor: "#1A1C1B",
                 },
             });
             break;

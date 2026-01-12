@@ -53,8 +53,6 @@ export async function fetcher<T>(
         console.log("THIS IS THE ERR: ", err);
     }
 
-    console.log("ENDPOINT: ", `${BASE_URL}${endpoint}`, "--->", res);
-    console.log("ENDPOINT: ", `${BASE_URL}${endpoint}--${method}`, "--->", res);
     let data: any;
     try {
         data = await res.json();
@@ -63,9 +61,23 @@ export async function fetcher<T>(
     }
 
     if (!res.ok) {
-        console.log("API ERROR: ", endpoint, "-->", res);
+        console.error("[API ERROR]", {
+            endpoint,
+            method,
+            status: res.status,
+            statusText: res.statusText,
+            response: data,
+        });
+
         throw new ApiError(res.status, data);
     }
+
+    console.log("[API SUCCESS]", {
+        endpoint,
+        method,
+        status: res.status,
+        response: data,
+    });
 
     return data as T;
 }

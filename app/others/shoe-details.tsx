@@ -108,12 +108,6 @@ export default function Screen() {
         colors.length > 0 ? colors[0] : null,
     );
 
-    useEffect(() => {
-        if (colors.length > 0) {
-            setSelectedColor(colors[0]);
-        }
-    }, [colors]);
-
     const [activeAccordion, setActiveAccordion] = useState<string | null>(null);
     const [selectedImage, setSelectedImage] = useState<number>(0);
     const flatListRef = useRef<FlatList>(null);
