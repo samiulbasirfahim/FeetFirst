@@ -132,10 +132,13 @@ const openPaymentSheet = async (isGerman: boolean) => {
             type: "success",
         });
 
-        setTimeout(() => {
+        fetcher("/api/cart/clear/", {
+            method: "POST",
+            auth: true,
+        }).then(() => {
             queryClient.invalidateQueries({ queryKey: ["cart"] });
             queryClient.invalidateQueries({ queryKey: ["order-list"] });
-        }, 2000);
+        });
     }
 };
 
