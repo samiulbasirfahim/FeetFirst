@@ -192,7 +192,7 @@ export default function Screen() {
     ];
 
     const purchasedCategories = Array.from(
-        new Set(orders.map((o) => o.sub_category ?? "")),
+        new Set(orders.map((o) => o.sub_category)),
     );
 
     const dynamicCategories = [
@@ -237,19 +237,21 @@ export default function Screen() {
 
     if (orders.length === 0) {
         return (
-            <View className="flex-1 justify-center items-center py-20">
-                <AntDesign name="shoppingcart" size={64} color="#6b7280" />
-                <Typography className="text-muted-foreground text-lg font-medium mt-4 text-center">
-                    {isGerman()
-                        ? "Füge Produkte zu deinem Warenkorb hinzu, um sie hier zu sehen"
-                        : "Nessun articolo nel carrello"}
-                </Typography>
-                <Typography className="text-muted-foreground text-sm mt-2 text-center px-8">
-                    {isGerman()
-                        ? "Keine Artikel im Warenkorb"
-                        : "Aggiungi prodotti al carrello per vederli qui"}
-                </Typography>
-            </View>
+            <Layout noPadding className="bg-backgroundDark">
+                <View className="flex-1 justify-center items-center py-20">
+                    <AntDesign name="shoppingcart" size={64} color="#6b7280" />
+                    <Typography className="text-muted-foreground text-lg font-medium mt-4 text-center">
+                        {isGerman()
+                            ? "Füge Produkte zu deinem Warenkorb hinzu, um sie hier zu sehen"
+                            : "Nessun articolo nel carrello"}
+                    </Typography>
+                    <Typography className="text-muted-foreground text-sm mt-2 text-center px-8">
+                        {isGerman()
+                            ? "Keine Artikel im Warenkorb"
+                            : "Aggiungi prodotti al carrello per vederli qui"}
+                    </Typography>
+                </View>
+            </Layout>
         );
     }
 

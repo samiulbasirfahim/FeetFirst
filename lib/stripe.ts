@@ -22,8 +22,6 @@ const fetchPaymentSheetParams = async (isGerman: boolean) => {
 
     const response = await res.json();
 
-    queryClient.invalidateQueries({ queryKey: ["cart"] });
-
     if (!res.ok) {
         if (res.status === 400) {
             if ((response.error as string).includes("Your cart is empty")) {
