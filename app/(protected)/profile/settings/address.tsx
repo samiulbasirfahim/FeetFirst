@@ -14,13 +14,17 @@ import { useUpdateUser } from "@/lib/queries/user";
 import { useAuthStore } from "@/store/auth";
 import { useLanguageStore } from "@/store/language";
 import { CreateAddress } from "@/type/user";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 
 export default function Screen() {
     const { isGerman, setLanguage } = useLanguageStore();
+
+    const { redirectTo } = useLocalSearchParams<{
+        redirectTo: string;
+    }>();
 
     const { setUser, user } = useAuthStore();
 
@@ -163,6 +167,12 @@ export default function Screen() {
                         phone: userPayload.phone,
                     });
                     setLanguage(language);
+
+                    if (redirectTo) {
+                        router.replace(redirectTo as any);
+                        return;
+                    }
+
                     router.canGoBack() && router.back();
                 },
                 onError: (uerr) => {

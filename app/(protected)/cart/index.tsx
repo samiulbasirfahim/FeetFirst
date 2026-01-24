@@ -129,53 +129,55 @@ export default function CartScreen() {
         <View className="flex-1 bg-backgroundDark">
             {HeaderComponent}
             <Layout scrollable avoidTabbar className="bg-backgroundDark">
-                {isPending ? (
-                    <LoadingSpinner />
-                ) : (
-                    <View>
-                        <View className="flex-row justify-between items-center mb-6">
-                            <Typography className="text-white text-2xl">
-                                {isGerman()
-                                    ? `Warenkorb (${getCartCount()})`
-                                    : `Carrello (${getCartCount()})`}
-                            </Typography>
+                <View style={{ flex: 1 }}>
+                    {isPending ? (
+                        <LoadingSpinner />
+                    ) : (
+                        <View>
+                            <View className="flex-row justify-between items-center mb-6">
+                                <Typography className="text-white text-2xl">
+                                    {isGerman()
+                                        ? `Warenkorb (${getCartCount()})`
+                                        : `Carrello (${getCartCount()})`}
+                                </Typography>
+                            </View>
 
-                            {getCartCount() > 0 && (
-                                <Button
-                                    variant="outline"
-                                    className="border border-white/30 px-4 py-2 rounded-2xl"
-                                    isLoading={ordering}
-                                    onPress={async () => {
-                                        try {
-                                            setOrdering(true);
-                                            await initializePaymentSheet(isGerman());
-                                            await openPaymentSheet(isGerman());
-                                        } finally {
-                                            setOrdering(false);
-                                        }
+                            {getCartCount() === 0 ? (
+                                renderEmptyState()
+                            ) : (
+                                <FlatList
+                                    data={cart?.items || []}
+                                    renderItem={renderItem}
+                                    keyExtractor={(item) => `${item.id}`}
+                                    numColumns={2}
+                                    columnWrapperStyle={{
+                                        justifyContent: "space-between",
                                     }}
-                                >
-                                    <Typography className="text-white">
-                                        {isGerman() ? "Zur Kasse" : "Vai al checkout"}
-                                    </Typography>
-                                </Button>
+                                />
                             )}
                         </View>
+                    )}
+                </View>
 
-                        {getCartCount() === 0 ? (
-                            renderEmptyState()
-                        ) : (
-                            <FlatList
-                                data={cart?.items || []}
-                                renderItem={renderItem}
-                                keyExtractor={(item) => `${item.id}`}
-                                numColumns={2}
-                                columnWrapperStyle={{
-                                    justifyContent: "space-between",
-                                }}
-                            />
-                        )}
-                    </View>
+                {getCartCount() > 0 && (
+                    <Button
+                        variant="big"
+                        className="border border-white/30 px-4 py-2 rounded-2xl"
+                        isLoading={ordering}
+                        onPress={async () => {
+                            try {
+                                setOrdering(true);
+                                await initializePaymentSheet(isGerman());
+                                await openPaymentSheet(isGerman());
+                            } finally {
+                                setOrdering(false);
+                            }
+                        }}
+                    >
+                        <Typography className="text-white">
+                            {isGerman() ? "Zur Kasse" : "Vai al checkout"}
+                        </Typography>
+                    </Button>
                 )}
             </Layout>
         </View>

@@ -14,7 +14,11 @@ type Props = {
     onChange: (selected: Data) => void;
 };
 
-export function ShoppingDropDown({ list, onChange, value: selectedValue }: Props) {
+export function ShoppingDropDown({
+    list,
+    onChange,
+    value: selectedValue,
+}: Props) {
     return (
         <Dropdown
             labelField="label"
@@ -42,10 +46,10 @@ export function ShoppingDropDown({ list, onChange, value: selectedValue }: Props
             }}
             renderItem={(item: Data, index) => (
                 <View
-                    className="flex-row items-center rounded-none justify-between px-4 bg-backgroundDark py-2 border-white"
+                    className="flex-row items-center rounded-none justify-between px-4 bg-muted-background"
                     style={{
                         borderBottomWidth: 1,
-                        marginBottom: 2,
+                        paddingVertical: 6,
                     }}
                 >
                     <Typography>{item.label}</Typography>

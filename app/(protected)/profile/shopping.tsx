@@ -23,8 +23,6 @@ export default function Screen() {
 
     const { data, isLoading } = useOrderList();
 
-    console.log("Order data:", data);
-
     const [selectedOrder, setSelectedOrder] = useState<OrderItem | null>(null);
 
     const [selectedYear, setSelectedYear] = useState<string>("all");
@@ -45,32 +43,51 @@ export default function Screen() {
         const addToCartHandler = () => {
             addToCart(
                 {
-                    product: item.product_id,
+                    product: item.partner_product_id,
                     size_id: item.details.size_id,
                     color: item.details.color,
-                    quantity: 1,
+                    quantity: item.details.quantity,
                 },
                 {
                     onSuccess: () => {
                         notify({
                             type: "success",
                             title: isGerman()
-                                ? "Erfolgreich hinzugefügt"
-                                : "Aggiunto con successo",
-                            message: isGerman()
                                 ? "Artikel zum Warenkorb hinzugefügt"
                                 : "Articolo aggiunto al carrello",
+                            message: isGerman()
+                                ? `${item.details.quantity} x ${item.details.size} wurde Ihrem Warenkorb hinzugefügt.`
+                                : `${item.details.quantity} x ${item.details.size} è stato aggiunto al tuo carrello.`,
                         });
                     },
-                    onError: () => {
+                    onError: (err) => {
+                        console.error("Add to cart error:", err);
+
+                        if (
+                            ((err as any).data.message as string).includes(
+                                "Insufficient stock",
+                            )
+                        ) {
+                            notify({
+                                type: "error",
+                                title: isGerman()
+                                    ? "Fehler beim Hinzufügen zum Warenkorb"
+                                    : "Errore durante l'aggiunta al carrello",
+                                message: isGerman()
+                                    ? "Nicht genügend Lagerbestand für die gewünschte Menge."
+                                    : "Non c'è abbastanza stock per la quantità desiderata.",
+                            });
+                            return;
+                        }
+
                         notify({
                             type: "error",
                             title: isGerman()
-                                ? "Fehler beim Hinzufügen"
-                                : "Errore durante l'aggiunta",
+                                ? "Fehler beim Hinzufügen zum Warenkorb"
+                                : "Errore durante l'aggiunta al carrello",
                             message: isGerman()
-                                ? "Artikel konnte nicht zum Warenkorb hinzugefügt werden"
-                                : "Impossibile aggiungere l'articolo al carrello",
+                                ? "Etwas ist schief gelaufen. Bitte versuchen Sie es erneut."
+                                : "Qualcosa è andato storto. Per favore riprova.",
                         });
                     },
                 },
@@ -155,6 +172,17 @@ export default function Screen() {
                         variant="outline"
                         className="border-white rounded-none"
                         textClassName="text-white text-sm"
+                        onPress={() => {
+                            const status = item.status;
+
+                            notify({
+                                type: "info",
+                                title: isGerman() ? "Bestellstatus" : "Stato dell'ordine",
+                                message: isGerman()
+                                    ? `Der aktuelle Status Ihrer Bestellung ist: ${status}`
+                                    : `Lo stato attuale del tuo ordine è: ${status}`,
+                            });
+                        }}
                     >
                         {isGerman() ? "Verfolgen" : "Traccia"}
                     </Button>
@@ -194,6 +222,8 @@ export default function Screen() {
     const purchasedCategories = Array.from(
         new Set(orders.map((o) => o.sub_category)),
     );
+
+    console.log("Purchased categories: ", purchasedCategories);
 
     const dynamicCategories = [
         {

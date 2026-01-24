@@ -1,5 +1,6 @@
-import { View, Pressable, TouchableOpacity } from "react-native";
-import { useEffect, useMemo, useState } from "react";
+import logo from "@/assets/images/feetfast-full-logo.png";
+import { View, Pressable, TouchableOpacity, Image } from "react-native";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Typography } from "../ui/typography";
 import { Button } from "../ui/button";
 import { useCartStore } from "@/store/cart";
@@ -8,6 +9,10 @@ import { useAddToCart } from "@/lib/queries/cart";
 import { AntDesign } from "@expo/vector-icons";
 import { useLanguageStore } from "@/store/language";
 import { notify } from "@/lib/notify";
+import { FlatList } from "react-native-gesture-handler";
+import { ItemImagePlaceholder } from "@/lib/placeholder";
+import { AutoImage } from "../ui/auto-image";
+import { ShoeSizePicker } from "./shoe-size-dropdown";
 
 type SizeOption = {
     id: number;
@@ -22,6 +27,15 @@ type AddToCartProps = {
     isFavourite?: boolean;
     selectedColor: string | null;
     onColorChange: (color: string) => void;
+    selectedImage: number | null;
+    setSelectedImage: (index: number) => void;
+    images: { image: string; color_hex: string }[];
+    setSelectedColor: (color: string) => void;
+    setSizePicked: (size: string) => void;
+    sizePicked: string | null;
+    sizeList: any[];
+    brand: { name: string; image: string };
+    match_data?: Record<string, string>;
 };
 
 export function AddToCart({
@@ -32,12 +46,33 @@ export function AddToCart({
     isFavourite,
     selectedColor,
     onColorChange,
+    selectedImage,
+    setSelectedImage,
+    images,
+    setSelectedColor,
+    setSizePicked,
+    sizePicked,
+    sizeList,
+    brand,
+    match_data,
 }: AddToCartProps) {
     const { isGerman } = useLanguageStore();
     const { isInCart } = useCartStore();
     const addToCartMutation = useAddToCart();
     const [quantity, setQuantity] = useState(1);
     const [liked, setLiked] = useState(false);
+
+    const flatListRef = useRef<FlatList>(null);
+
+    useEffect(() => {
+        if (flatListRef.current && selectedImage !== null) {
+            flatListRef.current.scrollToIndex({
+                index: selectedImage,
+                animated: true,
+                viewPosition: 0.5,
+            });
+        }
+    }, [selectedImage]);
 
     const inCart = selectedSize ? isInCart(productId, selectedSize.id) : false;
 
@@ -122,8 +157,8 @@ export function AddToCart({
     };
 
     return (
-        <View className="gap-5">
-            <View className="bg-muted-background p-4 rounded-2xl flex-row gap-4 flex-wrap">
+        <View className="gap-4">
+            <View className="p-2 rounded-2xl flex-row gap-4 flex-wrap">
                 {colors.map((color) => (
                     <Pressable
                         key={color}
@@ -138,7 +173,7 @@ export function AddToCart({
                         }}
                     >
                         <View
-                            className="w-8 h-8 rounded-full"
+                            className="w-5 h-5 rounded-full"
                             style={{ backgroundColor: color }}
                         />
                     </Pressable>
@@ -146,6 +181,80 @@ export function AddToCart({
             </View>
 
             {/* QUANTITY */}
+
+            {(images.length ?? 0) > 1 && (
+                <FlatList
+                    ref={flatListRef}
+                    data={images.sort((a, b) => a.color_hex.localeCompare(b.color_hex))}
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    ItemSeparatorComponent={() => <View className="w-3" />}
+                    onScrollToIndexFailed={(info) => {
+                        const wait = new Promise((resolve) => setTimeout(resolve, 500));
+                        wait.then(() => {
+                            flatListRef.current?.scrollToIndex({
+                                index: info.index,
+                                animated: true,
+                            });
+                        });
+                    }}
+                    renderItem={(props) => (
+                        <Pressable
+                            onPress={() => {
+                                setSelectedImage(props.index);
+                                setSelectedColor(props.item.color_hex);
+                            }}
+                            className="p-2 bg-muted-background rounded-2xl flex-1"
+                            style={{
+                                opacity: selectedImage === props.index ? 1 : 0.5,
+                            }}
+                            key={props.index}
+                        >
+                            <Image
+                                className="h-[80px] w-[140px] rounded-lg"
+                                resizeMode="contain"
+                                source={{
+                                    uri:
+                                        props.item.image && typeof props.item.image === "string"
+                                            ? props.item.image
+                                            : ItemImagePlaceholder,
+                                }}
+                            />
+                        </Pressable>
+                    )}
+                />
+            )}
+
+            {/* Brand + Size */}
+            <View className="bg-muted-background p-4 rounded-2xl flex-row justify-between">
+                <AutoImage height={36} source={logo} />
+
+                <View className="h-9 justify-center flex-1 ml-6">
+                    <View className="w-full">
+                        <ShoeSizePicker
+                            onChange={(selected) => {
+                                if (selected) setSizePicked(selected as string);
+                            }}
+                            value={sizePicked ?? undefined}
+                            list={sizeList}
+                        />
+                    </View>
+                    <Typography
+                        style={{
+                            textAlign: "right",
+                        }}
+                    >
+                        {brand?.name.toLowerCase() === "imotana"
+                            ? 100 + "% FIT"
+                            : ((match_data &&
+                                sizePicked &&
+                                (match_data?.[sizePicked] ?? "0") + "% FIT") ??
+                                "N/A FIT")}
+                        {}
+                    </Typography>
+                </View>
+            </View>
+
             <View className="flex-row items-center justify-between">
                 <Typography className="text-white font-semibold">
                     {isGerman() ? "Menge" : "Quantità"}

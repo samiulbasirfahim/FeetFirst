@@ -39,17 +39,20 @@ const fetchPaymentSheetParams = async (isGerman: boolean) => {
             }
 
             if ((response.error as string).includes("Please complete your address")) {
-                notify({
-                    message: isGerman
-                        ? "Bitte vervollständigen Sie zuerst Ihre Adresse."
-                        : "Si prega di completare prima il tuo indirizzo.",
-                    title: isGerman ? "Adresse erforderlich" : "Indirizzo richiesto",
-                    type: "error",
-                });
+                // notify({
+                //     message: isGerman
+                //         ? "Bitte vervollständigen Sie zuerst Ihre Adresse."
+                //         : "Si prega di completare prima il tuo indirizzo.",
+                //     title: isGerman ? "Adresse erforderlich" : "Indirizzo richiesto",
+                //     type: "error",
+                // });
 
-                setTimeout(() => {
-                    router.push("/(protected)/profile/settings/address");
-                }, 2000);
+                // setTimeout(() => {
+                router.push({
+                    pathname: "/(protected)/profile/settings/address",
+                    params: { redirectTo: "/(protected)/cart" },
+                });
+                // }, 2000);
             }
         }
         throw new ApiError(res.status, response);

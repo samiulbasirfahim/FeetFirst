@@ -1,22 +1,12 @@
-import {
-    View,
-    Text,
-    Image,
-    TouchableOpacity,
-    FlatList,
-    Pressable,
-} from "react-native";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import { View, Text, Image, TouchableOpacity } from "react-native";
+import React, { useEffect, useMemo, useState } from "react";
 import { Layout } from "@/components/layout/layout";
 import { Typography } from "@/components/ui/typography";
-import logo from "@/assets/images/feetfast-full-logo.png";
 import { useLanguageStore } from "@/store/language";
 import Collapsible from "react-native-collapsible";
 import { VersionInfo } from "@/components/common/version";
-import { AutoImage } from "@/components/ui/auto-image";
 import ShoeHeader from "@/components/common/category-header";
 import TwoDPreview from "@/components/common/2d-preview-for-details";
-import { ShoeSizePicker } from "@/components/common/shoe-size-dropdown";
 import { useLocalSearchParams } from "expo-router";
 import { useGetProduct, useSuggestedShoes } from "@/lib/queries/products";
 import { ItemImagePlaceholder } from "@/lib/placeholder";
@@ -110,17 +100,6 @@ export default function Screen() {
 
     const [activeAccordion, setActiveAccordion] = useState<string | null>(null);
     const [selectedImage, setSelectedImage] = useState<number>(0);
-    const flatListRef = useRef<FlatList>(null);
-
-    useEffect(() => {
-        if (flatListRef.current && selectedImage !== null) {
-            flatListRef.current.scrollToIndex({
-                index: selectedImage,
-                animated: true,
-                viewPosition: 0.5,
-            });
-        }
-    }, [selectedImage]);
 
     const selectedSizeObject = useMemo(() => {
         if (!shoeDetails || !sizePicked) return null;
@@ -187,87 +166,17 @@ export default function Screen() {
                             </Typography>
                         </View>
 
-                        {(shoeDetails?.images.length ?? 0) > 1 && (
-                            <FlatList
-                                ref={flatListRef}
-                                data={shoeDetails?.images.sort((a, b) =>
-                                    a.color_hex.localeCompare(b.color_hex),
-                                )}
-                                horizontal
-                                showsHorizontalScrollIndicator={false}
-                                ItemSeparatorComponent={() => <View className="w-3" />}
-                                onScrollToIndexFailed={(info) => {
-                                    const wait = new Promise((resolve) =>
-                                        setTimeout(resolve, 500),
-                                    );
-                                    wait.then(() => {
-                                        flatListRef.current?.scrollToIndex({
-                                            index: info.index,
-                                            animated: true,
-                                        });
-                                    });
-                                }}
-                                renderItem={(props) => (
-                                    <Pressable
-                                        onPress={() => {
-                                            setSelectedImage(props.index);
-                                            setSelectedColor(props.item.color_hex);
-                                        }}
-                                        className="p-2 bg-muted-background rounded-2xl flex-1"
-                                        style={{
-                                            opacity: selectedImage === props.index ? 1 : 0.5,
-                                        }}
-                                        key={props.index}
-                                    >
-                                        <Image
-                                            className="h-[80px] w-[140px] rounded-lg"
-                                            resizeMode="contain"
-                                            source={{
-                                                uri:
-                                                    props.item.image &&
-                                                        typeof props.item.image === "string"
-                                                        ? props.item.image
-                                                        : ItemImagePlaceholder,
-                                            }}
-                                        />
-                                    </Pressable>
-                                )}
-                            />
-                        )}
-
-                        {/* Brand + Size */}
-                        <View className="bg-muted-background p-4 rounded-2xl flex-row justify-between">
-                            <AutoImage height={36} source={logo} />
-
-                            <View className="h-9 justify-center flex-1 ml-6">
-                                <View className="w-full">
-                                    <ShoeSizePicker
-                                        onChange={(selected) => {
-                                            if (selected) setSizePicked(selected as string);
-                                        }}
-                                        value={sizePicked ?? undefined}
-                                        list={sizeList}
-                                    />
-                                </View>
-                                <Typography
-                                    style={{
-                                        textAlign: "right",
-                                    }}
-                                >
-                                    {shoeDetails?.brand?.name.toLowerCase() === "imotana"
-                                        ? 100 + "% FIT"
-                                        : ((shoeDetails?.match_data &&
-                                            sizePicked &&
-                                            (shoeDetails?.match_data?.[sizePicked] ?? "0") +
-                                            "% FIT") ??
-                                            "N/A FIT")}
-                                    {}
-                                </Typography>
-                            </View>
-                        </View>
-
                         {shoeDetails && selectedSizeObject && (
                             <AddToCart
+                                selectedImage={selectedImage}
+                                setSelectedImage={setSelectedImage}
+                                images={shoeDetails.images}
+                                setSelectedColor={setSelectedColor}
+                                sizeList={sizeList}
+                                brand={shoeDetails.brand!}
+                                match_data={shoeDetails.match_data!}
+                                sizePicked={sizePicked}
+                                setSizePicked={setSizePicked}
                                 productId={shoeDetails.id}
                                 selectedSize={{
                                     id: selectedSizeObject.id,

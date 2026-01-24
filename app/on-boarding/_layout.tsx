@@ -11,6 +11,7 @@ import { ParamListBase, TabNavigationState } from "@react-navigation/native";
 import { withLayoutContext } from "expo-router";
 import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+
 const { Navigator } = createMaterialTopTabNavigator();
 const Tabs = withLayoutContext<
     MaterialTopTabNavigationOptions,
