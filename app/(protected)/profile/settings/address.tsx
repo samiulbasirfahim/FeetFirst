@@ -1,4 +1,5 @@
 import { LoadingSpinner } from "@/components/common/loading-spinner";
+import { AddressAutocompleteInput } from "@/components/common/location-autocompletion";
 import { Layout } from "@/components/layout/layout";
 import { Button } from "@/components/ui/button";
 import MultiSelectComponent from "@/components/ui/drop-down";
@@ -19,8 +20,24 @@ import { useEffect, useState } from "react";
 import { View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 
+const extractAddress = (place: any) => {
+    const get = (type: string) =>
+        place.address_components?.find((c: any) => c.types.includes(type))
+            ?.long_name || "";
+
+    return {
+        streetAddress: place.formatted_address || get("route"),
+        city: get("locality"),
+        postalCode: get("postal_code"),
+        country: get("country"),
+        additionalAddress: get("administrative_area_level_2"),
+        comments: place.vicinity || "",
+    };
+};
+
 export default function Screen() {
     const { isGerman, setLanguage } = useLanguageStore();
+    const google_map_api_key = process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY;
 
     const { redirectTo } = useLocalSearchParams<{
         redirectTo: string;
@@ -237,6 +254,24 @@ export default function Screen() {
                         )}
                     </View>
                 </View>
+
+                <AddressAutocompleteInput
+                    apiKey={google_map_api_key || ""}
+                    value={""}
+                    placeholder={t.streetAddress}
+                    onSelect={(place) => {
+                        const extracted = extractAddress(place);
+                        setForm((prev) => ({
+                            ...prev,
+                            streetAddress: extracted.streetAddress,
+                            city: extracted.city,
+                            postalCode: extracted.postalCode,
+                            country: extracted.country,
+                            additionalAddress: extracted.additionalAddress,
+                            comments: extracted.comments,
+                        }));
+                    }}
+                />
 
                 <Input
                     placeholder={t.streetAddress}
