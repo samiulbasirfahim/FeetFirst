@@ -29,7 +29,7 @@ type AddToCartProps = {
     onColorChange: (color: string) => void;
     selectedImage: number | null;
     setSelectedImage: (index: number) => void;
-    images: { image: string; color_hex: string }[];
+    images: { image: string; hex_code: string; color: string }[];
     setSelectedColor: (color: string) => void;
     setSizePicked: (size: string) => void;
     sizePicked: string | null;
@@ -83,11 +83,21 @@ export function AddToCart({
         setLiked(isFavourite ?? false);
     }, [isFavourite]);
 
-    useMemo(() => {
-        if (quantity > availableQuantity && availableQuantity > 0) {
-            setQuantity(availableQuantity);
+    // Reset or adjust quantity when availableQuantity changes
+    useEffect(() => {
+        if (availableQuantity > 0) {
+            if (quantity > availableQuantity) {
+                setQuantity(availableQuantity);
+            }
+        } else {
+            setQuantity(1);
         }
     }, [availableQuantity]);
+
+    // Reset quantity to 1 when color or size changes
+    useEffect(() => {
+        setQuantity(1);
+    }, [selectedColor, sizePicked]);
 
     const canAdd = selectedSize && selectedColor;
 
@@ -185,7 +195,7 @@ export function AddToCart({
             {(images.length ?? 0) > 1 && (
                 <FlatList
                     ref={flatListRef}
-                    data={images.sort((a, b) => a.color_hex.localeCompare(b.color_hex))}
+                    data={images.sort((a, b) => a.hex_code.localeCompare(b.hex_code))}
                     horizontal
                     showsHorizontalScrollIndicator={false}
                     ItemSeparatorComponent={() => <View className="w-3" />}
@@ -202,7 +212,7 @@ export function AddToCart({
                         <Pressable
                             onPress={() => {
                                 setSelectedImage(props.index);
-                                setSelectedColor(props.item.color_hex);
+                                setSelectedColor(props.item.hex_code);
                             }}
                             className="p-2 bg-muted-background rounded-2xl flex-1"
                             style={{

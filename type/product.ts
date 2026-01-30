@@ -29,8 +29,11 @@ export type ShoeDetails = {
     images: {
         id: number;
         image: string;
-        color_hex: string;
+        color: string;
+        hex_code: string;
     }[];
+
+    colors: string[];
 
     technical_data: string;
     description: string;
@@ -50,7 +53,7 @@ export type ShoeDetails = {
     }[];
 
     price: string;
-    discount: string | null;
+    discount?: string | null;
 
     match_data: Record<string, string>;
     favourite: boolean;
@@ -58,9 +61,15 @@ export type ShoeDetails = {
     gender: "male" | "female" | "unisex";
 
     sizes: {
-        size_id: number;
-        size: string;
-        quantity: number;
+        color: string;
+        hex_code: string;
+        variant_id: number;
+        sizes: {
+            size_id: number;
+            size: string;
+            quantity: number;
+            color: string;
+        }[];
     }[];
 
     quantity: number;

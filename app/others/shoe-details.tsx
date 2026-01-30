@@ -28,7 +28,6 @@ export default function Screen() {
     );
 
     const [finalShoeList, setFinalShoeList] = useState<ShoeItem[]>([]);
-    const [sizePicked, setSizePicked] = useState<string | null>(null);
 
     useEffect(() => {
         const remainingSlots = 6 - shoeList_s.length;
@@ -65,57 +64,87 @@ export default function Screen() {
     const { isPending, error, shoeDetails } = useGetProduct(Number(id.trim()));
 
     const [sizeList, setSizeList] = useState<any>([]);
+    const [selectedColor, setSelectedColor] = useState<string | null>(null);
+    const [sizePicked, setSizePicked] = useState<string | null>(null);
 
+    // Initialize selected color first
     useEffect(() => {
-        if (!shoeDetails?.sizes?.length) return;
+        if (!shoeDetails?.sizes?.length || selectedColor) return;
+        
+        const colors = shoeDetails.sizes
+            .map((variant) => variant.hex_code)
+            .filter((v, i, a) => a.indexOf(v) === i);
+        
+        if (colors.length > 0) {
+            setSelectedColor(colors[0]);
+        }
+    }, [shoeDetails]);
+
+    // Update size list when color or shoeDetails changes
+    useEffect(() => {
+        if (!shoeDetails?.sizes?.length || !selectedColor) return;
 
         const isImotana = shoeDetails.brand?.name.toLowerCase() === "imotana";
         const matchData = shoeDetails.match_data ?? {};
 
-        const sizes = shoeDetails.sizes.map((s) => ({
+        // Filter sizes for the selected color only
+        const selectedVariant = shoeDetails.sizes.find(v => v.hex_code === selectedColor);
+        
+        if (!selectedVariant) return;
+
+        // Map sizes from the selected variant
+        const sizes = selectedVariant.sizes.map((s) => ({
             label: s.size,
             score: isImotana ? 100 : matchData[s.size] || 0,
             value: s.size,
+            size_id: s.size_id,
+            quantity: s.quantity,
+            color: s.color,
+            hex_code: selectedVariant.hex_code,
         }));
 
         setSizeList(sizes);
 
-        const bestSize = sizes.reduce(
-            (best, current) => (current.score > best.score ? current : best),
-            sizes[0],
-        );
-
-        setSizePicked(bestSize.value);
-    }, [shoeDetails]);
+        // Auto-select best size for this color
+        if (sizes.length > 0) {
+            const bestSize = sizes.reduce(
+                (best, current) => (current.score > best.score ? current : best),
+                sizes[0],
+            );
+            setSizePicked(bestSize.value);
+        } else {
+            setSizePicked(null);
+        }
+    }, [shoeDetails, selectedColor]);
 
     const colors = shoeDetails
-        ? shoeDetails.images
-            .map((i) => i.color_hex)
+        ? shoeDetails.sizes
+            .map((variant) => variant.hex_code)
             .filter((v, i, a) => a.indexOf(v) === i)
         : [];
-
-    const [selectedColor, setSelectedColor] = useState<string | null>(
-        colors.length > 0 ? colors[0] : null,
-    );
 
     const [activeAccordion, setActiveAccordion] = useState<string | null>(null);
     const [selectedImage, setSelectedImage] = useState<number>(0);
 
     const selectedSizeObject = useMemo(() => {
-        if (!shoeDetails || !sizePicked) return null;
+        if (!shoeDetails || !sizePicked || !selectedColor) return null;
 
-        const sizeGroup = shoeDetails.sizes?.find((s) =>
-            s.size.includes(sizePicked),
-        );
+        // Find the variant matching the selected color
+        const variant = shoeDetails.sizes?.find((v) => v.hex_code === selectedColor);
+        
+        if (!variant) return null;
 
-        if (!sizeGroup) return null;
+        // Find the size within that variant
+        const sizeObj = variant.sizes.find((s) => s.size === sizePicked);
+
+        if (!sizeObj) return null;
 
         return {
-            id: sizeGroup.size_id ?? 0,
-            size: sizePicked,
-            quantity: sizeGroup.quantity,
+            id: sizeObj.size_id ?? 0,
+            size: sizeObj.size,
+            quantity: sizeObj.quantity,
         };
-    }, [shoeDetails, sizePicked]);
+    }, [shoeDetails, sizePicked, selectedColor]);
 
     const availableQuantity = selectedSizeObject?.quantity ?? 0;
 
@@ -185,7 +214,7 @@ export default function Screen() {
                                 selectedColor={selectedColor}
                                 onColorChange={(color) => {
                                     const firstImageIndex = shoeDetails.images.findIndex(
-                                        (img) => img.color_hex === color,
+                                        (img) => img.hex_code === color,
                                     );
                                     if (firstImageIndex !== -1) {
                                         setSelectedImage(firstImageIndex);
