@@ -43,7 +43,7 @@ export default function Screen() {
         const addToCartHandler = () => {
             addToCart(
                 {
-                    product: item.partner_product_id,
+                    product: item.product_id,
                     size_id: item.details.size_id,
                     color: item.details.color,
                     quantity: item.details.quantity,
@@ -60,19 +60,34 @@ export default function Screen() {
                                 : `${item.details.quantity} x ${item.details.size} è stato aggiunto al tuo carrello.`,
                         });
                     },
-                    onError: (err) => {
+                    onError: (err: any) => {
                         console.error("Add to cart error:", err);
 
+                        const errorMessage =
+                            err?.data?.error || err?.data?.message || err?.message || "";
+
+                        // Check if item is completely out of stock (Available: 0)
+                        if (errorMessage.includes("Available: 0")) {
+                            notify({
+                                type: "error",
+                                title: isGerman() ? "Nicht verfügbar" : "Non disponibile",
+                                message: isGerman()
+                                    ? "Dieser Artikel ist nicht mehr verfügbar."
+                                    : "Questo articolo non è più disponibile.",
+                            });
+                            return;
+                        }
+
+                        // Check for insufficient stock (some available but not enough)
                         if (
-                            ((err as any).data.message as string).includes(
-                                "Insufficient stock",
-                            )
+                            errorMessage.toLowerCase().includes("insufficient") ||
+                            errorMessage.toLowerCase().includes("stock")
                         ) {
                             notify({
                                 type: "error",
                                 title: isGerman()
-                                    ? "Fehler beim Hinzufügen zum Warenkorb"
-                                    : "Errore durante l'aggiunta al carrello",
+                                    ? "Nicht genügend Lagerbestand"
+                                    : "Stock insufficiente",
                                 message: isGerman()
                                     ? "Nicht genügend Lagerbestand für die gewünschte Menge."
                                     : "Non c'è abbastanza stock per la quantità desiderata.",
@@ -80,6 +95,7 @@ export default function Screen() {
                             return;
                         }
 
+                        // Generic error
                         notify({
                             type: "error",
                             title: isGerman()
@@ -268,6 +284,7 @@ export default function Screen() {
     if (orders.length === 0) {
         return (
             <Layout noPadding className="bg-backgroundDark">
+                <ShoeHeader />
                 <View className="flex-1 justify-center items-center py-20">
                     <AntDesign name="shoppingcart" size={64} color="#6b7280" />
                     <Typography className="text-muted-foreground text-lg font-medium mt-4 text-center">

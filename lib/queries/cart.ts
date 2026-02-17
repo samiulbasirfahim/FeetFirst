@@ -3,7 +3,7 @@ import { fetcher } from "../fetcher";
 
 export type CartItemResponse = {
     id: number;
-    partner_product_id: number;
+    product_id: number;
     product_name: string;
     product_image: string;
     size_id: number;
@@ -13,6 +13,7 @@ export type CartItemResponse = {
     quantity: number;
     price: string;
     total_price: number;
+    available: number;
 };
 
 export type CartResponse = {

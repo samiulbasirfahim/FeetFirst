@@ -45,7 +45,7 @@ function HomeCarausel({ shoes }) {
             <View className="absolute right-5 top-4 flex-col items-end">
                 {item.brand?.name && (
                     <Typography className="font-medium text-foreground text-[27px] leading-[26px]">
-                        {item.brand?.name && item.brand?.name?.slice(0, 8)}
+                        {item.brand?.name && item?.brand.name.length > 8 ? item.brand?.name?.slice(0, 8) + "..." : item.brand?.name}
                     </Typography>
                 )}
                 <View>

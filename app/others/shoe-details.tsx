@@ -16,15 +16,23 @@ import { ProductCard } from "@/components/common/ProductCard";
 import { NormalCategories, SportsCategories } from "@/lib/categories";
 import { ShoeItem } from "@/type/product";
 import { AddToCart } from "@/components/common/add-to-cart";
+import { AntDesign } from "@expo/vector-icons";
 
 export default function Screen() {
     const { isGerman } = useLanguageStore();
     const { id } = useLocalSearchParams<{ id: string }>();
 
+    // Safely parse the id parameter
+    const productId = useMemo(() => {
+        if (!id) return 0;
+        const idStr = Array.isArray(id) ? id[0] : id;
+        return Number(idStr?.trim() || 0);
+    }, [id]);
+
     const { isPending: fetch_top, shoeList } = useTopShoes(6);
     const { isPending: fetch_all, shoeList: shoeList_s } = useSuggestedShoes(
         6,
-        Number(id),
+        productId,
     );
 
     const [finalShoeList, setFinalShoeList] = useState<ShoeItem[]>([]);
@@ -61,7 +69,7 @@ export default function Screen() {
         return displayedCategories.find((c) => c.slug === slug);
     };
 
-    const { isPending, error, shoeDetails } = useGetProduct(Number(id.trim()));
+    const { isPending, error, shoeDetails } = useGetProduct(productId);
 
     const [sizeList, setSizeList] = useState<any>([]);
     const [selectedColor, setSelectedColor] = useState<string | null>(null);
@@ -105,13 +113,25 @@ export default function Screen() {
 
         setSizeList(sizes);
 
-        // Auto-select best size for this color
+        // Auto-select best size for this color (prefer in-stock sizes)
         if (sizes.length > 0) {
-            const bestSize = sizes.reduce(
-                (best, current) => (current.score > best.score ? current : best),
-                sizes[0],
-            );
-            setSizePicked(bestSize.value);
+            // First try to find best available size (quantity > 0)
+            const availableSizes = sizes.filter((s) => s.quantity > 0);
+            
+            if (availableSizes.length > 0) {
+                const bestSize = availableSizes.reduce(
+                    (best, current) => (current.score > best.score ? current : best),
+                    availableSizes[0],
+                );
+                setSizePicked(bestSize.value);
+            } else {
+                // If no sizes available, select best scoring size anyway
+                const bestSize = sizes.reduce(
+                    (best, current) => (current.score > best.score ? current : best),
+                    sizes[0],
+                );
+                setSizePicked(bestSize.value);
+            }
         } else {
             setSizePicked(null);
         }
@@ -161,8 +181,22 @@ export default function Screen() {
                 avoidTabbar
                 className="p-6 bg-backgroundDark"
             >
-                {error || isPending ? (
+                {isPending ? (
                     <LoadingSpinner />
+                ) : error || !shoeDetails ? (
+                    <View className="flex-1 justify-center items-center py-20">
+                        <AntDesign name="exclamationcircleo" size={64} color="#6b7280" />
+                        <Typography className="text-muted-foreground text-lg font-medium mt-4 text-center">
+                            {isGerman()
+                                ? "Produkt nicht gefunden"
+                                : "Prodotto non trovato"}
+                        </Typography>
+                        <Typography className="text-muted-foreground text-sm mt-2 text-center px-8">
+                            {isGerman()
+                                ? "Das gesuchte Produkt existiert nicht oder wurde entfernt."
+                                : "Il prodotto che stai cercando non esiste o è stato rimosso."}
+                        </Typography>
+                    </View>
                 ) : (
                     <>
                         <View>

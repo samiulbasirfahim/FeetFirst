@@ -33,16 +33,20 @@ export default function CartScreen() {
     };
 
     const renderItem = ({ item }: any) => {
+        const isUnavailable = item.available === 0;
+        const hasLowStock = item.available > 0 && item.available < item.quantity;
+
         return (
             <TouchableOpacity
                 activeOpacity={0.85}
                 onPress={() =>
                     router.push({
                         pathname: "/others/shoe-details",
-                        params: { id: item.partner_product_id },
+                        params: { id: item.product_id },
                     })
                 }
                 className="mb-6 w-[48%]"
+                style={{ opacity: isUnavailable ? 0.5 : 1 }}
             >
                 <View className="bg-background rounded-3xl overflow-hidden shadow-lg">
                     <View className="relative bg-muted-background">
@@ -98,6 +102,26 @@ export default function CartScreen() {
                                 </Typography>
                             </View>
                         </View>
+
+                        {isUnavailable && (
+                            <View className="mt-2">
+                                <Typography className="text-red-500 text-xs font-semibold">
+                                    {isGerman()
+                                        ? "Nicht mehr verfügbar"
+                                        : "Non più disponibile"}
+                                </Typography>
+                            </View>
+                        )}
+
+                        {hasLowStock && (
+                            <View className="mt-2">
+                                <Typography className="text-red-500 text-xs font-semibold">
+                                    {isGerman()
+                                        ? `Nur ${item.available} verfügbar`
+                                        : `Solo ${item.available} disponibili`}
+                                </Typography>
+                            </View>
+                        )}
                     </View>
                 </View>
             </TouchableOpacity>

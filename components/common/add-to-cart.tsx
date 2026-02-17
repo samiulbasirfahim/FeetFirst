@@ -57,7 +57,7 @@ export function AddToCart({
     match_data,
 }: AddToCartProps) {
     const { isGerman } = useLanguageStore();
-    const { isInCart } = useCartStore();
+    const { isInCart, getCartItem, cart } = useCartStore();
     const addToCartMutation = useAddToCart();
     const [quantity, setQuantity] = useState(1);
     const [liked, setLiked] = useState(false);
@@ -83,23 +83,42 @@ export function AddToCart({
         setLiked(isFavourite ?? false);
     }, [isFavourite]);
 
-    // Reset or adjust quantity when availableQuantity changes
-    useEffect(() => {
-        if (availableQuantity > 0) {
-            if (quantity > availableQuantity) {
-                setQuantity(availableQuantity);
-            }
-        } else {
-            setQuantity(1);
-        }
-    }, [availableQuantity]);
-
-    // Reset quantity to 1 when color or size changes
-    useEffect(() => {
-        setQuantity(1);
-    }, [selectedColor, sizePicked]);
-
     const canAdd = selectedSize && selectedColor;
+
+    // Calculate max available quantity considering cart items
+    const maxAvailableQuantity = useMemo(() => {
+        if (!selectedSize || availableQuantity <= 0) return 0;
+
+        // Find cart item directly from cart state for reactivity
+        const cartItem = cart?.items?.find(
+            (item) => item.product_id === productId && item.size_id === selectedSize.id
+        );
+
+        const quantityInCart = cartItem?.quantity || 0;
+        const maxQty = Math.max(0, availableQuantity - quantityInCart);
+
+        console.log("Max Quantity Calculation:", {
+            productId,
+            sizeId: selectedSize.id,
+            availableQuantity,
+            quantityInCart,
+            maxQty,
+            cartItem,
+        });
+
+        return maxQty;
+    }, [selectedSize, availableQuantity, cart, productId]);
+
+    // Reset quantity to 1 when color or size changes, then adjust to max if needed
+    useEffect(() => {
+        setQuantity((prevQuantity) => {
+            const newQuantity = 1;
+            if (maxAvailableQuantity > 0 && newQuantity > maxAvailableQuantity) {
+                return maxAvailableQuantity;
+            }
+            return newQuantity;
+        });
+    }, [selectedColor, sizePicked, maxAvailableQuantity]);
 
     const handleAddToCart = async () => {
         if (!canAdd) {
@@ -111,6 +130,19 @@ export function AddToCart({
                 message: isGerman()
                     ? "Bitte wählen Sie eine Größe und Farbe aus, bevor Sie zum Warenkorb hinzufügen."
                     : "Si prega di selezionare una taglia e un colore prima di aggiungere al carrello.",
+            });
+            return;
+        }
+
+        if (maxAvailableQuantity <= 0) {
+            notify({
+                type: "error",
+                title: isGerman()
+                    ? "Nicht verfügbar"
+                    : "Non disponibile",
+                message: isGerman()
+                    ? "Dieser Artikel ist nicht mehr auf Lager."
+                    : "Questo articolo non è più disponibile.",
             });
             return;
         }
@@ -133,18 +165,23 @@ export function AddToCart({
                             ? `${quantity} x ${selectedSize.size} wurde Ihrem Warenkorb hinzugefügt.`
                             : `${quantity} x ${selectedSize.size} è stato aggiunto al tuo carrello.`,
                     });
+                    // Reset quantity to 1 after successful add
+                    setQuantity(1);
                 },
-                onError: (err) => {
+                onError: (err: any) => {
                     console.error("Add to cart error:", err);
 
-                    if (
-                        ((err as any).data.message as string).includes("Insufficient stock")
-                    ) {
+                    const errorMessage = err?.data?.message || err?.message || "";
+
+                    // Handle insufficient stock error
+                    if (errorMessage.toLowerCase().includes("insufficient") || 
+                        errorMessage.toLowerCase().includes("stock") ||
+                        errorMessage.toLowerCase().includes("not enough")) {
                         notify({
                             type: "error",
                             title: isGerman()
-                                ? "Fehler beim Hinzufügen zum Warenkorb"
-                                : "Errore durante l'aggiunta al carrello",
+                                ? "Nicht genügend Lagerbestand"
+                                : "Stock insufficiente",
                             message: isGerman()
                                 ? "Nicht genügend Lagerbestand für die gewünschte Menge."
                                 : "Non c'è abbastanza stock per la quantità desiderata.",
@@ -152,6 +189,21 @@ export function AddToCart({
                         return;
                     }
 
+                    // Handle already in cart error
+                    if (errorMessage.toLowerCase().includes("already in cart")) {
+                        notify({
+                            type: "error",
+                            title: isGerman()
+                                ? "Bereits im Warenkorb"
+                                : "Già nel carrello",
+                            message: isGerman()
+                                ? "Dieser Artikel befindet sich bereits in Ihrem Warenkorb."
+                                : "Questo articolo è già nel tuo carrello.",
+                        });
+                        return;
+                    }
+
+                    // Generic error
                     notify({
                         type: "error",
                         title: isGerman()
@@ -287,11 +339,11 @@ export function AddToCart({
                     </View>
 
                     <Pressable
-                        disabled={quantity >= availableQuantity}
+                        disabled={quantity >= maxAvailableQuantity}
                         onPress={() =>
-                            setQuantity((q) => Math.min(availableQuantity, q + 1))
+                            setQuantity((q) => Math.min(maxAvailableQuantity, q + 1))
                         }
-                        className={`w-10 h-10 rounded-full items-center justify-center border ${quantity >= availableQuantity
+                        className={`w-10 h-10 rounded-full items-center justify-center border ${quantity >= maxAvailableQuantity
                                 ? "border-white/20 opacity-40"
                                 : "border-white/40"
                             }`}
@@ -307,6 +359,12 @@ export function AddToCart({
                 </Typography>
             )}
 
+            {maxAvailableQuantity <= 0 && (
+                <Typography className="text-red-400 font-semibold text-center">
+                    {isGerman() ? "Nicht auf Lager" : "Esaurito"}
+                </Typography>
+            )}
+
             <View className="flex-row gap-6 items-center">
                 <View className="flex-1">
                     {!inCart ? (
@@ -316,6 +374,7 @@ export function AddToCart({
                             noWrap
                             className="border p-4 rounded-2xl items-center border-white"
                             isLoading={addToCartMutation.isPending}
+                            disabled={maxAvailableQuantity <= 0}
                         >
                             <Typography className="text-xl text-white">
                                 {isGerman() ? "IN DEN WARENKORB" : "AGGIUNGI AL CARRELLO"}
@@ -329,6 +388,7 @@ export function AddToCart({
                                 variant="outline"
                                 noWrap
                                 className="border p-4 rounded-2xl items-center border-white"
+                                disabled={maxAvailableQuantity <= 0}
                             >
                                 <Typography className="text-xl text-white">
                                     {isGerman() ? "NOCHMAL HINZUFÜGEN" : "AGGIUNGI DI NUOVO"}

@@ -28,7 +28,7 @@ export type OrderItem = {
     product: string;
     status: string;
     price: string;
-    partner_product_id: number;
+    product_id: number;
     net_amount: string;
     tracking: string;
     created_at: string;

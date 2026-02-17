@@ -6,6 +6,7 @@ type CartState = {
     setCart: (cart: CartResponse | null) => void;
     getCartCount: () => number;
     isInCart: (productId: number, sizeId: number) => boolean;
+    getCartItem: (productId: number, sizeId: number) => CartResponse['items'][0] | null;
 };
 
 export const useCartStore = create<CartState>((set, get) => ({
@@ -24,7 +25,16 @@ export const useCartStore = create<CartState>((set, get) => ({
         if (!cart?.items) return false;
         
         return cart.items.some(
-            (item) => item.partner_product_id === productId && item.size_id === sizeId
+            (item) => item.product_id === productId && item.size_id === sizeId
         );
+    },
+
+    getCartItem: (productId: number, sizeId: number) => {
+        const cart = get().cart;
+        if (!cart?.items) return null;
+        
+        return cart.items.find(
+            (item) => item.product_id === productId && item.size_id === sizeId
+        ) ?? null;
     },
 }));
