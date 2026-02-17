@@ -185,8 +185,14 @@ export default function Screen() {
                     });
                     setLanguage(language);
 
+                    console.log(redirectTo);
+
                     if (redirectTo) {
-                        router.replace(redirectTo as any);
+                        console.log("Redirecting to:", redirectTo);
+                        if (router.canDismiss()) {
+                            router.dismissAll();
+                        }
+                        router.navigate("/(protected)/cart");
                         return;
                     }
 
