@@ -258,7 +258,11 @@ export default function Screen() {
                 <AddressAutocompleteInput
                     apiKey={google_map_api_key || ""}
                     value={""}
-                    placeholder={t.streetAddress}
+                    placeholder={
+                        isGerman()
+                            ? "Geben Sie Ihre Adresse ein"
+                            : "Inserisci il tuo indirizzo"
+                    }
                     onSelect={(place) => {
                         const extracted = extractAddress(place);
                         setForm((prev) => ({

@@ -1,7 +1,7 @@
 import { getString } from "@/store/mmkv";
 
-// export const BASE_URL = "https://admin.feetf1rst.com";
-export const BASE_URL = "https://hecticly-rural-kittie.ngrok-free.dev";
+export const BASE_URL = "https://admin.feetf1rst.com";
+// export const BASE_URL = "https://hecticly-rural-kittie.ngrok-free.dev";
 
 export class ApiError extends Error {
     public status: number;
