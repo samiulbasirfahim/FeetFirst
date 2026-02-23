@@ -42,8 +42,6 @@ export function AddressAutocompleteInput({
 
     const language = isGerman() ? "de" : "it";
 
-    /* ================= SEARCH ================= */
-
     const searchPlaces = (text: string) => {
         setQuery(text);
 
@@ -63,7 +61,7 @@ export function AddressAutocompleteInput({
                 const res = await fetch(
                     `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(
                         text,
-                    )}&key=${apiKey}&language=${language}`,
+                    )}&key=${apiKey}&language=${language}&components=country:de|country:it|country:at&types=address`,
                 );
 
                 const json = await res.json();

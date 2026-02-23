@@ -22,17 +22,22 @@ import { TextInput } from "react-native-gesture-handler";
 
 const extractAddress = (place: any) => {
     const get = (type: string) =>
-        place.address_components?.find((c: any) => c.types.includes(type))
-            ?.long_name || "";
+        place.address_components?.find((c: any) => c.types.includes(type));
 
     return {
-        streetAddress: place.formatted_address || get("route"),
-        city: get("locality"),
-        postalCode: get("postal_code"),
-        country: get("country"),
-        additionalAddress: get("administrative_area_level_2"),
+        streetAddress: place.formatted_address || get("route")?.long_name || "",
+        city: get("locality")?.long_name || "",
+        postalCode: get("postal_code")?.long_name || "",
+        country: get("country")?.short_name || "",
+        additionalAddress: get("administrative_area_level_2")?.long_name || "",
         comments: place.vicinity || "",
     };
+};
+
+const countryCodes: Record<string, string> = {
+    DE: "+49",
+    IT: "+39",
+    AT: "+43",
 };
 
 export default function Screen() {
@@ -165,8 +170,9 @@ export default function Screen() {
         };
 
         let language: string | null = null;
-        if (form.country.toLowerCase() === "germany") language = "german";
-        if (form.country.toLowerCase() === "italy") language = "italian";
+        if (form.country === "DE") language = "german";
+        if (form.country === "AT") language = "german";
+        if (form.country === "IT") language = "italian";
 
         const userPayload: any = {
             name: `${form.name} ${form.surname}`.trim(),
@@ -271,6 +277,7 @@ export default function Screen() {
                     }
                     onSelect={(place) => {
                         const extracted = extractAddress(place);
+                        console.log(extracted.country);
                         setForm((prev) => ({
                             ...prev,
                             streetAddress: extracted.streetAddress,
@@ -344,6 +351,11 @@ export default function Screen() {
 
                 <Input
                     placeholder={t.phoneNumber}
+                    prefix={
+                        countryCodes[form.country]
+                            ? `${form.country}(${countryCodes[form.country]})`
+                            : "DE(+49)"
+                    }
                     value={form.phoneNumber}
                     keyboardType="phone-pad"
                     maxLength={18}
@@ -354,7 +366,23 @@ export default function Screen() {
                 )}
 
                 <MultiSelectComponent
-                    list={["Italy", "Germany"]}
+                    list={[
+                        {
+                            label: "IT",
+                            value: "IT",
+                        },
+                        {
+                            label: "DE",
+                            value: "DE",
+                        },
+                        {
+                            label: "AT",
+                            value: "AT",
+                        },
+                        // { label: "Italy", value: "IT" },
+                        // { label: "Germany", value: "DE" },
+                        // { label: "Austria", value: "AT" },
+                    ]}
                     value={form.country}
                     onChange={(val) => handleChange("country", val)}
                 />
